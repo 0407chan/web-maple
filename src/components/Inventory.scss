@@ -1,9 +1,13 @@
+$tabWidth: 30px;
+$tabGab: 10px;
+
 .inventory-wrapper {
-  position: relative;
+  position: absolute;
 }
 
 .inven-1 {
   position: absolute;
+  cursor: pointer;
 }
 .inven-2 {
   left: 6px;
@@ -19,21 +23,25 @@
 
 .item-tab-1 {
   top: 30px;
-  left: 10px;
+  left: $tabGab;
   position: absolute;
+  cursor: pointer;
 }
 .item-tab-2 {
   top: 30px;
-  left: 45px;
+  left: $tabGab + $tabWidth;
   position: absolute;
+  cursor: pointer;
 }
 .item-tab-3 {
   top: 30px;
-  left: 80px;
+  left: $tabGab + $tabWidth + $tabWidth;
   position: absolute;
+  cursor: pointer;
 }
 .item-tab-4 {
   top: 30px;
-  left: 115px;
+  left: $tabGab + $tabWidth + $tabWidth + $tabWidth;
   position: absolute;
+  cursor: pointer;
 }

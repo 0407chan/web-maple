@@ -1,0 +1,39 @@
+.inventory-wrapper {
+  position: relative;
+}
+
+.inven-1 {
+  position: absolute;
+}
+.inven-2 {
+  left: 6px;
+  top: 22px;
+  position: absolute;
+}
+
+.inven-3 {
+  left: 7px;
+  top: 47px;
+  position: absolute;
+}
+
+.item-tab-1 {
+  top: 30px;
+  left: 10px;
+  position: absolute;
+}
+.item-tab-2 {
+  top: 30px;
+  left: 45px;
+  position: absolute;
+}
+.item-tab-3 {
+  top: 30px;
+  left: 80px;
+  position: absolute;
+}
+.item-tab-4 {
+  top: 30px;
+  left: 115px;
+  position: absolute;
+}

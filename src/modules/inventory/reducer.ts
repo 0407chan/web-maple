@@ -35,9 +35,10 @@ function inventory(
     case SET_INVEN_SETUP:
       return { ...state, currInven: 3 };
     case ADD_EQUIP:
+      state.invenEquip.push(action.item);
       return {
         ...state,
-        invenEquip: state.invenEquip.push(action.item),
+        invenEquip: [...state.invenEquip],
       };
     case DELETE_EQUIP:
       return { ...state, currInven: 3 };

@@ -8,6 +8,7 @@ function Inventory() {
   const {
     currInven,
     inventory,
+    invenEquip,
     onSetInvenEquip,
     onSetInvenUse,
     onSetInvenEtc,
@@ -93,15 +94,17 @@ function Inventory() {
   };
 
   const renderItems = () => {
-    if (inventory[currInven].length === 0) return;
+    if (invenEquip.length === 0) return;
 
-    return (
-      <>
-        {inventory[currInven].map((inven) => (
-          <Item key={inven.id} {...inven} />
-        ))}
-      </>
-    );
+    if (currInven === 0) {
+      return (
+        <>
+          {invenEquip.map((inven) => (
+            <Item key={inven.id} {...inven} />
+          ))}
+        </>
+      );
+    }
   };
 
   return (

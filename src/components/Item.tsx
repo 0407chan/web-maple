@@ -3,11 +3,22 @@ import "./Item.scss";
 import { EquipType } from "../modules/inventory/types";
 
 function Item(props: EquipType) {
-  const { id } = props;
+  const { id, image, name } = props;
+
+  const preventDragHandler = (e: React.DragEvent<HTMLImageElement>) => {
+    e.preventDefault();
+  };
 
   return (
     <>
-      <div className="item-wrapper">{id}</div>
+      <div className="item-wrapper">
+        <img
+          src={image}
+          className="item-img"
+          onDragStart={preventDragHandler}
+          alt="itemImage"
+        />
+      </div>
     </>
   );
 }

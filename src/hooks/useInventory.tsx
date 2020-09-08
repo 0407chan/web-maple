@@ -10,6 +10,8 @@ import {
   deleteEquip,
 } from "../modules/inventory/reducer";
 
+import { EquipType } from "../modules/inventory/types";
+
 export default function useInventory() {
   const currInven = useSelector(
     (state: RootState) => state.inventory.currInven
@@ -17,6 +19,10 @@ export default function useInventory() {
   const inventory = useSelector(
     (state: RootState) => state.inventory.inventory
   );
+  const invenEquip = useSelector(
+    (state: RootState) => state.inventory.invenEquip
+  );
+
   const dispatch = useDispatch();
 
   const onSetInvenEquip = useCallback(() => dispatch(setInvenEquip()), [
@@ -28,9 +34,21 @@ export default function useInventory() {
   ]);
   const onSetInvenUse = useCallback(() => dispatch(setInvenUse()), [dispatch]);
 
+  const onAddEquip = useCallback(
+    (newItem: EquipType) => dispatch(addEquip(newItem)),
+    [dispatch]
+  );
+  const onDeleteEquip = useCallback(
+    (itemId: number) => dispatch(deleteEquip(itemId)),
+    [dispatch]
+  );
+
   return {
     currInven,
     inventory,
+    invenEquip,
+    onAddEquip,
+    onDeleteEquip,
     onSetInvenEquip,
     onSetInvenEtc,
     onSetInvenSetup,

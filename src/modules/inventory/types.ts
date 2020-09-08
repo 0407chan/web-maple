@@ -7,6 +7,8 @@ import {
   deleteEquip,
 } from "./reducer";
 
+import { equips } from "../../dummy/equip";
+
 export type InventoryAction =
   | ReturnType<typeof setInvenEquip>
   | ReturnType<typeof setInvenEtc>
@@ -35,25 +37,6 @@ export type EquipType = {
   star: number;
 };
 
-const emptyEquip = {
-  id: -1,
-  name: "",
-  image: "",
-  STR: 0,
-  DEX: 0,
-  INT: 0,
-  LUK: 0,
-  MaxHP: 0,
-  MaxMP: 0,
-  WEAPON_ATTACK: 0,
-  MAGIC_ATTACK: 0,
-  upgrade_avalable: 0,
-  max_upgrade: 0,
-  upgrade: 0,
-  max_star: 0,
-  star: 0,
-};
-
 export type SlotType = {
   id: number;
 };
@@ -67,5 +50,5 @@ export type InventoryState = {
 export const initialState: InventoryState = {
   currInven: 0,
   inventory: new Array(4).fill(null).map(() => new Array(0).fill(null)),
-  invenEquip: [],
+  invenEquip: equips,
 };

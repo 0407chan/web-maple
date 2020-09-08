@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import "./App.css";
+import Inventory from "./components/Inventory";
+import Counter from "./components/Counter";
+import useInventory from "./hooks/useInventory";
+import { EquipImages } from "./utils/images";
+import { emptyEquip } from "./dummy/equip";
 function App() {
+  const { onAddEquip, invenEquip } = useInventory();
+
+  const addRandomEquip = () => {
+    let newEquip = { ...emptyEquip };
+    newEquip.id = invenEquip.length;
+    newEquip.image = EquipImages[Math.floor(Math.random() * 8)];
+    onAddEquip(newEquip);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Inventory />
+      <Counter />
+      <button onClick={() => addRandomEquip()}>장비 추가</button>
     </div>
   );
 }

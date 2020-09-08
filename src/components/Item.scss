@@ -1,0 +1,16 @@
+$slotWidth: 32px;
+$slotHeight: 32px;
+
+.item-wrapper {
+  display: grid;
+  width: $slotWidth;
+  height: $slotHeight;
+  width: 100%;
+  height: 100%;
+}
+
+.item-img {
+  justify-self: center;
+  align-self: end;
+  cursor: pointer;
+}

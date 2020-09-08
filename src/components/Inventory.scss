@@ -1,24 +1,45 @@
 $tabWidth: 30px;
 $tabGab: 10px;
+$slotWidth: 32px;
+$slotHeight: 32px;
+$slotColumnGap: 4px;
+$slotRowGap: 3px;
 
 .inventory-wrapper {
   position: absolute;
+  background-image: url("../image/Item.backgrnd.png");
+  width: 172px;
+  height: 335px;
 }
-
-.inven-1 {
+.inventory-back-img {
+  background-image: url("../image/Item.backgrnd2.png");
   position: absolute;
-  cursor: pointer;
-}
-.inven-2 {
   left: 6px;
   top: 22px;
-  position: absolute;
+  width: 160px;
+  height: 306px;
 }
-
-.inven-3 {
+.inventory-item-slot-img {
+  background-image: url("../image/Item.backgrnd3.png");
+  position: absolute;
   left: 7px;
   top: 47px;
+  width: 158px;
+  height: 255px;
+}
+
+.inventory-item-wrapper {
   position: absolute;
+  left: 10px;
+  top: 53px;
+  width: 140px;
+  height: 207px;
+
+  display: grid;
+  grid-template-rows: $slotHeight $slotHeight $slotHeight $slotHeight $slotHeight $slotHeight;
+  grid-template-columns: $slotWidth $slotWidth $slotWidth $slotWidth;
+  column-gap: $slotColumnGap;
+  row-gap: $slotRowGap;
 }
 
 .item-tab-1 {

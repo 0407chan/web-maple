@@ -1,0 +1,8 @@
+$slotWidth: 32px;
+$slotHeight: 32px;
+
+.item-wrapper {
+  display: flex;
+  width: $slotWidth;
+  height: $slotHeight;
+}

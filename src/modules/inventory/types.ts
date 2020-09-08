@@ -1,0 +1,71 @@
+import {
+  setInvenEquip,
+  setInvenEtc,
+  setInvenSetup,
+  setInvenUse,
+  addEquip,
+  deleteEquip,
+} from "./reducer";
+
+export type InventoryAction =
+  | ReturnType<typeof setInvenEquip>
+  | ReturnType<typeof setInvenEtc>
+  | ReturnType<typeof setInvenSetup>
+  | ReturnType<typeof setInvenUse>
+  | ReturnType<typeof addEquip>
+  | ReturnType<typeof deleteEquip>;
+
+export type EquipType = {
+  id: number;
+  name: string;
+  image: string;
+
+  STR: number;
+  DEX: number;
+  INT: number;
+  LUK: number;
+  MaxHP: number;
+  MaxMP: number;
+  WEAPON_ATTACK: number;
+  MAGIC_ATTACK: number;
+  upgrade_avalable: number;
+  max_upgrade: number;
+  upgrade: number;
+  max_star: number;
+  star: number;
+};
+
+const emptyEquip = {
+  id: -1,
+  name: "",
+  image: "",
+  STR: 0,
+  DEX: 0,
+  INT: 0,
+  LUK: 0,
+  MaxHP: 0,
+  MaxMP: 0,
+  WEAPON_ATTACK: 0,
+  MAGIC_ATTACK: 0,
+  upgrade_avalable: 0,
+  max_upgrade: 0,
+  upgrade: 0,
+  max_star: 0,
+  star: 0,
+};
+
+export type SlotType = {
+  id: number;
+};
+
+export type InventoryState = {
+  currInven: number;
+  inventory: SlotType[][];
+  invenEquip: EquipType[];
+};
+
+export const initialState: InventoryState = {
+  currInven: 0,
+  inventory: new Array(4).fill(null).map(() => new Array(0).fill(null)),
+  invenEquip: [],
+};

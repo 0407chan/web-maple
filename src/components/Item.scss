@@ -7,10 +7,10 @@ $slotHeight: 32px;
   height: $slotHeight;
   width: 100%;
   height: 100%;
+  cursor: pointer;
 }
 
 .item-img {
   justify-self: center;
   align-self: end;
-  cursor: pointer;
 }

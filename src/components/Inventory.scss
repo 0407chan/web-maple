@@ -10,6 +10,7 @@ $slotRowGap: 3px;
   background-image: url("../image/UI/Item.backgrnd.png");
   width: 172px;
   height: 335px;
+  cursor: pointer;
 }
 .inventory-back-img {
   background-image: url("../image/UI/Item.backgrnd2.png");
@@ -18,6 +19,7 @@ $slotRowGap: 3px;
   top: 22px;
   width: 160px;
   height: 306px;
+  cursor: auto;
 }
 .inventory-item-slot-img {
   background-image: url("../image/UI/Item.backgrnd3.png");
@@ -26,6 +28,7 @@ $slotRowGap: 3px;
   top: 47px;
   width: 158px;
   height: 255px;
+  cursor: auto;
 }
 
 .inventory-item-wrapper {
@@ -34,6 +37,12 @@ $slotRowGap: 3px;
   top: 53px;
   width: 140px;
   height: 207px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 
   display: grid;
   grid-template-rows: $slotHeight $slotHeight $slotHeight $slotHeight $slotHeight $slotHeight;

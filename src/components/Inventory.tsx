@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Inventory.scss";
 import { images } from "../utils/images";
 import useInventory from "../hooks/useInventory";
 import Item from "./Item";
+
+import Draggable from "react-draggable";
 
 function Inventory() {
   const {
@@ -14,6 +16,15 @@ function Inventory() {
     onSetInvenEtc,
     onSetInvenSetup,
   } = useInventory();
+
+  const [drag, setDrag] = useState(0);
+
+  const onStart = () => {
+    setDrag(1);
+  };
+  const onStop = () => {
+    setDrag(0);
+  };
 
   const renderEquipButton = () => {
     //활성화 됨
@@ -109,18 +120,21 @@ function Inventory() {
 
   return (
     <>
-      <div className="inventory-wrapper">
-        <div className="inventory-back-img"></div>
-        <div className="inventory-item-slot-img"></div>
-        <div className="inventory-item-wrapper">{renderItems()}</div>
+      <Draggable bounds=".App" onStart={onStart} onStop={onStop}>
+        <div className="inventory-wrapper">
+          <div className="inventory-back-img"></div>
+          <div className="inventory-item-slot-img"></div>
 
-        <div className="inventory-tap">
-          {renderEquipButton()}
-          {renderUseButton()}
-          {renderEtcButton()}
-          {renderSetupButton()}
+          <div className="inventory-item-wrapper">{renderItems()}</div>
+
+          <div className="inventory-tap">
+            {renderEquipButton()}
+            {renderUseButton()}
+            {renderEtcButton()}
+            {renderSetupButton()}
+          </div>
         </div>
-      </div>
+      </Draggable>
     </>
   );
 }

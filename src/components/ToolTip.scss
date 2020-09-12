@@ -1,0 +1,77 @@
+.tooltip-wrapper {
+  position: absolute;
+  z-index: 10;
+  width: 261px;
+}
+
+.name {
+  color: white;
+}
+
+.tooltip-frame-top-img {
+  background-image: url("../image/UI/ItemToolTip/Frame/Item.Frame.top.png");
+  width: 261px;
+  height: 13px;
+}
+
+.tooltip-frame-line-img {
+  background-image: url("../image/UI/ItemToolTip/Frame/Item.Frame.line.png");
+  width: 261px;
+}
+
+.tooltip-frame-bottom-img {
+  background-image: url("../image/UI/ItemToolTip/Frame/Item.Frame.bottom.png");
+  width: 261px;
+  height: 13px;
+}
+
+.tooltip-frame-dotline-img {
+  background-image: url("../image/UI/ItemToolTip/Frame/Item.Frame.dotline.png");
+  width: 261px;
+  height: 2px;
+}
+
+.tooltip-image {
+  display: flex;
+  padding: 10px;
+}
+
+.item-icon-cover {
+  position: absolute;
+}
+
+.tooltip-item-img {
+  position: absolute;
+  width: 65px;
+  // top: 50%;
+  // left: 50%;
+}
+
+.tooltip-item-img-content {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+.item-icon-base {
+  position: relative;
+}
+
+.tooltip-header {
+  display: grid;
+  .tooltip-star {
+    justify-self: center;
+    align-self: center;
+    width: 175px;
+  }
+  .tooltip-name {
+    color: white;
+    font-weight: bold;
+    margin: 5px;
+  }
+  .tooltip-grade {
+    color: white;
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+}

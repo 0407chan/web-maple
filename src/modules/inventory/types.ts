@@ -5,9 +5,10 @@ import {
   setInvenUse,
   addEquip,
   deleteEquip,
+  setCurrItem,
 } from "./reducer";
 
-import { equips } from "../../dummy/equip";
+import { equips, emptyEquip } from "../../dummy/equip";
 
 export type InventoryAction =
   | ReturnType<typeof setInvenEquip>
@@ -15,7 +16,8 @@ export type InventoryAction =
   | ReturnType<typeof setInvenSetup>
   | ReturnType<typeof setInvenUse>
   | ReturnType<typeof addEquip>
-  | ReturnType<typeof deleteEquip>;
+  | ReturnType<typeof deleteEquip>
+  | ReturnType<typeof setCurrItem>;
 
 export type EquipType = {
   id: number;
@@ -45,10 +47,12 @@ export type InventoryState = {
   currInven: number;
   inventory: SlotType[][];
   invenEquip: EquipType[];
+  currItem: EquipType;
 };
 
 export const initialState: InventoryState = {
   currInven: 0,
   inventory: new Array(4).fill(null).map(() => new Array(0).fill(null)),
   invenEquip: equips,
+  currItem: emptyEquip,
 };

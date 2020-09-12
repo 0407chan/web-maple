@@ -8,6 +8,7 @@ import {
   setInvenUse,
   addEquip,
   deleteEquip,
+  setCurrItem,
 } from "../modules/inventory/reducer";
 
 import { EquipType } from "../modules/inventory/types";
@@ -22,6 +23,7 @@ export default function useInventory() {
   const invenEquip = useSelector(
     (state: RootState) => state.inventory.invenEquip
   );
+  const currItem = useSelector((state: RootState) => state.inventory.currItem);
 
   const dispatch = useDispatch();
 
@@ -43,15 +45,22 @@ export default function useInventory() {
     [dispatch]
   );
 
+  const onSetCurrItem = useCallback(
+    (item: EquipType) => dispatch(setCurrItem(item)),
+    [dispatch]
+  );
+
   return {
     currInven,
     inventory,
     invenEquip,
+    currItem,
     onAddEquip,
     onDeleteEquip,
     onSetInvenEquip,
     onSetInvenEtc,
     onSetInvenSetup,
     onSetInvenUse,
+    onSetCurrItem,
   };
 }

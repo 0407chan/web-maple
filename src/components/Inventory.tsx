@@ -118,8 +118,8 @@ function Inventory() {
     if (currInven === 0) {
       return (
         <>
-          {invenEquip.map((inven) => (
-            <Item key={inven.id} {...inven} />
+          {invenEquip.map((inven, idx) => (
+            <Item key={idx} {...inven} />
           ))}
         </>
       );

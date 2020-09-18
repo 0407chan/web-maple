@@ -11,7 +11,8 @@ import {
   setCurrItem,
 } from "../modules/inventory/reducer";
 
-import { EquipType } from "../modules/inventory/types";
+// import { EquipType } from "../modules/item";
+import { EquipType } from "../modules/inventory";
 
 export default function useInventory() {
   const currInven = useSelector(

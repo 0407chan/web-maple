@@ -75,3 +75,23 @@
     margin-bottom: 10px;
   }
 }
+
+.tooltip-detail-wrapper {
+  display: grid;
+  justify-items: start;
+  padding: 10px;
+  padding-left: 13px;
+  padding-right: 13px;
+  color: white;
+  font-size: 10px;
+}
+
+.add-color {
+  color: skyblue;
+}
+.chu-color {
+  color: greenyellow;
+}
+.yellow-color {
+  color: #ffc13c;
+}

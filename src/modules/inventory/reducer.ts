@@ -5,6 +5,7 @@ import {
   SET_INVEN_SETUP,
   ADD_EQUIP,
   DELETE_EQUIP,
+  SET_CURR_ITEM,
 } from "./actions";
 import {
   InventoryState,
@@ -20,6 +21,8 @@ export const setInvenSetup = () => ({ type: SET_INVEN_SETUP });
 
 export const addEquip = (item: EquipType) => ({ type: ADD_EQUIP, item });
 export const deleteEquip = (itemId: number) => ({ type: DELETE_EQUIP, itemId });
+
+export const setCurrItem = (item: EquipType) => ({ type: SET_CURR_ITEM, item });
 
 function inventory(
   state: InventoryState = initialState,
@@ -42,6 +45,8 @@ function inventory(
       };
     case DELETE_EQUIP:
       return { ...state, currInven: 3 };
+    case SET_CURR_ITEM:
+      return { ...state, currItem: action.item };
     default:
       return state;
   }

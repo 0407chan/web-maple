@@ -2,21 +2,20 @@ import React from "react";
 import "./App.css";
 import Inventory from "./components/Inventory";
 import Counter from "./components/Counter";
+import ToolTip from "./components/ToolTip";
 import useInventory from "./hooks/useInventory";
-import { EquipImages } from "./utils/images";
-import { emptyEquip } from "./dummy/equip";
+import { equips } from "./dummy/equip";
 function App() {
-  const { onAddEquip, invenEquip } = useInventory();
+  const { onAddEquip } = useInventory();
 
   const addRandomEquip = () => {
-    let newEquip = { ...emptyEquip };
-    newEquip.id = invenEquip.length;
-    newEquip.image = EquipImages[Math.floor(Math.random() * 8)];
+    let newEquip = { ...equips[Math.floor(Math.random() * 5)] };
     onAddEquip(newEquip);
   };
 
   return (
     <div className="App">
+      <ToolTip />
       <Inventory />
       <Counter />
       <button onClick={() => addRandomEquip()}>장비 추가</button>

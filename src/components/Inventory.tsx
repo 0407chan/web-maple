@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Inventory.scss";
-import { images } from "../utils/images";
+import images from "../utils/images";
 import useInventory from "../hooks/useInventory";
 import Item from "./Item";
 
@@ -31,7 +31,7 @@ function Inventory() {
     if (currInven === 0) {
       return (
         <img
-          src={images.invenEquipEnabled}
+          src={images.images.invenEquipEnabled}
           className="item-tab-1"
           alt="inven"
         />
@@ -40,7 +40,7 @@ function Inventory() {
 
     return (
       <img
-        src={images.invenEquipDisabled}
+        src={images.images.invenEquipDisabled}
         className="item-tab-1"
         alt="inven"
         onClick={onSetInvenEquip}
@@ -52,13 +52,17 @@ function Inventory() {
     //활성화 됨
     if (currInven === 1) {
       return (
-        <img src={images.invenUseEnabled} className="item-tab-2" alt="inven" />
+        <img
+          src={images.images.invenUseEnabled}
+          className="item-tab-2"
+          alt="inven"
+        />
       );
     }
 
     return (
       <img
-        src={images.invenUseDisabled}
+        src={images.images.invenUseDisabled}
         className="item-tab-2"
         alt="inven"
         onClick={onSetInvenUse}
@@ -69,13 +73,17 @@ function Inventory() {
     //활성화 됨
     if (currInven === 2) {
       return (
-        <img src={images.invenEtcEnabled} className="item-tab-3" alt="inven" />
+        <img
+          src={images.images.invenEtcEnabled}
+          className="item-tab-3"
+          alt="inven"
+        />
       );
     }
 
     return (
       <img
-        src={images.invenEtcDisabled}
+        src={images.images.invenEtcDisabled}
         className="item-tab-3"
         alt="inven"
         onClick={onSetInvenEtc}
@@ -87,7 +95,7 @@ function Inventory() {
     if (currInven === 3) {
       return (
         <img
-          src={images.invenSetupEnabled}
+          src={images.images.invenSetupEnabled}
           className="item-tab-4"
           alt="inven"
         />
@@ -96,7 +104,7 @@ function Inventory() {
 
     return (
       <img
-        src={images.invenSetupDisabled}
+        src={images.images.invenSetupDisabled}
         className="item-tab-4"
         alt="inven"
         onClick={onSetInvenSetup}
@@ -110,8 +118,8 @@ function Inventory() {
     if (currInven === 0) {
       return (
         <>
-          {invenEquip.map((inven) => (
-            <Item key={inven.id} {...inven} />
+          {invenEquip.map((inven, idx) => (
+            <Item key={idx} {...inven} />
           ))}
         </>
       );

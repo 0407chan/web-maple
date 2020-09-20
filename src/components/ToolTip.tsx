@@ -104,24 +104,30 @@ function ToolTip() {
   const renderItemInfo = () => {
     return (
       <div className="tooltip-frame-line-img">
-        <div className="tooltip-image">
-          <div className="item-icon-base">
-            <img
-              alt="item-icon-base"
-              src={IMAGE.tooltip.tooltip_Item_Icon_base}
-            />
-            <div className="tooltip-item-img-content">
+        <div className="tooltip-info">
+          <div className="tooltip-image">
+            <div className="item-icon-base">
               <img
-                className="tooltip-item-img"
-                src={currItem.image}
-                alt="item-img"
+                alt="item-icon-base"
+                src={IMAGE.tooltip.tooltip_Item_Icon_base}
               />
-              <img
-                className="item-icon-cover"
-                alt="item-cover"
-                src={IMAGE.tooltip.tooltip_Item_Icon_cover}
-              />
+              <div className="tooltip-item-img-content">
+                <img
+                  className="tooltip-item-img"
+                  src={currItem.image}
+                  alt="item-img"
+                />
+                <img
+                  className="item-icon-cover"
+                  alt="item-cover"
+                  src={IMAGE.tooltip.tooltip_Item_Icon_cover}
+                />
+              </div>
             </div>
+          </div>
+
+          <div className="tooltip-info-contents">
+            <div className="tooltip-damage-increase__text">공격력 증가량</div>
           </div>
         </div>
       </div>

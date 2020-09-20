@@ -31,11 +31,6 @@
   height: 2px;
 }
 
-.tooltip-image {
-  display: flex;
-  padding: 10px;
-}
-
 .item-icon-cover {
   position: absolute;
 }
@@ -45,16 +40,6 @@
   width: 65px;
   // top: 50%;
   // left: 50%;
-}
-
-.tooltip-item-img-content {
-  position: absolute;
-  top: 4px;
-  left: 4px;
-}
-
-.item-icon-base {
-  position: relative;
 }
 
 .tooltip-header {
@@ -73,6 +58,43 @@
     color: white;
     font-size: 10px;
     margin-bottom: 10px;
+  }
+}
+
+.tooltip-info {
+  display: grid;
+  padding: 10px;
+  grid-template-columns: 82px 1fr;
+  grid-template-rows: 1fr 1fr;
+
+  .tooltip-image {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+
+    .item-icon-base {
+      position: relative;
+
+      .tooltip-item-img-content {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+      }
+    }
+  }
+
+  .tooltip-info-contents {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+
+    .tooltip-damage-increase__text {
+      color: white;
+      justify-self: end;
+      align-self: center;
+    }
+    .tooltip-damage-increase {
+    }
   }
 }
 

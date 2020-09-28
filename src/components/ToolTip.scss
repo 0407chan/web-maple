@@ -65,7 +65,7 @@
   display: grid;
   padding: 10px;
   grid-template-columns: 82px 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr;
 
   .tooltip-image {
     display: flex;
@@ -89,7 +89,8 @@
     grid-template-rows: 1fr 1fr 1fr 1fr;
 
     .tooltip-damage-increase__text {
-      color: white;
+      color: #9e9a9a;
+      font-size: 13px;
       justify-self: end;
       align-self: center;
     }

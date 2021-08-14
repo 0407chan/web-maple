@@ -1,4 +1,4 @@
-import { increase, decrease, increaseBy } from "./reducer";
+import { decrease, increase, increaseBy } from "./reducer";
 
 export type CounterAction =
   | ReturnType<typeof increase>

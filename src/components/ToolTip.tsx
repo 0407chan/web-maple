@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import useToolTip from "../hooks/useToolTip";
+import useInventory from "@/hooks/useInventory";
+import useToolTip from "@/hooks/useToolTip";
+import IMAGE from "@/utils/images";
+import React from "react";
 import "./ToolTip.scss";
-import useInventory from "../hooks/useInventory";
-import IMAGE from "../utils/images";
-import { reduceEachTrailingCommentRange } from "typescript";
 
 function ToolTip() {
   const { visible, mouseX, mouseY } = useToolTip();
@@ -43,15 +42,15 @@ function ToolTip() {
     upgrade_avalable,
   } = currItem;
 
-  const position = {
-    top: `0px`,
-    left: `0px`,
-  };
-
   // const position = {
-  //   top: `${mouseY + 2}px`,
-  //   left: `${mouseX + 2}px`,
+  //   top: `0px`,
+  //   left: `0px`,
   // };
+
+  const position = {
+    top: `${mouseY + 3}px`,
+    left: `${mouseX + 3}px`,
+  };
 
   const itemGrade = () => {};
 

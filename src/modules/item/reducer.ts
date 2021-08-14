@@ -1,9 +1,7 @@
 import { SET_INVEN_EQUIP } from "./actions";
 import {
-  InventoryState,
   initialState,
-  InventoryAction,
-  EquipType,
+  InventoryAction, InventoryState
 } from "./types";
 
 export const setInvenEquip = () => ({ type: SET_INVEN_EQUIP });

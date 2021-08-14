@@ -1,11 +1,11 @@
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../modules";
-import { useCallback } from "react";
+import { RootState } from "@/modules";
 import {
   displayNone,
   displayVisible,
-  setMousePosition,
-} from "../modules/toolTip/reducer";
+  setMousePosition
+} from "@/modules/toolTip/reducer";
+import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function useToolTip() {
   const visible = useSelector((state: RootState) => state.toolTip.visible);

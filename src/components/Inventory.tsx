@@ -1,10 +1,10 @@
+import useInventory from "@/hooks/useInventory";
+import images from "@/utils/images";
 import React, { useState } from "react";
+import Draggable from "react-draggable";
 import "./Inventory.scss";
-import images from "../utils/images";
-import useInventory from "../hooks/useInventory";
 import Item from "./Item";
 
-import Draggable from "react-draggable";
 
 function Inventory() {
   const {

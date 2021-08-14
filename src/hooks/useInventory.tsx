@@ -1,18 +1,17 @@
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../modules";
+import { RootState } from "@/modules";
+import { EquipType } from "@/modules/inventory";
 import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import { EquipType } from "../modules/item";
 import {
-  setInvenEquip,
-  setInvenEtc,
-  setInvenSetup,
-  setInvenUse,
   addEquip,
   deleteEquip,
-  setCurrItem,
+  setCurrItem, setInvenEquip,
+  setInvenEtc,
+  setInvenSetup,
+  setInvenUse
 } from "../modules/inventory/reducer";
 
-// import { EquipType } from "../modules/item";
-import { EquipType } from "../modules/inventory";
 
 export default function useInventory() {
   const currInven = useSelector(

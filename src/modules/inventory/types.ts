@@ -1,15 +1,14 @@
+// import { EquipType } from "../item/types";
+import { emptyEquip, equips } from "../../dummy/equip";
 import {
-  setInvenEquip,
-  setInvenEtc,
-  setInvenSetup,
-  setInvenUse,
   addEquip,
   deleteEquip,
-  setCurrItem,
+  setCurrItem, setInvenEquip,
+  setInvenEtc,
+  setInvenSetup,
+  setInvenUse
 } from "./reducer";
 
-// import { EquipType } from "../item/types";
-import { equips, emptyEquip } from "../../dummy/equip";
 
 export type InventoryAction =
   | ReturnType<typeof setInvenEquip>

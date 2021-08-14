@@ -1,5 +1,5 @@
-import { INCREASE, DECREASE, INCREASE_BY } from "./actions";
-import { CounterState, initialState, CounterAction } from "./types";
+import { DECREASE, INCREASE, INCREASE_BY } from "./actions";
+import { CounterAction, CounterState, initialState } from "./types";
 
 export const increase = () => ({ type: INCREASE });
 export const decrease = () => ({ type: DECREASE });

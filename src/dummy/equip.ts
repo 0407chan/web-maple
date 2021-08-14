@@ -1,6 +1,6 @@
 // import { EquipType } from "../modules/item/types";
-import { EquipType } from "../modules/inventory";
-import IMAGE from "../utils/images";
+import { EquipType } from "@/modules/inventory";
+import IMAGE from "@/utils/images";
 
 export const emptyEquip: EquipType = {
   id: -1,

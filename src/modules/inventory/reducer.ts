@@ -1,17 +1,14 @@
 import {
-  SET_INVEN_EQUIP,
-  SET_INVEN_USE,
-  SET_INVEN_ETC,
-  SET_INVEN_SETUP,
   ADD_EQUIP,
   DELETE_EQUIP,
-  SET_CURR_ITEM,
+  SET_CURR_ITEM, SET_INVEN_EQUIP,
+
+  SET_INVEN_ETC,
+  SET_INVEN_SETUP, SET_INVEN_USE
 } from "./actions";
 import {
-  InventoryState,
-  initialState,
-  InventoryAction,
-  EquipType,
+  EquipType, initialState,
+  InventoryAction, InventoryState
 } from "./types";
 
 export const setInvenEquip = () => ({ type: SET_INVEN_EQUIP });

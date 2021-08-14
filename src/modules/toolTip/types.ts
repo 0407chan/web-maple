@@ -1,7 +1,7 @@
 import {
   displayNone,
   displayVisible,
-  setMousePosition,
+  setMousePosition
 } from "../toolTip/reducer";
 
 export type ToolTipAction =
@@ -16,7 +16,7 @@ export type ToolTipState = {
 };
 
 export const initialState: ToolTipState = {
-  visible: true,
+  visible: false,
   mouseX: 0,
   mouseY: 0,
 };

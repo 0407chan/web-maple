@@ -1,5 +1,5 @@
+import useCounter from "@/hooks/useCounter";
 import React from "react";
-import useCounter from "../hooks/useCounter";
 function Counter() {
   const { count, onIncrease, onDecrease, onIncreaseBy } = useCounter();
   return (

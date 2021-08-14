@@ -1,10 +1,10 @@
+import { emptyEquip } from "@/dummy/equip";
+import useInventory from "@/hooks/useInventory";
+import useToolTip from "@/hooks/useToolTip";
+import { EquipType } from "@/modules/inventory";
 import React from "react";
-import "./Item.scss";
 // import { EquipType } from "../modules/item/types";
-import { EquipType } from "../modules/inventory";
-import useToolTip from "../hooks/useToolTip";
-import useInventory from "../hooks/useInventory";
-import { emptyEquip } from "../dummy/equip";
+import "./Item.scss";
 function Item(props: EquipType) {
   const {
     visible,
@@ -25,8 +25,8 @@ function Item(props: EquipType) {
   };
 
   const setDispalyNoneAction = () => {
-    // setDisplayNone();
-    // onSetCurrItem(emptyEquip);
+    setDisplayNone();
+    onSetCurrItem(emptyEquip);
   };
 
   const setMousePosition = (

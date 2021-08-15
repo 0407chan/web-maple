@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Draggable from 'react-draggable'
 import Item from '../Item'
 import './Inventory.scss'
+import * as S from './style'
 
 const Inventory: React.FC = () => {
   const {
@@ -126,27 +127,37 @@ const Inventory: React.FC = () => {
   }
 
   return (
-    <Draggable
-      bounds=".App"
-      onStart={onStart}
-      onStop={onStop}
-      defaultPosition={{
-        x: document.body.clientWidth / 2 - 86,
-        y: 100
-      }}
-    >
-      <div className="inventory-wrapper">
-        <div className="inventory-back-img"></div>
-        <div className="inventory-item-slot-img"></div>
-        <div className="inventory-item-wrapper">{renderItems()}</div>
-        <div className="inventory-tap">
-          {renderEquipButton()}
-          {renderUseButton()}
-          {renderEtcButton()}
-          {renderSetupButton()}
+    <div>
+      <Draggable
+        bounds=".App"
+        onStart={onStart}
+        onStop={onStop}
+        defaultPosition={{
+          x: document.body.clientWidth / 2 - 86,
+          y: 100
+        }}
+      >
+        <div className="inventory-wrapper">
+          <div className="inventory-back-img"></div>
+          <div className="inventory-item-slot-img"></div>
+          <div className="inventory-item-wrapper">{renderItems()}</div>
+          <div className="inventory-tap">
+            {renderEquipButton()}
+            {renderUseButton()}
+            {renderEtcButton()}
+            {renderSetupButton()}
+          </div>
         </div>
-      </div>
-    </Draggable>
+      </Draggable>
+      <S.Contianer>
+        <S.InventoryHeader>ITEM INVENTORY</S.InventoryHeader>
+        <S.ItemListWrapper>
+          {invenEquip.map((inven, idx) => (
+            <Item key={idx} {...inven} />
+          ))}
+        </S.ItemListWrapper>
+      </S.Contianer>
+    </div>
   )
 }
 

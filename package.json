@@ -5,7 +5,7 @@
   "homepage": "http://0407chan.github.io/web-maple",
   "scripts": {
     "dev": "BROWSER=none env-cmd -f .env craco start",
-    "build": "GENERATE_SOURCEMAP=false env-cmd -f .env craco build",
+    "build": "GENERATE_SOURCEMAP=false env-cmd -f .env craco build && mv build docs",
     "test": "react-scripts test",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"

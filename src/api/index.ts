@@ -1,5 +1,1 @@
-import EquipItem from "./equipItem";
-
-export default {
-  EquipItem,
-};
+export * as EquipItem from './equipItem'

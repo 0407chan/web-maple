@@ -8,7 +8,7 @@
     "build": "GENERATE_SOURCEMAP=false env-cmd -f .env craco build && mv build docs",
     "test": "react-scripts test",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d docs"
   },
   "dependencies": {
     "@craco/craco": "^6.2.0",

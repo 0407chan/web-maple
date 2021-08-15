@@ -1,66 +1,46 @@
-import { RootState } from "@/modules";
-import { EquipType } from "@/modules/inventory";
-import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { EquipType } from "../modules/item";
 import {
-  addEquip,
-  deleteEquip,
-  setCurrItem, setInvenEquip,
-  setInvenEtc,
-  setInvenSetup,
-  setInvenUse
-} from "../modules/inventory/reducer";
+  addEquipment,
+  setCurrentItem,
+  setInventory
+} from '@/feature/inventory/inventorySlice'
+import { RootState } from '@/store'
+import { EquipType } from '@/types/inventory'
+import { useDispatch, useSelector } from 'react-redux'
 
-
-export default function useInventory() {
-  const currInven = useSelector(
-    (state: RootState) => state.inventory.currInven
-  );
-  const inventory = useSelector(
-    (state: RootState) => state.inventory.inventory
-  );
+const useInventory = () => {
+  const currentInventory = useSelector(
+    (state: RootState) => state.inventory.currentInventory
+  )
+  const currentItem = useSelector(
+    (state: RootState) => state.inventory.currentItem
+  )
   const invenEquip = useSelector(
     (state: RootState) => state.inventory.invenEquip
-  );
-  const currItem = useSelector((state: RootState) => state.inventory.currItem);
+  )
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const onSetInvenEquip = useCallback(() => dispatch(setInvenEquip()), [
-    dispatch,
-  ]);
-  const onSetInvenEtc = useCallback(() => dispatch(setInvenEtc()), [dispatch]);
-  const onSetInvenSetup = useCallback(() => dispatch(setInvenSetup()), [
-    dispatch,
-  ]);
-  const onSetInvenUse = useCallback(() => dispatch(setInvenUse()), [dispatch]);
+  const onSetInventoryEquip = () => dispatch(setInventory('Equip'))
+  const onSetInventoryUse = () => dispatch(setInventory('Use'))
+  const onSetInventoryEtc = () => dispatch(setInventory('Etc'))
+  const onSetInventorySetup = () => dispatch(setInventory('Setup'))
 
-  const onAddEquip = useCallback(
-    (newItem: EquipType) => dispatch(addEquip(newItem)),
-    [dispatch]
-  );
-  const onDeleteEquip = useCallback(
-    (itemId: number) => dispatch(deleteEquip(itemId)),
-    [dispatch]
-  );
-
-  const onSetCurrItem = useCallback(
-    (item: EquipType) => dispatch(setCurrItem(item)),
-    [dispatch]
-  );
+  const onAddEquipment = (newItem: EquipType) => dispatch(addEquipment(newItem))
+  const onSetCurrentItem = (item?: EquipType) => dispatch(setCurrentItem(item))
+  // const onDeleteEquip = (itemId: number) => dispatch(deleteEquip(itemId))
 
   return {
-    currInven,
-    inventory,
+    currentInventory,
+    currentItem,
     invenEquip,
-    currItem,
-    onAddEquip,
-    onDeleteEquip,
-    onSetInvenEquip,
-    onSetInvenEtc,
-    onSetInvenSetup,
-    onSetInvenUse,
-    onSetCurrItem,
-  };
+    onSetInventoryEquip,
+    onSetInventoryEtc,
+    onSetInventorySetup,
+    onSetInventoryUse,
+    onAddEquipment,
+    onSetCurrentItem
+    // onDeleteEquip,
+  }
 }
+
+export default useInventory

@@ -1,57 +1,49 @@
-import { emptyEquip } from "@/dummy/equip";
-import useInventory from "@/hooks/useInventory";
-import useToolTip from "@/hooks/useToolTip";
-import { EquipType } from "@/modules/inventory";
-import React from "react";
+import useInventory from '@/hooks/useInventory'
+import useToolTip from '@/hooks/useToolTip'
+import { EquipType } from '@/types/inventory'
+import React from 'react'
 // import { EquipType } from "../modules/item/types";
-import "./Item.scss";
-function Item(props: EquipType) {
-  const {
-    visible,
-    setDisplayNone,
-    setDisplayVisible,
-    onSetMousePosition,
-  } = useToolTip();
-  const { onSetCurrItem } = useInventory();
-  const { id, image, name } = props;
+import './Item.scss'
+const Item: React.FC<EquipType> = (item) => {
+  const { visible, onShowTooltip, onHideTooltip, onSetMousePosition } =
+    useToolTip()
+  const { onSetCurrentItem } = useInventory()
 
   const preventDragHandler = (e: React.DragEvent<HTMLImageElement>) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
 
   const setDispalyVisibleAction = () => {
-    onSetCurrItem(props);
-    setDisplayVisible();
-  };
+    onSetCurrentItem(item)
+    onShowTooltip()
+  }
 
   const setDispalyNoneAction = () => {
-    setDisplayNone();
-    onSetCurrItem(emptyEquip);
-  };
+    onHideTooltip()
+    onSetCurrentItem(undefined)
+  }
 
   const setMousePosition = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-    onSetMousePosition(event.clientX, event.clientY);
-  };
+    onSetMousePosition(event.clientX, event.clientY)
+  }
 
   return (
-    <>
-      <div
-        className="item-wrapper"
-        onMouseOver={setDispalyVisibleAction}
-        onMouseOut={setDispalyNoneAction}
-        onMouseMove={setMousePosition}
-      >
-        <img
-          src={image}
-          className="item-img"
-          onDragStart={preventDragHandler}
-          alt="itemImage"
-        />
-      </div>
-    </>
-  );
+    <div
+      className="item-wrapper"
+      onMouseOver={setDispalyVisibleAction}
+      onMouseOut={setDispalyNoneAction}
+      onMouseMove={setMousePosition}
+    >
+      <img
+        src={item.image}
+        className="item-img"
+        onDragStart={preventDragHandler}
+        alt="itemImage"
+      />
+    </div>
+  )
 }
 
-export default Item;
+export default Item

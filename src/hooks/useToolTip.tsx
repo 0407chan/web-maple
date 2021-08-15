@@ -1,35 +1,31 @@
-import { RootState } from "@/modules";
 import {
-  displayNone,
-  displayVisible,
-  setMousePosition
-} from "@/modules/toolTip/reducer";
-import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+  hideTooltip,
+  setMousePosition,
+  showTooltip
+} from '@/feature/tooltip/tooltipSlice'
+import { RootState } from '@/store'
+import { useDispatch, useSelector } from 'react-redux'
 
-export default function useToolTip() {
-  const visible = useSelector((state: RootState) => state.toolTip.visible);
-  const mouseX = useSelector((state: RootState) => state.toolTip.mouseX);
-  const mouseY = useSelector((state: RootState) => state.toolTip.mouseY);
+const useToolTip = () => {
+  const visible = useSelector((state: RootState) => state.tooltip.visible)
+  const mouseX = useSelector((state: RootState) => state.tooltip.mouseX)
+  const mouseY = useSelector((state: RootState) => state.tooltip.mouseY)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const setDisplayNone = useCallback(() => dispatch(displayNone()), [dispatch]);
-  const setDisplayVisible = useCallback(() => dispatch(displayVisible()), [
-    dispatch,
-  ]);
-  const onSetMousePosition = useCallback(
-    (mouseX: number, mouseY: number) =>
-      dispatch(setMousePosition(mouseX, mouseY)),
-    [dispatch]
-  );
+  const onShowTooltip = () => dispatch(showTooltip())
+  const onHideTooltip = () => dispatch(hideTooltip())
+  const onSetMousePosition = (mouseX: number, mouseY: number) =>
+    dispatch(setMousePosition({ mouseX, mouseY }))
 
   return {
     visible,
     mouseX,
     mouseY,
-    setDisplayNone,
-    setDisplayVisible,
-    onSetMousePosition,
-  };
+    onShowTooltip,
+    onHideTooltip,
+    onSetMousePosition
+  }
 }
+
+export default useToolTip

@@ -1,23 +1,23 @@
-import { decrease, increase, increaseBy } from "@/modules/counter/reducer";
-import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../modules";
+import {
+  decrement,
+  increment,
+  incrementByAmount
+} from '@/feature/counter/counterSlice'
+import { RootState } from '@/store'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function useCounter() {
-  const count = useSelector((state: RootState) => state.counter.count);
-  const dispatch = useDispatch();
+  const count = useSelector((state: RootState) => state.counter.count)
+  const dispatch = useDispatch()
 
-  const onIncrease = useCallback(() => dispatch(increase()), [dispatch]);
-  const onDecrease = useCallback(() => dispatch(decrease()), [dispatch]);
-  const onIncreaseBy = useCallback(
-    (diff: number) => dispatch(increaseBy(diff)),
-    [dispatch]
-  );
+  const onIncrease = () => dispatch(increment())
+  const onDecrease = () => dispatch(decrement())
+  const onIncreaseBy = (diff: number) => dispatch(incrementByAmount(diff))
 
   return {
     count,
     onIncrease,
     onDecrease,
-    onIncreaseBy,
-  };
+    onIncreaseBy
+  }
 }

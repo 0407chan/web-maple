@@ -12,14 +12,10 @@
   },
   "dependencies": {
     "@craco/craco": "^6.2.0",
-    "@reduxjs/toolkit": "^1.4.0",
+    "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.55",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
     "craco-alias": "^3.0.1",
     "env-cmd": "^10.1.0",
@@ -31,13 +27,21 @@
     "react-redux": "^7.2.1",
     "react-scripts": "^4.0.3",
     "redux": "^4.0.5",
-    "typescript": "^3.7.5"
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
-    "gh-pages": "^3.2.3"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.6.1",
+    "@types/react": "^17.0.18",
+    "@types/react-dom": "^17.0.9",
+    "@types/styled-components": "^5.1.12",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.24.0",
+    "gh-pages": "^3.2.3",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
   },
   "browserslist": {
     "production": [

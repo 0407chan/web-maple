@@ -39,6 +39,8 @@ const Item: React.FC<EquipType> = (item) => {
       <img
         src={item.image}
         className="item-img"
+        width={40}
+        height={38}
         onDragStart={preventDragHandler}
         alt="itemImage"
       />

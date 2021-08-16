@@ -136,7 +136,7 @@ export const EQUIP_LIST: EquipType[] = [
     star: 12
   },
   {
-    id: 0,
+    id: 1,
     job: '전 직업',
     category: '한손검',
     name: '돼지 리본',
@@ -200,5 +200,32 @@ export const EQUIP_LIST: EquipType[] = [
     upgrade: 3,
     max_star: 25,
     star: 23
-  }
+  },
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+  EMPTY_EQUIP,
+  EMPTY_EQUIP
 ]

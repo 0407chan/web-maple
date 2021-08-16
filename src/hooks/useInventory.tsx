@@ -17,6 +17,9 @@ const useInventory = () => {
   const invenEquip = useSelector(
     (state: RootState) => state.inventory.invenEquip
   )
+  const equipMaxNum = useSelector(
+    (state: RootState) => state.inventory.equipMaxNum
+  )
 
   const dispatch = useDispatch()
 
@@ -33,6 +36,7 @@ const useInventory = () => {
     currentInventory,
     currentItem,
     invenEquip,
+    equipMaxNum,
     onSetInventoryEquip,
     onSetInventoryEtc,
     onSetInventorySetup,

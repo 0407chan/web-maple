@@ -3,12 +3,14 @@ import images from '@/utils/images'
 import React, { useState } from 'react'
 import Draggable from 'react-draggable'
 import Item from '../Item'
+import Item2 from '../Item/Item2'
 import './Inventory.scss'
 import * as S from './style'
 
 const Inventory: React.FC = () => {
   const {
     currentInventory,
+    equipMaxNum,
     currentItem,
     onSetInventoryEquip,
     onSetInventoryEtc,
@@ -119,7 +121,7 @@ const Inventory: React.FC = () => {
       return (
         <>
           {invenEquip.map((inven, idx) => (
-            <Item key={idx} {...inven} />
+            <Item key={idx} item={inven} />
           ))}
         </>
       )
@@ -149,14 +151,45 @@ const Inventory: React.FC = () => {
           </div>
         </div>
       </Draggable>
-      <S.Contianer>
-        <S.InventoryHeader>ITEM INVENTORY</S.InventoryHeader>
-        <S.ItemListWrapper>
-          {invenEquip.map((inven, idx) => (
-            <Item key={idx} {...inven} />
-          ))}
-        </S.ItemListWrapper>
-      </S.Contianer>
+      <Draggable bounds=".App" onStart={onStart} onStop={onStop}>
+        <S.Contianer>
+          <S.InventoryHeader>ITEM INVENTORY</S.InventoryHeader>
+          <S.InventoryBody>
+            <S.InventoryButtonWrapper>
+              <S.InventoryButton
+                onClick={onSetInventoryEquip}
+                className={currentInventory === 0 ? 'isActive' : ''}
+              >
+                장비
+              </S.InventoryButton>
+              <S.InventoryButton
+                onClick={onSetInventoryUse}
+                className={currentInventory === 1 ? 'isActive' : ''}
+              >
+                소비
+              </S.InventoryButton>
+              <S.InventoryButton
+                onClick={onSetInventoryEtc}
+                className={currentInventory === 2 ? 'isActive' : ''}
+              >
+                기타
+              </S.InventoryButton>
+              <S.InventoryButton
+                onClick={onSetInventorySetup}
+                className={currentInventory === 3 ? 'isActive' : ''}
+              >
+                설치
+              </S.InventoryButton>
+            </S.InventoryButtonWrapper>
+            <S.ItemWrapper>
+              {currentInventory === 0 &&
+                invenEquip.map((item, idx) => (
+                  <Item2 key={`${item}-${idx}`} item={item} />
+                ))}
+            </S.ItemWrapper>
+          </S.InventoryBody>
+        </S.Contianer>
+      </Draggable>
     </div>
   )
 }

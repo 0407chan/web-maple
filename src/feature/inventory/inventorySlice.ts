@@ -4,13 +4,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface InventoryState {
   currentInventory: number
-  invenEquip: EquipType[]
+  invenEquip: (EquipType | undefined)[]
+  equipMaxNum: number
   currentItem?: EquipType
 }
 
 const initialState: InventoryState = {
   currentInventory: 0,
   invenEquip: EQUIP_LIST,
+  equipMaxNum: 24,
   currentItem: undefined
 }
 
@@ -19,10 +21,7 @@ export const inventorySlice = createSlice({
   initialState,
   reducers: {
     setInventory: (state, action: PayloadAction<InventoryType>) => {
-      switch (action.payload) {
-        case 'Equip':
-          state.currentInventory = InventoryTypeValue[action.payload]
-      }
+      state.currentInventory = InventoryTypeValue[action.payload]
     },
     addEquipment: (state, action: PayloadAction<EquipType>) => {
       state.invenEquip.push(action.payload)

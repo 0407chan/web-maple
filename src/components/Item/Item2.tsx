@@ -2,13 +2,13 @@ import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
 import { EquipType } from '@/types/inventory'
 import React from 'react'
-// import { EquipType } from "../modules/item/types";
-import './Item.scss'
+import * as S from './style'
 
 type ItemProps = {
   item?: EquipType
 }
-const Item: React.FC<ItemProps> = ({ item }) => {
+const Item2: React.FC<ItemProps> = (props) => {
+  const { item } = props
   const { visible, onShowTooltip, onHideTooltip, onSetMousePosition } =
     useToolTip()
   const { onSetCurrentItem } = useInventory()
@@ -18,11 +18,13 @@ const Item: React.FC<ItemProps> = ({ item }) => {
   }
 
   const setDispalyVisibleAction = () => {
+    if (item?.id === -1) return
     onSetCurrentItem(item)
     onShowTooltip()
   }
 
   const setDispalyNoneAction = () => {
+    if (item?.id === -1) return
     onHideTooltip()
     onSetCurrentItem(undefined)
   }
@@ -30,28 +32,25 @@ const Item: React.FC<ItemProps> = ({ item }) => {
   const setMousePosition = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
+    if (item?.id === -1) return
     onSetMousePosition(event.clientX, event.clientY)
   }
 
   return (
-    <div
-      className="item-wrapper"
+    <S.Contianer
       onMouseOver={setDispalyVisibleAction}
       onMouseOut={setDispalyNoneAction}
       onMouseMove={setMousePosition}
     >
-      {item && (
-        <img
+      {item && item.id > -1 && (
+        <S.ItemImage
           src={item.image}
-          className="item-img"
-          // width={40}
-          // height={38}
-          onDragStart={preventDragHandler}
           alt="itemImage"
+          onDragStart={preventDragHandler}
         />
       )}
-    </div>
+    </S.Contianer>
   )
 }
 
-export default Item
+export default Item2

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Contianer = styled.div`
   display: flex;
+  position: absolute;
   flex-direction: column;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
@@ -13,19 +14,24 @@ export const Contianer = styled.div`
 
 export const InventoryHeader = styled.div`
   display: flex;
+  width: 100%;
   font-size: 12px;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   color: #ffcc5f;
-  padding: 10px;
+  padding: 10px 0;
+  cursor: grab;
+  &:active {
+    cursor: grabbing;
+  }
 `
 export const InventoryBody = styled.div`
   display: flex;
   flex-direction: column;
   width: fit-content;
   height: fit-content;
-  margin: 10px;
+  margin: 0 10px 10px 10px;
   border-radius: 5px;
   justify-content: center;
   background-color: #eeeeeee7;

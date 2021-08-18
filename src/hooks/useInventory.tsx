@@ -1,10 +1,11 @@
 import {
   addEquipment,
   setCurrentItem,
-  setInventory
+  setInventory,
+  switchSlot
 } from '@/feature/inventory/inventorySlice'
 import { RootState } from '@/store'
-import { EquipType } from '@/types/inventory'
+import { EquipType, SlotType } from '@/types/inventory'
 import { useDispatch, useSelector } from 'react-redux'
 
 const useInventory = () => {
@@ -17,6 +18,9 @@ const useInventory = () => {
   const invenEquip = useSelector(
     (state: RootState) => state.inventory.invenEquip
   )
+  const equipMaxNum = useSelector(
+    (state: RootState) => state.inventory.equipMaxNum
+  )
 
   const dispatch = useDispatch()
 
@@ -24,8 +28,9 @@ const useInventory = () => {
   const onSetInventoryUse = () => dispatch(setInventory('Use'))
   const onSetInventoryEtc = () => dispatch(setInventory('Etc'))
   const onSetInventorySetup = () => dispatch(setInventory('Setup'))
-
-  const onAddEquipment = (newItem: EquipType) => dispatch(addEquipment(newItem))
+  const onSwitchSlot = (startSlot: SlotType, nextSlot: SlotType) =>
+    dispatch(switchSlot({ startSlot, nextSlot }))
+  const onAddEquipment = (newSlot: SlotType) => dispatch(addEquipment(newSlot))
   const onSetCurrentItem = (item?: EquipType) => dispatch(setCurrentItem(item))
   // const onDeleteEquip = (itemId: number) => dispatch(deleteEquip(itemId))
 
@@ -33,6 +38,8 @@ const useInventory = () => {
     currentInventory,
     currentItem,
     invenEquip,
+    equipMaxNum,
+    onSwitchSlot,
     onSetInventoryEquip,
     onSetInventoryEtc,
     onSetInventorySetup,

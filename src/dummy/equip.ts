@@ -136,11 +136,143 @@ export const EQUIP_LIST: EquipType[] = [
     star: 12
   },
   {
-    id: 0,
+    id: 1,
     job: '전 직업',
     category: '한손검',
     name: '돼지 리본',
     image: IMAGE.EquipImages[1],
+    STR: {
+      label: 'STR',
+      base: 10,
+      bonus: 5,
+      reinforce: 3
+    },
+    DEX: {
+      label: 'DEX',
+      base: 5,
+      bonus: 5,
+      reinforce: 5
+    },
+    INT: {
+      label: 'INT',
+      base: 6,
+      bonus: 6,
+      reinforce: 6
+    },
+    LUK: {
+      label: 'LUK',
+      base: 7,
+      bonus: 7,
+      reinforce: 7
+    },
+    HP: {
+      label: 'maxHP',
+      base: 80,
+      bonus: 80,
+      reinforce: 80
+    },
+    MP: {
+      label: 'maxMP',
+      base: 90,
+      bonus: 90,
+      reinforce: 90
+    },
+    WEAPON_ATTACK: {
+      label: '공격력',
+      base: 100,
+      bonus: 50,
+      reinforce: 100
+    },
+    MAGIC_ATTACK: {
+      label: '마력',
+      base: 10,
+      bonus: 10,
+      reinforce: 20
+    },
+    AllStat: {
+      label: '올스텟',
+      base: 5,
+      bonus: 5,
+      reinforce: 40
+    },
+    max_upgrade: 10,
+    upgrade_avalable: 3,
+    upgrade: 3,
+    max_star: 25,
+    star: 23
+  },
+  {
+    id: 2,
+    job: '전 직업',
+    category: '한손검',
+    name: '나뭇 가지',
+    image: IMAGE.EquipImages[2],
+    STR: {
+      label: 'STR',
+      base: 10,
+      bonus: 5,
+      reinforce: 3
+    },
+    DEX: {
+      label: 'DEX',
+      base: 5,
+      bonus: 5,
+      reinforce: 5
+    },
+    INT: {
+      label: 'INT',
+      base: 6,
+      bonus: 6,
+      reinforce: 6
+    },
+    LUK: {
+      label: 'LUK',
+      base: 7,
+      bonus: 7,
+      reinforce: 7
+    },
+    HP: {
+      label: 'maxHP',
+      base: 80,
+      bonus: 80,
+      reinforce: 80
+    },
+    MP: {
+      label: 'maxMP',
+      base: 90,
+      bonus: 90,
+      reinforce: 90
+    },
+    WEAPON_ATTACK: {
+      label: '공격력',
+      base: 100,
+      bonus: 50,
+      reinforce: 100
+    },
+    MAGIC_ATTACK: {
+      label: '마력',
+      base: 10,
+      bonus: 10,
+      reinforce: 20
+    },
+    AllStat: {
+      label: '올스텟',
+      base: 5,
+      bonus: 5,
+      reinforce: 40
+    },
+    max_upgrade: 10,
+    upgrade_avalable: 3,
+    upgrade: 3,
+    max_star: 25,
+    star: 23
+  },
+  {
+    id: 3,
+    job: '전 직업',
+    category: '한손검',
+    name: '슬라임 액체',
+    image: IMAGE.EquipImages[3],
     STR: {
       label: 'STR',
       base: 10,

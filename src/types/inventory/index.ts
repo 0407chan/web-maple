@@ -17,6 +17,11 @@ export type StatusBase = {
   label: string
 }
 
+export type SlotType = {
+  id: number
+  item?: EquipType
+}
+
 export type EquipType = {
   id: number
   job: string

@@ -4,7 +4,11 @@ import { EquipType } from '@/types/inventory'
 import React from 'react'
 // import { EquipType } from "../modules/item/types";
 import './Item.scss'
-const Item: React.FC<EquipType> = (item) => {
+
+type ItemProps = {
+  item?: EquipType
+}
+const Item: React.FC<ItemProps> = ({ item }) => {
   const { visible, onShowTooltip, onHideTooltip, onSetMousePosition } =
     useToolTip()
   const { onSetCurrentItem } = useInventory()
@@ -36,12 +40,16 @@ const Item: React.FC<EquipType> = (item) => {
       onMouseOut={setDispalyNoneAction}
       onMouseMove={setMousePosition}
     >
-      <img
-        src={item.image}
-        className="item-img"
-        onDragStart={preventDragHandler}
-        alt="itemImage"
-      />
+      {item && (
+        <img
+          src={item.image}
+          className="item-img"
+          // width={40}
+          // height={38}
+          onDragStart={preventDragHandler}
+          alt="itemImage"
+        />
+      )}
     </div>
   )
 }

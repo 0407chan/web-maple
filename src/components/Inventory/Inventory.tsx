@@ -1,13 +1,20 @@
 import useInventory from '@/hooks/useInventory'
+import { SlotType } from '@/types/inventory'
 import images from '@/utils/images'
 import React, { useState } from 'react'
 import Draggable from 'react-draggable'
 import Item from '../Item'
 import './Inventory.scss'
+import Slot from './Slot'
+import * as S from './style'
 
-const Inventory: React.FC = () => {
+type InventoryProps = {
+  handleDrop: (startSlot: SlotType, endSlot: SlotType) => void
+}
+const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
   const {
     currentInventory,
+    equipMaxNum,
     currentItem,
     onSetInventoryEquip,
     onSetInventoryEtc,
@@ -118,7 +125,7 @@ const Inventory: React.FC = () => {
       return (
         <>
           {invenEquip.map((inven, idx) => (
-            <Item key={idx} {...inven} />
+            <Item key={idx} item={inven.item} />
           ))}
         </>
       )
@@ -126,27 +133,83 @@ const Inventory: React.FC = () => {
   }
 
   return (
-    <Draggable
-      bounds=".App"
-      onStart={onStart}
-      onStop={onStop}
-      defaultPosition={{
-        x: document.body.clientWidth / 2 - 86,
-        y: 100
-      }}
-    >
-      <div className="inventory-wrapper">
-        <div className="inventory-back-img"></div>
-        <div className="inventory-item-slot-img"></div>
-        <div className="inventory-item-wrapper">{renderItems()}</div>
-        <div className="inventory-tap">
-          {renderEquipButton()}
-          {renderUseButton()}
-          {renderEtcButton()}
-          {renderSetupButton()}
+    <>
+      <Draggable
+        bounds=".App"
+        onStart={onStart}
+        onStop={onStop}
+        defaultPosition={{
+          x: ((document.body.clientWidth / 2 - 86) * 3) / 2,
+          y: 100
+        }}
+      >
+        <div className="inventory-wrapper">
+          <div className="inventory-back-img"></div>
+          <div className="inventory-item-slot-img"></div>
+          <div className="inventory-item-wrapper">{renderItems()}</div>
+          <div className="inventory-tap">
+            {renderEquipButton()}
+            {renderUseButton()}
+            {renderEtcButton()}
+            {renderSetupButton()}
+          </div>
         </div>
-      </div>
-    </Draggable>
+      </Draggable>
+      <Draggable
+        handle=".handle"
+        bounds=".App"
+        onStart={onStart}
+        onStop={onStop}
+        defaultPosition={{
+          x: (document.body.clientWidth / 2 - 150) / 2,
+          y: 100
+        }}
+      >
+        <S.Contianer>
+          <S.InventoryHeader className="handle">
+            ITEM INVENTORY
+          </S.InventoryHeader>
+          <S.InventoryBody>
+            <S.InventoryButtonWrapper>
+              <S.InventoryButton
+                onClick={onSetInventoryEquip}
+                className={currentInventory === 0 ? 'isActive' : ''}
+              >
+                장비
+              </S.InventoryButton>
+              <S.InventoryButton
+                onClick={onSetInventoryUse}
+                className={currentInventory === 1 ? 'isActive' : ''}
+              >
+                소비
+              </S.InventoryButton>
+              <S.InventoryButton
+                onClick={onSetInventoryEtc}
+                className={currentInventory === 2 ? 'isActive' : ''}
+              >
+                기타
+              </S.InventoryButton>
+              <S.InventoryButton
+                onClick={onSetInventorySetup}
+                className={currentInventory === 3 ? 'isActive' : ''}
+              >
+                설치
+              </S.InventoryButton>
+            </S.InventoryButtonWrapper>
+            <S.ItemWrapper>
+              {currentInventory === 0 &&
+                invenEquip.map((slot, index) => (
+                  <Slot
+                    key={slot.id}
+                    slot={slot}
+                    onDrop={(startSlot) => handleDrop(startSlot, slot)}
+                  />
+                ))}
+            </S.ItemWrapper>
+          </S.InventoryBody>
+        </S.Contianer>
+      </Draggable>
+    </>
   )
 }
 

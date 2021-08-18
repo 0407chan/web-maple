@@ -1,14 +1,10 @@
 import { getAllEquip } from '@/api/equipItem'
 import Inventory from '@/components/Inventory'
-import ToolTip from '@/components/ToolTip'
 import { EQUIP_LIST } from '@/dummy/equip'
 import useInventory from '@/hooks/useInventory'
-import update from 'immutability-helper'
-import React, { useCallback, useState } from 'react'
-import { NativeTypes } from 'react-dnd-html5-backend'
+import React from 'react'
 import './App.css'
-import { Box } from './components/Example/Box'
-import { Dustbin } from './components/Example/Dustbin'
+import { SlotType } from './types/inventory'
 
 export const ItemTypes = {
   FOOD: 'food',
@@ -25,30 +21,20 @@ interface BoxState {
 }
 
 const App: React.FC = () => {
-  const { onAddEquipment } = useInventory()
-
-  const [boxes] = useState<BoxState[]>([
-    { name: 'Bottle', type: ItemTypes.GLASS },
-    { name: 'Banana', type: ItemTypes.FOOD },
-    { name: 'Magazine', type: ItemTypes.PAPER }
-  ])
-
-  const [dustbins, setDustbins] = useState<DustbinState[]>([
-    { accepts: [ItemTypes.GLASS], lastDroppedItem: null },
-    { accepts: [ItemTypes.FOOD], lastDroppedItem: null },
-    {
-      accepts: [ItemTypes.PAPER, ItemTypes.GLASS, NativeTypes.URL],
-      lastDroppedItem: null
-    },
-    { accepts: [ItemTypes.PAPER, NativeTypes.FILE], lastDroppedItem: null }
-  ])
-  const [droppedBoxNames, setDroppedBoxNames] = useState<string[]>([])
+  const { onAddEquipment, invenEquip, onSwitchSlot } = useInventory()
 
   const addRandomEquip = () => {
-    const newEquip = { ...EQUIP_LIST[0] }
+    const newInven = invenEquip.filter((slot) => slot.item === undefined)
+    if (newInven.length === 0) {
+      console.log('장비창 꽉찼다!')
+      return
+    }
+    const randomNum = Math.floor(Math.random() * EQUIP_LIST.length)
+    const newSlot: SlotType = { ...newInven[0], item: EQUIP_LIST[randomNum] }
+
     // const newEquip = { ...EQUIP_LIST[Math.floor(Math.random() * 5)] }
     // API.EquipItem.addEquip(newEquip);
-    onAddEquipment(newEquip)
+    onAddEquipment(newSlot)
   }
 
   const onGetAllEquipment = async () => {
@@ -60,44 +46,14 @@ const App: React.FC = () => {
     }
   }
 
-  function isDropped(boxName: string) {
-    return droppedBoxNames.indexOf(boxName) > -1
+  const handleDrop = (startSlot: SlotType, endSlot: SlotType) => {
+    onSwitchSlot(startSlot, endSlot)
   }
-
-  const handleDrop = useCallback(
-    (index: number, item: { name: string }) => {
-      const { name } = item
-      setDroppedBoxNames(
-        update(droppedBoxNames, name ? { $push: [name] } : { $push: [] })
-      )
-      setDustbins(
-        update(dustbins, {
-          [index]: {
-            lastDroppedItem: {
-              $set: item
-            }
-          }
-        })
-      )
-    },
-    [droppedBoxNames, dustbins]
-  )
 
   return (
     <div className="App">
-      <ToolTip />
-      <Inventory />
-      {dustbins.map(({ accepts, lastDroppedItem }, index) => (
-        <Dustbin
-          accept={accepts}
-          lastDroppedItem={lastDroppedItem}
-          onDrop={(item) => handleDrop(index, item)}
-          key={index}
-        />
-      ))}
-      {boxes.map(({ name, type }, index) => (
-        <Box name={name} type={type} isDropped={isDropped(name)} key={index} />
-      ))}
+      {/* <ToolTip /> */}
+      <Inventory handleDrop={handleDrop} />
       <button onClick={() => addRandomEquip()}>장비 추가</button>
       <button onClick={onGetAllEquipment}>장비 불러오기</button>
     </div>

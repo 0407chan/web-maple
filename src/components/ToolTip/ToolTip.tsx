@@ -3,7 +3,7 @@ import useToolTip from '@/hooks/useToolTip'
 import { StatusBase } from '@/types/inventory'
 import IMAGE from '@/utils/images'
 import React from 'react'
-import './ToolTip.scss'
+import * as S from './style'
 
 const ToolTip: React.FC = () => {
   const { visible, mouseX, mouseY } = useToolTip()
@@ -141,7 +141,7 @@ const ToolTip: React.FC = () => {
   return (
     <>
       {visible && (
-        <div className="tooltip-wrapper" style={position}>
+        <S.Contianer style={position}>
           <div>
             <div className="tooltip-frame-top-img"></div>
             <div className="tooltip-frame-line-img">
@@ -162,7 +162,7 @@ const ToolTip: React.FC = () => {
           <div className="tooltip-frame-dotline-img"></div>
           {renderItemDetail()}
           <div className="tooltip-frame-bottom-img"></div>
-        </div>
+        </S.Contianer>
       )}
     </>
   )

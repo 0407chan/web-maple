@@ -9,7 +9,7 @@ type ItemProps = {
   item?: EquipType
 }
 const Item: React.FC<ItemProps> = ({ item }) => {
-  const { visible, onShowTooltip, onHideTooltip, onSetMousePosition } =
+  const { visible, onShowPrevTooltip, onHidePrevTooltip, onSetMousePosition } =
     useToolTip()
   const { onSetCurrentItem } = useInventory()
 
@@ -19,11 +19,11 @@ const Item: React.FC<ItemProps> = ({ item }) => {
 
   const setDispalyVisibleAction = () => {
     onSetCurrentItem(item)
-    onShowTooltip()
+    onShowPrevTooltip()
   }
 
   const setDispalyNoneAction = () => {
-    onHideTooltip()
+    onHidePrevTooltip()
     onSetCurrentItem(undefined)
   }
 

@@ -1,23 +1,17 @@
 import { getAllEquip } from '@/api/equipItem'
 import Inventory from '@/components/Inventory'
+import ToolTip from '@/components/ToolTip/ToolTip'
 import { EQUIP_LIST } from '@/dummy/equip'
 import useInventory from '@/hooks/useInventory'
 import React from 'react'
 import './App.css'
+import ToolTipPrev from './components/ToolTipPrev'
 import { SlotType } from './types/inventory'
 
 export const ItemTypes = {
   FOOD: 'food',
   GLASS: 'glass',
   PAPER: 'paper'
-}
-interface DustbinState {
-  accepts: string[]
-  lastDroppedItem: any
-}
-interface BoxState {
-  name: string
-  type: string
 }
 
 const App: React.FC = () => {
@@ -52,7 +46,8 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      {/* <ToolTip /> */}
+      <ToolTip />
+      <ToolTipPrev />
       <Inventory handleDrop={handleDrop} />
       <button onClick={() => addRandomEquip()}>장비 추가</button>
       <button onClick={onGetAllEquipment}>장비 불러오기</button>

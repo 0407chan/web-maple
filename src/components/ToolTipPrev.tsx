@@ -5,8 +5,8 @@ import IMAGE from '@/utils/images'
 import React from 'react'
 import './ToolTip.scss'
 
-const ToolTip: React.FC = () => {
-  const { visible, mouseX, mouseY } = useToolTip()
+const ToolTipPrev: React.FC = () => {
+  const { prevTooltip, mouseX, mouseY } = useToolTip()
   const { currentItem } = useInventory()
 
   if (!currentItem) return null
@@ -140,7 +140,7 @@ const ToolTip: React.FC = () => {
   }
   return (
     <>
-      {visible && (
+      {prevTooltip && (
         <div className="tooltip-wrapper" style={position}>
           <div>
             <div className="tooltip-frame-top-img"></div>
@@ -168,4 +168,4 @@ const ToolTip: React.FC = () => {
   )
 }
 
-export default ToolTip
+export default ToolTipPrev

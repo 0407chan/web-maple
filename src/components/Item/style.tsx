@@ -5,7 +5,8 @@ export const Contianer = styled.div`
   justify-content: center;
   align-items: center;
   /* cursor: pointer; */
-  width: 40px;
+  width: 100%;
+  height: 100%;
   cursor: grab;
   &:active {
     cursor: grabbing;

@@ -29,14 +29,11 @@ const ToolTipPrev: React.FC = () => {
     upgrade_avalable
   } = currentItem
 
-  // // const position = {
-  // //   top: `0px`,
-  // //   left: `0px`,
-  // // };
-
   const position = {
     top: `${mouseY + 3}px`,
     left: `${mouseX + 3}px`
+    // top: `0px`,
+    // left: `0px`
   }
 
   // const itemGrade = () => {}

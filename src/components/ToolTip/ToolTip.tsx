@@ -1,12 +1,14 @@
 import useInventory from '@/hooks/useInventory'
-import useToolTip from '@/hooks/useToolTip'
 import { StatusBase } from '@/types/inventory'
 import IMAGE from '@/utils/images'
 import React from 'react'
 import * as S from './style'
 
-const ToolTip: React.FC = () => {
-  const { visible, mouseX, mouseY } = useToolTip()
+type ToolTipProps = {
+  positionX: number
+  positionY: number
+}
+const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
   const { currentItem } = useInventory()
 
   if (!currentItem) return null
@@ -35,8 +37,8 @@ const ToolTip: React.FC = () => {
   // // };
 
   const position = {
-    top: `${mouseY + 3}px`,
-    left: `${mouseX + 3}px`
+    top: positionY,
+    left: positionX
   }
 
   // const itemGrade = () => {}
@@ -53,10 +55,10 @@ const ToolTip: React.FC = () => {
       <>
         {starList.map((star, idx) => {
           return idx % 5 === 4 ? (
-            <>
-              <img key={idx} src={star} alt={`starimg` + idx} />
+            <React.Fragment key={idx}>
+              <img src={star} alt={`starimg` + idx} />
               <span> </span>
-            </>
+            </React.Fragment>
           ) : (
             <img key={idx} src={star} alt={`starimg` + idx} />
           )
@@ -139,32 +141,28 @@ const ToolTip: React.FC = () => {
     )
   }
   return (
-    <>
-      {visible && (
-        <S.Contianer style={position}>
-          <div>
-            <div className="tooltip-frame-top-img"></div>
-            <div className="tooltip-frame-line-img">
-              <div className="tooltip-header">
-                <div className="tooltip-star">{renderStar()}</div>
-                <div className="tooltip-name">
-                  {currentItem.name}
-                  {currentItem.upgrade > 0 && (
-                    <span> (+{currentItem.upgrade})</span>
-                  )}
-                </div>
-                <div className="tooltip-grade">(에픽 아이템)</div>
-              </div>
+    <S.Contianer id="new-tooltip" style={position}>
+      <div>
+        <div className="tooltip-frame-top-img"></div>
+        <div className="tooltip-frame-line-img">
+          <div className="tooltip-header">
+            <div className="tooltip-star">{renderStar()}</div>
+            <div className="tooltip-name">
+              {currentItem.name}
+              {currentItem.upgrade > 0 && (
+                <span> (+{currentItem.upgrade})</span>
+              )}
             </div>
+            <div className="tooltip-grade">(에픽 아이템)</div>
           </div>
-          <div className="tooltip-frame-dotline-img"></div>
-          {renderItemInfo()}
-          <div className="tooltip-frame-dotline-img"></div>
-          {renderItemDetail()}
-          <div className="tooltip-frame-bottom-img"></div>
-        </S.Contianer>
-      )}
-    </>
+        </div>
+      </div>
+      <div className="tooltip-frame-dotline-img"></div>
+      {renderItemInfo()}
+      <div className="tooltip-frame-dotline-img"></div>
+      {renderItemDetail()}
+      <div className="tooltip-frame-bottom-img"></div>
+    </S.Contianer>
   )
 }
 

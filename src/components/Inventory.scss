@@ -7,13 +7,13 @@ $slotRowGap: 3px;
 
 .inventory-wrapper {
   position: absolute;
-  background-image: url('../../image/UI/inventory/Item.backgrnd.png');
+  background-image: url('../image/UI/inventory/Item.backgrnd.png');
   width: 172px;
   height: 335px;
   cursor: pointer;
 }
 .inventory-back-img {
-  background-image: url('../../image/UI/inventory/Item.backgrnd2.png');
+  background-image: url('../image/UI/inventory/Item.backgrnd2.png');
   position: absolute;
   left: 6px;
   top: 22px;
@@ -22,7 +22,7 @@ $slotRowGap: 3px;
   cursor: auto;
 }
 .inventory-item-slot-img {
-  background-image: url('../../image/UI/inventory/Item.backgrnd3.png');
+  background-image: url('../image/UI/inventory/Item.backgrnd3.png');
   position: absolute;
   left: 7px;
   top: 47px;

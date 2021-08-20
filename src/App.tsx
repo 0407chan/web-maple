@@ -1,10 +1,10 @@
 import { getAllEquip } from '@/api/equipItem'
-import Inventory from '@/components/Inventory'
-import ToolTip from '@/components/ToolTip/ToolTip'
 import { EQUIP_LIST } from '@/dummy/equip'
 import useInventory from '@/hooks/useInventory'
 import React from 'react'
-import './App.css'
+import * as S from './appStyle'
+import Inventory from './components/Inventory'
+import InventoryPrev from './components/InventoryPrev'
 import ToolTipPrev from './components/ToolTipPrev'
 import { SlotType } from './types/inventory'
 
@@ -45,13 +45,27 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="App">
-      <ToolTip />
-      <ToolTipPrev />
-      <Inventory handleDrop={handleDrop} />
-      <button onClick={() => addRandomEquip()}>장비 추가</button>
-      <button onClick={onGetAllEquipment}>장비 불러오기</button>
-    </div>
+    <S.Contianer>
+      <S.HeaderWrapper>
+        <S.Header style={{ paddingTop: 0 }}>Web Maple</S.Header>
+        <S.ButtonWrapper>
+          <S.Button onClick={() => addRandomEquip()}>장비 추가</S.Button>
+          {/* <button onClick={onGetAllEquipment}>장비 불러오기</button> */}
+        </S.ButtonWrapper>
+      </S.HeaderWrapper>
+      <S.BoundWrapper>
+        <S.Bound className="prev-bound">
+          <S.Header>Prev Inventory</S.Header>
+          <ToolTipPrev />
+          <InventoryPrev />
+        </S.Bound>
+
+        <S.Bound className="new-bound">
+          <S.Header>New Inventory</S.Header>
+          <Inventory handleDrop={handleDrop} />
+        </S.Bound>
+      </S.BoundWrapper>
+    </S.Contianer>
   )
 }
 

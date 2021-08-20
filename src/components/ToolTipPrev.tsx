@@ -29,14 +29,11 @@ const ToolTipPrev: React.FC = () => {
     upgrade_avalable
   } = currentItem
 
-  // // const position = {
-  // //   top: `0px`,
-  // //   left: `0px`,
-  // // };
-
   const position = {
     top: `${mouseY + 3}px`,
     left: `${mouseX + 3}px`
+    // top: `0px`,
+    // left: `0px`
   }
 
   // const itemGrade = () => {}
@@ -53,10 +50,10 @@ const ToolTipPrev: React.FC = () => {
       <>
         {starList.map((star, idx) => {
           return idx % 5 === 4 ? (
-            <>
-              <img key={idx} src={star} alt={`starimg` + idx} />
+            <React.Fragment key={idx}>
+              <img src={star} alt={`starimg` + idx} />
               <span> </span>
-            </>
+            </React.Fragment>
           ) : (
             <img key={idx} src={star} alt={`starimg` + idx} />
           )

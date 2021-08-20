@@ -23,8 +23,7 @@ const Item2: React.FC<ItemProps> = ({ slot }) => {
     [slot]
   )
 
-  const { visible, onShowTooltip, onHideTooltip, onSetMousePosition } =
-    useToolTip()
+  const { onShowTooltip, onHideTooltip } = useToolTip()
 
   const { onSetCurrentItem } = useInventory()
 
@@ -50,13 +49,6 @@ const Item2: React.FC<ItemProps> = ({ slot }) => {
     onSetCurrentItem(undefined)
   }
 
-  const setMousePosition = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    if (slot.item?.id === -1) return
-    onSetMousePosition(event.clientX, event.clientY)
-  }
-
   if (slot.item === undefined) return null
   return (
     <>
@@ -65,7 +57,6 @@ const Item2: React.FC<ItemProps> = ({ slot }) => {
         ref={drag}
         onMouseOver={setDispalyVisibleAction}
         onMouseOut={setDispalyNoneAction}
-        onMouseMove={setMousePosition}
         style={{ opacity: collected.opacity }}
       >
         <img src={slot.item.image} alt="itemImage" />

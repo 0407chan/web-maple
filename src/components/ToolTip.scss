@@ -9,24 +9,24 @@
 }
 
 .tooltip-frame-top-img {
-  background-image: url("../image/UI/ItemToolTip/Frame/Item.Frame.top.png");
+  background-image: url('../image/UI/ItemToolTip/Frame/Item.Frame.top.png');
   width: 261px;
   height: 13px;
 }
 
 .tooltip-frame-line-img {
-  background-image: url("../image/UI/ItemToolTip/Frame/Item.Frame.line.png");
+  background-image: url('../image/UI/ItemToolTip/Frame/Item.Frame.line.png');
   width: 261px;
 }
 
 .tooltip-frame-bottom-img {
-  background-image: url("../image/UI/ItemToolTip/Frame/Item.Frame.bottom.png");
+  background-image: url('../image/UI/ItemToolTip/Frame/Item.Frame.bottom.png');
   width: 261px;
   height: 13px;
 }
 
 .tooltip-frame-dotline-img {
-  background-image: url("../image/UI/ItemToolTip/Frame/Item.Frame.dotline.png");
+  background-image: url('../image/UI/ItemToolTip/Frame/Item.Frame.dotline.png');
   width: 261px;
   height: 2px;
 }
@@ -59,6 +59,8 @@
 
 .tooltip-header {
   display: grid;
+  justify-content: center;
+  text-align: center;
   .tooltip-star {
     justify-self: center;
     align-self: center;

@@ -1,13 +1,19 @@
 import useInventory from '@/hooks/useInventory'
+import useToolTip from '@/hooks/useToolTip'
 import { SlotType } from '@/types/inventory'
 import React, { useEffect, useRef, useState } from 'react'
 import Draggable from 'react-draggable'
+import ToolTip from '../ToolTip'
 import Slot from './Slot'
 import * as S from './style'
 
 type InventoryProps = {
   handleDrop: (startSlot: SlotType, endSlot: SlotType) => void
 }
+
+const PREV_INVEN_WIDTH = 172
+const PREV_TOOLTIP_WIDTH = 261
+
 const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
   const {
     currentInventory,
@@ -17,9 +23,15 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     onSetInventoryUse,
     invenEquip
   } = useInventory()
-
+  const { visible } = useToolTip()
   const ref = useRef<HTMLDivElement>(null)
-  const [positionX, setPositionX] = useState<number>(0)
+  const [inventoryPosition, setInventoryPosition] = useState<{
+    width: number
+    height: number
+    top: number
+    left: number
+  }>({ width: 0, height: 0, top: 0, left: 0 })
+
   const [drag, setDrag] = useState(0)
 
   const onStart = () => {
@@ -31,10 +43,24 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
 
   useEffect(() => {
     if (ref.current?.parentElement?.clientWidth !== undefined) {
-      setPositionX(ref.current.parentElement.clientWidth)
+      setInventoryPosition({
+        ...inventoryPosition,
+        width: ref.current.parentElement.clientWidth,
+        height: ref.current.parentElement.clientHeight,
+        top: ref.current.parentElement.clientTop,
+        left: ref.current.parentElement.clientLeft
+      })
     }
   }, [ref.current?.parentElement?.clientWidth])
-
+  const getTooltipX = () => {
+    if (!ref.current) return 0
+    const positionLeft = ref.current.getClientRects()[0].left
+    let result = inventoryPosition.left + 300
+    if (positionLeft + 300 + PREV_TOOLTIP_WIDTH > document.body.clientWidth) {
+      result = inventoryPosition.left - PREV_TOOLTIP_WIDTH
+    }
+    return result
+  }
   return (
     <Draggable
       handle=".handle"
@@ -42,11 +68,16 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
       onStart={onStart}
       onStop={onStop}
       defaultPosition={{
-        x: positionX,
+        x: inventoryPosition.width,
         y: 100
       }}
     >
-      <S.Contianer ref={ref} style={{ left: positionX + positionX / 2 - 150 }}>
+      <S.Contianer
+        ref={ref}
+        style={{
+          left: inventoryPosition.width + inventoryPosition.width / 2 - 150
+        }}
+      >
         <S.InventoryHeader className="handle">ITEM INVENTORY</S.InventoryHeader>
         <S.InventoryBody>
           <S.InventoryButtonWrapper>
@@ -86,6 +117,12 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
               ))}
           </S.ItemWrapper>
         </S.InventoryBody>
+        {visible && (
+          <ToolTip
+            positionX={getTooltipX()}
+            positionY={inventoryPosition.top}
+          />
+        )}
       </S.Contianer>
     </Draggable>
   )

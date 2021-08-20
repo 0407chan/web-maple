@@ -9,8 +9,9 @@ type ItemProps = {
   item?: EquipType
 }
 const Item: React.FC<ItemProps> = ({ item }) => {
-  const { visible, onShowPrevTooltip, onHidePrevTooltip, onSetMousePosition } =
+  const { onShowPrevTooltip, onHidePrevTooltip, onSetMousePosition } =
     useToolTip()
+
   const { onSetCurrentItem } = useInventory()
 
   const preventDragHandler = (e: React.DragEvent<HTMLImageElement>) => {

@@ -50,10 +50,10 @@ const ToolTipPrev: React.FC = () => {
       <>
         {starList.map((star, idx) => {
           return idx % 5 === 4 ? (
-            <>
-              <img key={idx} src={star} alt={`starimg` + idx} />
+            <React.Fragment key={idx}>
+              <img src={star} alt={`starimg` + idx} />
               <span> </span>
-            </>
+            </React.Fragment>
           ) : (
             <img key={idx} src={star} alt={`starimg` + idx} />
           )

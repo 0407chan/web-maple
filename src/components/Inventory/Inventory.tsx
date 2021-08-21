@@ -21,6 +21,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     onSetInventoryEtc,
     onSetInventorySetup,
     onSetInventoryUse,
+    onSortInventory,
     invenEquip
   } = useInventory()
   const { visible } = useToolTip()
@@ -117,6 +118,9 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
               ))}
           </S.ItemWrapper>
         </S.InventoryBody>
+        <S.InventoryFooter>
+          <S.Button onClick={onSortInventory}>정렬</S.Button>
+        </S.InventoryFooter>
         {visible && (
           <ToolTip
             positionX={getTooltipX()}

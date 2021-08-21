@@ -53,6 +53,29 @@ export const inventorySlice = createSlice({
     setCurrentItem: (state, action: PayloadAction<EquipType | undefined>) => {
       state.currentItem = action.payload
     },
+    sortInventory: (state) => {
+      const newInven = [...state.invenEquip].sort((a, b) => {
+        if (a.item === undefined && b.item !== undefined) {
+          return 1
+        } else if (a.item !== undefined && b.item === undefined) {
+          return -1
+        } else if (a.item === undefined && b.item === undefined) {
+          return 0
+        } else if (a.item !== undefined && b.item !== undefined) {
+          if (a.item.id > b.item.id) {
+            return 1
+          } else if (a.item.id < b.item.id) {
+            return -1
+          } else {
+            return 0
+          }
+        } else {
+          return 0
+        }
+      })
+
+      state.invenEquip = [...newInven]
+    },
     switchSlot: (
       state,
       action: PayloadAction<{ startSlot: SlotType; nextSlot: SlotType }>
@@ -74,7 +97,12 @@ export const inventorySlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setInventory, addEquipment, setCurrentItem, switchSlot } =
-  inventorySlice.actions
+export const {
+  setInventory,
+  addEquipment,
+  setCurrentItem,
+  switchSlot,
+  sortInventory
+} = inventorySlice.actions
 
 export default inventorySlice.reducer

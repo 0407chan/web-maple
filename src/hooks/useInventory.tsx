@@ -2,6 +2,7 @@ import {
   addEquipment,
   setCurrentItem,
   setInventory,
+  sortInventory,
   switchSlot
 } from '@/feature/inventory/inventorySlice'
 import { RootState } from '@/store'
@@ -32,6 +33,7 @@ const useInventory = () => {
     dispatch(switchSlot({ startSlot, nextSlot }))
   const onAddEquipment = (newSlot: SlotType) => dispatch(addEquipment(newSlot))
   const onSetCurrentItem = (item?: EquipType) => dispatch(setCurrentItem(item))
+  const onSortInventory = () => dispatch(sortInventory())
   // const onDeleteEquip = (itemId: number) => dispatch(deleteEquip(itemId))
 
   return {
@@ -39,6 +41,7 @@ const useInventory = () => {
     currentItem,
     invenEquip,
     equipMaxNum,
+    onSortInventory,
     onSwitchSlot,
     onSetInventoryEquip,
     onSetInventoryEtc,

@@ -10,6 +10,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export type InventoryState = {
   currentInventory: number
   invenEquip: SlotType[]
+  equipNum: number
   equipMaxNum: number
   currentItem?: EquipType
 }
@@ -21,13 +22,15 @@ for (let i = 0; i < 24; i++) {
   if (i < 4) {
     item = EQUIP_LIST[randomNum]
   }
-  const newSlot: SlotType = { id: i, item }
+
+  const newSlot: SlotType = { id: i, item, isOpen: i < 18 ? true : false }
   SlotList.push(newSlot)
 }
 
 const initialState: InventoryState = {
   currentInventory: 0,
   invenEquip: SlotList,
+  equipNum: 18,
   equipMaxNum: 24,
   currentItem: undefined
 }
@@ -82,6 +85,7 @@ export const inventorySlice = createSlice({
     ) => {
       const startSlot = action.payload.startSlot
       const nextSlot = action.payload.nextSlot
+      if (!startSlot.isOpen || !nextSlot.isOpen) return
       const newInven = state.invenEquip.map((slot) => {
         if (slot.id === startSlot.id) {
           return { ...slot, item: nextSlot.item }

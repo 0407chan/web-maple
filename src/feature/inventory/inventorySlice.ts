@@ -65,6 +65,17 @@ export const inventorySlice = createSlice({
       }
       state.invenEquip = newInven
     },
+    openEquipInventory: (state) => {
+      let check = false
+      const newInven = [...state.invenEquip].map((slot) => {
+        if (check === false && slot.isOpen === false) {
+          check = true
+          return { ...slot, isOpen: true }
+        }
+        return slot
+      })
+      state.invenEquip = newInven
+    },
     setCurrentItem: (state, action: PayloadAction<EquipType | undefined>) => {
       state.currentItem = action.payload
     },
@@ -119,7 +130,8 @@ export const {
   setCurrentItem,
   switchSlot,
   sortInventory,
-  increaseEquipMaxNum
+  increaseEquipMaxNum,
+  openEquipInventory
 } = inventorySlice.actions
 
 export default inventorySlice.reducer

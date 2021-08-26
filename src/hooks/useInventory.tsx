@@ -1,5 +1,7 @@
 import {
   addEquipment,
+  increaseEquipMaxNum,
+  openEquipInventory,
   setCurrentItem,
   setInventory,
   sortInventory,
@@ -34,6 +36,8 @@ const useInventory = () => {
   const onAddEquipment = (newSlot: SlotType) => dispatch(addEquipment(newSlot))
   const onSetCurrentItem = (item?: EquipType) => dispatch(setCurrentItem(item))
   const onSortInventory = () => dispatch(sortInventory())
+  const onIncreaseEquipMaxNum = () => dispatch(increaseEquipMaxNum())
+  const onOpenEquipInventory = () => dispatch(openEquipInventory())
   // const onDeleteEquip = (itemId: number) => dispatch(deleteEquip(itemId))
 
   return {
@@ -48,7 +52,9 @@ const useInventory = () => {
     onSetInventorySetup,
     onSetInventoryUse,
     onAddEquipment,
-    onSetCurrentItem
+    onSetCurrentItem,
+    onIncreaseEquipMaxNum,
+    onOpenEquipInventory
     // onDeleteEquip,
   }
 }

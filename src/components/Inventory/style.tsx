@@ -93,6 +93,14 @@ export const ItemWrapper = styled.div`
   padding: 10px;
 `
 
+export const Horizontal = styled.div`
+  display: flex;
+  gap: 5px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`
+
 export const Button = styled.button`
   display: flex;
   width: fit-content;
@@ -107,5 +115,11 @@ export const Button = styled.button`
 
   &:hover {
     background-color: #ffc96b;
+  }
+  &.disabled {
+    color: #948c7d;
+    background-color: #635949;
+    border: 1px solid #443f38;
+    cursor: not-allowed;
   }
 `

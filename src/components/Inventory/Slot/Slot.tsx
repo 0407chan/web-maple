@@ -27,16 +27,25 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
     return true
   }
 
-  const isActive = isOver && canDrop
-  let backgroundColor = '#F1f2f4'
-  if (isActive) {
-    backgroundColor = '#fff0f3'
-  } else if (canDrop) {
-    backgroundColor = '#f7ffef'
+  const isActive = () => {
+    const isActive = isOver && canDrop
+    let result = ''
+    if (isActive) {
+      result += ' isActive'
+    } else if (canDrop) {
+      result += ' canDrop'
+    }
+    return result
   }
-
+  const isOpen = () => {
+    return slot.isOpen ? 'isOpen' : 'isClosed'
+  }
   return (
-    <S.Contianer ref={drop} role="Dustbin" style={{ backgroundColor }}>
+    <S.Contianer
+      ref={drop}
+      role="Dustbin"
+      className={`${isActive()} ${isOpen()}`}
+    >
       {slot.item?.id !== -1 && <Item2 slot={slot} />}
     </S.Contianer>
   )

@@ -119,7 +119,9 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
           </S.ItemWrapper>
         </S.InventoryBody>
         <S.InventoryFooter>
-          <S.Button onClick={onSortInventory}>정렬</S.Button>
+          <S.Horizontal>
+            <S.Button onClick={onSortInventory}>정렬</S.Button>
+          </S.Horizontal>
         </S.InventoryFooter>
         {visible && (
           <ToolTip

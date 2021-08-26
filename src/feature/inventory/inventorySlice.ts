@@ -10,6 +10,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export type InventoryState = {
   currentInventory: number
   invenEquip: SlotType[]
+  equipNum: number
   equipMaxNum: number
   currentItem?: EquipType
 }
@@ -21,13 +22,15 @@ for (let i = 0; i < 24; i++) {
   if (i < 4) {
     item = EQUIP_LIST[randomNum]
   }
-  const newSlot: SlotType = { id: i, item }
+
+  const newSlot: SlotType = { id: i, item, isOpen: i < 18 ? true : false }
   SlotList.push(newSlot)
 }
 
 const initialState: InventoryState = {
   currentInventory: 0,
   invenEquip: SlotList,
+  equipNum: 18,
   equipMaxNum: 24,
   currentItem: undefined
 }
@@ -49,6 +52,29 @@ export const inventorySlice = createSlice({
         }
       })
       state.invenEquip = [...newInven]
+    },
+    increaseEquipMaxNum: (state) => {
+      if (state.equipMaxNum >= 50) return
+      state.equipMaxNum += 4
+      const newInven = [...state.invenEquip]
+      for (let index = 0; index < 4; index++) {
+        newInven.push({
+          id: state.invenEquip.length + index,
+          isOpen: false
+        })
+      }
+      state.invenEquip = newInven
+    },
+    openEquipInventory: (state) => {
+      let check = false
+      const newInven = [...state.invenEquip].map((slot) => {
+        if (check === false && slot.isOpen === false) {
+          check = true
+          return { ...slot, isOpen: true }
+        }
+        return slot
+      })
+      state.invenEquip = newInven
     },
     setCurrentItem: (state, action: PayloadAction<EquipType | undefined>) => {
       state.currentItem = action.payload
@@ -82,6 +108,7 @@ export const inventorySlice = createSlice({
     ) => {
       const startSlot = action.payload.startSlot
       const nextSlot = action.payload.nextSlot
+      if (!startSlot.isOpen || !nextSlot.isOpen) return
       const newInven = state.invenEquip.map((slot) => {
         if (slot.id === startSlot.id) {
           return { ...slot, item: nextSlot.item }
@@ -102,7 +129,9 @@ export const {
   addEquipment,
   setCurrentItem,
   switchSlot,
-  sortInventory
+  sortInventory,
+  increaseEquipMaxNum,
+  openEquipInventory
 } = inventorySlice.actions
 
 export default inventorySlice.reducer

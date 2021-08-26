@@ -15,16 +15,25 @@ export const ItemTypes = {
 }
 
 const App: React.FC = () => {
-  const { onAddEquipment, invenEquip, onSwitchSlot } = useInventory()
+  const {
+    onAddEquipment,
+    invenEquip,
+    equipMaxNum,
+    onIncreaseEquipMaxNum,
+    onOpenEquipInventory,
+    onSwitchSlot
+  } = useInventory()
 
   const addRandomEquip = () => {
-    const newInven = invenEquip.filter((slot) => slot.item === undefined)
-    if (newInven.length === 0) {
+    const emptyInven = invenEquip.filter(
+      (slot) => slot.isOpen && slot.item === undefined
+    )
+    if (emptyInven.length === 0) {
       console.log('장비창 꽉찼다!')
       return
     }
     const randomNum = Math.floor(Math.random() * EQUIP_LIST.length)
-    const newSlot: SlotType = { ...newInven[0], item: EQUIP_LIST[randomNum] }
+    const newSlot: SlotType = { ...emptyInven[0], item: EQUIP_LIST[randomNum] }
 
     // const newEquip = { ...EQUIP_LIST[Math.floor(Math.random() * 5)] }
     // API.EquipItem.addEquip(newEquip);
@@ -49,8 +58,18 @@ const App: React.FC = () => {
       <S.HeaderWrapper>
         <S.Header style={{ paddingTop: 0 }}>Web Maple</S.Header>
         <S.ButtonWrapper>
-          <S.Button onClick={() => addRandomEquip()}>장비 추가</S.Button>
-          {/* <button onClick={onGetAllEquipment}>장비 불러오기</button> */}
+          <S.Horizontal>
+            <S.Button onClick={() => addRandomEquip()}>장비 추가</S.Button>
+            <S.Button
+              disabled={equipMaxNum > 50}
+              className={equipMaxNum > 50 ? 'disabled' : ''}
+              onClick={onIncreaseEquipMaxNum}
+            >
+              인벤토리 확장
+            </S.Button>
+            <S.Button onClick={onOpenEquipInventory}>인벤토리 활성화</S.Button>
+            {/* <button onClick={onGetAllEquipment}>장비 불러오기</button> */}
+          </S.Horizontal>
         </S.ButtonWrapper>
       </S.HeaderWrapper>
       <S.BoundWrapper>

@@ -53,6 +53,18 @@ export const inventorySlice = createSlice({
       })
       state.invenEquip = [...newInven]
     },
+    increaseEquipMaxNum: (state) => {
+      if (state.equipMaxNum >= 50) return
+      state.equipMaxNum += 4
+      const newInven = [...state.invenEquip]
+      for (let index = 0; index < 4; index++) {
+        newInven.push({
+          id: state.invenEquip.length + index,
+          isOpen: false
+        })
+      }
+      state.invenEquip = newInven
+    },
     setCurrentItem: (state, action: PayloadAction<EquipType | undefined>) => {
       state.currentItem = action.payload
     },
@@ -106,7 +118,8 @@ export const {
   addEquipment,
   setCurrentItem,
   switchSlot,
-  sortInventory
+  sortInventory,
+  increaseEquipMaxNum
 } = inventorySlice.actions
 
 export default inventorySlice.reducer

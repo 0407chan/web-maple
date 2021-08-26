@@ -16,15 +16,13 @@ const PREV_TOOLTIP_WIDTH = 261
 
 const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
   const {
-    equipMaxNum,
     currentInventory,
     onSetInventoryEquip,
     onSetInventoryEtc,
     onSetInventorySetup,
     onSetInventoryUse,
     onSortInventory,
-    invenEquip,
-    onIncreaseEquipMaxNum
+    invenEquip
   } = useInventory()
   const { visible } = useToolTip()
   const ref = useRef<HTMLDivElement>(null)
@@ -123,13 +121,6 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
         <S.InventoryFooter>
           <S.Horizontal>
             <S.Button onClick={onSortInventory}>정렬</S.Button>
-            <S.Button
-              disabled={equipMaxNum > 50}
-              className={equipMaxNum > 50 ? 'disabled' : ''}
-              onClick={onIncreaseEquipMaxNum}
-            >
-              인벤토리 확장
-            </S.Button>
           </S.Horizontal>
         </S.InventoryFooter>
         {visible && (

@@ -19,10 +19,9 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     currentInventory,
     onSetInventoryEquip,
     onSetInventoryEtc,
-    onSetInventorySetup,
     onSetInventoryUse,
     onSortInventory,
-    invenEquip
+    inventory
   } = useInventory()
   const { visible } = useToolTip()
   const ref = useRef<HTMLDivElement>(null)
@@ -84,38 +83,37 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
           <S.InventoryButtonWrapper>
             <S.InventoryButton
               onClick={onSetInventoryEquip}
-              className={currentInventory === 0 ? 'isActive' : ''}
+              className={currentInventory === 'Equip' ? 'isActive' : ''}
             >
               장비
             </S.InventoryButton>
             <S.InventoryButton
               onClick={onSetInventoryUse}
-              className={currentInventory === 1 ? 'isActive' : ''}
+              className={currentInventory === 'Use' ? 'isActive' : ''}
             >
               소비
             </S.InventoryButton>
             <S.InventoryButton
               onClick={onSetInventoryEtc}
-              className={currentInventory === 2 ? 'isActive' : ''}
+              className={currentInventory === 'Etc' ? 'isActive' : ''}
             >
               기타
             </S.InventoryButton>
-            <S.InventoryButton
+            {/* <S.InventoryButton
               onClick={onSetInventorySetup}
-              className={currentInventory === 3 ? 'isActive' : ''}
+              className={currentInventory === "Setup" ? 'isActive' : ''}
             >
               설치
-            </S.InventoryButton>
+            </S.InventoryButton> */}
           </S.InventoryButtonWrapper>
           <S.ItemWrapper>
-            {currentInventory === 0 &&
-              invenEquip.map((slot, index) => (
-                <Slot
-                  key={slot.id}
-                  slot={slot}
-                  onDrop={(startSlot) => handleDrop(startSlot, slot)}
-                />
-              ))}
+            {inventory[currentInventory].map((slot) => (
+              <Slot
+                key={slot.id}
+                slot={slot}
+                onDrop={(startSlot) => handleDrop(startSlot, slot)}
+              />
+            ))}
           </S.ItemWrapper>
         </S.InventoryBody>
         <S.InventoryFooter>

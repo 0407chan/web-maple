@@ -1,21 +1,17 @@
 import { EQUIP_LIST } from '@/dummy/equip'
-import {
-  EquipType,
-  InventoryType,
-  InventoryTypeValue,
-  SlotType
-} from '@/types/inventory'
+import { EquipType, InventoryType, SlotType } from '@/types/inventory'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type InventoryState = {
-  currentInventory: number
-  invenEquip: SlotType[]
+  currentInventory: InventoryType
+  inventory: Record<InventoryType, SlotType[]>
   equipNum: number
   equipMaxNum: number
   currentItem?: EquipType
 }
 
-const SlotList: SlotType[] = []
+const equipInven: SlotType[] = []
+const emptyInven: SlotType[] = []
 for (let i = 0; i < 24; i++) {
   const randomNum = Math.floor(Math.random() * EQUIP_LIST.length)
   let item: EquipType | undefined = undefined
@@ -24,12 +20,19 @@ for (let i = 0; i < 24; i++) {
   }
 
   const newSlot: SlotType = { id: i, item, isOpen: i < 18 ? true : false }
-  SlotList.push(newSlot)
+  emptyInven.push({ id: i, isOpen: i < 18 ? true : false })
+  equipInven.push(newSlot)
+}
+
+const initInventory: Record<InventoryType, SlotType[]> = {
+  Equip: equipInven,
+  Use: emptyInven,
+  Etc: emptyInven
 }
 
 const initialState: InventoryState = {
-  currentInventory: 0,
-  invenEquip: SlotList,
+  currentInventory: 'Equip',
+  inventory: initInventory,
   equipNum: 18,
   equipMaxNum: 24,
   currentItem: undefined
@@ -40,67 +43,71 @@ export const inventorySlice = createSlice({
   initialState,
   reducers: {
     setInventory: (state, action: PayloadAction<InventoryType>) => {
-      state.currentInventory = InventoryTypeValue[action.payload]
+      state.currentInventory = action.payload
     },
     addEquipment: (state, action: PayloadAction<SlotType>) => {
       const newSlot = action.payload
-      const newInven = state.invenEquip.map((slot) => {
+      const newInven = state.inventory[state.currentInventory].map((slot) => {
         if (slot.id === newSlot.id) {
           return newSlot
         } else {
           return slot
         }
       })
-      state.invenEquip = [...newInven]
+      state.inventory[state.currentInventory] = [...newInven]
     },
     increaseEquipMaxNum: (state) => {
       if (state.equipMaxNum >= 50) return
       state.equipMaxNum += 4
-      const newInven = [...state.invenEquip]
+      const newInven = [...state.inventory[state.currentInventory]]
       for (let index = 0; index < 4; index++) {
         newInven.push({
-          id: state.invenEquip.length + index,
+          id: state.inventory[state.currentInventory].length + index,
           isOpen: false
         })
       }
-      state.invenEquip = newInven
+      state.inventory[state.currentInventory] = newInven
     },
     openEquipInventory: (state) => {
       let check = false
-      const newInven = [...state.invenEquip].map((slot) => {
-        if (check === false && slot.isOpen === false) {
-          check = true
-          return { ...slot, isOpen: true }
+      const newInven = [...state.inventory[state.currentInventory]].map(
+        (slot) => {
+          if (check === false && slot.isOpen === false) {
+            check = true
+            return { ...slot, isOpen: true }
+          }
+          return slot
         }
-        return slot
-      })
-      state.invenEquip = newInven
+      )
+      state.inventory[state.currentInventory] = newInven
     },
     setCurrentItem: (state, action: PayloadAction<EquipType | undefined>) => {
       state.currentItem = action.payload
     },
     sortInventory: (state) => {
-      const newInven = [...state.invenEquip].sort((a, b) => {
-        if (a.item === undefined && b.item !== undefined) {
-          return 1
-        } else if (a.item !== undefined && b.item === undefined) {
-          return -1
-        } else if (a.item === undefined && b.item === undefined) {
-          return 0
-        } else if (a.item !== undefined && b.item !== undefined) {
-          if (a.item.id > b.item.id) {
+      const newInven = [...state.inventory[state.currentInventory]].sort(
+        (a, b) => {
+          if (a.item === undefined && b.item !== undefined) {
             return 1
-          } else if (a.item.id < b.item.id) {
+          } else if (a.item !== undefined && b.item === undefined) {
             return -1
+          } else if (a.item === undefined && b.item === undefined) {
+            return 0
+          } else if (a.item !== undefined && b.item !== undefined) {
+            if (a.item.id > b.item.id) {
+              return 1
+            } else if (a.item.id < b.item.id) {
+              return -1
+            } else {
+              return 0
+            }
           } else {
             return 0
           }
-        } else {
-          return 0
         }
-      })
+      )
 
-      state.invenEquip = [...newInven]
+      state.inventory[state.currentInventory] = [...newInven]
     },
     switchSlot: (
       state,
@@ -109,7 +116,7 @@ export const inventorySlice = createSlice({
       const startSlot = action.payload.startSlot
       const nextSlot = action.payload.nextSlot
       if (!startSlot.isOpen || !nextSlot.isOpen) return
-      const newInven = state.invenEquip.map((slot) => {
+      const newInven = state.inventory[state.currentInventory].map((slot) => {
         if (slot.id === startSlot.id) {
           return { ...slot, item: nextSlot.item }
         } else if (slot.id === nextSlot.id) {
@@ -118,7 +125,7 @@ export const inventorySlice = createSlice({
           return slot
         }
       })
-      state.invenEquip = [...newInven]
+      state.inventory[state.currentInventory] = [...newInven]
     }
   }
 })

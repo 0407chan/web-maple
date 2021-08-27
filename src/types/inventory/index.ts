@@ -1,10 +1,9 @@
-export type InventoryType = 'Equip' | 'Use' | 'Etc' | 'Setup'
+export type InventoryType = 'Equip' | 'Use' | 'Etc'
 
 export enum InventoryTypeValue {
   Equip,
   Use,
-  Etc,
-  Setup
+  Etc
 }
 
 export type StatusBase = {

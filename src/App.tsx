@@ -17,7 +17,8 @@ export const ItemTypes = {
 const App: React.FC = () => {
   const {
     onAddEquipment,
-    invenEquip,
+    inventory,
+    currentInventory,
     equipMaxNum,
     onIncreaseEquipMaxNum,
     onOpenEquipInventory,
@@ -25,7 +26,7 @@ const App: React.FC = () => {
   } = useInventory()
 
   const addRandomEquip = () => {
-    const emptyInven = invenEquip.filter(
+    const emptyInven = inventory[currentInventory].filter(
       (slot) => slot.isOpen && slot.item === undefined
     )
     if (emptyInven.length === 0) {

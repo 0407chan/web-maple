@@ -86,8 +86,9 @@ export const ItemWrapper = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   overflow-y: scroll;
+  align-items: flex-start;
   width: 250px;
-  height: 360px;
+  height: 350px;
   gap: 10px;
   border-radius: 5px;
   padding: 10px;

@@ -18,19 +18,16 @@ const useInventory = () => {
   const currentItem = useSelector(
     (state: RootState) => state.inventory.currentItem
   )
-  const invenEquip = useSelector(
-    (state: RootState) => state.inventory.invenEquip
-  )
   const equipMaxNum = useSelector(
     (state: RootState) => state.inventory.equipMaxNum
   )
+  const inventory = useSelector((state: RootState) => state.inventory.inventory)
 
   const dispatch = useDispatch()
 
   const onSetInventoryEquip = () => dispatch(setInventory('Equip'))
   const onSetInventoryUse = () => dispatch(setInventory('Use'))
   const onSetInventoryEtc = () => dispatch(setInventory('Etc'))
-  const onSetInventorySetup = () => dispatch(setInventory('Setup'))
   const onSwitchSlot = (startSlot: SlotType, nextSlot: SlotType) =>
     dispatch(switchSlot({ startSlot, nextSlot }))
   const onAddEquipment = (newSlot: SlotType) => dispatch(addEquipment(newSlot))
@@ -43,13 +40,12 @@ const useInventory = () => {
   return {
     currentInventory,
     currentItem,
-    invenEquip,
     equipMaxNum,
+    inventory,
     onSortInventory,
     onSwitchSlot,
     onSetInventoryEquip,
     onSetInventoryEtc,
-    onSetInventorySetup,
     onSetInventoryUse,
     onAddEquipment,
     onSetCurrentItem,

@@ -10,9 +10,8 @@ const InventoryPrev: React.FC = () => {
     currentInventory,
     onSetInventoryEquip,
     onSetInventoryEtc,
-    onSetInventorySetup,
     onSetInventoryUse,
-    invenEquip
+    inventory
   } = useInventory()
 
   const ref = useRef<HTMLDivElement>(null)
@@ -34,7 +33,7 @@ const InventoryPrev: React.FC = () => {
 
   const renderEquipButton = () => {
     //활성화 됨
-    if (currentInventory === 0) {
+    if (currentInventory === 'Equip') {
       return (
         <img
           src={images.images.invenEquipEnabled}
@@ -56,7 +55,7 @@ const InventoryPrev: React.FC = () => {
 
   const renderUseButton = () => {
     //활성화 됨
-    if (currentInventory === 1) {
+    if (currentInventory === 'Use') {
       return (
         <img
           src={images.images.invenUseEnabled}
@@ -77,7 +76,7 @@ const InventoryPrev: React.FC = () => {
   }
   const renderEtcButton = () => {
     //활성화 됨
-    if (currentInventory === 2) {
+    if (currentInventory === 'Etc') {
       return (
         <img
           src={images.images.invenEtcEnabled}
@@ -96,35 +95,14 @@ const InventoryPrev: React.FC = () => {
       />
     )
   }
-  const renderSetupButton = () => {
-    //활성화 됨
-    if (currentInventory === 3) {
-      return (
-        <img
-          src={images.images.invenSetupEnabled}
-          className="item-tab-4"
-          alt="inven"
-        />
-      )
-    }
-
-    return (
-      <img
-        src={images.images.invenSetupDisabled}
-        className="item-tab-4"
-        alt="inven"
-        onClick={onSetInventorySetup}
-      />
-    )
-  }
 
   const renderItems = () => {
-    if (invenEquip.length === 0) return
+    if (inventory.Equip.length === 0) return
 
-    if (currentInventory === 0) {
+    if (currentInventory === 'Equip') {
       return (
         <>
-          {invenEquip.map((inven, idx) => (
+          {inventory.Equip.map((inven, idx) => (
             <Item key={idx} item={inven.item} />
           ))}
         </>
@@ -154,7 +132,6 @@ const InventoryPrev: React.FC = () => {
           {renderEquipButton()}
           {renderUseButton()}
           {renderEtcButton()}
-          {renderSetupButton()}
         </div>
       </div>
     </Draggable>

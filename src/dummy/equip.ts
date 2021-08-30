@@ -143,14 +143,14 @@ export const EQUIP_LIST: EquipType[] = [
     image: IMAGE.EquipImages[1],
     STR: {
       label: 'STR',
-      base: 10,
-      bonus: 5,
+      base: 15,
+      bonus: 15,
       reinforce: 3
     },
     DEX: {
       label: 'DEX',
-      base: 5,
-      bonus: 5,
+      base: 16,
+      bonus: 16,
       reinforce: 5
     },
     INT: {
@@ -179,8 +179,8 @@ export const EQUIP_LIST: EquipType[] = [
     },
     WEAPON_ATTACK: {
       label: '공격력',
-      base: 100,
-      bonus: 50,
+      base: 170,
+      bonus: 70,
       reinforce: 100
     },
     MAGIC_ATTACK: {
@@ -209,14 +209,14 @@ export const EQUIP_LIST: EquipType[] = [
     image: IMAGE.EquipImages[2],
     STR: {
       label: 'STR',
-      base: 10,
-      bonus: 5,
+      base: 20,
+      bonus: 20,
       reinforce: 3
     },
     DEX: {
       label: 'DEX',
-      base: 5,
-      bonus: 5,
+      base: 23,
+      bonus: 23,
       reinforce: 5
     },
     INT: {
@@ -245,8 +245,8 @@ export const EQUIP_LIST: EquipType[] = [
     },
     WEAPON_ATTACK: {
       label: '공격력',
-      base: 100,
-      bonus: 50,
+      base: 240,
+      bonus: 22,
       reinforce: 100
     },
     MAGIC_ATTACK: {
@@ -275,14 +275,14 @@ export const EQUIP_LIST: EquipType[] = [
     image: IMAGE.EquipImages[3],
     STR: {
       label: 'STR',
-      base: 10,
-      bonus: 5,
+      base: 34,
+      bonus: 34,
       reinforce: 3
     },
     DEX: {
       label: 'DEX',
-      base: 5,
-      bonus: 5,
+      base: 31,
+      bonus: 31,
       reinforce: 5
     },
     INT: {
@@ -311,8 +311,8 @@ export const EQUIP_LIST: EquipType[] = [
     },
     WEAPON_ATTACK: {
       label: '공격력',
-      base: 100,
-      bonus: 50,
+      base: 310,
+      bonus: 11,
       reinforce: 100
     },
     MAGIC_ATTACK: {

@@ -1,13 +1,15 @@
 import counterReducer from '@/feature/counter/counterSlice'
 import inventoryReducer from '@/feature/inventory/inventorySlice'
 import tooltipReducer from '@/feature/tooltip/tooltipSlice'
+import userReducer from '@/feature/user/userSlice'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     inventory: inventoryReducer,
-    tooltip: tooltipReducer
+    tooltip: tooltipReducer,
+    user: userReducer
   }
 })
 

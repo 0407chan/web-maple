@@ -1,5 +1,35 @@
 import IMAGE from '@/utils/images'
 import styled from 'styled-components'
+
+export const Horizontal = styled.div`
+  display: flex;
+  gap: 5px;
+  flex-direction: row;
+  justify-content: center;
+`
+
+export const AttackIncreaseWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+`
+export const AttackIncreaseLabel = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 14px;
+  color: #eeeeee;
+`
+export const AttackIncrease = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 900;
+  color: #f1f1f1;
+`
+
 export const Contianer = styled.div`
   position: absolute;
   z-index: 10;
@@ -34,7 +64,11 @@ export const Contianer = styled.div`
 
   .tooltip-image {
     display: flex;
+    width: calc(100% - 20px);
     padding: 10px;
+  }
+  .attack-increase {
+    color: white;
   }
 
   .item-icon-cover {

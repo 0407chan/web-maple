@@ -1,14 +1,17 @@
-import { StatusBase } from '../inventory'
+export type UserStatBase = {
+  base: number
+  bonus: number
+}
 
 export type UserType = {
   userId: number
 
-  STR: StatusBase
-  DEX: StatusBase
-  INT: StatusBase
-  LUK: StatusBase
-  HP: StatusBase
-  MP: StatusBase
-  WEAPON_ATTACK: StatusBase
-  MAGIC_ATTACK: StatusBase
+  STR: UserStatBase
+  DEX: UserStatBase
+  INT: UserStatBase
+  LUK: UserStatBase
+  HP: UserStatBase
+  MP: UserStatBase
+  WEAPON_ATTACK: UserStatBase
+  MAGIC_ATTACK: UserStatBase
 }

@@ -1,4 +1,5 @@
 import useInventory from '@/hooks/useInventory'
+import useUser from '@/hooks/useUser'
 import { StatusBase } from '@/types/inventory'
 import IMAGE from '@/utils/images'
 import React from 'react'
@@ -10,6 +11,7 @@ type ToolTipProps = {
 }
 const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
   const { currentItem } = useInventory()
+  const { getStatAttack } = useUser()
 
   if (!currentItem) return null
   const {
@@ -71,24 +73,32 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     return (
       <div className="tooltip-frame-line-img">
         <div className="tooltip-image">
-          <div className="item-icon-base">
-            <img
-              alt="item-icon-base"
-              src={IMAGE.tooltip.tooltip_Item_Icon_base}
-            />
-            <div className="tooltip-item-img-content">
+          <S.Horizontal
+            style={{ justifyContent: 'space-between', width: '100%' }}
+          >
+            <div className="item-icon-base">
               <img
-                className="tooltip-item-img"
-                src={currentItem.image}
-                alt="item-img"
+                alt="item-icon-base"
+                src={IMAGE.tooltip.tooltip_Item_Icon_base}
               />
-              <img
-                className="item-icon-cover"
-                alt="item-cover"
-                src={IMAGE.tooltip.tooltip_Item_Icon_cover}
-              />
+              <div className="tooltip-item-img-content">
+                <img
+                  className="tooltip-item-img"
+                  src={currentItem.image}
+                  alt="item-img"
+                />
+                <img
+                  className="item-icon-cover"
+                  alt="item-cover"
+                  src={IMAGE.tooltip.tooltip_Item_Icon_cover}
+                />
+              </div>
             </div>
-          </div>
+            <S.AttackIncreaseWrapper>
+              <S.AttackIncreaseLabel>공격력 증가량</S.AttackIncreaseLabel>
+              <S.AttackIncrease>{getStatAttack(currentItem)}</S.AttackIncrease>
+            </S.AttackIncreaseWrapper>
+          </S.Horizontal>
         </div>
       </div>
     )

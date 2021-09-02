@@ -12,7 +12,7 @@ type InventoryProps = {
 }
 
 const PREV_INVEN_WIDTH = 172
-const PREV_TOOLTIP_WIDTH = 300
+const TOOLTIP_WIDTH = 300 + 10
 
 const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
   const {
@@ -55,9 +55,9 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
   const getTooltipX = () => {
     if (!ref.current) return 0
     const positionLeft = ref.current.getClientRects()[0].left
-    let result = inventoryPosition.left + 300
-    if (positionLeft + 300 + PREV_TOOLTIP_WIDTH > document.body.clientWidth) {
-      result = inventoryPosition.left - PREV_TOOLTIP_WIDTH
+    let result = inventoryPosition.left + TOOLTIP_WIDTH
+    if (positionLeft + 300 + TOOLTIP_WIDTH > document.body.clientWidth) {
+      result = inventoryPosition.left - TOOLTIP_WIDTH
     }
     return result
   }

@@ -45,24 +45,6 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
 
   // const itemGrade = () => {}
 
-  const renderStar = () => {
-    const starList = []
-    for (let i = 0; i < star; i++) {
-      starList.push(IMAGE.tooltip.tooltip_Item_Star)
-    }
-    for (let i = star; i < max_star; i++) {
-      starList.push(IMAGE.tooltip.tooltip_Item_Star_none)
-    }
-    return starList.map((star, idx) => (
-      <img
-        src={star}
-        key={idx}
-        alt={`starimg` + idx}
-        style={{ marginRight: idx % 5 === 4 ? 3 : 0 }}
-      />
-    ))
-  }
-
   const renderItemInfo = () => {
     return (
       <div className="tooltip-frame-line-img">
@@ -144,6 +126,34 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
       </div>
     )
   }
+
+  const renderStar = () => {
+    const result = []
+    let starBundle: { index: number; src: string }[] = []
+    for (let i = 0; i < max_star; i++) {
+      const imageSrc =
+        i < star
+          ? IMAGE.tooltip.tooltip_Item_Star
+          : IMAGE.tooltip.tooltip_Item_Star_none
+      starBundle.push({ index: i, src: imageSrc })
+      if (i % 5 === 4) {
+        result.push(
+          <S.StarBundleWrapper key={i}>
+            {starBundle.map((star) => (
+              <img
+                src={star.src}
+                key={star.index}
+                alt={`starimg-` + star.index}
+              />
+            ))}
+          </S.StarBundleWrapper>
+        )
+        starBundle = []
+      }
+    }
+    return result
+  }
+
   return (
     <S.Contianer id="new-tooltip" style={position}>
       <S.StarWrapper>{renderStar()}</S.StarWrapper>

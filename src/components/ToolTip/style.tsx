@@ -141,7 +141,19 @@ export const StarWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 20px 30px 10px 30px;
 `
+
+export const StarBundleWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 4px 3px;
+`
+
 export const ItemNameWapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -154,6 +166,7 @@ export const ItemName = styled.div`
   justify-content: center;
   font-weight: bold;
   font-size: 18px;
+  margin-bottom: 10px;
   color: #eeeeee;
   align-items: center;
 `

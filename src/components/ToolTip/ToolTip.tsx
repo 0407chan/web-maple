@@ -164,6 +164,30 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
         </S.ItemName>
         <S.ItemPotential>(에픽 아이템)</S.ItemPotential>
       </S.ItemNameWapper>
+      <S.DotLine />
+      <S.SectionBlock
+        justifyContent="center"
+        flexDirection="row"
+        alignItems="flex-start"
+      >
+        <S.ImageWrapper>
+          <S.Image src={currentItem.image} />
+        </S.ImageWrapper>
+        <S.AttackIncreaseWrapper>
+          <S.AttackIncreaseLabel>공격력 증가량</S.AttackIncreaseLabel>
+          <S.AttackIncrease>{getStatAttack(currentItem)}</S.AttackIncrease>
+        </S.AttackIncreaseWrapper>
+      </S.SectionBlock>
+      <S.DotLine />
+      <S.SectionBlock
+        justifyContent="center"
+        flexDirection="column"
+        alignItems="flex-start"
+      >
+        {renderItemDetail()}
+        <div className="tooltip-frame-bottom-img"></div>
+      </S.SectionBlock>
+
       {/* <div>
         <div className="tooltip-frame-top-img"></div>
         <div className="tooltip-frame-line-img">

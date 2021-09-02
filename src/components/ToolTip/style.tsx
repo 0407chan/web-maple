@@ -31,9 +31,14 @@ export const AttackIncrease = styled.div`
 `
 
 export const Contianer = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: #282727d0;
+  border-radius: 5px;
+  border: 1px solid #eeeeee 1px solid #747474;
   position: absolute;
   z-index: 10;
-  width: 261px;
+  width: 300px;
 
   .name {
     color: white;
@@ -130,4 +135,32 @@ export const Contianer = styled.div`
   .yellow-color {
     color: #ffc13c;
   }
+`
+
+export const StarWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+export const ItemNameWapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+export const ItemName = styled.div`
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #eeeeee;
+  align-items: center;
+`
+export const ItemPotential = styled.div`
+  display: flex;
+  justify-content: center;
+  color: #eeeeee;
+  font-size: 14px;
+  align-items: center;
 `

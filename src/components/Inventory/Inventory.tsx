@@ -12,7 +12,7 @@ type InventoryProps = {
 }
 
 const PREV_INVEN_WIDTH = 172
-const PREV_TOOLTIP_WIDTH = 261
+const PREV_TOOLTIP_WIDTH = 300
 
 const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
   const {

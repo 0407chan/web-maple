@@ -8,32 +8,10 @@ export const Horizontal = styled.div`
   justify-content: center;
 `
 
-export const AttackIncreaseWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 100%;
-`
-export const AttackIncreaseLabel = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 14px;
-  color: #eeeeee;
-`
-export const AttackIncrease = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 32px;
-  font-weight: 900;
-  color: #f1f1f1;
-`
-
 export const Contianer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #282727d0;
+  background-color: #161616d0;
   border-radius: 5px;
   border: 1px solid #eeeeee 1px solid #747474;
   position: absolute;
@@ -137,6 +115,19 @@ export const Contianer = styled.div`
   }
 `
 
+type SectionBlockType = {
+  justifyContent: 'center' | 'flex-start' | 'flext-end'
+  flexDirection: 'row' | 'column'
+  alignItems: 'center' | 'flex-start' | 'flext-end'
+}
+export const SectionBlock = styled.div<SectionBlockType>`
+  display: flex;
+  flex-direction: ${(props) => props.flexDirection};
+  justify-content: ${(props) => props.justifyContent};
+  align-items: ${(props) => props.alignItems};
+  padding: 0px 20px;
+`
+
 export const StarWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -150,7 +141,6 @@ export const StarBundleWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   margin: 4px 3px;
 `
 
@@ -176,4 +166,47 @@ export const ItemPotential = styled.div`
   color: #eeeeee;
   font-size: 14px;
   align-items: center;
+`
+
+export const DotLine = styled.div`
+  display: flex;
+  border: 1px dashed #5c5c5c;
+  margin: 20px 0px;
+`
+
+export const ImageWrapper = styled.div`
+  display: flex;
+  background-image: linear-gradient(180deg, #8f8f8f, #d8d8d8);
+  border: 3px double #888888;
+  border-radius: 5px;
+  padding: 10px;
+  width: 60px;
+  height: 60px;
+`
+export const Image = styled.img`
+  width: 60px;
+  height: 60px;
+`
+
+export const AttackIncreaseWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 100%;
+  width: 100%;
+`
+export const AttackIncreaseLabel = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 14px;
+  color: #eeeeee;
+`
+export const AttackIncrease = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 900;
+  color: #f1f1f1;
 `

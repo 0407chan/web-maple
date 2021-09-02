@@ -53,20 +53,14 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     for (let i = star; i < max_star; i++) {
       starList.push(IMAGE.tooltip.tooltip_Item_Star_none)
     }
-    return (
-      <>
-        {starList.map((star, idx) => {
-          return idx % 5 === 4 ? (
-            <React.Fragment key={idx}>
-              <img src={star} alt={`starimg` + idx} />
-              <span> </span>
-            </React.Fragment>
-          ) : (
-            <img key={idx} src={star} alt={`starimg` + idx} />
-          )
-        })}
-      </>
-    )
+    return starList.map((star, idx) => (
+      <img
+        src={star}
+        key={idx}
+        alt={`starimg` + idx}
+        style={{ marginRight: idx % 5 === 4 ? 3 : 0 }}
+      />
+    ))
   }
 
   const renderItemInfo = () => {
@@ -152,7 +146,15 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
   }
   return (
     <S.Contianer id="new-tooltip" style={position}>
-      <div>
+      <S.StarWrapper>{renderStar()}</S.StarWrapper>
+      <S.ItemNameWapper>
+        <S.ItemName>
+          {currentItem.name}
+          {currentItem.upgrade > 0 && <span> (+{currentItem.upgrade})</span>}
+        </S.ItemName>
+        <S.ItemPotential>(에픽 아이템)</S.ItemPotential>
+      </S.ItemNameWapper>
+      {/* <div>
         <div className="tooltip-frame-top-img"></div>
         <div className="tooltip-frame-line-img">
           <div className="tooltip-header">
@@ -171,7 +173,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
       {renderItemInfo()}
       <div className="tooltip-frame-dotline-img"></div>
       {renderItemDetail()}
-      <div className="tooltip-frame-bottom-img"></div>
+      <div className="tooltip-frame-bottom-img"></div> */}
     </S.Contianer>
   )
 }

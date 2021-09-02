@@ -45,30 +45,6 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
 
   // const itemGrade = () => {}
 
-  const renderStar = () => {
-    const starList = []
-    for (let i = 0; i < star; i++) {
-      starList.push(IMAGE.tooltip.tooltip_Item_Star)
-    }
-    for (let i = star; i < max_star; i++) {
-      starList.push(IMAGE.tooltip.tooltip_Item_Star_none)
-    }
-    return (
-      <>
-        {starList.map((star, idx) => {
-          return idx % 5 === 4 ? (
-            <React.Fragment key={idx}>
-              <img src={star} alt={`starimg` + idx} />
-              <span> </span>
-            </React.Fragment>
-          ) : (
-            <img key={idx} src={star} alt={`starimg` + idx} />
-          )
-        })}
-      </>
-    )
-  }
-
   const renderItemInfo = () => {
     return (
       <div className="tooltip-frame-line-img">
@@ -150,9 +126,69 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
       </div>
     )
   }
+
+  const renderStar = () => {
+    const result = []
+    let starBundle: { index: number; src: string }[] = []
+    for (let i = 0; i < max_star; i++) {
+      const imageSrc =
+        i < star
+          ? IMAGE.tooltip.tooltip_Item_Star
+          : IMAGE.tooltip.tooltip_Item_Star_none
+      starBundle.push({ index: i, src: imageSrc })
+      if (i % 5 === 4) {
+        result.push(
+          <S.StarBundleWrapper key={i}>
+            {starBundle.map((star) => (
+              <img
+                src={star.src}
+                key={star.index}
+                alt={`starimg-` + star.index}
+              />
+            ))}
+          </S.StarBundleWrapper>
+        )
+        starBundle = []
+      }
+    }
+    return result
+  }
+
   return (
     <S.Contianer id="new-tooltip" style={position}>
-      <div>
+      <S.StarWrapper>{renderStar()}</S.StarWrapper>
+      <S.ItemNameWapper>
+        <S.ItemName>
+          {currentItem.name}
+          {currentItem.upgrade > 0 && <span> (+{currentItem.upgrade})</span>}
+        </S.ItemName>
+        <S.ItemPotential>(에픽 아이템)</S.ItemPotential>
+      </S.ItemNameWapper>
+      <S.DotLine />
+      <S.SectionBlock
+        justifyContent="center"
+        flexDirection="row"
+        alignItems="flex-start"
+      >
+        <S.ImageWrapper>
+          <S.Image src={currentItem.image} />
+        </S.ImageWrapper>
+        <S.AttackIncreaseWrapper>
+          <S.AttackIncreaseLabel>공격력 증가량</S.AttackIncreaseLabel>
+          <S.AttackIncrease>{getStatAttack(currentItem)}</S.AttackIncrease>
+        </S.AttackIncreaseWrapper>
+      </S.SectionBlock>
+      <S.DotLine />
+      <S.SectionBlock
+        justifyContent="center"
+        flexDirection="column"
+        alignItems="flex-start"
+      >
+        {renderItemDetail()}
+        <div className="tooltip-frame-bottom-img"></div>
+      </S.SectionBlock>
+
+      {/* <div>
         <div className="tooltip-frame-top-img"></div>
         <div className="tooltip-frame-line-img">
           <div className="tooltip-header">
@@ -171,7 +207,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
       {renderItemInfo()}
       <div className="tooltip-frame-dotline-img"></div>
       {renderItemDetail()}
-      <div className="tooltip-frame-bottom-img"></div>
+      <div className="tooltip-frame-bottom-img"></div> */}
     </S.Contianer>
   )
 }

@@ -170,7 +170,7 @@ export const ItemPotential = styled.div`
 
 export const DotLine = styled.div`
   display: flex;
-  border: 1px dashed #5c5c5c;
+  border-top: 1px dashed #5c5c5c;
   margin: 20px 0px;
 `
 
@@ -209,4 +209,18 @@ export const AttackIncrease = styled.div`
   font-size: 32px;
   font-weight: 900;
   color: #f1f1f1;
+`
+
+export const StatusWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  color:#f2f2f2;
+  font-size: 14px;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 20px;
+`
+
+export const Status = styled.div`
+  color:#f2f2f2;
 `

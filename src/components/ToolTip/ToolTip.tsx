@@ -82,7 +82,6 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
 
   const renderItemDetail = () => {
     return (
-      <div className="tooltip-frame-line-img">
         <div className="tooltip-detail-wrapper">
           <div className="tooltip-category">무기분류 : {category}</div>
           {renderStatus(STR)}
@@ -101,13 +100,12 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
             </span>
           </div>
         </div>
-      </div>
     )
   }
   const renderStatus = (status: StatusBase) => {
     if (status.base + status.bonus + status.reinforce === 0) return
     return (
-      <div className="tooltip-str">
+      <S.Status>
         <span
           className={`${
             (status.bonus > 0 || status.reinforce > 0) && 'add-color'
@@ -123,7 +121,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
           <span className="add-color"> +{status.reinforce}</span>
         )}
         )
-      </div>
+      </S.Status>
     )
   }
 
@@ -184,30 +182,25 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
         flexDirection="column"
         alignItems="flex-start"
       >
-        {renderItemDetail()}
-        <div className="tooltip-frame-bottom-img"></div>
-      </S.SectionBlock>
-
-      {/* <div>
-        <div className="tooltip-frame-top-img"></div>
-        <div className="tooltip-frame-line-img">
-          <div className="tooltip-header">
-            <div className="tooltip-star">{renderStar()}</div>
-            <div className="tooltip-name">
-              {currentItem.name}
-              {currentItem.upgrade > 0 && (
-                <span> (+{currentItem.upgrade})</span>
-              )}
-            </div>
-            <div className="tooltip-grade">(에픽 아이템)</div>
+        <S.StatusWrapper>
+        <div className="tooltip-category">무기분류 : {category}</div>
+          {renderStatus(STR)}
+          {renderStatus(DEX)}
+          {renderStatus(INT)}
+          {renderStatus(LUK)}
+          {renderStatus(HP)}
+          {renderStatus(MP)}
+          {renderStatus(WEAPON_ATTACK)}
+          {renderStatus(MAGIC_ATTACK)}
+          {renderStatus(AllStat)}
+          <div className="tooltip-upgrade">
+            업그레이드 가능 횟수 : {upgrade_avalable}{' '}
+            <span className="yellow-color">
+              (복구 가능 횟수 : {max_upgrade - upgrade - upgrade_avalable})
+            </span>
           </div>
-        </div>
-      </div>
-      <div className="tooltip-frame-dotline-img"></div>
-      {renderItemInfo()}
-      <div className="tooltip-frame-dotline-img"></div>
-      {renderItemDetail()}
-      <div className="tooltip-frame-bottom-img"></div> */}
+        </S.StatusWrapper>
+      </S.SectionBlock>
     </S.Contianer>
   )
 }

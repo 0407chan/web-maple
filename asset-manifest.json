@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/web-maple/static/css/main.4b81c86a.chunk.css",
-    "main.js": "/web-maple/static/js/main.108249bf.chunk.js",
+    "main.js": "/web-maple/static/js/main.913d56ee.chunk.js",
     "runtime-main.js": "/web-maple/static/js/runtime-main.3fa6d44f.js",
     "static/js/2.bcfd8ca5.chunk.js": "/web-maple/static/js/2.bcfd8ca5.chunk.js",
     "index.html": "/web-maple/index.html",
@@ -12,6 +12,6 @@
     "static/js/runtime-main.3fa6d44f.js",
     "static/js/2.bcfd8ca5.chunk.js",
     "static/css/main.4b81c86a.chunk.css",
-    "static/js/main.108249bf.chunk.js"
+    "static/js/main.913d56ee.chunk.js"
   ]
 }

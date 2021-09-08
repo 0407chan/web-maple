@@ -41,7 +41,6 @@ export const InventoryFooter = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
   padding: 0 10px 10px 10px;
   /* background-color: #eeeeeee7; */
   justify-content: center;

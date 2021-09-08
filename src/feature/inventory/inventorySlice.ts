@@ -8,6 +8,7 @@ export type InventoryState = {
   equipNum: number
   equipMaxNum: number
   currentItem?: EquipType
+  inventoryVisibility: boolean
 }
 
 const equipInven: SlotType[] = []
@@ -35,7 +36,8 @@ const initialState: InventoryState = {
   inventory: initInventory,
   equipNum: 18,
   equipMaxNum: 24,
-  currentItem: undefined
+  currentItem: undefined,
+  inventoryVisibility: true
 }
 
 export const inventorySlice = createSlice({
@@ -126,6 +128,9 @@ export const inventorySlice = createSlice({
         }
       })
       state.inventory[state.currentInventory] = [...newInven]
+    },
+    toggleInventory: (state) => {
+      state.inventoryVisibility = !state.inventoryVisibility
     }
   }
 })
@@ -138,7 +143,8 @@ export const {
   switchSlot,
   sortInventory,
   increaseEquipMaxNum,
-  openEquipInventory
+  openEquipInventory,
+  toggleInventory
 } = inventorySlice.actions
 
 export default inventorySlice.reducer

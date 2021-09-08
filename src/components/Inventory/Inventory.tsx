@@ -21,7 +21,8 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     onSetInventoryEtc,
     onSetInventoryUse,
     onSortInventory,
-    inventory
+    inventory,
+    inventoryVisibility
   } = useInventory()
   const { visible } = useToolTip()
   const ref = useRef<HTMLDivElement>(null)
@@ -61,6 +62,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     }
     return result
   }
+
   return (
     <Draggable
       handle=".handle"
@@ -75,7 +77,8 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
       <S.Contianer
         ref={ref}
         style={{
-          left: inventoryPosition.width + inventoryPosition.width / 2 - 150
+          left: inventoryPosition.width + inventoryPosition.width / 2 - 150,
+          visibility: inventoryVisibility ? 'visible' : 'hidden'
         }}
       >
         <S.InventoryHeader className="handle">ITEM INVENTORY</S.InventoryHeader>

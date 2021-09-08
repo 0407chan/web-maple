@@ -1,7 +1,7 @@
 import { getAllEquip } from '@/api/equipItem'
 import { EQUIP_LIST } from '@/dummy/equip'
 import useInventory from '@/hooks/useInventory'
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as S from './appStyle'
 import Inventory from './components/Inventory'
 import InventoryPrev from './components/InventoryPrev'
@@ -22,7 +22,8 @@ const App: React.FC = () => {
     equipMaxNum,
     onIncreaseEquipMaxNum,
     onOpenEquipInventory,
-    onSwitchSlot
+    onSwitchSlot,
+    onToggleInventory
   } = useInventory()
 
   const addRandomEquip = () => {
@@ -53,6 +54,19 @@ const App: React.FC = () => {
   const handleDrop = (startSlot: SlotType, endSlot: SlotType) => {
     onSwitchSlot(startSlot, endSlot)
   }
+
+  const handleKeyDown = (ev: KeyboardEvent) => {
+    console.log(ev.key)
+    switch (ev.key) {
+      case 'ㅑ':
+      case 'i': {
+        onToggleInventory()
+      }
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+  }, [])
 
   return (
     <S.Contianer>

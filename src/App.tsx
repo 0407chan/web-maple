@@ -6,6 +6,7 @@ import * as S from './appStyle'
 import Inventory from './components/Inventory'
 import InventoryPrev from './components/InventoryPrev'
 import ToolTipPrev from './components/ToolTipPrev'
+import useUiWindow from './hooks/useUiWindow'
 import { SlotType } from './types/inventory'
 
 export const ItemTypes = {
@@ -25,6 +26,9 @@ const App: React.FC = () => {
     onSwitchSlot,
     onToggleInventory
   } = useInventory()
+
+  const { onAddUiWindow, onRemoveUiWindow, uiWindowList, isOpenedWindow } =
+    useUiWindow()
 
   const addRandomEquip = () => {
     const emptyInven = inventory[currentInventory].filter(
@@ -56,17 +60,24 @@ const App: React.FC = () => {
   }
 
   const handleKeyDown = (ev: KeyboardEvent) => {
-    console.log(ev.key)
+    console.log(ev.key, uiWindowList)
     switch (ev.key) {
       case 'ㅑ':
       case 'i': {
-        onToggleInventory()
+        if (isOpenedWindow('Inventory')) {
+          onRemoveUiWindow('Inventory')
+        } else {
+          onAddUiWindow('Inventory')
+        }
       }
     }
   }
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown)
-  }, [])
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [uiWindowList])
 
   return (
     <S.Contianer>

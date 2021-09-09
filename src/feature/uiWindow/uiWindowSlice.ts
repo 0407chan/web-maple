@@ -16,6 +16,11 @@ export const uiWindowSlice = createSlice({
       const result = new Set(state.uiWindowList)
       result.delete(action.payload.windowName)
       state.uiWindowList = result
+    },
+    addUiWindow: (state, action: PayloadAction<{ windowName: string }>) => {
+      const result = new Set(state.uiWindowList)
+      result.add(action.payload.windowName)
+      state.uiWindowList = result
     }
   }
 })

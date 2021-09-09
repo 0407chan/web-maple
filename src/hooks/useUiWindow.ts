@@ -12,10 +12,17 @@ export default function useUiWindow() {
     dispatch(removeUiWindow({ windowName }))
   const onAddUiWindow = (windowName: string) =>
     dispatch(addUiWindow({ windowName }))
+  const onRemoveLastWindow = () => {
+    const lastWindow = Array.from(uiWindowList).pop()
+    if (lastWindow) {
+      dispatch(removeUiWindow({ windowName: lastWindow }))
+    }
+  }
 
   return {
     uiWindowList,
     onRemoveUiWindow,
-    onAddUiWindow
+    onAddUiWindow,
+    onRemoveLastWindow
   }
 }

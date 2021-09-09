@@ -1,5 +1,6 @@
 import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
+import useUiWindow from '@/hooks/useUiWindow'
 import { SlotType } from '@/types/inventory'
 import React, { useEffect, useRef, useState } from 'react'
 import Draggable from 'react-draggable'
@@ -25,6 +26,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     inventoryVisibility
   } = useInventory()
   const { visible } = useToolTip()
+  const { isOpenedWindow } = useUiWindow()
   const ref = useRef<HTMLDivElement>(null)
   const [inventoryPosition, setInventoryPosition] = useState<{
     width: number
@@ -53,6 +55,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
       })
     }
   }, [ref.current?.parentElement?.clientWidth])
+
   const getTooltipX = () => {
     if (!ref.current) return 0
     const positionLeft = ref.current.getClientRects()[0].left
@@ -78,7 +81,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
         ref={ref}
         style={{
           left: inventoryPosition.width + inventoryPosition.width / 2 - 150,
-          visibility: inventoryVisibility ? 'visible' : 'hidden'
+          visibility: isOpenedWindow('Inventory') ? 'visible' : 'hidden'
         }}
       >
         <S.InventoryHeader className="handle">ITEM INVENTORY</S.InventoryHeader>

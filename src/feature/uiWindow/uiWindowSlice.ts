@@ -26,6 +26,6 @@ export const uiWindowSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { removeUiWindow } = uiWindowSlice.actions
+export const { removeUiWindow, addUiWindow } = uiWindowSlice.actions
 
 export default uiWindowSlice.reducer

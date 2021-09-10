@@ -1,4 +1,8 @@
-import { addUiWindow, removeUiWindow } from '@/feature/uiWindow/uiWindowSlice'
+import {
+  addUiWindow,
+  removeUiWindow,
+  UiWindowType
+} from '@/feature/uiWindow/uiWindowSlice'
 import { RootState } from '@/store'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -8,10 +12,10 @@ const useUiWindow = () => {
     (state: RootState) => state.uiWindow.uiWindowList
   )
 
-  const onRemoveUiWindow = (windowName: string) =>
+  const onRemoveUiWindow = (windowName: UiWindowType) =>
     dispatch(removeUiWindow({ windowName }))
 
-  const onAddUiWindow = (windowName: string) => {
+  const onAddUiWindow = (windowName: UiWindowType) => {
     dispatch(addUiWindow({ windowName }))
   }
 
@@ -21,7 +25,7 @@ const useUiWindow = () => {
       dispatch(removeUiWindow({ windowName: lastWindow }))
     }
   }
-  const isOpenedWindow = (windowName: string) => {
+  const isOpenedWindow = (windowName: UiWindowType) => {
     return uiWindowList.find((value) => value === windowName)
   }
 

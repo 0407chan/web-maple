@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-//export type UiWindowType = 'Inventory' | 'Equip' | 'Skill'
+export type UiWindowType = 'Inventory' | 'Equip' | 'Skill'
 
 export type UiWindowState = {
-  uiWindowList: string[]
+  uiWindowList: UiWindowType[]
 }
 
 export const initialState: UiWindowState = {
@@ -14,12 +14,18 @@ export const uiWindowSlice = createSlice({
   name: 'uiWindow',
   initialState,
   reducers: {
-    removeUiWindow: (state, action: PayloadAction<{ windowName: string }>) => {
+    removeUiWindow: (
+      state,
+      action: PayloadAction<{ windowName: UiWindowType }>
+    ) => {
       state.uiWindowList = state.uiWindowList.filter(
         (item) => item !== action.payload.windowName
       )
     },
-    addUiWindow: (state, action: PayloadAction<{ windowName: string }>) => {
+    addUiWindow: (
+      state,
+      action: PayloadAction<{ windowName: UiWindowType }>
+    ) => {
       state.uiWindowList = [...state.uiWindowList, action.payload.windowName]
     }
   }

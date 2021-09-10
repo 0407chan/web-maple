@@ -5,8 +5,7 @@ import {
   setCurrentItem,
   setInventory,
   sortInventory,
-  switchSlot,
-  toggleInventory
+  switchSlot
 } from '@/feature/inventory/inventorySlice'
 import { RootState } from '@/store'
 import { EquipType, SlotType } from '@/types/inventory'
@@ -23,9 +22,6 @@ const useInventory = () => {
     (state: RootState) => state.inventory.equipMaxNum
   )
   const inventory = useSelector((state: RootState) => state.inventory.inventory)
-  const inventoryVisibility = useSelector(
-    (state: RootState) => state.inventory.inventoryVisibility
-  )
 
   const dispatch = useDispatch()
 
@@ -39,7 +35,6 @@ const useInventory = () => {
   const onSortInventory = () => dispatch(sortInventory())
   const onIncreaseEquipMaxNum = () => dispatch(increaseEquipMaxNum())
   const onOpenEquipInventory = () => dispatch(openEquipInventory())
-  const onToggleInventory = () => dispatch(toggleInventory())
   // const onDeleteEquip = (itemId: number) => dispatch(deleteEquip(itemId))
 
   return {
@@ -47,7 +42,6 @@ const useInventory = () => {
     currentItem,
     equipMaxNum,
     inventory,
-    inventoryVisibility,
     onSortInventory,
     onSwitchSlot,
     onSetInventoryEquip,
@@ -56,8 +50,7 @@ const useInventory = () => {
     onAddEquipment,
     onSetCurrentItem,
     onIncreaseEquipMaxNum,
-    onOpenEquipInventory,
-    onToggleInventory
+    onOpenEquipInventory
     // onDeleteEquip,
   }
 }

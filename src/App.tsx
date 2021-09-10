@@ -23,8 +23,7 @@ const App: React.FC = () => {
     equipMaxNum,
     onIncreaseEquipMaxNum,
     onOpenEquipInventory,
-    onSwitchSlot,
-    onToggleInventory
+    onSwitchSlot
   } = useInventory()
 
   const { onAddUiWindow, onRemoveUiWindow, uiWindowList, isOpenedWindow } =

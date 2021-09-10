@@ -59,7 +59,7 @@ const App: React.FC = () => {
   }
 
   const handleKeyDown = (ev: KeyboardEvent) => {
-    console.log(ev.key, uiWindowList)
+    console.log(ev.key)
     switch (ev.key) {
       case 'ㅑ':
       case 'i': {
@@ -67,6 +67,12 @@ const App: React.FC = () => {
           onRemoveUiWindow('Inventory')
         } else {
           onAddUiWindow('Inventory')
+        }
+        break
+      }
+      case 'Escape': {
+        if (uiWindowList.length > 0) {
+          onRemoveUiWindow(uiWindowList[uiWindowList.length - 1])
         }
       }
     }

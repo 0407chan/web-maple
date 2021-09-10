@@ -22,8 +22,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     onSetInventoryEtc,
     onSetInventoryUse,
     onSortInventory,
-    inventory,
-    inventoryVisibility
+    inventory
   } = useInventory()
   const { visible } = useToolTip()
   const { isOpenedWindow } = useUiWindow()

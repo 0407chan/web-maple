@@ -3,6 +3,7 @@ import { EQUIP_LIST } from '@/dummy/equip'
 import useInventory from '@/hooks/useInventory'
 import React, { useEffect } from 'react'
 import * as S from './appStyle'
+import Equipment from './components/Equipment'
 import Inventory from './components/Inventory'
 import InventoryPrev from './components/InventoryPrev'
 import ToolTipPrev from './components/ToolTipPrev'
@@ -70,6 +71,15 @@ const App: React.FC = () => {
         }
         break
       }
+      case 'ㄷ':
+      case 'e': {
+        if (isOpenedWindow('Equipment')) {
+          onRemoveUiWindow('Equipment')
+        } else {
+          onAddUiWindow('Equipment')
+        }
+        break
+      }
       case 'Escape': {
         if (uiWindowList.length > 0) {
           onRemoveUiWindow(uiWindowList[uiWindowList.length - 1])
@@ -115,6 +125,8 @@ const App: React.FC = () => {
           <Inventory handleDrop={handleDrop} />
         </S.Bound>
       </S.BoundWrapper>
+
+      <Equipment handleDrop={handleDrop} />
     </S.Contianer>
   )
 }

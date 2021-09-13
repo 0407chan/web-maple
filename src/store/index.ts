@@ -1,4 +1,5 @@
 import counterReducer from '@/feature/counter/counterSlice'
+import equipmentReducer from '@/feature/equipment/equipmentSlice'
 import inventoryReducer from '@/feature/inventory/inventorySlice'
 import tooltipReducer from '@/feature/tooltip/tooltipSlice'
 import uiWindowReducer from '@/feature/uiWindow/uiWindowSlice'
@@ -11,7 +12,8 @@ export const store = configureStore({
     inventory: inventoryReducer,
     tooltip: tooltipReducer,
     user: userReducer,
-    uiWindow: uiWindowReducer
+    uiWindow: uiWindowReducer,
+    equipment: equipmentReducer
   }
 })
 

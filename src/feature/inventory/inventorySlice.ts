@@ -1,5 +1,5 @@
 import { EQUIP_LIST } from '@/dummy/equip'
-import { EquipType, InventoryType, SlotType } from '@/types/inventory'
+import { EquipItemType, InventoryType, SlotType } from '@/types/inventory'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type InventoryState = {
@@ -7,14 +7,14 @@ export type InventoryState = {
   inventory: Record<InventoryType, SlotType[]>
   equipNum: number
   equipMaxNum: number
-  currentItem?: EquipType
+  currentItem?: EquipItemType
 }
 
 const equipInven: SlotType[] = []
 const emptyInven: SlotType[] = []
 for (let i = 0; i < 24; i++) {
   const randomNum = Math.floor(Math.random() * EQUIP_LIST.length)
-  let item: EquipType | undefined = undefined
+  let item: EquipItemType | undefined = undefined
   if (i < 4) {
     item = EQUIP_LIST[randomNum]
   }
@@ -81,7 +81,10 @@ export const inventorySlice = createSlice({
       )
       state.inventory[state.currentInventory] = newInven
     },
-    setCurrentItem: (state, action: PayloadAction<EquipType | undefined>) => {
+    setCurrentItem: (
+      state,
+      action: PayloadAction<EquipItemType | undefined>
+    ) => {
       state.currentItem = action.payload
     },
     sortInventory: (state) => {

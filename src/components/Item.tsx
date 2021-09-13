@@ -1,12 +1,12 @@
 import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
-import { EquipType } from '@/types/inventory'
+import { EquipItemType } from '@/types/inventory'
 import React from 'react'
-// import { EquipType } from "../modules/item/types";
+// import { EquipItemType } from "../modules/item/types";
 import './Item.scss'
 
 type ItemProps = {
-  item?: EquipType
+  item?: EquipItemType
 }
 const Item: React.FC<ItemProps> = ({ item }) => {
   const { onShowPrevTooltip, onHidePrevTooltip, onSetMousePosition } =

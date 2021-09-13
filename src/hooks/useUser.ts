@@ -1,12 +1,12 @@
 import { RootState } from '@/store'
-import { EquipType } from '@/types/inventory'
+import { EquipItemType } from '@/types/inventory'
 import { useSelector } from 'react-redux'
 
 const useUser = () => {
   const user = useSelector((state: RootState) => state.user.user)
 
   // 스공 계산
-  const getStatAttack = (item: EquipType) => {
+  const getStatAttack = (item: EquipItemType) => {
     const { STR, DEX, AllStat, WEAPON_ATTACK } = item
 
     const result = Math.floor(

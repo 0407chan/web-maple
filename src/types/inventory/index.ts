@@ -19,10 +19,10 @@ export type StatusBase = {
 export type SlotType = {
   id: number
   isOpen: boolean
-  item?: EquipType
+  item?: EquipItemType
 }
 
-export type EquipType = {
+export type EquipItemType = {
   id: number
   job: string
   category: string

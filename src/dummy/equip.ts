@@ -1,7 +1,7 @@
-import { EquipType } from '@/types/inventory'
+import { EquipItemType } from '@/types/inventory'
 import IMAGE from '@/utils/images'
 
-export const EMPTY_EQUIP: EquipType = {
+export const EMPTY_EQUIP: EquipItemType = {
   id: -1,
   job: '',
   category: '',
@@ -68,7 +68,7 @@ export const EMPTY_EQUIP: EquipType = {
   star: 0
 }
 
-export const EQUIP_LIST: EquipType[] = [
+export const EQUIP_LIST: EquipItemType[] = [
   {
     id: 0,
     job: '전 직업',

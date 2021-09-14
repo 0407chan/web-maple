@@ -1,7 +1,7 @@
 import { EQUIP_LIST } from '@/dummy/equip'
 import { EquipItemType, InventoryType, SlotType } from '@/types/inventory'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
+import { v4 as uuid } from 'uuid'
 export type InventoryState = {
   currentInventory: InventoryType
   inventory: Record<InventoryType, SlotType[]>
@@ -19,8 +19,8 @@ for (let i = 0; i < 24; i++) {
     item = EQUIP_LIST[randomNum]
   }
 
-  const newSlot: SlotType = { id: i, item, isOpen: i < 18 ? true : false }
-  emptyInven.push({ id: i, isOpen: i < 18 ? true : false })
+  const newSlot: SlotType = { id: uuid(), item, isOpen: i < 18 ? true : false }
+  emptyInven.push({ id: uuid(), isOpen: i < 18 ? true : false })
   equipInven.push(newSlot)
 }
 
@@ -62,7 +62,7 @@ export const inventorySlice = createSlice({
       const newInven = [...state.inventory[state.currentInventory]]
       for (let index = 0; index < 4; index++) {
         newInven.push({
-          id: state.inventory[state.currentInventory].length + index,
+          id: uuid(),
           isOpen: false
         })
       }

@@ -38,13 +38,13 @@ const Item2: React.FC<ItemProps> = ({ slot }) => {
   }, [collected.isDragging])
 
   const setDispalyVisibleAction = () => {
-    if (slot.item?.id === -1) return
+    if (slot.item?.id === '') return
     onSetCurrentItem(slot.item)
     onShowTooltip()
   }
 
   const setDispalyNoneAction = () => {
-    if (slot.item?.id === -1) return
+    if (slot.item?.id === '') return
     onHideTooltip()
     onSetCurrentItem(undefined)
   }

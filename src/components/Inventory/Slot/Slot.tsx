@@ -46,7 +46,7 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
       role="Dustbin"
       className={`${isActive()} ${isOpen()}`}
     >
-      {slot.item?.id !== -1 && <Item2 slot={slot} />}
+      {slot.item?.id !== '' && <Item2 slot={slot} />}
     </S.Contianer>
   )
 }

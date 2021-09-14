@@ -1,8 +1,9 @@
 import { EquipItemType } from '@/types/inventory'
 import IMAGE from '@/utils/images'
+import { v4 as uuid } from 'uuid'
 
 export const EMPTY_EQUIP: EquipItemType = {
-  id: -1,
+  id: '',
   job: '',
   category: '',
   name: '',
@@ -70,7 +71,7 @@ export const EMPTY_EQUIP: EquipItemType = {
 
 export const EQUIP_LIST: EquipItemType[] = [
   {
-    id: 0,
+    id: uuid(),
     job: '전 직업',
     category: '한손검',
     name: '주황버섯 갓',
@@ -136,7 +137,7 @@ export const EQUIP_LIST: EquipItemType[] = [
     star: 12
   },
   {
-    id: 1,
+    id: uuid(),
     job: '전 직업',
     category: '한손검',
     name: '돼지 리본',
@@ -202,7 +203,7 @@ export const EQUIP_LIST: EquipItemType[] = [
     star: 23
   },
   {
-    id: 2,
+    id: uuid(),
     job: '전 직업',
     category: '한손검',
     name: '나뭇 가지',
@@ -268,7 +269,7 @@ export const EQUIP_LIST: EquipItemType[] = [
     star: 23
   },
   {
-    id: 3,
+    id: uuid(),
     job: '전 직업',
     category: '한손검',
     name: '슬라임 액체',

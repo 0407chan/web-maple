@@ -47,7 +47,7 @@ const EquipSlot: React.FC<SlotProps> = ({ slot, onDrop }) => {
       className={`${isActive()} ${isOpen()}`}
     >
       <S.SlotName>{slot.slotType}</S.SlotName>
-      {slot.item?.id !== -1 && <Item2 slot={slot} />}
+      {slot.item?.id !== '' && <Item2 slot={slot} />}
     </S.Contianer>
   )
 }

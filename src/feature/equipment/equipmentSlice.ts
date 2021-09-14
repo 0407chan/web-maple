@@ -1,6 +1,7 @@
 import { EquipSlotCategory, EquipSlotType } from '@/types/equipment'
 import { EquipItemType } from '@/types/inventory'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { v4 as uuid } from 'uuid'
 
 export type InventoryState = {
   equipment: EquipSlotType[]
@@ -8,16 +9,16 @@ export type InventoryState = {
 }
 
 const emptyInven: EquipSlotType[] = []
-emptyInven.push({ id: 0, slotType: 'CAP', isOpen: true })
-emptyInven.push({ id: 1, slotType: 'CAPE', isOpen: true })
-emptyInven.push({ id: 2, slotType: 'CLOTHES', isOpen: true })
-emptyInven.push({ id: 3, slotType: 'EYE', isOpen: true })
-emptyInven.push({ id: 4, slotType: 'GLOVES', isOpen: true })
-emptyInven.push({ id: 5, slotType: 'PANTS', isOpen: true })
-emptyInven.push({ id: 6, slotType: 'PENDANT', isOpen: true })
-emptyInven.push({ id: 7, slotType: 'RING', isOpen: true })
-emptyInven.push({ id: 8, slotType: 'SHOES', isOpen: true })
-emptyInven.push({ id: 9, slotType: 'WEAPON', isOpen: true })
+emptyInven.push({ id: uuid(), slotType: 'CAP', isOpen: true })
+emptyInven.push({ id: uuid(), slotType: 'CAPE', isOpen: true })
+emptyInven.push({ id: uuid(), slotType: 'CLOTHES', isOpen: true })
+emptyInven.push({ id: uuid(), slotType: 'EYE', isOpen: true })
+emptyInven.push({ id: uuid(), slotType: 'GLOVES', isOpen: true })
+emptyInven.push({ id: uuid(), slotType: 'PANTS', isOpen: true })
+emptyInven.push({ id: uuid(), slotType: 'PENDANT', isOpen: true })
+emptyInven.push({ id: uuid(), slotType: 'RING', isOpen: true })
+emptyInven.push({ id: uuid(), slotType: 'SHOES', isOpen: true })
+emptyInven.push({ id: uuid(), slotType: 'WEAPON', isOpen: true })
 
 const initialState: InventoryState = {
   equipment: emptyInven,

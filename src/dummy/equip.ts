@@ -6,6 +6,7 @@ export const EMPTY_EQUIP: EquipItemType = {
   id: '',
   job: '',
   category: '',
+  equipCategory: 'WEAPON',
   name: '',
   image: '',
   STR: {
@@ -74,6 +75,7 @@ export const EQUIP_LIST: EquipItemType[] = [
     id: uuid(),
     job: '전 직업',
     category: '한손검',
+    equipCategory: 'WEAPON',
     name: '주황버섯 갓',
     image: IMAGE.EquipImages[0],
     STR: {
@@ -140,6 +142,7 @@ export const EQUIP_LIST: EquipItemType[] = [
     id: uuid(),
     job: '전 직업',
     category: '한손검',
+    equipCategory: 'WEAPON',
     name: '돼지 리본',
     image: IMAGE.EquipImages[1],
     STR: {
@@ -206,6 +209,7 @@ export const EQUIP_LIST: EquipItemType[] = [
     id: uuid(),
     job: '전 직업',
     category: '한손검',
+    equipCategory: 'WEAPON',
     name: '나뭇 가지',
     image: IMAGE.EquipImages[2],
     STR: {
@@ -272,6 +276,7 @@ export const EQUIP_LIST: EquipItemType[] = [
     id: uuid(),
     job: '전 직업',
     category: '한손검',
+    equipCategory: 'WEAPON',
     name: '슬라임 액체',
     image: IMAGE.EquipImages[3],
     STR: {

@@ -1,3 +1,5 @@
+import { EquipSlotCategory } from '../equipment'
+
 export type InventoryType = 'Equip' | 'Use' | 'Etc'
 
 export enum InventoryTypeValue {
@@ -25,6 +27,7 @@ export type SlotType = {
 export type EquipItemType = {
   id: string
   job: string
+  equipCategory: EquipSlotCategory
   category: string
   name: string
   image: string

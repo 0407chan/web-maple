@@ -7,7 +7,9 @@ import Equipment from './components/Equipment'
 import Inventory from './components/Inventory'
 import InventoryPrev from './components/InventoryPrev'
 import ToolTipPrev from './components/ToolTipPrev'
+import useEquipment from './hooks/useEquipment'
 import useUiWindow from './hooks/useUiWindow'
+import { EquipSlotType } from './types/equipment'
 import { SlotType } from './types/inventory'
 
 export const ItemTypes = {
@@ -26,6 +28,8 @@ const App: React.FC = () => {
     onOpenEquipInventory,
     onSwitchSlot
   } = useInventory()
+
+  const { onSetEquip, onRemoveEquip } = useEquipment()
 
   const { onAddUiWindow, onRemoveUiWindow, uiWindowList, isOpenedWindow } =
     useUiWindow()
@@ -57,6 +61,15 @@ const App: React.FC = () => {
 
   const handleDrop = (startSlot: SlotType, endSlot: SlotType) => {
     onSwitchSlot(startSlot, endSlot)
+  }
+
+  const inventoryToEquipDrop = (
+    startSlot: SlotType,
+    endSlot: EquipSlotType
+  ) => {
+    if (startSlot.item) {
+      onSetEquip('WEAPON', startSlot.item)
+    }
   }
 
   const handleKeyDown = (ev: KeyboardEvent) => {
@@ -123,10 +136,9 @@ const App: React.FC = () => {
         <S.Bound className="new-bound">
           <S.Header>New Inventory</S.Header>
           <Inventory handleDrop={handleDrop} />
+          <Equipment handleDrop={inventoryToEquipDrop} />
         </S.Bound>
       </S.BoundWrapper>
-
-      <Equipment handleDrop={handleDrop} />
     </S.Contianer>
   )
 }

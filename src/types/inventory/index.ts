@@ -17,13 +17,13 @@ export type StatusBase = {
 }
 
 export type SlotType = {
-  id: number
+  id: string
   isOpen: boolean
   item?: EquipItemType
 }
 
 export type EquipItemType = {
-  id: number
+  id: string
   job: string
   category: string
   name: string

@@ -1,5 +1,6 @@
 import Item2 from '@/components/Item/Item2'
 import { EquipSlotType } from '@/types/equipment'
+import { SlotType } from '@/types/inventory'
 import React from 'react'
 import { useDrop } from 'react-dnd'
 import * as S from './style'
@@ -20,11 +21,11 @@ const EquipSlot: React.FC<SlotProps> = ({ slot, onDrop }) => {
     })
   })
 
-  const isMySlot = (item: any) => {
-    if (item.id === slot.id) {
-      return false
+  const isMySlot = (item: SlotType) => {
+    if (item.item && item.item.equipCategory === slot.slotType) {
+      return true
     }
-    return true
+    return false
   }
 
   const isActive = () => {

@@ -1,6 +1,7 @@
 import useEquipment from '@/hooks/useEquipment'
 import useToolTip from '@/hooks/useToolTip'
 import useUiWindow from '@/hooks/useUiWindow'
+import { EquipSlotType } from '@/types/equipment'
 import { SlotType } from '@/types/inventory'
 import React, { useEffect, useRef, useState } from 'react'
 import Draggable from 'react-draggable'
@@ -8,7 +9,7 @@ import EquipSlot from './EquipSlot'
 import * as S from './style'
 
 type EquipmentProps = {
-  handleDrop: (startSlot: SlotType, endSlot: SlotType) => void
+  handleDrop: (startSlot: SlotType, endSlot: EquipSlotType) => void
 }
 
 const PREV_INVEN_WIDTH = 172

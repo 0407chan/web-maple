@@ -11,11 +11,12 @@ export const Horizontal = styled.div`
 export const Contianer = styled.div`
   display: flex;
   flex-direction: column;
+
   background-color: #161616d0;
   border-radius: 5px;
   border: 1px solid #eeeeee 1px solid #747474;
   position: absolute;
-  z-index: 10;
+  z-index: 15;
   width: 300px;
 
   .name {
@@ -214,7 +215,7 @@ export const AttackIncrease = styled.div`
 export const StatusWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  color:#f2f2f2;
+  color: #f2f2f2;
   font-size: 14px;
   height: 100%;
   width: 100%;
@@ -222,5 +223,5 @@ export const StatusWrapper = styled.div`
 `
 
 export const Status = styled.div`
-  color:#f2f2f2;
+  color: #f2f2f2;
 `

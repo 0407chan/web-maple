@@ -1,6 +1,7 @@
 import Item2 from '@/components/Item/Item2'
 import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
+import useToolTip from '@/hooks/useToolTip'
 import { SlotType } from '@/types/inventory'
 import React from 'react'
 import { useDrop } from 'react-dnd'
@@ -14,6 +15,7 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
   let timer: any = undefined
   const { equipment, onSetEquip } = useEquipment()
   const { onRemoveEquipItem, onAddEquipment } = useInventory()
+  const { onHideTooltip } = useToolTip()
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: 'item',
     drop: onDrop,
@@ -58,13 +60,13 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
       if (slot.item) {
         onRemoveEquipItem(slot.id)
         if (equipment[9].item) {
-          const newSlot: SlotType = {
+          onAddEquipment({
             ...slot,
             item: equipment[9].item
-          }
-          onAddEquipment(newSlot)
+          })
         }
         onSetEquip(slot.item.equipCategory, slot.item)
+        onHideTooltip()
       }
     }
   }

@@ -56,6 +56,16 @@ export const inventorySlice = createSlice({
       })
       state.inventory[state.currentInventory] = [...newInven]
     },
+    removeEquipment: (state, action: PayloadAction<string>) => {
+      const newInven = state.inventory[state.currentInventory].map((slot) => {
+        if (slot.id === action.payload) {
+          return { ...slot, item: undefined }
+        } else {
+          return slot
+        }
+      })
+      state.inventory[state.currentInventory] = [...newInven]
+    },
     increaseEquipMaxNum: (state) => {
       if (state.equipMaxNum >= 50) return
       state.equipMaxNum += 4
@@ -141,7 +151,8 @@ export const {
   switchSlot,
   sortInventory,
   increaseEquipMaxNum,
-  openEquipInventory
+  openEquipInventory,
+  removeEquipment
 } = inventorySlice.actions
 
 export default inventorySlice.reducer

@@ -1,4 +1,5 @@
 import Item2 from '@/components/Item/Item2'
+import useEquipment from '@/hooks/useEquipment'
 import { SlotType } from '@/types/inventory'
 import React from 'react'
 import { useDrop } from 'react-dnd'
@@ -9,6 +10,8 @@ type SlotProps = {
   onDrop: (slot: any) => void
 }
 const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
+  let timer: any = undefined
+  const { onSetEquip } = useEquipment()
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: 'item',
     drop: onDrop,
@@ -40,10 +43,28 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
   const isOpen = () => {
     return slot.isOpen ? 'isOpen' : 'isClosed'
   }
+
+  const onClickHandler = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    clearTimeout(timer)
+    if (event.detail === 1) {
+      timer = setTimeout(() => {
+        console.log('싱글 클릭')
+      }, 200)
+    } else if (event.detail === 2) {
+      if (slot.item) {
+        console.log('장비 착용')
+        onSetEquip(slot.item.equipCategory, slot.item)
+      }
+    }
+  }
+
   return (
     <S.Contianer
       ref={drop}
       role="Dustbin"
+      onClick={onClickHandler}
       className={`${isActive()} ${isOpen()}`}
     >
       {slot.item?.id !== '' && <Item2 slot={slot} />}

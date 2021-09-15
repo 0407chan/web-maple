@@ -2,6 +2,7 @@ import {
   addEquipment,
   increaseEquipMaxNum,
   openEquipInventory,
+  removeEquipment,
   setCurrentItem,
   setInventory,
   sortInventory,
@@ -36,7 +37,7 @@ const useInventory = () => {
   const onSortInventory = () => dispatch(sortInventory())
   const onIncreaseEquipMaxNum = () => dispatch(increaseEquipMaxNum())
   const onOpenEquipInventory = () => dispatch(openEquipInventory())
-  // const onDeleteEquip = (itemId: number) => dispatch(deleteEquip(itemId))
+  const onRemoveEquip = (slotId: string) => dispatch(removeEquipment(slotId))
 
   return {
     currentInventory,
@@ -51,8 +52,8 @@ const useInventory = () => {
     onAddEquipment,
     onSetCurrentItem,
     onIncreaseEquipMaxNum,
-    onOpenEquipInventory
-    // onDeleteEquip,
+    onOpenEquipInventory,
+    onRemoveEquip
   }
 }
 

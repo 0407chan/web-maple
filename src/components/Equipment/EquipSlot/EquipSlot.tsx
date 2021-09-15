@@ -1,4 +1,7 @@
 import Item2 from '@/components/Item/Item2'
+import useEquipment from '@/hooks/useEquipment'
+import useInventory from '@/hooks/useInventory'
+import useToolTip from '@/hooks/useToolTip'
 import { EquipSlotType } from '@/types/equipment'
 import { SlotType } from '@/types/inventory'
 import React from 'react'
@@ -10,6 +13,10 @@ type SlotProps = {
   onDrop: (slot: any) => void
 }
 const EquipSlot: React.FC<SlotProps> = ({ slot, onDrop }) => {
+  let timer: any = undefined
+  const { getEmptySlot, onAddEquipment } = useInventory()
+  const { equipment, onRemoveEquip } = useEquipment()
+  const { onHideTooltip } = useToolTip()
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: 'item',
     drop: onDrop,
@@ -41,10 +48,37 @@ const EquipSlot: React.FC<SlotProps> = ({ slot, onDrop }) => {
   const isOpen = () => {
     return slot.isOpen ? 'isOpen' : 'isClosed'
   }
+
+  const onClickHandler = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    clearTimeout(timer)
+    if (event.detail === 1) {
+      timer = setTimeout(() => {
+        console.log('싱글 클릭')
+      }, 200)
+    } else if (event.detail === 2) {
+      if (slot.item) {
+        if (equipment[9].item) {
+          const emptySlot = getEmptySlot()
+          if (emptySlot) {
+            onAddEquipment({
+              ...emptySlot,
+              item: equipment[9].item
+            })
+            onRemoveEquip('WEAPON')
+            onHideTooltip()
+          }
+        }
+      }
+    }
+  }
+
   return (
     <S.Contianer
       ref={drop}
       role="Dustbin"
+      onClick={onClickHandler}
       className={`${isActive()} ${isOpen()}`}
     >
       <S.SlotName>{slot.slotType}</S.SlotName>

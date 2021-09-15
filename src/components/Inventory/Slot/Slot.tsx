@@ -1,5 +1,6 @@
 import Item2 from '@/components/Item/Item2'
 import useEquipment from '@/hooks/useEquipment'
+import useInventory from '@/hooks/useInventory'
 import { SlotType } from '@/types/inventory'
 import React from 'react'
 import { useDrop } from 'react-dnd'
@@ -11,7 +12,8 @@ type SlotProps = {
 }
 const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
   let timer: any = undefined
-  const { onSetEquip } = useEquipment()
+  const { equipment, onSetEquip } = useEquipment()
+  const { onRemoveEquip, onAddEquipment } = useInventory()
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: 'item',
     drop: onDrop,
@@ -54,7 +56,14 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
       }, 200)
     } else if (event.detail === 2) {
       if (slot.item) {
-        console.log('장비 착용')
+        onRemoveEquip(slot.id)
+        if (equipment[9].item) {
+          const newSlot: SlotType = {
+            ...slot,
+            item: equipment[9].item
+          }
+          onAddEquipment(newSlot)
+        }
         onSetEquip(slot.item.equipCategory, slot.item)
       }
     }

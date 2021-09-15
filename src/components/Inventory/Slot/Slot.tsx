@@ -13,7 +13,7 @@ type SlotProps = {
 const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
   let timer: any = undefined
   const { equipment, onSetEquip } = useEquipment()
-  const { onRemoveEquip, onAddEquipment } = useInventory()
+  const { onRemoveEquipItem, onAddEquipment } = useInventory()
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: 'item',
     drop: onDrop,
@@ -56,7 +56,7 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
       }, 200)
     } else if (event.detail === 2) {
       if (slot.item) {
-        onRemoveEquip(slot.id)
+        onRemoveEquipItem(slot.id)
         if (equipment[9].item) {
           const newSlot: SlotType = {
             ...slot,

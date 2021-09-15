@@ -24,6 +24,7 @@ const App: React.FC = () => {
     inventory,
     currentInventory,
     equipMaxNum,
+    onRemoveEquipItem,
     onIncreaseEquipMaxNum,
     onOpenEquipInventory,
     onSwitchSlot
@@ -68,6 +69,17 @@ const App: React.FC = () => {
     endSlot: EquipSlotType
   ) => {
     if (startSlot.item) {
+      //인벤토리에선 제거
+      onRemoveEquipItem(startSlot.id)
+
+      //착용했던 장비가 있으면, 그 장비를 인벤토리 위치로 추가
+      if (endSlot.item) {
+        onAddEquipment({
+          ...startSlot,
+          item: endSlot.item
+        })
+      }
+      // 인벤토리 아이템을 장비창에 장착
       onSetEquip('WEAPON', startSlot.item)
     }
   }

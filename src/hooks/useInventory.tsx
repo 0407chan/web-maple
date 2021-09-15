@@ -26,6 +26,10 @@ const useInventory = () => {
 
   const dispatch = useDispatch()
 
+  const getEmptySlot = () => {
+    return inventory[currentInventory].find((slot) => slot.isOpen && !slot.item)
+  }
+
   const onSetInventoryEquip = () => dispatch(setInventory('Equip'))
   const onSetInventoryUse = () => dispatch(setInventory('Use'))
   const onSetInventoryEtc = () => dispatch(setInventory('Etc'))
@@ -54,7 +58,8 @@ const useInventory = () => {
     onSetCurrentItem,
     onIncreaseEquipMaxNum,
     onOpenEquipInventory,
-    onRemoveEquipItem
+    onRemoveEquipItem,
+    getEmptySlot
   }
 }
 

@@ -60,8 +60,30 @@ const App: React.FC = () => {
     }
   }
 
-  const handleDrop = (startSlot: SlotType, endSlot: SlotType) => {
-    onSwitchSlot(startSlot, endSlot)
+  const handleDrop = (
+    startSlot: SlotType | EquipSlotType,
+    endSlot: SlotType
+  ) => {
+    // 장비창에서 인벤토리로 이동
+    if ('slotType' in startSlot) {
+      // 장비는 제거
+      onRemoveEquip('WEAPON')
+
+      // 인벤토리에 아이템이 있으면 인벤토리 아이템을 장비창에 추가
+      if (endSlot.item) {
+        onSetEquip('WEAPON', endSlot.item)
+      }
+      // 장비창의 아이템을 인벤토리로 추가
+      onAddEquipment({
+        ...endSlot,
+        item: startSlot.item
+      })
+    }
+
+    // 인벤토리에서 인벤토리로 이동
+    else {
+      onSwitchSlot(startSlot, endSlot)
+    }
   }
 
   const inventoryToEquipDrop = (

@@ -81,7 +81,7 @@ const EquipSlot: React.FC<SlotProps> = ({ slot, onDrop }) => {
       onClick={onClickHandler}
       className={`${isActive()} ${isOpen()}`}
     >
-      <S.SlotName>{slot.slotType}</S.SlotName>
+      <S.SlotName className="no-drag">{slot.slotType}</S.SlotName>
       {slot.item?.id !== '' && <Item2 slot={slot} />}
     </S.Contianer>
   )

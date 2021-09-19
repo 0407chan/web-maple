@@ -2,6 +2,7 @@ import { getAllEquip } from '@/api/equipItem'
 import { EQUIP_LIST } from '@/dummy/equip'
 import useInventory from '@/hooks/useInventory'
 import React, { useEffect } from 'react'
+import { useGetEquipment } from './api/equipment'
 import * as S from './appStyle'
 import Equipment from './components/Equipment'
 import Inventory from './components/Inventory'
@@ -34,6 +35,8 @@ const App: React.FC = () => {
 
   const { onAddUiWindow, onRemoveUiWindow, uiWindowList, isOpenedWindow } =
     useUiWindow()
+
+  const equipQeury = useGetEquipment()
 
   const addRandomEquip = () => {
     const emptyInven = inventory[currentInventory].filter(
@@ -140,6 +143,11 @@ const App: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [uiWindowList])
+
+  useEffect(() => {
+    console.log(equipQeury.data?.equipGroup)
+    console.log(equipQeury.data?.metaInfo)
+  }, [equipQeury])
 
   return (
     <S.Contianer>

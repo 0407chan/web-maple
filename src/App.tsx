@@ -1,8 +1,8 @@
 import { getAllEquip } from '@/api/equipItem'
 import { EQUIP_LIST } from '@/dummy/equip'
 import useInventory from '@/hooks/useInventory'
-import React, { useEffect } from 'react'
-import { useGetEquipment } from './api/equipment'
+import React, { useEffect, useState } from 'react'
+import { useGetEquipment, useGetEquipmentList } from './api/equipment'
 import * as S from './appStyle'
 import Equipment from './components/Equipment'
 import Inventory from './components/Inventory'
@@ -10,7 +10,7 @@ import InventoryPrev from './components/InventoryPrev'
 import ToolTipPrev from './components/ToolTipPrev'
 import useEquipment from './hooks/useEquipment'
 import useUiWindow from './hooks/useUiWindow'
-import { EquipSlotType } from './types/equipment'
+import { EquipSlotType, GetEquipmentQuery } from './types/equipment'
 import { SlotType } from './types/inventory'
 
 export const ItemTypes = {
@@ -37,6 +37,14 @@ const App: React.FC = () => {
     useUiWindow()
 
   const equipQeury = useGetEquipment()
+
+  const [equipListSearchQuery] = useState<GetEquipmentQuery>({
+    overallCategoryFilter: 'Equip',
+    categoryFilter: 'One-Handed Weapon',
+    subCategoryFilter: 'One-Handed Sword'
+  })
+
+  const equipListQeury = useGetEquipmentList(equipListSearchQuery)
 
   const addRandomEquip = () => {
     const emptyInven = inventory[currentInventory].filter(
@@ -145,9 +153,11 @@ const App: React.FC = () => {
   }, [uiWindowList])
 
   useEffect(() => {
-    console.log(equipQeury.data?.equipGroup)
-    console.log(equipQeury.data?.metaInfo)
-  }, [equipQeury])
+    // console.log(equipQeury.data?.equipGroup)
+    // console.log(equipQeury.data?.metaInfo)
+
+    console.log('equipListQeury', equipListQeury.data)
+  }, [equipListQeury])
 
   return (
     <S.Contianer>

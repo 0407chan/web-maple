@@ -10,9 +10,7 @@ const useUser = () => {
     const { STR, DEX, AllStat, WEAPON_ATTACK } = item
 
     const result = Math.floor(
-      1 *
-        ((STR.base + STR.bonus) * 4 + (DEX.base + DEX.bonus)) *
-        0.01 *
+      (1 + ((STR.base + STR.bonus) * 4 + (DEX.base + DEX.bonus)) * 0.01) *
         (WEAPON_ATTACK.base + WEAPON_ATTACK.bonus)
     )
 

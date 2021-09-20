@@ -82,24 +82,24 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
 
   const renderItemDetail = () => {
     return (
-        <div className="tooltip-detail-wrapper">
-          <div className="tooltip-category">무기분류 : {category}</div>
-          {renderStatus(STR)}
-          {renderStatus(DEX)}
-          {renderStatus(INT)}
-          {renderStatus(LUK)}
-          {renderStatus(HP)}
-          {renderStatus(MP)}
-          {renderStatus(WEAPON_ATTACK)}
-          {renderStatus(MAGIC_ATTACK)}
-          {renderStatus(AllStat)}
-          <div className="tooltip-upgrade">
-            업그레이드 가능 횟수 : {upgrade_avalable}{' '}
-            <span className="yellow-color">
-              (복구 가능 횟수 : {max_upgrade - upgrade - upgrade_avalable})
-            </span>
-          </div>
+      <div className="tooltip-detail-wrapper">
+        <div className="tooltip-category">무기분류 : {category}</div>
+        {renderStatus(STR)}
+        {renderStatus(DEX)}
+        {renderStatus(INT)}
+        {renderStatus(LUK)}
+        {renderStatus(HP)}
+        {renderStatus(MP)}
+        {renderStatus(WEAPON_ATTACK)}
+        {renderStatus(MAGIC_ATTACK)}
+        {renderStatus(AllStat)}
+        <div className="tooltip-upgrade">
+          업그레이드 가능 횟수 : {upgrade_avalable}{' '}
+          <span className="yellow-color">
+            (복구 가능 횟수 : {max_upgrade - upgrade - upgrade_avalable})
+          </span>
         </div>
+      </div>
     )
   }
   const renderStatus = (status: StatusBase) => {
@@ -183,7 +183,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
         alignItems="flex-start"
       >
         <S.StatusWrapper>
-        <div className="tooltip-category">무기분류 : {category}</div>
+          <div className="tooltip-category">무기분류 : {category}</div>
           {renderStatus(STR)}
           {renderStatus(DEX)}
           {renderStatus(INT)}

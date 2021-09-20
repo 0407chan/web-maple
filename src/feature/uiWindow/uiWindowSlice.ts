@@ -7,7 +7,7 @@ export type UiWindowState = {
 }
 
 export const initialState: UiWindowState = {
-  uiWindowList: ['Inventory', 'Equipment']
+  uiWindowList: ['Inventory']
 }
 
 export const uiWindowSlice = createSlice({

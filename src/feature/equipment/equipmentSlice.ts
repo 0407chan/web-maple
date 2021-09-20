@@ -1,4 +1,4 @@
-import { EquipSlotCategory, EquipSlotType } from '@/types/equipment'
+import { EquipSlotType, ISlotsType, SlotName } from '@/types/equipment'
 import { EquipItemType } from '@/types/inventory'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { v4 as uuid } from 'uuid'
@@ -9,16 +9,66 @@ export type InventoryState = {
 }
 
 const emptyInven: EquipSlotType[] = []
-emptyInven.push({ id: uuid(), slotType: 'CAP', isOpen: true })
-emptyInven.push({ id: uuid(), slotType: 'CAPE', isOpen: true })
-emptyInven.push({ id: uuid(), slotType: 'CLOTHES', isOpen: true })
-emptyInven.push({ id: uuid(), slotType: 'EYE', isOpen: true })
-emptyInven.push({ id: uuid(), slotType: 'GLOVES', isOpen: true })
-emptyInven.push({ id: uuid(), slotType: 'PANTS', isOpen: true })
-emptyInven.push({ id: uuid(), slotType: 'PENDANT', isOpen: true })
-emptyInven.push({ id: uuid(), slotType: 'RING', isOpen: true })
-emptyInven.push({ id: uuid(), slotType: 'SHOES', isOpen: true })
-emptyInven.push({ id: uuid(), slotType: 'WEAPON', isOpen: true })
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Cp',
+  slotTypeName: SlotName['Cp'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Sr',
+  slotTypeName: SlotName['Sr'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Ma',
+  slotTypeName: SlotName['Ma'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Pe',
+  slotTypeName: SlotName['Pe'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Gv',
+  slotTypeName: SlotName['Gv'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Pn',
+  slotTypeName: SlotName['Pn'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Ae',
+  slotTypeName: SlotName['Ae'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Ri',
+  slotTypeName: SlotName['Ri'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Sh',
+  slotTypeName: SlotName['Sh'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Wp',
+  slotTypeName: SlotName['Wp'],
+  isOpen: true
+})
 
 const initialState: InventoryState = {
   equipment: emptyInven,
@@ -32,12 +82,12 @@ export const equipmentSlice = createSlice({
     setEquip: (
       state,
       action: PayloadAction<{
-        slotType: EquipSlotCategory
+        iSlotType: ISlotsType
         item: EquipItemType
       }>
     ) => {
       state.equipment = state.equipment.map((equip) => {
-        if (equip.slotType === action.payload.slotType) {
+        if (equip.slotType === action.payload.iSlotType) {
           return { ...equip, item: action.payload.item }
         }
         return equip
@@ -46,11 +96,11 @@ export const equipmentSlice = createSlice({
     removeEquip: (
       state,
       action: PayloadAction<{
-        slotType: EquipSlotCategory
+        iSlotType: ISlotsType
       }>
     ) => {
       state.equipment = state.equipment.map((equip) => {
-        if (equip.slotType === action.payload.slotType) {
+        if (equip.slotType === action.payload.iSlotType) {
           return { ...equip, item: undefined }
         }
         return equip

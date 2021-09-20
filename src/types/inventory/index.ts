@@ -1,4 +1,4 @@
-import { EquipSlotCategory } from '../equipment'
+import { EquipGroup, ISlotsType } from '../equipment'
 
 export type InventoryType = 'Equip' | 'Use' | 'Etc'
 
@@ -27,7 +27,8 @@ export type SlotType = {
 export type EquipItemType = {
   id: string
   job: string
-  equipCategory: EquipSlotCategory
+  islots: ISlotsType
+  equipGroup: EquipGroup
   category: string
   name: string
   image: string

@@ -29,7 +29,7 @@ const EquipSlot: React.FC<SlotProps> = ({ slot, onDrop }) => {
   })
 
   const isMySlot = (item: SlotType) => {
-    if (item.item && item.item.equipCategory === slot.slotType) {
+    if (item.item && item.item.islots === slot.slotType) {
       return true
     }
     return false
@@ -66,7 +66,7 @@ const EquipSlot: React.FC<SlotProps> = ({ slot, onDrop }) => {
               ...emptySlot,
               item: equipment[9].item
             })
-            onRemoveEquip('WEAPON')
+            onRemoveEquip('Wp')
             onHideTooltip()
           }
         }
@@ -81,7 +81,7 @@ const EquipSlot: React.FC<SlotProps> = ({ slot, onDrop }) => {
       onClick={onClickHandler}
       className={`${isActive()} ${isOpen()}`}
     >
-      <S.SlotName className="no-drag">{slot.slotType}</S.SlotName>
+      <S.SlotName className="no-drag">{slot.slotTypeName}</S.SlotName>
       {slot.item?.id !== '' && <Item2 slot={slot} />}
     </S.Contianer>
   )

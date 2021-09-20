@@ -1,20 +1,112 @@
 import { SlotType } from '../inventory'
 
 export type EquipSlotType = SlotType & {
-  slotType: EquipSlotCategory
+  slotType: ISlotsType
+  slotTypeName: ISlotsTypeName
 }
 
-export type EquipSlotCategory =
-  | 'CAP'
-  | 'WEAPON'
-  | 'GLOVES'
-  | 'SHOES'
-  | 'CAPE'
-  | 'CLOTHES'
-  | 'PANTS'
-  | 'EYE'
-  | 'RING'
-  | 'PENDANT'
+export type ISlotsType =
+  | 'Wp' // 무기
+  | 'Si' // 보조
+  | 'Ma' // 상의
+  | 'Pn' // 하의
+  | 'Sr' // 망토
+  | 'Gv' // 장갑 clove
+  | 'Cp' // 모자 cap
+  | 'So' // 신발
+  | 'Be' // 벨트
+  | 'Ae' // 귀고리
+  | 'Ay' // 눈장식
+  | 'Af' // 얼굴장식
+  | 'Pe' // 펜던트
+  | 'Ri' // 반지
+  | 'Sh' // 견장
+
+export const SlotName: Record<ISlotsType, ISlotsTypeName> = {
+  Wp: 'Weapon',
+  Si: 'Sub Weapon',
+  Ma: 'Clothes',
+  Pn: 'Pants',
+  Sr: 'Cape',
+  Gv: 'Glove',
+  Cp: 'Cap',
+  So: 'Shoes',
+  Be: 'Belt',
+  Ae: 'Earring',
+  Ay: 'Eye Acc',
+  Af: 'Face Acc',
+  Pe: 'Pendant',
+  Ri: 'Ring',
+  Sh: 'Shoulder'
+}
+
+export type ISlotsTypeName =
+  | 'Weapon'
+  | 'Sub Weapon'
+  | 'Clothes'
+  | 'Pants'
+  | 'Cape'
+  | 'Glove'
+  | 'Cap'
+  | 'Shoes'
+  | 'Belt'
+  | 'Earring'
+  | 'Eye Acc'
+  | 'Face Acc'
+  | 'Pendant'
+  | 'Ring'
+  | 'Shoulder'
+
+export type EquipmentSlotType =
+  | 'Weapon'
+  | 'Side Weapon'
+  | 'Coat'
+  | 'Pants'
+  | 'Cape'
+  | 'Glove'
+  | 'Cap'
+  | 'Shoes'
+  | 'Belt'
+  | 'Earrings'
+  | 'Eye Decoration'
+  | 'Face Accessory'
+  | 'Pendant'
+  | 'Ring'
+  | 'Shoulder Accessory'
+
+export type EquipGroup =
+  | 'Weapon'
+  | 'Coat'
+  | 'Pants'
+  | 'Cape'
+  | 'Glove'
+  | 'Cap'
+  | 'Longcoat'
+  | 'Shield'
+  | 'Shoes'
+  | 'Accessory'
+  | 'Ring'
+
+export type SubCategory =
+  | 'Two-Handed Sword'
+  | 'Two-Handed Axe'
+  | 'Spear'
+  | 'Top'
+  | 'Bottom'
+  | 'Cape'
+  | 'Glove'
+  | 'Hat'
+  | 'Overall'
+  | 'Shield'
+  | 'Shoes'
+  | 'Belt'
+  | 'Earrings'
+  | 'Emblem'
+  | 'Eye Decoration'
+  | 'Face Accessory'
+  | 'Pendant'
+  | 'Ring'
+  | 'Shoulder Accessory'
 
 export type GetEquipmentQuery = {
   itemId: number

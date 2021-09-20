@@ -65,7 +65,7 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
             item: equipment[9].item
           })
         }
-        onSetEquip(slot.item.equipCategory, slot.item)
+        onSetEquip(slot.item.islots, slot.item)
         onHideTooltip()
       }
     }

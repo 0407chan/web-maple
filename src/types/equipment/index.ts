@@ -17,6 +17,11 @@ export type EquipSlotCategory =
   | 'PENDANT'
 
 export type GetEquipmentQuery = {
+  itemId: number
+}
+export type GetEquipmentResponse = EquipmentItemType
+
+export type GetEquipmentListQuery = {
   startPosition?: number
   count?: number
   overallCategoryFilter?: string
@@ -29,7 +34,18 @@ export type GetEquipmentQuery = {
   genderFilter?: number
   searchFor?: string
 }
-export type GetEquipmentResponse = EquipmentItemType
+export type GetEquipmentListResponse = EquipmentItemListType[]
+
+export type EquipmentItemListType = {
+  desc: string
+  id: number
+  isCash: boolean
+  name: string
+  requiredGender: number
+  requiredJobs: string[]
+  requiredLevel: number
+  typeInfo: TypeInfo
+}
 
 export type Origin = {
   hasValue: boolean
@@ -79,11 +95,11 @@ export type MetaInfo = {
 }
 
 export type TypeInfo = {
-  overallCategory: string
   category: string
-  subCategory: string
-  lowItemId: number
   highItemId: number
+  lowItemId: number
+  overallCategory: string
+  subCategory: string
 }
 
 export type EquipmentItemType = {

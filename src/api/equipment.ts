@@ -1,19 +1,23 @@
-import { GetEquipmentQuery, GetEquipmentResponse } from '@/types/equipment'
+import {
+  GetEquipmentListQuery,
+  GetEquipmentListResponse,
+  GetEquipmentQuery,
+  GetEquipmentResponse
+} from '@/types/equipment'
 import axios, { AxiosResponse } from 'axios'
 import { useQuery, UseQueryResult } from 'react-query'
 
 export const getEquipment = async (
-  query?: GetEquipmentQuery
+  query: GetEquipmentQuery
 ): Promise<AxiosResponse<GetEquipmentResponse>> => {
   const result = await axios.get(
-    'https://maplestory.io/api/KMS/352/item/1302000',
-    { params: query }
+    `https://maplestory.io/api/KMS/352/item/${query.itemId}`
   )
   return result.data
 }
 
 export const useGetEquipment = (
-  query?: GetEquipmentQuery
+  query: GetEquipmentQuery
 ): UseQueryResult<GetEquipmentResponse, unknown> => {
   return useQuery(
     ['getEquipment', query],
@@ -25,8 +29,8 @@ export const useGetEquipment = (
 }
 
 export const getEquipmentList = async (
-  query?: GetEquipmentQuery
-): Promise<AxiosResponse<GetEquipmentResponse>> => {
+  query?: GetEquipmentListQuery
+): Promise<AxiosResponse<GetEquipmentListResponse>> => {
   const result = await axios.get('https://maplestory.io/api/KMS/352/item', {
     params: query
   })
@@ -34,8 +38,8 @@ export const getEquipmentList = async (
 }
 
 export const useGetEquipmentList = (
-  query?: GetEquipmentQuery
-): UseQueryResult<GetEquipmentResponse, unknown> => {
+  query?: GetEquipmentListQuery
+): UseQueryResult<GetEquipmentListResponse, unknown> => {
   return useQuery(
     ['getEquipmentList', query],
     async () => {

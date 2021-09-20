@@ -182,7 +182,7 @@ export type MetaInfo = {
   attack: number
   attackSpeed: number
   vslots: string[]
-  islots: string[]
+  islots: ISlotsType[]
   setCompleteCount: number
 }
 

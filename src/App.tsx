@@ -1,17 +1,17 @@
-import { EQUIP_LIST } from '@/dummy/equip'
 import useInventory from '@/hooks/useInventory'
 import React, { useEffect, useState } from 'react'
+import { v4 as uuid } from 'uuid'
 import { getEquipment, useGetEquipmentList } from './api/equipment'
 import * as S from './appStyle'
 import Equipment from './components/Equipment'
 import Inventory from './components/Inventory'
 import InventoryPrev from './components/InventoryPrev'
 import ToolTipPrev from './components/ToolTipPrev'
+import { EMPTY_EQUIP } from './dummy/equip'
 import useEquipment from './hooks/useEquipment'
 import useUiWindow from './hooks/useUiWindow'
 import { EquipSlotType, GetEquipmentListQuery } from './types/equipment'
-import { SlotType } from './types/inventory'
-
+import { EquipItemType, SlotType } from './types/inventory'
 const App: React.FC = () => {
   const {
     onAddEquipment,
@@ -30,9 +30,9 @@ const App: React.FC = () => {
     useUiWindow()
 
   const [equipListSearchQuery] = useState<GetEquipmentListQuery>({
-    overallCategoryFilter: 'Equip'
-    // categoryFilter: 'One-Handed Weapon',
-    // subCategoryFilter: 'One-Handed Sword'
+    overallCategoryFilter: 'Equip',
+    categoryFilter: 'One-Handed Weapon',
+    subCategoryFilter: 'One-Handed Sword'
   })
 
   const equipListQeury = useGetEquipmentList(equipListSearchQuery)
@@ -41,6 +41,35 @@ const App: React.FC = () => {
     const existItem = equipListQeury.data?.find((item) => item.name === name)
     if (existItem) {
       const item = await getEquipment({ itemId: existItem.id })
+      const emptyInven = inventory[currentInventory].filter(
+        (slot) => slot.isOpen && slot.item === undefined
+      )
+      if (emptyInven.length === 0) {
+        console.log('장비창 꽉찼다!')
+        return
+      }
+      const newItem: EquipItemType = {
+        ...EMPTY_EQUIP,
+        id: uuid(),
+        name: item.description.name,
+        category: '한손검',
+        image: `https://maplestory.io/api/KMS/352/item/${item.id}/icon`,
+        max_upgrade: item.metaInfo.tuc,
+        upgrade: 0,
+        max_star: 5,
+        islots: item.metaInfo.islots[0],
+        WEAPON_ATTACK: {
+          base: item.metaInfo.incPAD,
+          bonus: 0,
+          label: '공격력',
+          reinforce: 0
+        }
+      }
+
+      onAddEquipment({
+        ...emptyInven[0],
+        item: newItem
+      })
       console.log(item)
     } else {
       console.log(name, '은 없음!')
@@ -97,21 +126,21 @@ const App: React.FC = () => {
     console.log(itemList)
   }
 
-  const addRandomEquip = () => {
-    const emptyInven = inventory[currentInventory].filter(
-      (slot) => slot.isOpen && slot.item === undefined
-    )
-    if (emptyInven.length === 0) {
-      console.log('장비창 꽉찼다!')
-      return
-    }
-    const randomNum = Math.floor(Math.random() * EQUIP_LIST.length)
-    const newSlot: SlotType = { ...emptyInven[0], item: EQUIP_LIST[randomNum] }
+  // const addRandomEquip = () => {
+  //   const emptyInven = inventory[currentInventory].filter(
+  //     (slot) => slot.isOpen && slot.item === undefined
+  //   )
+  //   if (emptyInven.length === 0) {
+  //     console.log('장비창 꽉찼다!')
+  //     return
+  //   }
+  //   const randomNum = Math.floor(Math.random() * EQUIP_LIST.length)
+  //   const newSlot: SlotType = { ...emptyInven[0], item: EQUIP_LIST[randomNum] }
 
-    // const newEquip = { ...EQUIP_LIST[Math.floor(Math.random() * 5)] }
-    // API.EquipItem.addEquip(newEquip);
-    onAddEquipment(newSlot)
-  }
+  //   // const newEquip = { ...EQUIP_LIST[Math.floor(Math.random() * 5)] }
+  //   // API.EquipItem.addEquip(newEquip);
+  //   onAddEquipment(newSlot)
+  // }
 
   const onGetAllEquipment = async () => {
     try {
@@ -209,8 +238,8 @@ const App: React.FC = () => {
         <S.Header style={{ paddingTop: 0 }}>Web Maple</S.Header>
         <S.ButtonWrapper>
           <S.Horizontal>
-            <S.Button onClick={() => getAllEquip()}>가져오자!</S.Button>
-            <S.Button onClick={() => addRandomEquip()}>장비 추가</S.Button>
+            {/* <S.Button onClick={() => getAllEquip()}>가져오자!</S.Button> */}
+            <S.Button onClick={() => getEquipBy('검')}>장비 추가</S.Button>
             <S.Button
               disabled={equipMaxNum > 50}
               className={equipMaxNum > 50 ? 'disabled' : ''}

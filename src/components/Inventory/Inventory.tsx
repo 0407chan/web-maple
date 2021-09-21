@@ -4,7 +4,6 @@ import useUiWindow from '@/hooks/useUiWindow'
 import { SlotType } from '@/types/inventory'
 import React, { useEffect, useRef, useState } from 'react'
 import Draggable from 'react-draggable'
-import ToolTip from '../ToolTip'
 import Slot from './Slot'
 import * as S from './style'
 
@@ -126,12 +125,12 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
             <S.Button onClick={onSortInventory}>정렬</S.Button>
           </S.Horizontal>
         </S.InventoryFooter>
-        {visible && (
+        {/* {visible && (
           <ToolTip
             positionX={getTooltipX()}
             positionY={inventoryPosition.top}
           />
-        )}
+        )} */}
       </S.Contianer>
     </Draggable>
   )

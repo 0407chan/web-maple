@@ -6,11 +6,17 @@ import * as S from './appStyle'
 import Equipment from './components/Equipment'
 import Inventory from './components/Inventory'
 import InventoryPrev from './components/InventoryPrev'
+import ToolTip from './components/ToolTip'
 import ToolTipPrev from './components/ToolTipPrev'
 import { EMPTY_EQUIP } from './dummy/equip'
 import useEquipment from './hooks/useEquipment'
 import useUiWindow from './hooks/useUiWindow'
-import { EquipSlotType, GetEquipmentListQuery } from './types/equipment'
+import {
+  EquipSlotType,
+  GetEquipmentListQuery,
+  SubCategory,
+  subCategoryName
+} from './types/equipment'
 import { EquipItemType, SlotType } from './types/inventory'
 const App: React.FC = () => {
   const {
@@ -29,16 +35,21 @@ const App: React.FC = () => {
   const { onAddUiWindow, onRemoveUiWindow, uiWindowList, isOpenedWindow } =
     useUiWindow()
 
-  const [equipListSearchQuery] = useState<GetEquipmentListQuery>({
+  const [weaponListSearchQuery] = useState<GetEquipmentListQuery>({
     overallCategoryFilter: 'Equip',
     categoryFilter: 'One-Handed Weapon',
     subCategoryFilter: 'One-Handed Sword'
   })
+  const [pantsListSearchQuery] = useState<GetEquipmentListQuery>({
+    overallCategoryFilter: 'Equip',
+    subCategoryFilter: 'Bottom'
+  })
 
-  const equipListQeury = useGetEquipmentList(equipListSearchQuery)
+  const weaponListQeury = useGetEquipmentList(weaponListSearchQuery)
+  const pantsListQeury = useGetEquipmentList(pantsListSearchQuery)
 
   const getEquipBy = async (name: string) => {
-    const existItem = equipListQeury.data?.find((item) => item.name === name)
+    const existItem = weaponListQeury.data?.find((item) => item.name === name)
     if (existItem) {
       const item = await getEquipment({ itemId: existItem.id })
       const emptyInven = inventory[currentInventory].filter(
@@ -52,11 +63,13 @@ const App: React.FC = () => {
         ...EMPTY_EQUIP,
         id: uuid(),
         name: item.description.name,
-        category: '한손검',
+        category: item.typeInfo.subCategory as SubCategory,
+        categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
         image: `https://maplestory.io/api/KMS/352/item/${item.id}/icon`,
         max_upgrade: item.metaInfo.tuc,
         upgrade: 0,
         max_star: 5,
+        upgrade_avalable: item.metaInfo.tuc,
         islots: item.metaInfo.islots[0],
         WEAPON_ATTACK: {
           base: item.metaInfo.incPAD,
@@ -126,21 +139,42 @@ const App: React.FC = () => {
     console.log(itemList)
   }
 
-  // const addRandomEquip = () => {
-  //   const emptyInven = inventory[currentInventory].filter(
-  //     (slot) => slot.isOpen && slot.item === undefined
-  //   )
-  //   if (emptyInven.length === 0) {
-  //     console.log('장비창 꽉찼다!')
-  //     return
-  //   }
-  //   const randomNum = Math.floor(Math.random() * EQUIP_LIST.length)
-  //   const newSlot: SlotType = { ...emptyInven[0], item: EQUIP_LIST[randomNum] }
+  const addRandomEquip = async () => {
+    if (pantsListQeury === undefined || pantsListQeury.data === undefined)
+      return
 
-  //   // const newEquip = { ...EQUIP_LIST[Math.floor(Math.random() * 5)] }
-  //   // API.EquipItem.addEquip(newEquip);
-  //   onAddEquipment(newSlot)
-  // }
+    const emptyInven = inventory[currentInventory].filter(
+      (slot) => slot.isOpen && slot.item === undefined
+    )
+    if (emptyInven.length === 0) {
+      console.log('장비창 꽉찼다!')
+      return
+    }
+    const randomNum = Math.floor(Math.random() * pantsListQeury.data.length)
+
+    const item = await getEquipment({
+      itemId: pantsListQeury.data[randomNum].id
+    })
+    console.log(item)
+    const newItem: EquipItemType = {
+      ...EMPTY_EQUIP,
+      id: uuid(),
+      name: item.description.name,
+      category: item.typeInfo.subCategory as SubCategory,
+      categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
+      image: `https://maplestory.io/api/KMS/352/item/${item.id}/icon`,
+      max_upgrade: item.metaInfo.tuc,
+      upgrade: 0,
+      upgrade_avalable: item.metaInfo.tuc,
+      max_star: 5,
+      islots: item.metaInfo.islots[0]
+    }
+
+    onAddEquipment({
+      ...emptyInven[0],
+      item: newItem
+    })
+  }
 
   const onGetAllEquipment = async () => {
     try {
@@ -158,11 +192,11 @@ const App: React.FC = () => {
     // 장비창에서 인벤토리로 이동
     if ('slotType' in startSlot) {
       // 장비는 제거
-      onRemoveEquip('Wp')
+      onRemoveEquip(startSlot.slotType)
 
       // 인벤토리에 아이템이 있으면 인벤토리 아이템을 장비창에 추가
       if (endSlot.item) {
-        onSetEquip('Wp', endSlot.item)
+        onSetEquip(startSlot.slotType, endSlot.item)
       }
       // 장비창의 아이템을 인벤토리로 추가
       onAddEquipment({
@@ -193,7 +227,7 @@ const App: React.FC = () => {
         })
       }
       // 인벤토리 아이템을 장비창에 장착
-      onSetEquip('Wp', startSlot.item)
+      onSetEquip(endSlot.slotType, startSlot.item)
     }
   }
 
@@ -240,6 +274,7 @@ const App: React.FC = () => {
           <S.Horizontal>
             {/* <S.Button onClick={() => getAllEquip()}>가져오자!</S.Button> */}
             <S.Button onClick={() => getEquipBy('검')}>장비 추가</S.Button>
+            {/* <S.Button onClick={() => addRandomEquip()}>하의 추가</S.Button> */}
             <S.Button
               disabled={equipMaxNum > 50}
               className={equipMaxNum > 50 ? 'disabled' : ''}
@@ -265,6 +300,7 @@ const App: React.FC = () => {
           <Equipment handleDrop={inventoryToEquipDrop} />
         </S.Bound>
       </S.BoundWrapper>
+      <ToolTip positionX={0} positionY={0} />
     </S.Contianer>
   )
 }

@@ -12,7 +12,7 @@ const ToolTipPrev: React.FC = () => {
   if (!currentItem) return null
   const {
     job,
-    category,
+    categoryName,
     star,
     STR,
     DEX,
@@ -93,7 +93,7 @@ const ToolTipPrev: React.FC = () => {
     return (
       <div className="tooltip-frame-line-img">
         <div className="tooltip-detail-wrapper">
-          <div className="tooltip-category">무기분류 : {category}</div>
+          <div className="tooltip-category">무기분류 : {categoryName}</div>
           {renderStatus(STR)}
           {renderStatus(DEX)}
           {renderStatus(INT)}

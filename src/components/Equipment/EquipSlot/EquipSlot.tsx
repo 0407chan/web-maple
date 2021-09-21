@@ -58,17 +58,28 @@ const EquipSlot: React.FC<SlotProps> = ({ slot, onDrop }) => {
         console.log('싱글 클릭')
       }, 200)
     } else if (event.detail === 2) {
+      // if (slot.item) {
+      //   if (equipment[9].item) {
+      //     const emptySlot = getEmptySlot()
+      //     if (emptySlot) {
+      //       onAddEquipment({
+      //         ...emptySlot,
+      //         item: equipment[9].item
+      //       })
+      //       onRemoveEquip('Wp')
+      //       onHideTooltip()
+      //     }
+      //   }
+      // }
       if (slot.item) {
-        if (equipment[9].item) {
-          const emptySlot = getEmptySlot()
-          if (emptySlot) {
-            onAddEquipment({
-              ...emptySlot,
-              item: equipment[9].item
-            })
-            onRemoveEquip('Wp')
-            onHideTooltip()
-          }
+        const emptySlot = getEmptySlot()
+        if (emptySlot) {
+          onAddEquipment({
+            ...emptySlot,
+            item: slot.item
+          })
+          onRemoveEquip(slot.slotType)
+          onHideTooltip()
         }
       }
     }

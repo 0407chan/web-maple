@@ -88,6 +88,7 @@ export type EquipGroup =
   | 'Ring'
 
 export type SubCategory =
+  | 'One-Handed Sword'
   | 'Two-Handed Sword'
   | 'Two-Handed Axe'
   | 'Spear'
@@ -108,6 +109,51 @@ export type SubCategory =
   | 'Ring'
   | 'Shoulder Accessory'
 
+export type SubCategoryName =
+  | '한손검'
+  | '두손검'
+  | '두손도끼'
+  | '창'
+  | '상의'
+  | '하의'
+  | '망토'
+  | '장갑'
+  | '모자'
+  | '한벌옷'
+  | '방패'
+  | '신발'
+  | '벨트'
+  | '귀걸이'
+  | '엠블렘'
+  | '눈장식'
+  | '얼굴장식'
+  | '팬던트'
+  | '반지'
+  | '어깨장식'
+
+export const subCategoryName: Record<SubCategory, SubCategoryName> = {
+  'One-Handed Sword': '한손검',
+  'Two-Handed Sword': '두손검',
+  'Two-Handed Axe': '두손도끼',
+  Spear: '창',
+  Top: '상의',
+  Bottom: '하의',
+  Cape: '망토',
+  Glove: '장갑',
+  Hat: '모자',
+  Overall: '한벌옷',
+  Shield: '방패',
+  Shoes: '신발',
+  Belt: '벨트',
+  Earrings: '귀걸이',
+  Emblem: '엠블렘',
+  'Eye Decoration': '눈장식',
+  'Face Accessory': '얼굴장식',
+  Pendant: '팬던트',
+  Ring: '반지',
+  'Shoulder Accessory': '어깨장식'
+}
+
 export type GetEquipmentQuery = {
   itemId: number
 }
@@ -118,7 +164,7 @@ export type GetEquipmentListQuery = {
   count?: number
   overallCategoryFilter?: string
   categoryFilter?: string
-  subCategoryFilter?: string
+  subCategoryFilter?: SubCategory
   jobFilter?: number
   cashFilter?: boolean
   minLevelFilter?: number

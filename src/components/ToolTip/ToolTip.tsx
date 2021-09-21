@@ -1,4 +1,5 @@
 import useInventory from '@/hooks/useInventory'
+import useToolTip from '@/hooks/useToolTip'
 import useUser from '@/hooks/useUser'
 import { StatusBase } from '@/types/inventory'
 import IMAGE from '@/utils/images'
@@ -11,9 +12,11 @@ type ToolTipProps = {
 }
 const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
   const { currentItem } = useInventory()
+  const { mouseX, mouseY, visible } = useToolTip()
   const { getStatAttack } = useUser()
 
-  if (!currentItem) return null
+  if (!currentItem || !visible) return null
+
   const {
     job,
     category,
@@ -39,9 +42,14 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
   // // };
 
   const position = {
-    top: positionY,
-    left: positionX
+    top: `${mouseY + 3}px`,
+    left: `${mouseX + 3}px`
   }
+
+  // const position = {
+  //   top: positionY,
+  //   left: positionX
+  // }
 
   // const itemGrade = () => {}
 
@@ -153,7 +161,11 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
   }
 
   return (
-    <S.Contianer id="new-tooltip" style={position}>
+    <S.Contianer
+      id="new-tooltip"
+      style={position}
+      onMouseOver={(event) => event.stopPropagation()}
+    >
       <S.StarWrapper>{renderStar()}</S.StarWrapper>
       <S.ItemNameWapper>
         <S.ItemName>

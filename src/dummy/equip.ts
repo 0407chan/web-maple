@@ -5,7 +5,8 @@ import { v4 as uuid } from 'uuid'
 export const EMPTY_EQUIP: EquipItemType = {
   id: '',
   job: '',
-  category: '',
+  category: 'One-Handed Sword',
+  categoryName: '한손검',
   equipGroup: 'Weapon',
   islots: 'Wp',
   name: '',
@@ -75,7 +76,8 @@ export const EQUIP_LIST: EquipItemType[] = [
   {
     id: uuid(),
     job: '전 직업',
-    category: '한손검',
+    category: 'One-Handed Sword',
+    categoryName: '한손검',
     equipGroup: 'Weapon',
     islots: 'Wp',
     name: '주황버섯 갓',
@@ -143,7 +145,8 @@ export const EQUIP_LIST: EquipItemType[] = [
   {
     id: uuid(),
     job: '전 직업',
-    category: '한손검',
+    category: 'One-Handed Sword',
+    categoryName: '한손검',
     equipGroup: 'Weapon',
     islots: 'Wp',
     name: '돼지 리본',
@@ -211,7 +214,8 @@ export const EQUIP_LIST: EquipItemType[] = [
   {
     id: uuid(),
     job: '전 직업',
-    category: '한손검',
+    category: 'One-Handed Sword',
+    categoryName: '한손검',
     equipGroup: 'Weapon',
     islots: 'Wp',
     name: '나뭇 가지',
@@ -279,7 +283,8 @@ export const EQUIP_LIST: EquipItemType[] = [
   {
     id: uuid(),
     job: '전 직업',
-    category: '한손검',
+    category: 'One-Handed Sword',
+    categoryName: '한손검',
     equipGroup: 'Weapon',
     islots: 'Wp',
     name: '슬라임 액체',

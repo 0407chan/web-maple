@@ -1,4 +1,9 @@
-import { EquipGroup, ISlotsType } from '../equipment'
+import {
+  EquipGroup,
+  ISlotsType,
+  SubCategory,
+  SubCategoryName
+} from '../equipment'
 
 export type InventoryType = 'Equip' | 'Use' | 'Etc'
 
@@ -29,7 +34,8 @@ export type EquipItemType = {
   job: string
   islots: ISlotsType
   equipGroup: EquipGroup
-  category: string
+  category: SubCategory
+  categoryName: SubCategoryName
   name: string
   image: string
   STR: StatusBase

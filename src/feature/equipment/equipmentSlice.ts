@@ -23,6 +23,18 @@ emptyInven.push({
 })
 emptyInven.push({
   id: uuid(),
+  slotType: 'Ay',
+  slotTypeName: SlotName['Ay'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Af',
+  slotTypeName: SlotName['Af'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
   slotType: 'Ma',
   slotTypeName: SlotName['Ma'],
   isOpen: true
@@ -67,6 +79,18 @@ emptyInven.push({
   id: uuid(),
   slotType: 'Wp',
   slotTypeName: SlotName['Wp'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'So',
+  slotTypeName: SlotName['So'],
+  isOpen: true
+})
+emptyInven.push({
+  id: uuid(),
+  slotType: 'Be',
+  slotTypeName: SlotName['Be'],
   isOpen: true
 })
 

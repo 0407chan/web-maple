@@ -157,7 +157,7 @@ export const subCategoryName: Record<SubCategory, SubCategoryName> = {
 export type GetEquipmentQuery = {
   itemId: number
 }
-export type GetEquipmentResponse = EquipmentItemType
+export type GetEquipmentResponse = EquipmentItemDto
 
 export type GetEquipmentListQuery = {
   startPosition?: number
@@ -224,7 +224,16 @@ export type MetaInfo = {
   reqJob: number
   reqLevelEquip: number
   tuc: number
-  incPAD: number
+  incPAD: number // 공격력
+  incSTR: number // STR
+  incDEX: number // DEX
+  incINT: number // INT
+  incLUK: number // LUK
+  incMHP: number // HP
+  incMMP: number // MP
+  incPDD: number // 물리 방어력
+  incMDD: number // 마법 방어력
+  incEVA: number // 회피율
   attack: number
   attackSpeed: number
   vslots: string[]
@@ -240,7 +249,7 @@ export type TypeInfo = {
   subCategory: string
 }
 
-export type EquipmentItemType = {
+export type EquipmentItemDto = {
   frameBooks: FrameBooks
   equipGroup: string
   id: number

@@ -44,8 +44,11 @@ export type EquipItemType = {
   LUK: StatusBase
   HP: StatusBase
   MP: StatusBase
+  PHYSICAL_DEFENCE: StatusBase
+  MAGICAL_DEFENCE: StatusBase
   WEAPON_ATTACK: StatusBase
   MAGIC_ATTACK: StatusBase
+  AVOIDABLILITY: StatusBase
   AllStat: StatusBase
   upgrade_avalable: number
   max_upgrade: number

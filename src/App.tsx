@@ -12,6 +12,7 @@ import { EMPTY_EQUIP } from './dummy/equip'
 import useEquipment from './hooks/useEquipment'
 import useUiWindow from './hooks/useUiWindow'
 import {
+  EquipmentItemDto,
   EquipSlotType,
   GetEquipmentListQuery,
   SubCategory,
@@ -103,14 +104,14 @@ const App: React.FC = () => {
     promise.push(getEquipment({ itemId: 1100001 })) //망토
     promise.push(getEquipment({ itemId: 1082004 })) //장갑
     promise.push(getEquipment({ itemId: 1002025 })) //투구
-    promise.push(getEquipment({ itemId: 1050000 })) //한벌옷
-    promise.push(getEquipment({ itemId: 1092008 })) //방패
+    // promise.push(getEquipment({ itemId: 1050000 })) //한벌옷
+    // promise.push(getEquipment({ itemId: 1092008 })) //방패
     promise.push(getEquipment({ itemId: 1072970 })) //신발
 
     // 악세
     promise.push(getEquipment({ itemId: 1132006 })) //벨트
     promise.push(getEquipment({ itemId: 1032000 })) //귀걸이
-    promise.push(getEquipment({ itemId: 1190000 })) //엠블렘
+    // promise.push(getEquipment({ itemId: 1190000 })) //엠블렘
     promise.push(getEquipment({ itemId: 1022144 })) //눈장식
     promise.push(getEquipment({ itemId: 1012070 })) //얼굴장식
     promise.push(getEquipment({ itemId: 1122000 })) //팬던트
@@ -118,25 +119,71 @@ const App: React.FC = () => {
     promise.push(getEquipment({ itemId: 1152178 })) //견장
     const itemList = await Promise.all(promise)
 
-    const equipGroup = new Set()
-    const category = new Set()
-    const overallCategory = new Set()
-    const subCategory = new Set()
-    const islots = new Set()
-    itemList.forEach((item) => {
-      equipGroup.add(item.equipGroup)
-      category.add(item.typeInfo.category)
-      overallCategory.add(item.typeInfo.overallCategory)
-      subCategory.add(item.typeInfo.subCategory)
-      item.metaInfo.islots.forEach((slot) => islots.add(slot))
-      console.log(item.description.name, item.metaInfo.islots)
+    itemList.forEach((item, index) => {
+      onAddEquipment({
+        ...inventory[currentInventory][index],
+        item: transDtoToType(item)
+      })
     })
-    console.log('equipGroup', Array.from(equipGroup))
-    console.log('category', Array.from(category))
-    console.log('subCategory', Array.from(subCategory))
-    console.log('overallCategory', Array.from(overallCategory))
-    console.log('islots', Array.from(islots))
-    console.log(itemList)
+  }
+
+  const transDtoToType = (itemDto: EquipmentItemDto) => {
+    console.log(itemDto.description.name, itemDto.metaInfo)
+    const result: EquipItemType = {
+      ...EMPTY_EQUIP,
+      id: uuid(),
+      name: itemDto.description.name,
+      category: itemDto.typeInfo.subCategory as SubCategory,
+      categoryName:
+        subCategoryName[itemDto.typeInfo.subCategory as SubCategory],
+      image: `https://maplestory.io/api/KMS/352/item/${itemDto.id}/icon`,
+      max_upgrade: itemDto.metaInfo.tuc,
+      upgrade: 0,
+      max_star: 5,
+      upgrade_avalable: itemDto.metaInfo.tuc,
+      islots: itemDto.metaInfo.islots[0],
+      WEAPON_ATTACK: {
+        ...EMPTY_EQUIP.WEAPON_ATTACK,
+        base: itemDto.metaInfo.incPAD || EMPTY_EQUIP.WEAPON_ATTACK.base
+      },
+      STR: {
+        ...EMPTY_EQUIP.STR,
+        base: itemDto.metaInfo.incSTR || EMPTY_EQUIP.STR.base
+      },
+      INT: {
+        ...EMPTY_EQUIP.INT,
+        base: itemDto.metaInfo.incINT || EMPTY_EQUIP.INT.base
+      },
+      DEX: {
+        ...EMPTY_EQUIP.DEX,
+        base: itemDto.metaInfo.incDEX || EMPTY_EQUIP.DEX.base
+      },
+      LUK: {
+        ...EMPTY_EQUIP.LUK,
+        base: itemDto.metaInfo.incLUK || EMPTY_EQUIP.LUK.base
+      },
+      MP: {
+        ...EMPTY_EQUIP.MP,
+        base: itemDto.metaInfo.incMMP || EMPTY_EQUIP.MP.base
+      },
+      HP: {
+        ...EMPTY_EQUIP.HP,
+        base: itemDto.metaInfo.incMHP || EMPTY_EQUIP.HP.base
+      },
+      PHYSICAL_DEFENCE: {
+        ...EMPTY_EQUIP.PHYSICAL_DEFENCE,
+        base: itemDto.metaInfo.incPDD || EMPTY_EQUIP.PHYSICAL_DEFENCE.base
+      },
+      MAGICAL_DEFENCE: {
+        ...EMPTY_EQUIP.MAGICAL_DEFENCE,
+        base: itemDto.metaInfo.incMDD || EMPTY_EQUIP.MAGICAL_DEFENCE.base
+      },
+      AVOIDABLILITY: {
+        ...EMPTY_EQUIP.AVOIDABLILITY,
+        base: itemDto.metaInfo.incEVA || EMPTY_EQUIP.AVOIDABLILITY.base
+      }
+    }
+    return result
   }
 
   const addRandomEquip = async () => {
@@ -161,7 +208,7 @@ const App: React.FC = () => {
       id: uuid(),
       name: item.description.name,
       category: item.typeInfo.subCategory as SubCategory,
-      categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
+      // categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
       image: `https://maplestory.io/api/KMS/352/item/${item.id}/icon`,
       max_upgrade: item.metaInfo.tuc,
       upgrade: 0,
@@ -265,6 +312,9 @@ const App: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [uiWindowList])
+  useEffect(() => {
+    getAllEquip()
+  }, [])
 
   return (
     <S.Contianer>

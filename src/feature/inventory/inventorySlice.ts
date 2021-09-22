@@ -11,16 +11,10 @@ export type InventoryState = {
 
 const equipInven: SlotType[] = []
 const emptyInven: SlotType[] = []
-for (let i = 0; i < 24; i++) {
-  // const randomNum = Math.floor(Math.random() * EQUIP_LIST.length)
-  // let item: EquipItemType | undefined = undefined
-  // // if (i < 4) {
-  // //   item = EQUIP_LIST[randomNum]
-  // // }
-
+for (let i = 0; i < 30; i++) {
   const item = undefined
-  const newSlot: SlotType = { id: uuid(), item, isOpen: i < 18 ? true : false }
-  emptyInven.push({ id: uuid(), isOpen: i < 18 ? true : false })
+  const newSlot: SlotType = { id: uuid(), item, isOpen: i < 20 ? true : false }
+  emptyInven.push({ id: uuid(), isOpen: i < 20 ? true : false })
   equipInven.push(newSlot)
 }
 

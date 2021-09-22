@@ -53,10 +53,28 @@ export const EMPTY_EQUIP: EquipItemType = {
     label: '공격력',
     reinforce: 0
   },
+  PHYSICAL_DEFENCE: {
+    base: 0,
+    bonus: 0,
+    label: '물리 방어력',
+    reinforce: 0
+  },
+  MAGICAL_DEFENCE: {
+    base: 0,
+    bonus: 0,
+    label: '마법 방어력',
+    reinforce: 0
+  },
   MAGIC_ATTACK: {
     base: 0,
     bonus: 0,
     label: '마력',
+    reinforce: 0
+  },
+  AVOIDABLILITY: {
+    base: 0,
+    bonus: 0,
+    label: '회피율',
     reinforce: 0
   },
   AllStat: {
@@ -74,6 +92,7 @@ export const EMPTY_EQUIP: EquipItemType = {
 
 export const EQUIP_LIST: EquipItemType[] = [
   {
+    ...EMPTY_EQUIP,
     id: uuid(),
     job: '전 직업',
     category: 'One-Handed Sword',
@@ -124,6 +143,18 @@ export const EQUIP_LIST: EquipItemType[] = [
       label: '공격력',
       reinforce: 0
     },
+    PHYSICAL_DEFENCE: {
+      base: 0,
+      bonus: 0,
+      label: '물리 방어력',
+      reinforce: 0
+    },
+    MAGICAL_DEFENCE: {
+      base: 0,
+      bonus: 0,
+      label: '마법 방어력',
+      reinforce: 0
+    },
     MAGIC_ATTACK: {
       base: 10,
       bonus: 10,
@@ -141,212 +172,230 @@ export const EQUIP_LIST: EquipItemType[] = [
     upgrade: 3,
     max_star: 25,
     star: 12
-  },
-  {
-    id: uuid(),
-    job: '전 직업',
-    category: 'One-Handed Sword',
-    categoryName: '한손검',
-    equipGroup: 'Weapon',
-    islots: 'Wp',
-    name: '돼지 리본',
-    image: IMAGE.EquipImages[1],
-    STR: {
-      label: 'STR',
-      base: 15,
-      bonus: 15,
-      reinforce: 3
-    },
-    DEX: {
-      label: 'DEX',
-      base: 16,
-      bonus: 16,
-      reinforce: 5
-    },
-    INT: {
-      label: 'INT',
-      base: 6,
-      bonus: 6,
-      reinforce: 6
-    },
-    LUK: {
-      label: 'LUK',
-      base: 7,
-      bonus: 7,
-      reinforce: 7
-    },
-    HP: {
-      label: 'maxHP',
-      base: 80,
-      bonus: 80,
-      reinforce: 80
-    },
-    MP: {
-      label: 'maxMP',
-      base: 90,
-      bonus: 90,
-      reinforce: 90
-    },
-    WEAPON_ATTACK: {
-      label: '공격력',
-      base: 170,
-      bonus: 70,
-      reinforce: 100
-    },
-    MAGIC_ATTACK: {
-      label: '마력',
-      base: 10,
-      bonus: 10,
-      reinforce: 20
-    },
-    AllStat: {
-      label: '올스텟',
-      base: 5,
-      bonus: 5,
-      reinforce: 40
-    },
-    max_upgrade: 10,
-    upgrade_avalable: 3,
-    upgrade: 3,
-    max_star: 25,
-    star: 23
-  },
-  {
-    id: uuid(),
-    job: '전 직업',
-    category: 'One-Handed Sword',
-    categoryName: '한손검',
-    equipGroup: 'Weapon',
-    islots: 'Wp',
-    name: '나뭇 가지',
-    image: IMAGE.EquipImages[2],
-    STR: {
-      label: 'STR',
-      base: 20,
-      bonus: 20,
-      reinforce: 3
-    },
-    DEX: {
-      label: 'DEX',
-      base: 23,
-      bonus: 23,
-      reinforce: 5
-    },
-    INT: {
-      label: 'INT',
-      base: 6,
-      bonus: 6,
-      reinforce: 6
-    },
-    LUK: {
-      label: 'LUK',
-      base: 7,
-      bonus: 7,
-      reinforce: 7
-    },
-    HP: {
-      label: 'maxHP',
-      base: 80,
-      bonus: 80,
-      reinforce: 80
-    },
-    MP: {
-      label: 'maxMP',
-      base: 90,
-      bonus: 90,
-      reinforce: 90
-    },
-    WEAPON_ATTACK: {
-      label: '공격력',
-      base: 240,
-      bonus: 22,
-      reinforce: 100
-    },
-    MAGIC_ATTACK: {
-      label: '마력',
-      base: 10,
-      bonus: 10,
-      reinforce: 20
-    },
-    AllStat: {
-      label: '올스텟',
-      base: 5,
-      bonus: 5,
-      reinforce: 40
-    },
-    max_upgrade: 10,
-    upgrade_avalable: 3,
-    upgrade: 3,
-    max_star: 25,
-    star: 23
-  },
-  {
-    id: uuid(),
-    job: '전 직업',
-    category: 'One-Handed Sword',
-    categoryName: '한손검',
-    equipGroup: 'Weapon',
-    islots: 'Wp',
-    name: '슬라임 액체',
-    image: IMAGE.EquipImages[3],
-    STR: {
-      label: 'STR',
-      base: 34,
-      bonus: 34,
-      reinforce: 3
-    },
-    DEX: {
-      label: 'DEX',
-      base: 31,
-      bonus: 31,
-      reinforce: 5
-    },
-    INT: {
-      label: 'INT',
-      base: 6,
-      bonus: 6,
-      reinforce: 6
-    },
-    LUK: {
-      label: 'LUK',
-      base: 7,
-      bonus: 7,
-      reinforce: 7
-    },
-    HP: {
-      label: 'maxHP',
-      base: 80,
-      bonus: 80,
-      reinforce: 80
-    },
-    MP: {
-      label: 'maxMP',
-      base: 90,
-      bonus: 90,
-      reinforce: 90
-    },
-    WEAPON_ATTACK: {
-      label: '공격력',
-      base: 310,
-      bonus: 11,
-      reinforce: 100
-    },
-    MAGIC_ATTACK: {
-      label: '마력',
-      base: 10,
-      bonus: 10,
-      reinforce: 20
-    },
-    AllStat: {
-      label: '올스텟',
-      base: 5,
-      bonus: 5,
-      reinforce: 40
-    },
-    max_upgrade: 10,
-    upgrade_avalable: 3,
-    upgrade: 3,
-    max_star: 25,
-    star: 23
   }
+  // {
+  //   id: uuid(),
+  //   job: '전 직업',
+  //   category: 'One-Handed Sword',
+  //   categoryName: '한손검',
+  //   equipGroup: 'Weapon',
+  //   islots: 'Wp',
+  //   name: '돼지 리본',
+  //   image: IMAGE.EquipImages[1],
+  //   STR: {
+  //     label: 'STR',
+  //     base: 15,
+  //     bonus: 15,
+  //     reinforce: 3
+  //   },
+  //   DEX: {
+  //     label: 'DEX',
+  //     base: 16,
+  //     bonus: 16,
+  //     reinforce: 5
+  //   },
+  //   INT: {
+  //     label: 'INT',
+  //     base: 6,
+  //     bonus: 6,
+  //     reinforce: 6
+  //   },
+  //   LUK: {
+  //     label: 'LUK',
+  //     base: 7,
+  //     bonus: 7,
+  //     reinforce: 7
+  //   },
+  //   HP: {
+  //     label: 'maxHP',
+  //     base: 80,
+  //     bonus: 80,
+  //     reinforce: 80
+  //   },
+  //   MP: {
+  //     label: 'maxMP',
+  //     base: 90,
+  //     bonus: 90,
+  //     reinforce: 90
+  //   },
+  //   WEAPON_ATTACK: {
+  //     label: '공격력',
+  //     base: 170,
+  //     bonus: 70,
+  //     reinforce: 100
+  //   },
+  //   WEAPON_DEFENCE: {
+  //     base: 0,
+  //     bonus: 0,
+  //     label: '방어력',
+  //     reinforce: 0
+  //   },
+  //   MAGIC_ATTACK: {
+  //     label: '마력',
+  //     base: 10,
+  //     bonus: 10,
+  //     reinforce: 20
+  //   },
+  //   AllStat: {
+  //     label: '올스텟',
+  //     base: 5,
+  //     bonus: 5,
+  //     reinforce: 40
+  //   },
+  //   max_upgrade: 10,
+  //   upgrade_avalable: 3,
+  //   upgrade: 3,
+  //   max_star: 25,
+  //   star: 23
+  // },
+  // {
+  //   id: uuid(),
+  //   job: '전 직업',
+  //   category: 'One-Handed Sword',
+  //   categoryName: '한손검',
+  //   equipGroup: 'Weapon',
+  //   islots: 'Wp',
+  //   name: '나뭇 가지',
+  //   image: IMAGE.EquipImages[2],
+  //   STR: {
+  //     label: 'STR',
+  //     base: 20,
+  //     bonus: 20,
+  //     reinforce: 3
+  //   },
+  //   DEX: {
+  //     label: 'DEX',
+  //     base: 23,
+  //     bonus: 23,
+  //     reinforce: 5
+  //   },
+  //   INT: {
+  //     label: 'INT',
+  //     base: 6,
+  //     bonus: 6,
+  //     reinforce: 6
+  //   },
+  //   LUK: {
+  //     label: 'LUK',
+  //     base: 7,
+  //     bonus: 7,
+  //     reinforce: 7
+  //   },
+  //   HP: {
+  //     label: 'maxHP',
+  //     base: 80,
+  //     bonus: 80,
+  //     reinforce: 80
+  //   },
+  //   MP: {
+  //     label: 'maxMP',
+  //     base: 90,
+  //     bonus: 90,
+  //     reinforce: 90
+  //   },
+  //   WEAPON_ATTACK: {
+  //     label: '공격력',
+  //     base: 240,
+  //     bonus: 22,
+  //     reinforce: 100
+  //   },
+  //   WEAPON_DEFENCE: {
+  //     base: 0,
+  //     bonus: 0,
+  //     label: '방어력',
+  //     reinforce: 0
+  //   },
+  //   MAGIC_ATTACK: {
+  //     label: '마력',
+  //     base: 10,
+  //     bonus: 10,
+  //     reinforce: 20
+  //   },
+  //   AllStat: {
+  //     label: '올스텟',
+  //     base: 5,
+  //     bonus: 5,
+  //     reinforce: 40
+  //   },
+  //   max_upgrade: 10,
+  //   upgrade_avalable: 3,
+  //   upgrade: 3,
+  //   max_star: 25,
+  //   star: 23
+  // },
+  // {
+  //   id: uuid(),
+  //   job: '전 직업',
+  //   category: 'One-Handed Sword',
+  //   categoryName: '한손검',
+  //   equipGroup: 'Weapon',
+  //   islots: 'Wp',
+  //   name: '슬라임 액체',
+  //   image: IMAGE.EquipImages[3],
+  //   STR: {
+  //     label: 'STR',
+  //     base: 34,
+  //     bonus: 34,
+  //     reinforce: 3
+  //   },
+  //   DEX: {
+  //     label: 'DEX',
+  //     base: 31,
+  //     bonus: 31,
+  //     reinforce: 5
+  //   },
+  //   INT: {
+  //     label: 'INT',
+  //     base: 6,
+  //     bonus: 6,
+  //     reinforce: 6
+  //   },
+  //   LUK: {
+  //     label: 'LUK',
+  //     base: 7,
+  //     bonus: 7,
+  //     reinforce: 7
+  //   },
+  //   HP: {
+  //     label: 'maxHP',
+  //     base: 80,
+  //     bonus: 80,
+  //     reinforce: 80
+  //   },
+  //   MP: {
+  //     label: 'maxMP',
+  //     base: 90,
+  //     bonus: 90,
+  //     reinforce: 90
+  //   },
+  //   WEAPON_ATTACK: {
+  //     label: '공격력',
+  //     base: 310,
+  //     bonus: 11,
+  //     reinforce: 100
+  //   },
+  //   WEAPON_DEFENCE: {
+  //     base: 0,
+  //     bonus: 0,
+  //     label: '방어력',
+  //     reinforce: 0
+  //   },
+  //   MAGIC_ATTACK: {
+  //     label: '마력',
+  //     base: 10,
+  //     bonus: 10,
+  //     reinforce: 20
+  //   },
+  //   AllStat: {
+  //     label: '올스텟',
+  //     base: 5,
+  //     bonus: 5,
+  //     reinforce: 40
+  //   },
+  //   max_upgrade: 10,
+  //   upgrade_avalable: 3,
+  //   upgrade: 3,
+  //   max_star: 25,
+  //   star: 23
+  // }
 ]

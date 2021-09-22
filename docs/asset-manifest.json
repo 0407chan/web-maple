@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/web-maple/static/css/main.54c35801.chunk.css",
-    "main.js": "/web-maple/static/js/main.68444c60.chunk.js",
+    "main.js": "/web-maple/static/js/main.a79f34a8.chunk.js",
     "runtime-main.js": "/web-maple/static/js/runtime-main.3fa6d44f.js",
-    "static/js/2.3498571f.chunk.js": "/web-maple/static/js/2.3498571f.chunk.js",
+    "static/js/2.e98c18e6.chunk.js": "/web-maple/static/js/2.e98c18e6.chunk.js",
     "index.html": "/web-maple/index.html",
-    "static/js/2.3498571f.chunk.js.LICENSE.txt": "/web-maple/static/js/2.3498571f.chunk.js.LICENSE.txt",
+    "static/js/2.e98c18e6.chunk.js.LICENSE.txt": "/web-maple/static/js/2.e98c18e6.chunk.js.LICENSE.txt",
     "static/media/Inventory.scss": "/web-maple/static/media/Item.backgrnd2.9dae6b65.png"
   },
   "entrypoints": [
     "static/js/runtime-main.3fa6d44f.js",
-    "static/js/2.3498571f.chunk.js",
+    "static/js/2.e98c18e6.chunk.js",
     "static/css/main.54c35801.chunk.css",
-    "static/js/main.68444c60.chunk.js"
+    "static/js/main.a79f34a8.chunk.js"
   ]
 }

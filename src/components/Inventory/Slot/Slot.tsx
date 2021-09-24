@@ -27,12 +27,22 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
     })
   })
 
-  const isMySlot = (item: any) => {
-    if (item.id === slot.id) {
-      return false
+  const isMySlot = (item: SlotType) => {
+    if (
+      (item.item && item.item.islots === slot.item?.islots) ||
+      slot.item === undefined
+    ) {
+      return true
     }
-    return true
+    return false
   }
+
+  // const isMySlot = (item: any) => {
+  //   if (item.id === slot.id) {
+  //     return false
+  //   }
+  //   return true
+  // }
 
   const isActive = () => {
     const isActive = isOver && canDrop

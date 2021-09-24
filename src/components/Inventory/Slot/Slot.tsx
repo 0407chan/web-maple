@@ -69,7 +69,7 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
     } else if (event.detail === 2) {
       if (slot.item) {
         const currentEquipSlot = equipment.find(
-          (equip) => equip.slotType === slot.item?.islots[0]
+          (equip) => equip.slotType === slot.item?.islots
         )
         onRemoveEquipItem(slot.id)
         if (currentEquipSlot && currentEquipSlot?.item) {

@@ -101,9 +101,9 @@ export const inventorySlice = createSlice({
           } else if (a.item === undefined && b.item === undefined) {
             return 0
           } else if (a.item !== undefined && b.item !== undefined) {
-            if (a.item.id > b.item.id) {
+            if (a.item.islots > b.item.islots) {
               return 1
-            } else if (a.item.id < b.item.id) {
+            } else if (a.item.islots < b.item.islots) {
               return -1
             } else {
               return 0

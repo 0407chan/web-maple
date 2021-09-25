@@ -148,7 +148,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     <S.Contianer
       id="new-tooltip"
       style={position}
-      onMouseOver={(event) => event.stopPropagation()}
+      onMouseEnter={(event) => event.stopPropagation()}
     >
       <S.StarWrapper>{renderStar()}</S.StarWrapper>
       <S.ItemNameWapper>

@@ -33,8 +33,13 @@ const App: React.FC = () => {
 
   const { onSetEquip, onRemoveEquip } = useEquipment()
 
-  const { onAddUiWindow, onRemoveUiWindow, uiWindowList, isOpenedWindow } =
-    useUiWindow()
+  const {
+    onAddUiWindow,
+    onRemoveUiWindow,
+    uiWindowList,
+    isOpenedWindow,
+    onRemoveLastWindow
+  } = useUiWindow()
 
   const [weaponListSearchQuery] = useState<GetEquipmentListQuery>({
     overallCategoryFilter: 'Equip',
@@ -301,7 +306,7 @@ const App: React.FC = () => {
       }
       case 'Escape': {
         if (uiWindowList.length > 0) {
-          onRemoveUiWindow(uiWindowList[uiWindowList.length - 1])
+          onRemoveLastWindow()
         }
       }
     }

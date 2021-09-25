@@ -58,13 +58,13 @@ const Item2: React.FC<ItemProps> = ({ slot }) => {
     let newY = event.clientY
     if (
       document.body.clientWidth <
-      (tooltip?.x || 0) + (tooltip?.width || 0) + 3
+      event.clientX + (tooltip?.width || 300) + 3
     ) {
-      newX = document.body.clientWidth - (tooltip?.width || 0) - 3
+      newX = document.body.clientWidth - (tooltip?.width || 300) - 3
     }
     if (
       document.body.clientHeight <
-      (tooltip?.y || 0) + (tooltip?.height || 0) + 3
+      event.clientY + (tooltip?.height || 0) + 3
     ) {
       newY = document.body.clientHeight - (tooltip?.height || 0) - 3
     }

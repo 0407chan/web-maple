@@ -1,6 +1,7 @@
 import {
   addUiWindow,
   removeUiWindow,
+  setTop,
   UiWindowType
 } from '@/feature/uiWindow/uiWindowSlice'
 import { RootState } from '@/store'
@@ -17,6 +18,11 @@ const useUiWindow = () => {
 
   const onAddUiWindow = (windowName: UiWindowType) => {
     dispatch(addUiWindow({ windowName }))
+    dispatch(setTop({ windowName }))
+  }
+
+  const onSetTop = (windowName: UiWindowType) => {
+    dispatch(setTop({ windowName }))
   }
 
   const onRemoveLastWindow = () => {
@@ -34,7 +40,8 @@ const useUiWindow = () => {
     onRemoveUiWindow,
     onAddUiWindow,
     onRemoveLastWindow,
-    isOpenedWindow
+    isOpenedWindow,
+    onSetTop
   }
 }
 

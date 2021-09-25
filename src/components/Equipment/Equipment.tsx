@@ -17,7 +17,7 @@ const TOOLTIP_WIDTH = 300 + 10
 
 const Equipment: React.FC<EquipmentProps> = ({ handleDrop }) => {
   const { visible } = useToolTip()
-  const { isOpenedWindow } = useUiWindow()
+  const { isOpenedWindow, uiWindowList, onSetTop } = useUiWindow()
   const { equipment } = useEquipment()
   const ref = useRef<HTMLDivElement>(null)
   const [inventoryPosition, setEquipmentPosition] = useState<{
@@ -54,8 +54,13 @@ const Equipment: React.FC<EquipmentProps> = ({ handleDrop }) => {
       <S.Contianer
         ref={ref}
         style={{
-          visibility: isOpenedWindow('Equipment') ? 'visible' : 'hidden'
+          visibility: isOpenedWindow('Equipment') ? 'visible' : 'hidden',
+          zIndex:
+            uiWindowList[uiWindowList.length - 1] === 'Equipment'
+              ? 1
+              : undefined
         }}
+        onClick={() => onSetTop('Equipment')}
       >
         <S.Header className="handle">EQUIPMENT INVENTORY</S.Header>
         <S.Body>

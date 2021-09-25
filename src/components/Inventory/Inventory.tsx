@@ -24,7 +24,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     inventory
   } = useInventory()
   const { visible } = useToolTip()
-  const { isOpenedWindow } = useUiWindow()
+  const { isOpenedWindow, uiWindowList, onSetTop } = useUiWindow()
   const ref = useRef<HTMLDivElement>(null)
   const [inventoryPosition, setInventoryPosition] = useState<{
     width: number
@@ -79,8 +79,13 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
         ref={ref}
         style={{
           left: inventoryPosition.width + inventoryPosition.width / 2 - 150,
-          visibility: isOpenedWindow('Inventory') ? 'visible' : 'hidden'
+          visibility: isOpenedWindow('Inventory') ? 'visible' : 'hidden',
+          zIndex:
+            uiWindowList[uiWindowList.length - 1] === 'Inventory'
+              ? 1
+              : undefined
         }}
+        onClick={() => onSetTop('Inventory')}
       >
         <S.InventoryHeader className="handle">ITEM INVENTORY</S.InventoryHeader>
         <S.InventoryBody>

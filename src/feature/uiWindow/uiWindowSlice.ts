@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export type UiWindowType = 'Inventory' | 'Equipment' | 'Skill'
+export type UiWindowType =
+  | 'Inventory'
+  | 'Equipment'
+  | 'Skill'
+  | 'FlameOfResurrection'
 
 export type UiWindowState = {
   uiWindowList: UiWindowType[]

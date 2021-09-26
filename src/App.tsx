@@ -1,9 +1,14 @@
 import useInventory from '@/hooks/useInventory'
 import React, { useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid'
-import { getEquipment, useGetEquipmentList } from './api/equipment'
+import {
+  getEquipment,
+  getEquipmentList,
+  useGetEquipmentList
+} from './api/equipment'
 import * as S from './appStyle'
 import Equipment from './components/Equipment'
+import FlameOfResurrection from './components/FlameOfResurrection'
 import Inventory from './components/Inventory'
 import InventoryPrev from './components/InventoryPrev'
 import ToolTip from './components/ToolTip'
@@ -283,6 +288,11 @@ const App: React.FC = () => {
     }
   }
 
+  const findItemByName = async (name: string) => {
+    const result = await getEquipmentList({ searchFor: name })
+    console.log('환불내놔', result)
+  }
+
   const handleKeyDown = (ev: KeyboardEvent) => {
     console.log(ev.key)
     switch (ev.key) {
@@ -311,6 +321,7 @@ const App: React.FC = () => {
       }
     }
   }
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
     return () => {
@@ -319,6 +330,7 @@ const App: React.FC = () => {
   }, [uiWindowList])
   useEffect(() => {
     getAllEquip()
+    // findItemByName('환생의 불꽃')
   }, [])
 
   return (
@@ -356,6 +368,7 @@ const App: React.FC = () => {
         </S.Bound>
       </S.BoundWrapper>
       <ToolTip positionX={0} positionY={0} />
+      <FlameOfResurrection />
     </S.Contianer>
   )
 }

@@ -1,5 +1,4 @@
 import useInventory from '@/hooks/useInventory'
-import useToolTip from '@/hooks/useToolTip'
 import useUiWindow from '@/hooks/useUiWindow'
 import { SlotType } from '@/types/inventory'
 import React, { useEffect, useRef, useState } from 'react'
@@ -23,8 +22,13 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     onSortInventory,
     inventory
   } = useInventory()
-  const { visible } = useToolTip()
-  const { isOpenedWindow, uiWindowList, onSetTop } = useUiWindow()
+  const {
+    isOpenedWindow,
+    uiWindowList,
+    onSetTop,
+    onAddUiWindow,
+    onRemoveUiWindow
+  } = useUiWindow()
   const ref = useRef<HTMLDivElement>(null)
   const [inventoryPosition, setInventoryPosition] = useState<{
     width: number
@@ -33,13 +37,12 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     left: number
   }>({ width: 0, height: 0, top: 0, left: 0 })
 
-  const [drag, setDrag] = useState(0)
-
-  const onStart = () => {
-    setDrag(1)
-  }
-  const onStop = () => {
-    setDrag(0)
+  const toggleFlameWindow = () => {
+    if (isOpenedWindow('FlameOfResurrection')) {
+      onRemoveUiWindow('FlameOfResurrection')
+    } else {
+      onAddUiWindow('FlameOfResurrection')
+    }
   }
 
   useEffect(() => {
@@ -54,22 +57,10 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     }
   }, [ref.current?.parentElement?.clientWidth])
 
-  const getTooltipX = () => {
-    if (!ref.current) return 0
-    const positionLeft = ref.current.getClientRects()[0].left
-    let result = inventoryPosition.left + TOOLTIP_WIDTH
-    if (positionLeft + 300 + TOOLTIP_WIDTH > document.body.clientWidth) {
-      result = inventoryPosition.left - TOOLTIP_WIDTH
-    }
-    return result
-  }
-
   return (
     <Draggable
       handle=".handle"
       bounds="body"
-      onStart={onStart}
-      onStop={onStop}
       defaultPosition={{
         x: inventoryPosition.width,
         y: 100
@@ -108,12 +99,6 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
             >
               기타
             </S.InventoryButton>
-            {/* <S.InventoryButton
-              onClick={onSetInventorySetup}
-              className={currentInventory === "Setup" ? 'isActive' : ''}
-            >
-              설치
-            </S.InventoryButton> */}
           </S.InventoryButtonWrapper>
           <S.ItemWrapper>
             {inventory[currentInventory].map((slot) => (
@@ -128,14 +113,9 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
         <S.InventoryFooter>
           <S.Horizontal>
             <S.Button onClick={onSortInventory}>정렬</S.Button>
+            <S.Button onClick={() => toggleFlameWindow()}>환불</S.Button>
           </S.Horizontal>
         </S.InventoryFooter>
-        {/* {visible && (
-          <ToolTip
-            positionX={getTooltipX()}
-            positionY={inventoryPosition.top}
-          />
-        )} */}
       </S.Contianer>
     </Draggable>
   )

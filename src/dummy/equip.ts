@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid'
 export const EMPTY_EQUIP: EquipItemType = {
   id: '',
   job: '',
+  level: 0,
   category: 'One-Handed Sword',
   categoryName: '한손검',
   equipGroup: 'Weapon',

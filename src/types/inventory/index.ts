@@ -32,6 +32,7 @@ export type SlotType = {
 export type EquipItemType = {
   id: string
   job: string
+  level: number
   islots: ISlotsType
   equipGroup: EquipGroup
   category: SubCategory

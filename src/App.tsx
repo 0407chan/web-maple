@@ -142,6 +142,7 @@ const App: React.FC = () => {
     const result: EquipItemType = {
       ...EMPTY_EQUIP,
       id: uuid(),
+      level: itemDto.metaInfo.reqLevel,
       name: itemDto.description.name,
       category: itemDto.typeInfo.subCategory as SubCategory,
       categoryName:

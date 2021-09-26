@@ -10,8 +10,9 @@ import * as S from './style'
 type SlotProps = {
   slot: SlotType
   onDrop: (slot: any) => void
+  isMySlot?: (item: SlotType) => boolean
 }
-const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
+const Slot: React.FC<SlotProps> = ({ slot, onDrop, isMySlot }) => {
   let timer: any = undefined
   const { equipment, onSetEquip } = useEquipment()
   const { onRemoveEquipItem, onAddEquipment } = useInventory()
@@ -20,14 +21,14 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop }) => {
     accept: 'item',
     drop: onDrop,
     // drop: (item, monitor) => onDrop(monitor),
-    canDrop: (item) => isMySlot(item),
+    canDrop: (item) => (isMySlot ? isMySlot(item) : checkIsMySlot(item)),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop()
     })
   })
 
-  const isMySlot = (item: SlotType) => {
+  const checkIsMySlot = (item: SlotType) => {
     if (
       (item.item && item.item.islots === slot.item?.islots) ||
       slot.item === undefined

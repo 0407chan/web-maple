@@ -101,7 +101,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
         >
           {status.label} : +{status.base + status.bonus + status.reinforce}{' '}
         </span>
-        {status.bonus > 0 && status.reinforce > 0 && (
+        {(status.bonus > 0 || status.reinforce > 0) && (
           <>
             ({status.base}
             {status.bonus > 0 && (

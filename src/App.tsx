@@ -73,6 +73,7 @@ const App: React.FC = () => {
       const newItem: EquipItemType = {
         ...EMPTY_EQUIP,
         id: uuid(),
+        bossReward: item.metaInfo.bossReward,
         name: item.description.name,
         category: item.typeInfo.subCategory as SubCategory,
         categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],

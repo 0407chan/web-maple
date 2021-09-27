@@ -208,6 +208,7 @@ export type IconRawOrigin = {
 
 export type MetaInfo = {
   only: boolean
+  bossReward?: boolean
   cash: boolean
   reqLevel: number
   mob: number

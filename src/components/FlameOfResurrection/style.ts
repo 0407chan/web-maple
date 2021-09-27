@@ -42,9 +42,10 @@ export const Result = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 14px;
+  height: 110px;
   width: 100%;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   padding: 10px;

@@ -17,7 +17,7 @@ export const Contianer = styled.div`
   border: 1px solid #eeeeee 1px solid #747474;
   position: absolute;
   z-index: 15;
-  width: 300px;
+  width: 330px;
 
   .name {
     color: white;

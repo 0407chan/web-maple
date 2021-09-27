@@ -27,15 +27,17 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     LUK,
     HP,
     MP,
-    PHYSICAL_DEFENCE,
-    MAGICAL_DEFENCE,
+    DEFENCE,
     AllStat,
     WEAPON_ATTACK,
     MAGIC_ATTACK,
     max_star,
     upgrade,
     max_upgrade,
-    upgrade_avalable
+    upgrade_avalable,
+    IgnoreDefence,
+    bossDemage,
+    demage
   } = currentItem
 
   // // const position = {
@@ -117,6 +119,33 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     )
   }
 
+  const renderStatusRate = (status: StatusBase) => {
+    if (status.base + status.bonus + status.reinforce === 0) return
+    return (
+      <S.Status>
+        <span
+          className={`${
+            (status.bonus > 0 || status.reinforce > 0) && 'add-color'
+          }`}
+        >
+          {status.label} : +{status.base + status.bonus + status.reinforce}%{' '}
+        </span>
+        {(status.bonus > 0 || status.reinforce > 0) && (
+          <>
+            ({status.base}%
+            {status.bonus > 0 && (
+              <span className="chu-color"> +{status.bonus}%</span>
+            )}
+            {status.reinforce > 0 && (
+              <span className="add-color"> +{status.reinforce}%</span>
+            )}
+            )
+          </>
+        )}
+      </S.Status>
+    )
+  }
+
   const renderStar = () => {
     const result = []
     let starBundle: { index: number; src: string }[] = []
@@ -186,11 +215,13 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
           {renderStatus(LUK)}
           {renderStatus(HP)}
           {renderStatus(MP)}
-          {renderStatus(PHYSICAL_DEFENCE)}
-          {renderStatus(MAGICAL_DEFENCE)}
+          {renderStatus(DEFENCE)}
           {renderStatus(WEAPON_ATTACK)}
           {renderStatus(MAGIC_ATTACK)}
-          {renderStatus(AllStat)}
+          {renderStatusRate(bossDemage)}
+          {renderStatusRate(IgnoreDefence)}
+          {renderStatusRate(demage)}
+          {renderStatusRate(AllStat)}
           {upgrade_avalable > 0 && upgrade_avalable !== undefined && (
             <div className="tooltip-upgrade">
               업그레이드 가능 횟수 : {upgrade_avalable}{' '}

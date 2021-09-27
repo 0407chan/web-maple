@@ -8,7 +8,9 @@ export const Contianer = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.8);
   border-radius: 5px;
-  width: 300px;
+  padding: 20px;
+  gap: 10px;
+  width: 250px;
   height: fit-content;
 `
 
@@ -19,8 +21,8 @@ export const Header = styled.div`
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  margin-bottom: 10px;
   color: #ffcc5f;
-  padding: 10px 0;
   cursor: grab;
   &:active {
     cursor: grabbing;
@@ -30,24 +32,23 @@ export const Header = styled.div`
 export const Body = styled.div`
   display: flex;
   width: 100%;
-  font-size: 12px;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   color: #ffcc5f;
-  padding: 10px 0;
 `
 
 export const Result = styled.div`
   display: flex;
   flex-direction: column;
+  font-size: 14px;
   width: 100%;
-  font-size: 12px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  color: #ffffff;
-  font-weight: bold;
-  padding: 10px 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  padding: 10px;
+  color: #e1e2e3;
 `
 
 export const Footer = styled.div`
@@ -55,7 +56,7 @@ export const Footer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 10px 10px 10px;
+  /* padding: 0 10px 10px 10px; */
   /* background-color: #eeeeeee7; */
   justify-content: center;
 `

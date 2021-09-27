@@ -5,12 +5,11 @@ import React, { useRef, useState } from 'react'
 import Draggable from 'react-draggable'
 import { v4 as uuid } from 'uuid'
 import Slot from '../Inventory/Slot'
-import {
-  ETERNAL_FLAME_PERCENTAGE,
-  POWERFUL_FLAME_PERCENTAGE
-} from './constants'
 import * as S from './style'
-import { getRandomNum } from './utils'
+import {
+  calcSingleBonusStatEternal,
+  calcSingleBonusStatPowerful
+} from './utils'
 
 // 2048716 강환불 Powerful Rebirth Flame
 // 2048717 영환불 Eternal Rebirth Flame
@@ -49,29 +48,12 @@ const FlameOfResurrection: React.FC = () => {
   // 스텟 = (렙 / 20 + 1) * (3,4,5,6,7)
   const onPowerfulFlame = () => {
     if (!item) return
-    let randomNum = Math.floor(Math.random() * 100 + 1)
-    const newStr =
-      (Math.floor(item.level / 20) + 1) *
-      (2 + POWERFUL_FLAME_PERCENTAGE.get(randomNum)!)
-    randomNum = Math.floor(Math.random() * 100 + 1)
-    const newDex =
-      (Math.floor(item.level / 20) + 1) *
-      (2 + POWERFUL_FLAME_PERCENTAGE.get(randomNum)!)
-    randomNum = Math.floor(Math.random() * 100 + 1)
-    const newInt =
-      (Math.floor(item.level / 20) + 1) *
-      (2 + POWERFUL_FLAME_PERCENTAGE.get(randomNum)!)
-    randomNum = Math.floor(Math.random() * 100 + 1)
-    const newLuk =
-      (Math.floor(item.level / 20) + 1) *
-      (2 + POWERFUL_FLAME_PERCENTAGE.get(randomNum)!)
-
     const newItem: EquipItemType = {
       ...item,
-      STR: { ...item.STR, bonus: newStr },
-      DEX: { ...item.DEX, bonus: newDex },
-      INT: { ...item.INT, bonus: newInt },
-      LUK: { ...item.LUK, bonus: newLuk }
+      STR: { ...item.STR, bonus: calcSingleBonusStatPowerful(item) },
+      DEX: { ...item.DEX, bonus: calcSingleBonusStatPowerful(item) },
+      INT: { ...item.INT, bonus: calcSingleBonusStatPowerful(item) },
+      LUK: { ...item.LUK, bonus: calcSingleBonusStatPowerful(item) }
     }
 
     setFlameSlot({ ...flameSlot, item: newItem })
@@ -79,27 +61,13 @@ const FlameOfResurrection: React.FC = () => {
 
   const onEternalFlame = () => {
     if (!item) return
-    const newStr =
-      (Math.floor(item.level / 20) + 1) *
-      (2 + ETERNAL_FLAME_PERCENTAGE.get(getRandomNum(100))!)
-    const newDex =
-      (Math.floor(item.level / 20) + 1) *
-      (2 + ETERNAL_FLAME_PERCENTAGE.get(getRandomNum(100))!)
-    const newInt =
-      (Math.floor(item.level / 20) + 1) *
-      (2 + ETERNAL_FLAME_PERCENTAGE.get(getRandomNum(100))!)
-    const newLuk =
-      (Math.floor(item.level / 20) + 1) *
-      (2 + ETERNAL_FLAME_PERCENTAGE.get(getRandomNum(100))!)
-
     const newItem: EquipItemType = {
       ...item,
-      STR: { ...item.STR, bonus: newStr },
-      DEX: { ...item.DEX, bonus: newDex },
-      INT: { ...item.INT, bonus: newInt },
-      LUK: { ...item.LUK, bonus: newLuk }
+      STR: { ...item.STR, bonus: calcSingleBonusStatEternal(item) },
+      DEX: { ...item.DEX, bonus: calcSingleBonusStatEternal(item) },
+      INT: { ...item.INT, bonus: calcSingleBonusStatEternal(item) },
+      LUK: { ...item.LUK, bonus: calcSingleBonusStatEternal(item) }
     }
-
     setFlameSlot({ ...flameSlot, item: newItem })
   }
 
@@ -124,48 +92,53 @@ const FlameOfResurrection: React.FC = () => {
         <S.Body>
           <Slot slot={flameSlot} onDrop={onDrop} isMySlot={isMySlot} />
         </S.Body>
-        {isBonus() ? (
-          <S.Result>
-            <div>RESULT</div>
-            {item && item.STR.bonus > 0 && (
-              <div>
-                STR : {item.STR.bonus} {`(${getGrade(item.STR.bonus)}추)`}
-              </div>
-            )}
-            {item && item.DEX.bonus > 0 && (
-              <div>
-                DEX : {item.DEX.bonus} {`(${getGrade(item.DEX.bonus)}추)`}
-              </div>
-            )}
-            {item && item.INT.bonus > 0 && (
-              <div>
-                INT : {item.INT.bonus} {`(${getGrade(item.INT.bonus)}추)`}
-              </div>
-            )}
-            {item && item.LUK.bonus > 0 && (
-              <div>
-                LUK : {item.LUK.bonus} {`(${getGrade(item.LUK.bonus)}추)`}
-              </div>
-            )}
-            {item && item.WEAPON_ATTACK.bonus > 0 && (
-              <div>
-                {item.WEAPON_ATTACK.label} : {item.WEAPON_ATTACK.bonus}
-              </div>
-            )}
-            {item && item.MAGIC_ATTACK.bonus > 0 && (
-              <div>
-                {item.MAGIC_ATTACK.label} : {item.MAGIC_ATTACK.bonus}
-              </div>
-            )}
-            {item && item.AllStat.bonus > 0 && (
-              <div>올스텟 : {item.AllStat.bonus}</div>
-            )}
-          </S.Result>
+        {flameSlot.item === undefined ? (
+          <S.Result>추가옵션을 변경할 아이템을 드래그해주세요.</S.Result>
         ) : (
-          <S.Result>
-            <div>추가 능력이 없습니다.</div>
-            <div> 버튼을 눌러 추가 능력을 부여해주세요.</div>
-          </S.Result>
+          <>
+            {isBonus() ? (
+              <S.Result>
+                {item && item.STR.bonus > 0 && (
+                  <div>
+                    STR : {item.STR.bonus} {`(${getGrade(item.STR.bonus)}추)`}
+                  </div>
+                )}
+                {item && item.DEX.bonus > 0 && (
+                  <div>
+                    DEX : {item.DEX.bonus} {`(${getGrade(item.DEX.bonus)}추)`}
+                  </div>
+                )}
+                {item && item.INT.bonus > 0 && (
+                  <div>
+                    INT : {item.INT.bonus} {`(${getGrade(item.INT.bonus)}추)`}
+                  </div>
+                )}
+                {item && item.LUK.bonus > 0 && (
+                  <div>
+                    LUK : {item.LUK.bonus} {`(${getGrade(item.LUK.bonus)}추)`}
+                  </div>
+                )}
+                {item && item.WEAPON_ATTACK.bonus > 0 && (
+                  <div>
+                    {item.WEAPON_ATTACK.label} : {item.WEAPON_ATTACK.bonus}
+                  </div>
+                )}
+                {item && item.MAGIC_ATTACK.bonus > 0 && (
+                  <div>
+                    {item.MAGIC_ATTACK.label} : {item.MAGIC_ATTACK.bonus}
+                  </div>
+                )}
+                {item && item.AllStat.bonus > 0 && (
+                  <div>올스텟 : {item.AllStat.bonus}</div>
+                )}
+              </S.Result>
+            ) : (
+              <S.Result>
+                <div>추가 능력이 없습니다.</div>
+                <div> 버튼을 눌러 추가 능력을 부여해주세요.</div>
+              </S.Result>
+            )}
+          </>
         )}
 
         <S.Footer>

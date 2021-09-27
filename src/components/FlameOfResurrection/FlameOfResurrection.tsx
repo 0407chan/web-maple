@@ -7,8 +7,14 @@ import { v4 as uuid } from 'uuid'
 import Slot from '../Inventory/Slot'
 import * as S from './style'
 import {
+  calcAttack,
+  calcDoubleBonusStatEternal,
   calcSingleBonusStatEternal,
-  calcSingleBonusStatPowerful
+  calcSingleBonusStatPowerful,
+  getEternalGrade,
+  getFourArmorOption,
+  getFourWeaponOption,
+  getGrade
 } from './utils'
 
 // 2048716 강환불 Powerful Rebirth Flame
@@ -61,20 +67,91 @@ const FlameOfResurrection: React.FC = () => {
 
   const onEternalFlame = () => {
     if (!item) return
+
+    const options = new Set(
+      item.islots === 'Wp' ? getFourWeaponOption() : getFourArmorOption()
+    )
+    // console.log(options)
+    let newStr = options.has('STR') ? calcSingleBonusStatEternal(item) : 0
+    let newDex = options.has('DEX') ? calcSingleBonusStatEternal(item) : 0
+    let newInt = options.has('INT') ? calcSingleBonusStatEternal(item) : 0
+    let newLuk = options.has('LUK') ? calcSingleBonusStatEternal(item) : 0
+    const newBoss = options.has('boss_demage')
+      ? getGrade('ETERNAL', item) * 2
+      : 0
+    const newAll = options.has('AllStat') ? getGrade('ETERNAL', item) : 0
+    const newDemage = options.has('demage') ? getGrade('ETERNAL', item) : 0
+
+    const tempGrade = getEternalGrade() as 1 | 2 | 3 | 4 | 5
+    const newWeaponAttack = options.has('WEAPON_ATTACK')
+      ? item.islots === 'Wp'
+        ? Math.ceil(
+            (item.WEAPON_ATTACK.base * calcAttack(item, tempGrade)) / 100
+          )
+        : getGrade('ETERNAL', item)
+      : 0
+    const newMagicAttack = options.has('MAGIC_ATTACK')
+      ? item.islots === 'Wp'
+        ? Math.ceil(
+            ((item.MAGIC_ATTACK.base || item.WEAPON_ATTACK.base) *
+              calcAttack(item, getEternalGrade() as 1 | 2 | 3 | 4 | 5)) /
+              100
+          )
+        : getGrade('ETERNAL', item)
+      : 0
+    const newHP = options.has('MaxHP')
+      ? item.level * 3 * getGrade('ETERNAL', item)
+      : 0
+    const newMP = options.has('MaxMP')
+      ? item.level * 3 * getGrade('ETERNAL', item)
+      : 0
+
+    if (options.has('STR+DEX')) {
+      const value = calcDoubleBonusStatEternal(item)
+      newStr += value
+      newDex += value
+    }
+    if (options.has('STR+INT')) {
+      const value = calcDoubleBonusStatEternal(item)
+      newStr += value
+      newInt += value
+    }
+    if (options.has('STR+LUK')) {
+      const value = calcDoubleBonusStatEternal(item)
+      newStr += value
+      newLuk += value
+    }
+    if (options.has('DEX+INT')) {
+      const value = calcDoubleBonusStatEternal(item)
+      newDex += value
+      newInt += value
+    }
+    if (options.has('DEX+LUK')) {
+      const value = calcDoubleBonusStatEternal(item)
+      newDex += value
+      newLuk += value
+    }
+    if (options.has('INT+LUK')) {
+      const value = calcDoubleBonusStatEternal(item)
+      newInt += value
+      newLuk += value
+    }
+
     const newItem: EquipItemType = {
       ...item,
-      STR: { ...item.STR, bonus: calcSingleBonusStatEternal(item) },
-      DEX: { ...item.DEX, bonus: calcSingleBonusStatEternal(item) },
-      INT: { ...item.INT, bonus: calcSingleBonusStatEternal(item) },
-      LUK: { ...item.LUK, bonus: calcSingleBonusStatEternal(item) }
+      STR: { ...item.STR, bonus: newStr },
+      DEX: { ...item.DEX, bonus: newDex },
+      INT: { ...item.INT, bonus: newInt },
+      LUK: { ...item.LUK, bonus: newLuk },
+      bossDemage: { ...item.bossDemage, bonus: newBoss },
+      AllStat: { ...item.AllStat, bonus: newAll },
+      demage: { ...item.demage, bonus: newDemage },
+      WEAPON_ATTACK: { ...item.WEAPON_ATTACK, bonus: newWeaponAttack },
+      MAGIC_ATTACK: { ...item.MAGIC_ATTACK, bonus: newMagicAttack },
+      HP: { ...item.HP, bonus: newHP },
+      MP: { ...item.MP, bonus: newMP }
     }
     setFlameSlot({ ...flameSlot, item: newItem })
-  }
-
-  const getGrade = (status: number) => {
-    if (item === undefined) return
-
-    return 8 - Math.round((status - 2) / (item.level / 20 + 1))
   }
 
   if (!isOpenedWindow('FlameOfResurrection')) return null
@@ -100,22 +177,32 @@ const FlameOfResurrection: React.FC = () => {
               <S.Result>
                 {item && item.STR.bonus > 0 && (
                   <div>
-                    STR : {item.STR.bonus} {`(${getGrade(item.STR.bonus)}추)`}
+                    {item.STR.label} : {item.STR.bonus}
                   </div>
                 )}
                 {item && item.DEX.bonus > 0 && (
                   <div>
-                    DEX : {item.DEX.bonus} {`(${getGrade(item.DEX.bonus)}추)`}
+                    {item.DEX.label} : {item.DEX.bonus}
                   </div>
                 )}
                 {item && item.INT.bonus > 0 && (
                   <div>
-                    INT : {item.INT.bonus} {`(${getGrade(item.INT.bonus)}추)`}
+                    {item.INT.label} : {item.INT.bonus}
                   </div>
                 )}
                 {item && item.LUK.bonus > 0 && (
                   <div>
-                    LUK : {item.LUK.bonus} {`(${getGrade(item.LUK.bonus)}추)`}
+                    {item.LUK.label} : {item.LUK.bonus}
+                  </div>
+                )}
+                {item && item.HP.bonus > 0 && (
+                  <div>
+                    {item.HP.label} : {item.HP.bonus}
+                  </div>
+                )}
+                {item && item.MP.bonus > 0 && (
+                  <div>
+                    {item.MP.label} : {item.MP.bonus}
                   </div>
                 )}
                 {item && item.WEAPON_ATTACK.bonus > 0 && (
@@ -128,8 +215,30 @@ const FlameOfResurrection: React.FC = () => {
                     {item.MAGIC_ATTACK.label} : {item.MAGIC_ATTACK.bonus}
                   </div>
                 )}
+                {item && item.DEFENCE.bonus > 0 && (
+                  <div>
+                    {item.DEFENCE.label} : {item.DEFENCE.bonus}
+                  </div>
+                )}
+                {item && item.bossDemage.bonus > 0 && (
+                  <div>
+                    {item.bossDemage.label} : {item.bossDemage.bonus}%
+                  </div>
+                )}
+                {item && item.IgnoreDefence.bonus > 0 && (
+                  <div>
+                    {item.IgnoreDefence.label} : {item.IgnoreDefence.bonus}%
+                  </div>
+                )}
+                {item && item.demage.bonus > 0 && (
+                  <div>
+                    {item.demage.label} : {item.demage.bonus}%
+                  </div>
+                )}
                 {item && item.AllStat.bonus > 0 && (
-                  <div>올스텟 : {item.AllStat.bonus}</div>
+                  <div>
+                    {item.AllStat.label} : {item.AllStat.bonus}%
+                  </div>
                 )}
               </S.Result>
             ) : (

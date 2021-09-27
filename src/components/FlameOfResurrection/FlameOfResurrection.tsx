@@ -10,6 +10,7 @@ import {
   POWERFUL_FLAME_PERCENTAGE
 } from './constants'
 import * as S from './style'
+import { getRandomNum } from './utils'
 
 // 2048716 강환불 Powerful Rebirth Flame
 // 2048717 영환불 Eternal Rebirth Flame
@@ -78,22 +79,18 @@ const FlameOfResurrection: React.FC = () => {
 
   const onEternalFlame = () => {
     if (!item) return
-    let randomNum = Math.floor(Math.random() * 100 + 1)
     const newStr =
       (Math.floor(item.level / 20) + 1) *
-      (2 + ETERNAL_FLAME_PERCENTAGE.get(randomNum)!)
-    randomNum = Math.floor(Math.random() * 100 + 1)
+      (2 + ETERNAL_FLAME_PERCENTAGE.get(getRandomNum(100))!)
     const newDex =
       (Math.floor(item.level / 20) + 1) *
-      (2 + ETERNAL_FLAME_PERCENTAGE.get(randomNum)!)
-    randomNum = Math.floor(Math.random() * 100 + 1)
+      (2 + ETERNAL_FLAME_PERCENTAGE.get(getRandomNum(100))!)
     const newInt =
       (Math.floor(item.level / 20) + 1) *
-      (2 + ETERNAL_FLAME_PERCENTAGE.get(randomNum)!)
-    randomNum = Math.floor(Math.random() * 100 + 1)
+      (2 + ETERNAL_FLAME_PERCENTAGE.get(getRandomNum(100))!)
     const newLuk =
       (Math.floor(item.level / 20) + 1) *
-      (2 + ETERNAL_FLAME_PERCENTAGE.get(randomNum)!)
+      (2 + ETERNAL_FLAME_PERCENTAGE.get(getRandomNum(100))!)
 
     const newItem: EquipItemType = {
       ...item,

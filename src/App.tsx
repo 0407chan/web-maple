@@ -106,12 +106,13 @@ const App: React.FC = () => {
     const promise = []
     // 무기
     promise.push(getEquipment({ itemId: 1402000 }))
-    promise.push(getEquipment({ itemId: 1412000 }))
-    promise.push(getEquipment({ itemId: 1432000 }))
+    promise.push(getEquipment({ itemId: 1402268 }))
+    promise.push(getEquipment({ itemId: 1402259 }))
+    promise.push(getEquipment({ itemId: 1382265 }))
 
     // 방어구
     promise.push(getEquipment({ itemId: 1040000 })) //상의
-    promise.push(getEquipment({ itemId: 1060000 })) //바지
+    promise.push(getEquipment({ itemId: 1062260 })) //바지
     promise.push(getEquipment({ itemId: 1100001 })) //망토
     promise.push(getEquipment({ itemId: 1082004 })) //장갑
     promise.push(getEquipment({ itemId: 1002025 })) //투구
@@ -143,6 +144,7 @@ const App: React.FC = () => {
     const result: EquipItemType = {
       ...EMPTY_EQUIP,
       id: uuid(),
+      bossReward: itemDto.metaInfo.bossReward,
       level: itemDto.metaInfo.reqLevel,
       name: itemDto.description.name,
       category: itemDto.typeInfo.subCategory as SubCategory,
@@ -157,6 +159,10 @@ const App: React.FC = () => {
       WEAPON_ATTACK: {
         ...EMPTY_EQUIP.WEAPON_ATTACK,
         base: itemDto.metaInfo.incPAD || EMPTY_EQUIP.WEAPON_ATTACK.base
+      },
+      MAGIC_ATTACK: {
+        ...EMPTY_EQUIP.MAGIC_ATTACK,
+        base: itemDto.metaInfo.incMAD || EMPTY_EQUIP.MAGIC_ATTACK.base
       },
       STR: {
         ...EMPTY_EQUIP.STR,
@@ -182,17 +188,21 @@ const App: React.FC = () => {
         ...EMPTY_EQUIP.HP,
         base: itemDto.metaInfo.incMHP || EMPTY_EQUIP.HP.base
       },
-      PHYSICAL_DEFENCE: {
-        ...EMPTY_EQUIP.PHYSICAL_DEFENCE,
-        base: itemDto.metaInfo.incPDD || EMPTY_EQUIP.PHYSICAL_DEFENCE.base
-      },
-      MAGICAL_DEFENCE: {
-        ...EMPTY_EQUIP.MAGICAL_DEFENCE,
-        base: itemDto.metaInfo.incMDD || EMPTY_EQUIP.MAGICAL_DEFENCE.base
+      DEFENCE: {
+        ...EMPTY_EQUIP.DEFENCE,
+        base: itemDto.metaInfo.incPDD || EMPTY_EQUIP.DEFENCE.base
       },
       AVOIDABLILITY: {
         ...EMPTY_EQUIP.AVOIDABLILITY,
         base: itemDto.metaInfo.incEVA || EMPTY_EQUIP.AVOIDABLILITY.base
+      },
+      IgnoreDefence: {
+        ...EMPTY_EQUIP.IgnoreDefence,
+        base: itemDto.metaInfo.imdR || EMPTY_EQUIP.IgnoreDefence.base
+      },
+      bossDemage: {
+        ...EMPTY_EQUIP.bossDemage,
+        base: itemDto.metaInfo.bdR || EMPTY_EQUIP.bossDemage.base
       }
     }
     return result

@@ -226,6 +226,7 @@ export type MetaInfo = {
   reqLevelEquip: number
   tuc: number // 강화 가능 횟수
 
+  incMAD: number // 마력
   incPAD: number // 공격력
   incSTR: number // STR
   incDEX: number // DEX

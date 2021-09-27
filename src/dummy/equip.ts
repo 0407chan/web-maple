@@ -54,16 +54,28 @@ export const EMPTY_EQUIP: EquipItemType = {
     label: '공격력',
     reinforce: 0
   },
-  PHYSICAL_DEFENCE: {
+  DEFENCE: {
     base: 0,
     bonus: 0,
     label: '물리 방어력',
     reinforce: 0
   },
-  MAGICAL_DEFENCE: {
+  demage: {
     base: 0,
     bonus: 0,
-    label: '마법 방어력',
+    label: '데미지',
+    reinforce: 0
+  },
+  bossDemage: {
+    base: 0,
+    bonus: 0,
+    label: '보스 몬스터 공격 시 데미지',
+    reinforce: 0
+  },
+  IgnoreDefence: {
+    base: 0,
+    bonus: 0,
+    label: '몬스터 방어력 무시',
     reinforce: 0
   },
   MAGIC_ATTACK: {
@@ -144,16 +156,28 @@ export const EQUIP_LIST: EquipItemType[] = [
       label: '공격력',
       reinforce: 0
     },
-    PHYSICAL_DEFENCE: {
+    DEFENCE: {
       base: 0,
       bonus: 0,
       label: '물리 방어력',
       reinforce: 0
     },
-    MAGICAL_DEFENCE: {
+    demage: {
       base: 0,
       bonus: 0,
-      label: '마법 방어력',
+      label: '데미지',
+      reinforce: 0
+    },
+    bossDemage: {
+      base: 0,
+      bonus: 0,
+      label: '보스 몬스터 공격 시 데미지',
+      reinforce: 0
+    },
+    IgnoreDefence: {
+      base: 0,
+      bonus: 0,
+      label: '몬스터 방어력 무시',
       reinforce: 0
     },
     MAGIC_ATTACK: {

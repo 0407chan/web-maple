@@ -224,7 +224,8 @@ export type MetaInfo = {
   reqLUK: number
   reqJob: number
   reqLevelEquip: number
-  tuc: number
+  tuc: number // 강화 가능 횟수
+
   incPAD: number // 공격력
   incSTR: number // STR
   incDEX: number // DEX
@@ -235,8 +236,10 @@ export type MetaInfo = {
   incPDD: number // 물리 방어력
   incMDD: number // 마법 방어력
   incEVA: number // 회피율
+  imdR: number //  방어력무시 ignore monster defence rate
+  bdR: number // 보스 공격력 boss demage rate
   attack: number
-  attackSpeed: number
+  attackSpeed: number // 공격 속도
   vslots: string[]
   islots: ISlotsType[]
   setCompleteCount: number

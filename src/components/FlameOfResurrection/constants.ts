@@ -1,3 +1,49 @@
+// export const WEAPON_OPTION_NAME = [
+//   'WEAPON_ATTACK',
+//   'MAGIC_ATTACK',
+//   'boss_demage',
+//   'demage'
+// ]
+export const WEAPON_OPTION_NAME = [
+  'STR',
+  'DEX',
+  'INT',
+  'LUK',
+  'STR+DEX',
+  'STR+INT',
+  'STR+LUK',
+  'DEX+INT',
+  'DEX+LUK',
+  'INT+LUK',
+  'MaxHP',
+  'MaxMP',
+  'DEFENCE',
+  'WEAPON_ATTACK',
+  'MAGIC_ATTACK',
+  'boss_demage',
+  'demage',
+  'AllStat'
+]
+export const ARMER_OPTION_NAME = [
+  'STR',
+  'DEX',
+  'INT',
+  'LUK',
+  'STR+DEX',
+  'STR+INT',
+  'STR+LUK',
+  'DEX+INT',
+  'DEX+LUK',
+  'INT+LUK',
+  'MaxHP',
+  'MaxMP',
+  'DEFENCE',
+  'WEAPON_ATTACK',
+  'MAGIC_ATTACK',
+  'move_speed',
+  'jump',
+  'AllStat'
+]
 export const POWERFUL_FLAME_PERCENTAGE = new Map<number, number>()
 export const ETERNAL_FLAME_PERCENTAGE = new Map<number, number>()
 for (let i = 1; i <= 100; i++) {

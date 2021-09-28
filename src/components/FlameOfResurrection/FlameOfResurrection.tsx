@@ -46,7 +46,19 @@ const FlameOfResurrection: React.FC = () => {
     if (item.LUK.bonus > 0) return true
     if (item.WEAPON_ATTACK.bonus > 0) return true
     if (item.MAGIC_ATTACK.bonus > 0) return true
+    if (item.DEFENCE.bonus > 0) return true
+    if (item.HP.bonus > 0) return true
+    if (item.MP.bonus > 0) return true
+
+    if (item.bossDemage.bonus > 0) return true
+    if (item.IgnoreDefence.bonus > 0) return true
+    if (item.RequierdLevel.bonus < 0) return true
+
+    if (item.demage.bonus > 0) return true
     if (item.AllStat.bonus > 0) return true
+
+    if (item.jump.bonus > 0) return true
+    if (item.speed.bonus > 0) return true
 
     return false
   }
@@ -71,7 +83,7 @@ const FlameOfResurrection: React.FC = () => {
     const options = new Set(
       item.islots === 'Wp' ? getFourWeaponOption() : getFourArmorOption()
     )
-    // console.log(options)
+    console.log(options)
     let newStr = options.has('STR') ? calcSingleBonusStatEternal(item) : 0
     let newDex = options.has('DEX') ? calcSingleBonusStatEternal(item) : 0
     let newInt = options.has('INT') ? calcSingleBonusStatEternal(item) : 0
@@ -104,6 +116,16 @@ const FlameOfResurrection: React.FC = () => {
       : 0
     const newMP = options.has('MaxMP')
       ? item.level * 3 * getGrade('ETERNAL', item)
+      : 0
+
+    const newJump = options.has('jump') ? getGrade('ETERNAL', item) : 0
+    const newSpeed = options.has('move_speed') ? getGrade('ETERNAL', item) : 0
+    const newRequierdLevel = options.has('RequierdLevel')
+      ? getGrade('ETERNAL', item) * -5
+      : 0
+
+    const newDefence = options.has('DEFENCE')
+      ? calcSingleBonusStatEternal(item)
       : 0
 
     if (options.has('STR+DEX')) {
@@ -149,7 +171,11 @@ const FlameOfResurrection: React.FC = () => {
       WEAPON_ATTACK: { ...item.WEAPON_ATTACK, bonus: newWeaponAttack },
       MAGIC_ATTACK: { ...item.MAGIC_ATTACK, bonus: newMagicAttack },
       HP: { ...item.HP, bonus: newHP },
-      MP: { ...item.MP, bonus: newMP }
+      MP: { ...item.MP, bonus: newMP },
+      jump: { ...item.jump, bonus: newJump },
+      speed: { ...item.speed, bonus: newSpeed },
+      RequierdLevel: { ...item.RequierdLevel, bonus: newRequierdLevel },
+      DEFENCE: { ...item.DEFENCE, bonus: newDefence }
     }
     setFlameSlot({ ...flameSlot, item: newItem })
   }
@@ -220,6 +246,16 @@ const FlameOfResurrection: React.FC = () => {
                     {item.DEFENCE.label} : {item.DEFENCE.bonus}
                   </div>
                 )}
+                {item && item.speed.bonus > 0 && (
+                  <div>
+                    {item.speed.label} : {item.speed.bonus}
+                  </div>
+                )}
+                {item && item.jump.bonus > 0 && (
+                  <div>
+                    {item.jump.label} : {item.jump.bonus}
+                  </div>
+                )}
                 {item && item.bossDemage.bonus > 0 && (
                   <div>
                     {item.bossDemage.label} : {item.bossDemage.bonus}%
@@ -238,6 +274,11 @@ const FlameOfResurrection: React.FC = () => {
                 {item && item.AllStat.bonus > 0 && (
                   <div>
                     {item.AllStat.label} : {item.AllStat.bonus}%
+                  </div>
+                )}
+                {item && item.RequierdLevel.bonus < 0 && (
+                  <div>
+                    {item.RequierdLevel.label} : {item.RequierdLevel.bonus}
                   </div>
                 )}
               </S.Result>

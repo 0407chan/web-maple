@@ -5,7 +5,7 @@ export const Contianer = styled.div`
   position: absolute;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(77, 78, 78, 1);
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.8);
   border-radius: 5px;
   padding: 20px;
@@ -31,11 +31,6 @@ export const Header = styled.div`
 
 export const Body = styled.div`
   display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #ffcc5f;
 `
 
 export const Result = styled.div`

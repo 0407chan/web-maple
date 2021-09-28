@@ -57,7 +57,7 @@ export const EMPTY_EQUIP: EquipItemType = {
   DEFENCE: {
     base: 0,
     bonus: 0,
-    label: '물리 방어력',
+    label: '방어력',
     reinforce: 0
   },
   demage: {
@@ -78,6 +78,12 @@ export const EMPTY_EQUIP: EquipItemType = {
     label: '몬스터 방어력 무시',
     reinforce: 0
   },
+  RequierdLevel: {
+    base: 0,
+    bonus: 0,
+    label: '착용 레벨 감소',
+    reinforce: 0
+  },
   MAGIC_ATTACK: {
     base: 0,
     bonus: 0,
@@ -94,6 +100,18 @@ export const EMPTY_EQUIP: EquipItemType = {
     base: 0,
     bonus: 0,
     label: '올스텟',
+    reinforce: 0
+  },
+  jump: {
+    base: 0,
+    bonus: 0,
+    label: '점프력',
+    reinforce: 0
+  },
+  speed: {
+    base: 0,
+    bonus: 0,
+    label: '이동속도',
     reinforce: 0
   },
   upgrade_avalable: 0,

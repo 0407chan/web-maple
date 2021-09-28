@@ -114,11 +114,11 @@ const App: React.FC = () => {
     promise.push(getEquipment({ itemId: 1040000 })) //상의
     promise.push(getEquipment({ itemId: 1062260 })) //바지
     promise.push(getEquipment({ itemId: 1100001 })) //망토
-    promise.push(getEquipment({ itemId: 1082004 })) //장갑
-    promise.push(getEquipment({ itemId: 1002025 })) //투구
-    // promise.push(getEquipment({ itemId: 1050000 })) //한벌옷
+    promise.push(getEquipment({ itemId: 1082695 })) //장갑
+    promise.push(getEquipment({ itemId: 1004808 })) //투구
+    promise.push(getEquipment({ itemId: 1053063 })) //한벌옷
     // promise.push(getEquipment({ itemId: 1092008 })) //방패
-    promise.push(getEquipment({ itemId: 1072970 })) //신발
+    promise.push(getEquipment({ itemId: 1073158 })) //신발
 
     // 악세
     promise.push(getEquipment({ itemId: 1132006 })) //벨트
@@ -203,6 +203,14 @@ const App: React.FC = () => {
       bossDemage: {
         ...EMPTY_EQUIP.bossDemage,
         base: itemDto.metaInfo.bdR || EMPTY_EQUIP.bossDemage.base
+      },
+      jump: {
+        ...EMPTY_EQUIP.jump,
+        base: itemDto.metaInfo.incJump || EMPTY_EQUIP.jump.base
+      },
+      speed: {
+        ...EMPTY_EQUIP.speed,
+        base: itemDto.metaInfo.incSpeed || EMPTY_EQUIP.speed.base
       }
     }
     return result

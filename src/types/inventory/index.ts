@@ -54,6 +54,9 @@ export type EquipItemType = {
   IgnoreDefence: StatusBase
   bossDemage: StatusBase
   demage: StatusBase
+  jump: StatusBase
+  speed: StatusBase
+  RequierdLevel: StatusBase
   upgrade_avalable: number
   max_upgrade: number
   upgrade: number

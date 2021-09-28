@@ -237,6 +237,9 @@ export type MetaInfo = {
   incPDD: number // 물리 방어력
   incMDD: number // 마법 방어력
   incEVA: number // 회피율
+  incJump: number // 점프력
+  incSpeed: number // 이동속도
+
   imdR: number //  방어력무시 ignore monster defence rate
   bdR: number // 보스 공격력 boss demage rate
   attack: number

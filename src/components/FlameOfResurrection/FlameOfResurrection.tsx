@@ -190,11 +190,18 @@ const FlameOfResurrection: React.FC = () => {
         y: document.body.clientHeight / 2 - 200
       }}
     >
-      <S.Contianer ref={ref}>
+      <S.Contianer
+        ref={ref}
+        style={{
+          zIndex:
+            uiWindowList[uiWindowList.length - 1] === 'FlameOfResurrection'
+              ? 1
+              : undefined
+        }}
+        onClick={() => onSetTop('FlameOfResurrection')}
+      >
         <S.Header className="handle">FLAME OF RESURRECTION</S.Header>
-        <S.Body>
-          <Slot slot={flameSlot} onDrop={onDrop} isMySlot={isMySlot} />
-        </S.Body>
+        <Slot slot={flameSlot} onDrop={onDrop} isMySlot={isMySlot} />
         {flameSlot.item === undefined ? (
           <S.Result>추가옵션을 변경할 아이템을 드래그해주세요.</S.Result>
         ) : (

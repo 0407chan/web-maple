@@ -27,6 +27,8 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     LUK,
     HP,
     MP,
+    jump,
+    speed,
     DEFENCE,
     AllStat,
     WEAPON_ATTACK,
@@ -37,7 +39,8 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     upgrade_avalable,
     IgnoreDefence,
     bossDemage,
-    demage
+    demage,
+    RequierdLevel
   } = currentItem
 
   // // const position = {
@@ -89,6 +92,17 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
           </S.Horizontal>
         </div>
       </div>
+    )
+  }
+
+  const renderRequierdLevel = (status: StatusBase) => {
+    if (status.base + status.bonus + status.reinforce === 0) return
+    return (
+      <S.Status>
+        <span className="chu-color">
+          {status.label} : {status.base + status.bonus + status.reinforce}
+        </span>
+      </S.Status>
     )
   }
 
@@ -216,12 +230,15 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
           {renderStatus(HP)}
           {renderStatus(MP)}
           {renderStatus(DEFENCE)}
+          {renderStatus(speed)}
+          {renderStatus(jump)}
           {renderStatus(WEAPON_ATTACK)}
           {renderStatus(MAGIC_ATTACK)}
           {renderStatusRate(bossDemage)}
           {renderStatusRate(IgnoreDefence)}
           {renderStatusRate(demage)}
           {renderStatusRate(AllStat)}
+          {renderRequierdLevel(RequierdLevel)}
           {upgrade_avalable > 0 && upgrade_avalable !== undefined && (
             <div className="tooltip-upgrade">
               업그레이드 가능 횟수 : {upgrade_avalable}{' '}

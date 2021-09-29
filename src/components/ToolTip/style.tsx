@@ -180,13 +180,18 @@ export const ImageWrapper = styled.div`
   background-image: linear-gradient(180deg, #8f8f8f, #d8d8d8);
   border: 3px double #888888;
   border-radius: 5px;
+  justify-content: center;
+  align-items: center;
   padding: 10px;
-  width: 60px;
-  height: 60px;
+  min-width: 60px;
+  min-height: 60px;
+  max-width: 60px;
+  max-height: 60px;
 `
+
 export const Image = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 80%;
+  height: 80%;
 `
 
 export const AttackIncreaseWrapper = styled.div`

@@ -12,7 +12,7 @@ type ToolTipProps = {
 }
 const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
   const { currentItem } = useInventory()
-  const { mouseX, mouseY, visible } = useToolTip()
+  const { mouseX, mouseY, visible, onSetMousePosition } = useToolTip()
   const { getStatAttack } = useUser()
 
   if (!currentItem || !visible) return null
@@ -187,11 +187,34 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     return result
   }
 
+  const setMousePosition = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    const tooltip = document.getElementById('new-tooltip')?.getClientRects()[0]
+
+    let newX = event.clientX
+    let newY = event.clientY
+    if (
+      document.body.clientWidth <
+      event.clientX + (tooltip?.width || 300) + 3
+    ) {
+      newX = document.body.clientWidth - (tooltip?.width || 300) - 3
+    }
+    if (
+      document.body.clientHeight <
+      event.clientY + (tooltip?.height || 0) + 3
+    ) {
+      newY = document.body.clientHeight - (tooltip?.height || 0) - 3
+    }
+    onSetMousePosition(newX, newY)
+  }
+
   return (
     <S.Contianer
       id="new-tooltip"
       style={position}
-      onMouseEnter={(event) => event.stopPropagation()}
+      onMouseEnter={setMousePosition}
+      onMouseMove={setMousePosition}
     >
       <S.StarWrapper>{renderStar()}</S.StarWrapper>
       <S.ItemNameWapper>

@@ -216,8 +216,8 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
       onMouseEnter={setMousePosition}
       onMouseMove={setMousePosition}
     >
-      <S.StarWrapper>{renderStar()}</S.StarWrapper>
-      <S.ItemNameWapper>
+      {/* <S.StarWrapper>{renderStar()}</S.StarWrapper> */}
+      <S.ItemNameWapper style={{ marginTop: 20 }}>
         <S.ItemName>
           {currentItem.name}
           {currentItem.upgrade > 0 && <span> (+{currentItem.upgrade})</span>}

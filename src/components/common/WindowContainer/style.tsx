@@ -30,15 +30,15 @@ export const Header = styled.div`
 export const Body = styled.div`
   display: flex;
   justify-content: center;
-  width: calc(100% - 40px);
+  width: calc(100% - 30px);
   height: 100%;
-  border-radius: 5px;
-  padding: 10px 20px 20px 20px;
+  padding: 15px;
 `
 
 export const Content = styled.div`
   display: flex;
   width: 100%;
+  border-radius: 5px;
   background-color: #eeeeeee7;
 `
 

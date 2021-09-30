@@ -8,11 +8,13 @@ type props = {
   windowType: UiWindowType
   title?: string
   footer?: React.ReactNode
+  style?: React.CSSProperties
 }
 const WindowContainer: React.FC<props> = ({
   windowType,
   title,
   footer,
+  style,
   children
 }) => {
   const { isOpenedWindow, uiWindowList, onSetTop } = useUiWindow()
@@ -22,6 +24,7 @@ const WindowContainer: React.FC<props> = ({
       <S.Contianer
         className="no-drag"
         style={{
+          ...style,
           visibility: isOpenedWindow(windowType) ? 'visible' : 'hidden',
           zIndex:
             uiWindowList[uiWindowList.length - 1] === windowType ? 1 : undefined

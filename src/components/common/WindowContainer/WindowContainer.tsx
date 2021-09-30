@@ -30,6 +30,7 @@ const WindowContainer: React.FC<props> = ({
       >
         {title && <S.Header className="handle">{title}</S.Header>}
         <S.Body>{children}</S.Body>
+        {footer && <S.Footer>{footer}</S.Footer>}
       </S.Contianer>
     </Draggable>
   )

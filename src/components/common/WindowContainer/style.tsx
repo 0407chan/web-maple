@@ -45,6 +45,7 @@ export const Content = styled.div`
 export const Footer = styled.div`
   display: flex;
   width: 100%;
+  padding-bottom: 15px;
   align-items: center;
   justify-content: center;
 `

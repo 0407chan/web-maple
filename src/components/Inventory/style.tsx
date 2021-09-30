@@ -31,19 +31,10 @@ export const InventoryBody = styled.div`
   flex-direction: column;
   width: fit-content;
   height: fit-content;
-  margin: 0 10px 10px 10px;
+  margin: 0 10px;
   border-radius: 5px;
   justify-content: center;
   background-color: #eeeeeee7;
-`
-export const InventoryFooter = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0 10px 10px 10px;
-  /* background-color: #eeeeeee7; */
-  justify-content: center;
 `
 
 export const InventoryButtonWrapper = styled.div`

@@ -2,8 +2,8 @@ import useInventory from '@/hooks/useInventory'
 import useUiWindow from '@/hooks/useUiWindow'
 import { EquipItemType, SlotType } from '@/types/inventory'
 import React, { useRef, useState } from 'react'
-import Draggable from 'react-draggable'
 import { v4 as uuid } from 'uuid'
+import WindowContainer from '../common/WindowContainer'
 import Slot from '../Inventory/Slot'
 import * as S from './style'
 import {
@@ -180,27 +180,36 @@ const FlameOfResurrection: React.FC = () => {
     setFlameSlot({ ...flameSlot, item: newItem })
   }
 
-  if (!isOpenedWindow('FlameOfResurrection')) return null
   return (
-    <Draggable
-      handle=".handle"
-      bounds="body"
-      defaultPosition={{
-        x: document.body.clientWidth / 2 - 150,
-        y: document.body.clientHeight / 2 - 200
+    <WindowContainer
+      title="FLAME OF RESURRECTION"
+      windowType="FlameOfResurrection"
+      style={{
+        left: document.body.clientWidth / 2 - 150,
+        top: document.body.clientHeight / 2 - 200
       }}
+      footer={
+        <S.Horizontal>
+          <S.Horizontal>
+            <S.Button onClick={onPowerfulFlame}>
+              <img
+                src="https://maplestory.io/api/KMS/353/item/2048716/icon"
+                alt="powerImage"
+              />
+              강환불
+            </S.Button>
+            <S.Button onClick={onEternalFlame}>
+              <img
+                src="https://maplestory.io/api/KMS/353/item/2048717/icon"
+                alt="foreverImage"
+              />
+              영환불
+            </S.Button>
+          </S.Horizontal>
+        </S.Horizontal>
+      }
     >
-      <S.Contianer
-        ref={ref}
-        style={{
-          zIndex:
-            uiWindowList[uiWindowList.length - 1] === 'FlameOfResurrection'
-              ? 1
-              : undefined
-        }}
-        onClick={() => onSetTop('FlameOfResurrection')}
-      >
-        <S.Header className="handle">FLAME OF RESURRECTION</S.Header>
+      <S.Contianer>
         <Slot slot={flameSlot} onDrop={onDrop} isMySlot={isMySlot} />
         {flameSlot.item === undefined ? (
           <S.Result>추가옵션을 변경할 아이템을 드래그해주세요.</S.Result>
@@ -297,27 +306,8 @@ const FlameOfResurrection: React.FC = () => {
             )}
           </>
         )}
-
-        <S.Footer>
-          <S.Horizontal>
-            <S.Button onClick={onPowerfulFlame}>
-              <img
-                src="https://maplestory.io/api/KMS/353/item/2048716/icon"
-                alt="powerImage"
-              />
-              강환불
-            </S.Button>
-            <S.Button onClick={onEternalFlame}>
-              <img
-                src="https://maplestory.io/api/KMS/353/item/2048717/icon"
-                alt="foreverImage"
-              />
-              영환불
-            </S.Button>
-          </S.Horizontal>
-        </S.Footer>
       </S.Contianer>
-    </Draggable>
+    </WindowContainer>
   )
 }
 

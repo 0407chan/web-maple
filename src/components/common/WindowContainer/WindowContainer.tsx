@@ -17,8 +17,15 @@ const WindowContainer: React.FC<props> = ({
   style,
   children
 }) => {
-  const { isOpenedWindow, uiWindowList, onSetTop } = useUiWindow()
+  const { isOpenedWindow, uiWindowList, onSetTop, onRemoveUiWindow } =
+    useUiWindow()
 
+  const removeUiWindow = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.stopPropagation()
+    onRemoveUiWindow(windowType)
+  }
   return (
     <Draggable handle=".handle" bounds="body">
       <S.Contianer
@@ -32,6 +39,7 @@ const WindowContainer: React.FC<props> = ({
         onClick={() => onSetTop(windowType)}
       >
         {title && <S.Header className="handle">{title}</S.Header>}
+        <S.CloseButton onClick={removeUiWindow}>✖</S.CloseButton>
         <S.Body>{children}</S.Body>
         {footer && <S.Footer>{footer}</S.Footer>}
       </S.Contianer>

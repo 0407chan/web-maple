@@ -8,7 +8,7 @@
     "dev": "yarn switch-email && BROWSER=none env-cmd -f .env craco start",
     "build": "rm -rf docs && GENERATE_SOURCEMAP=false env-cmd -f .env craco build && mv build docs",
     "test": "react-scripts test",
-    "predeploy": "npm run build",
+    "predeploy": "yarn build",
     "deploy": "gh-pages -d docs"
   },
   "dependencies": {

@@ -24,12 +24,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: npm ci
-      - run: npm run build
+      - name: install npm
+        run: npm i
+
+      - name: build
+        run: npm run build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: develop
           publish_dir: ./docs

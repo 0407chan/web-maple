@@ -9,7 +9,7 @@
     "build": "rm -rf docs && GENERATE_SOURCEMAP=false craco build && mv build docs",
     "test": "react-scripts test",
     "predeploy": "GENERATE_SOURCEMAP=false craco build",
-    "deploy": "gh-pages -d docs"
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@craco/craco": "^6.2.0",

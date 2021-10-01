@@ -49,3 +49,22 @@ export const Footer = styled.div`
   align-items: center;
   justify-content: center;
 `
+
+export const CloseButton = styled.button`
+  display: flex;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-weight: bold;
+  width: fit-content;
+  align-items: center;
+  border: unset;
+  background-color: unset;
+  justify-content: center;
+  color: #eeeeee;
+
+  &:hover {
+    cursor: pointer;
+    color: #ffd884;
+  }
+`

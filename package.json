@@ -8,7 +8,7 @@
     "dev": "yarn switch-email && BROWSER=none craco start",
     "build": "rm -rf docs && GENERATE_SOURCEMAP=false craco build && mv build docs",
     "test": "react-scripts test",
-    "predeploy": "yarn build",
+    "predeploy": "GENERATE_SOURCEMAP=false craco build",
     "deploy": "gh-pages -d docs"
   },
   "dependencies": {

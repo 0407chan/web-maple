@@ -34,7 +34,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     <WindowContainer
       title="ITEM INVENTORY"
       windowType="Inventory"
-      style={{ left: 'calc(75% - 150px)' }}
+      style={{ left: 'calc(75% - 150px)', top: 200 }}
       footer={
         <S.Horizontal>
           <S.Button onClick={onSortInventory}>정렬</S.Button>

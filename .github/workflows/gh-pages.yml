@@ -28,14 +28,12 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-yarn-
 
-      - name: yarn set version berry
-        run: yarn set version berry
-        
+
       - name: install packages
-        run: yarn install --frozen-lockfile
+        run: npm install
 
       - name: build
-        run: yarn build
+        run: npm run build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

@@ -1,6 +1,10 @@
-import { removeEquip, setEquip } from '@/feature/equipment/equipmentSlice'
+import {
+  removeEquip,
+  setEquip,
+  updateEquipSlot
+} from '@/feature/equipment/equipmentSlice'
 import { RootState } from '@/store'
-import { ISlotsType } from '@/types/equipment'
+import { EquipSlotType, ISlotsType } from '@/types/equipment'
 import { EquipItemType } from '@/types/inventory'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -14,10 +18,14 @@ const useEquipment = () => {
   const onRemoveEquip = (iSlotType: ISlotsType) =>
     dispatch(removeEquip({ iSlotType }))
 
+  const onUpdateEquipSlot = (slot: EquipSlotType) =>
+    dispatch(updateEquipSlot({ slot }))
+
   return {
     equipment,
     onSetEquip,
-    onRemoveEquip
+    onRemoveEquip,
+    onUpdateEquipSlot
   }
 }
 

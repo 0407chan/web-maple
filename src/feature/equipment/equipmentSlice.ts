@@ -129,11 +129,25 @@ export const equipmentSlice = createSlice({
         }
         return equip
       })
+    },
+    updateEquipSlot: (
+      state,
+      action: PayloadAction<{
+        slot: EquipSlotType
+      }>
+    ) => {
+      state.equipment = state.equipment.map((slot) => {
+        if (slot.id === action.payload.slot.id) {
+          return action.payload.slot
+        } else {
+          return slot
+        }
+      })
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { setEquip, removeEquip } = equipmentSlice.actions
+export const { setEquip, removeEquip, updateEquipSlot } = equipmentSlice.actions
 
 export default equipmentSlice.reducer

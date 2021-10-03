@@ -21,15 +21,19 @@ import {
 // 2048716 강환불 Powerful Rebirth Flame
 // 2048717 영환불 Eternal Rebirth Flame
 
+const initFlameSlot: SlotType = {
+  id: uuid(),
+  isOpen: true
+}
+
 const FlameOfResurrection: React.FC = () => {
+  let timer: any = undefined
   const { isOpenedWindow, uiWindowList, onSetTop } = useUiWindow()
   const { inventory, currentInventory, onUpdateInventorySlot } = useInventory()
   const { equipment, onUpdateEquipSlot } = useEquipment()
   const ref = useRef<HTMLDivElement>(null)
-  const [flameSlot, setFlameSlot] = useState<SlotType>({
-    id: uuid(),
-    isOpen: true
-  })
+
+  const [flameSlot, setFlameSlot] = useState<SlotType>(initFlameSlot)
 
   const { item } = flameSlot
 
@@ -198,6 +202,19 @@ const FlameOfResurrection: React.FC = () => {
     }
   }
 
+  const onItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    clearTimeout(timer)
+    if (event.detail === 1) {
+      timer = setTimeout(() => {
+        console.log('싱글 클릭')
+      }, 200)
+    } else if (event.detail === 2) {
+      if (flameSlot.item) {
+        setFlameSlot(initFlameSlot)
+      }
+    }
+  }
+
   return (
     <WindowContainer
       title="FLAME OF RESURRECTION"
@@ -228,7 +245,12 @@ const FlameOfResurrection: React.FC = () => {
       }
     >
       <S.Contianer>
-        <Slot slot={flameSlot} onDrop={onDrop} isMySlot={isMySlot} />
+        <Slot
+          slot={flameSlot}
+          onDrop={onDrop}
+          isMySlot={isMySlot}
+          onClick={onItemClick}
+        />
         {flameSlot.item === undefined ? (
           <S.Result>추가옵션을 변경할 아이템을 드래그해주세요.</S.Result>
         ) : (

@@ -1,5 +1,6 @@
 import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
+import useToolTip from '@/hooks/useToolTip'
 import useUiWindow from '@/hooks/useUiWindow'
 import { EquipItemType, SlotType } from '@/types/inventory'
 import React, { useRef, useState } from 'react'
@@ -30,6 +31,7 @@ const FlameOfResurrection: React.FC = () => {
   let timer: any = undefined
   const { isOpenedWindow, uiWindowList, onSetTop } = useUiWindow()
   const { inventory, currentInventory, onUpdateInventorySlot } = useInventory()
+  const { onHideTooltip } = useToolTip()
   const { equipment, onUpdateEquipSlot } = useEquipment()
   const ref = useRef<HTMLDivElement>(null)
 
@@ -211,6 +213,7 @@ const FlameOfResurrection: React.FC = () => {
     } else if (event.detail === 2) {
       if (flameSlot.item) {
         setFlameSlot(initFlameSlot)
+        onHideTooltip()
       }
     }
   }

@@ -10,9 +10,10 @@ import * as S from './style'
 type SlotProps = {
   slot: SlotType
   onDrop: (slot: any) => void
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
   isMySlot?: (item: SlotType) => boolean
 }
-const Slot: React.FC<SlotProps> = ({ slot, onDrop, isMySlot }) => {
+const Slot: React.FC<SlotProps> = ({ slot, onDrop, isMySlot, onClick }) => {
   let timer: any = undefined
   const { equipment, onSetEquip } = useEquipment()
   const { onRemoveEquipItem, onAddEquipment } = useInventory()
@@ -89,7 +90,7 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop, isMySlot }) => {
     <S.Contianer
       ref={drop}
       role="Dustbin"
-      onClick={onClickHandler}
+      onClick={onClick || onClickHandler}
       className={`${isActive()} ${isOpen()}`}
     >
       {slot.item?.id !== '' && <Item2 slot={slot} />}

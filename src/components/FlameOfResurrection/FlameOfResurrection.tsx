@@ -1,3 +1,4 @@
+import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
 import useUiWindow from '@/hooks/useUiWindow'
 import { EquipItemType, SlotType } from '@/types/inventory'
@@ -22,7 +23,8 @@ import {
 
 const FlameOfResurrection: React.FC = () => {
   const { isOpenedWindow, uiWindowList, onSetTop } = useUiWindow()
-  const { inventory, currentInventory } = useInventory()
+  const { inventory, currentInventory, onUpdateInventorySlot } = useInventory()
+  const { equipment, onUpdateEquipSlot } = useEquipment()
   const ref = useRef<HTMLDivElement>(null)
   const [flameSlot, setFlameSlot] = useState<SlotType>({
     id: uuid(),
@@ -178,6 +180,22 @@ const FlameOfResurrection: React.FC = () => {
       DEFENCE: { ...item.DEFENCE, bonus: newDefence }
     }
     setFlameSlot({ ...flameSlot, item: newItem })
+    setItemOnOriginalSlot(newItem)
+  }
+
+  const setItemOnOriginalSlot = (newItem: EquipItemType) => {
+    const equipSlot = equipment.find((slot) => slot.item?.id === newItem.id)
+    if (equipSlot) {
+      onUpdateEquipSlot({ ...equipSlot, item: newItem })
+      return
+    }
+
+    const invenSlot = inventory[currentInventory].find(
+      (slot) => slot.item?.id === newItem.id
+    )
+    if (invenSlot) {
+      onUpdateInventorySlot({ ...invenSlot, item: newItem })
+    }
   }
 
   return (

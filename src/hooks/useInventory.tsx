@@ -6,7 +6,8 @@ import {
   setCurrentItem,
   setInventory,
   sortInventory,
-  switchSlot
+  switchSlot,
+  updateInventorySlot
 } from '@/feature/inventory/inventorySlice'
 import { RootState } from '@/store'
 import { EquipItemType, SlotType } from '@/types/inventory'
@@ -44,6 +45,9 @@ const useInventory = () => {
   const onRemoveEquipItem = (slotId: string) =>
     dispatch(removeEquipItem(slotId))
 
+  const onUpdateInventorySlot = (slot: SlotType) =>
+    dispatch(updateInventorySlot({ slot }))
+
   return {
     currentInventory,
     currentItem,
@@ -59,6 +63,7 @@ const useInventory = () => {
     onIncreaseEquipMaxNum,
     onOpenEquipInventory,
     onRemoveEquipItem,
+    onUpdateInventorySlot,
     getEmptySlot
   }
 }

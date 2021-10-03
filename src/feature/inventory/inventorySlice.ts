@@ -91,6 +91,17 @@ export const inventorySlice = createSlice({
     ) => {
       state.currentItem = action.payload
     },
+    updateInventorySlot: (state, action: PayloadAction<{ slot: SlotType }>) => {
+      const newInven = [...state.inventory[state.currentInventory]].map(
+        (slot) => {
+          if (slot.id === action.payload.slot.id) {
+            return action.payload.slot
+          }
+          return slot
+        }
+      )
+      state.inventory[state.currentInventory] = newInven
+    },
     sortInventory: (state) => {
       const newInven = [...state.inventory[state.currentInventory]].sort(
         (a, b) => {
@@ -146,7 +157,8 @@ export const {
   sortInventory,
   increaseEquipMaxNum,
   openEquipInventory,
-  removeEquipItem
+  removeEquipItem,
+  updateInventorySlot
 } = inventorySlice.actions
 
 export default inventorySlice.reducer

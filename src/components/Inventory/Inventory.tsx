@@ -35,8 +35,6 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     start: SlotType | EquipSlotType,
     end?: SlotType | EquipSlotType
   ) => {
-    console.log('start', start)
-    console.log('end', end)
     // 장비에서 시작
     if ('slotType' in start) {
       if (start.item?.islots === end?.item?.islots || end?.item === undefined)

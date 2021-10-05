@@ -238,7 +238,7 @@ const App: React.FC = () => {
       id: uuid(),
       name: item.description.name,
       category: item.typeInfo.subCategory as SubCategory,
-      // categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
+      categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
       image: `https://maplestory.io/api/KMS/352/item/${item.id}/icon`,
       max_upgrade: item.metaInfo.tuc,
       upgrade: 0,

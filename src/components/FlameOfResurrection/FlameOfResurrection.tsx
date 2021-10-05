@@ -1,7 +1,7 @@
 import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
-import { EquipItemType, SlotType } from '@/types/inventory'
+import { EquipItemType, SlotType, StatusBase } from '@/types/inventory'
 import React, { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import WindowContainer from '../common/WindowContainer'
@@ -258,81 +258,21 @@ const FlameOfResurrection: React.FC = () => {
           <>
             {isBonus() ? (
               <S.Result>
-                {item && item.STR.bonus > 0 && (
-                  <div>
-                    {item.STR.label} : {item.STR.bonus}
-                  </div>
-                )}
-                {item && item.DEX.bonus > 0 && (
-                  <div>
-                    {item.DEX.label} : {item.DEX.bonus}
-                  </div>
-                )}
-                {item && item.INT.bonus > 0 && (
-                  <div>
-                    {item.INT.label} : {item.INT.bonus}
-                  </div>
-                )}
-                {item && item.LUK.bonus > 0 && (
-                  <div>
-                    {item.LUK.label} : {item.LUK.bonus}
-                  </div>
-                )}
-                {item && item.HP.bonus > 0 && (
-                  <div>
-                    {item.HP.label} : {item.HP.bonus}
-                  </div>
-                )}
-                {item && item.MP.bonus > 0 && (
-                  <div>
-                    {item.MP.label} : {item.MP.bonus}
-                  </div>
-                )}
-                {item && item.WEAPON_ATTACK.bonus > 0 && (
-                  <div>
-                    {item.WEAPON_ATTACK.label} : {item.WEAPON_ATTACK.bonus}
-                  </div>
-                )}
-                {item && item.MAGIC_ATTACK.bonus > 0 && (
-                  <div>
-                    {item.MAGIC_ATTACK.label} : {item.MAGIC_ATTACK.bonus}
-                  </div>
-                )}
-                {item && item.DEFENCE.bonus > 0 && (
-                  <div>
-                    {item.DEFENCE.label} : {item.DEFENCE.bonus}
-                  </div>
-                )}
-                {item && item.speed.bonus > 0 && (
-                  <div>
-                    {item.speed.label} : {item.speed.bonus}
-                  </div>
-                )}
-                {item && item.jump.bonus > 0 && (
-                  <div>
-                    {item.jump.label} : {item.jump.bonus}
-                  </div>
-                )}
-                {item && item.bossDemage.bonus > 0 && (
-                  <div>
-                    {item.bossDemage.label} : {item.bossDemage.bonus}%
-                  </div>
-                )}
-                {item && item.IgnoreDefence.bonus > 0 && (
-                  <div>
-                    {item.IgnoreDefence.label} : {item.IgnoreDefence.bonus}%
-                  </div>
-                )}
-                {item && item.demage.bonus > 0 && (
-                  <div>
-                    {item.demage.label} : {item.demage.bonus}%
-                  </div>
-                )}
-                {item && item.AllStat.bonus > 0 && (
-                  <div>
-                    {item.AllStat.label} : {item.AllStat.bonus}%
-                  </div>
-                )}
+                {renderStat('STR')}
+                {renderStat('DEX')}
+                {renderStat('INT')}
+                {renderStat('LUK')}
+                {renderStat('HP')}
+                {renderStat('MP')}
+                {renderStat('WEAPON_ATTACK')}
+                {renderStat('MAGIC_ATTACK')}
+                {renderStat('DEFENCE')}
+                {renderStat('speed')}
+                {renderStat('jump')}
+                {renderStat('bossDemage', true)}
+                {renderStat('IgnoreDefence', true)}
+                {renderStat('demage', true)}
+                {renderStat('AllStat', true)}
                 {item && item.RequierdLevel.bonus < 0 && (
                   <div>
                     {item.RequierdLevel.label} : {item.RequierdLevel.bonus}
@@ -350,6 +290,19 @@ const FlameOfResurrection: React.FC = () => {
       </S.Contianer>
     </WindowContainer>
   )
+
+  function renderStat(key: keyof EquipItemType, isPercent?: boolean) {
+    if (!item) return null
+    const stat = item[key] as StatusBase
+    if (stat.bonus > 0) {
+      return (
+        <div>
+          {stat.label} : {stat.bonus}
+          {isPercent === true ? '%' : ''}
+        </div>
+      )
+    }
+  }
 }
 
 export default FlameOfResurrection

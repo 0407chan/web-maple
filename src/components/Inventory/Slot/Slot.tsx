@@ -12,8 +12,15 @@ type SlotProps = {
   onDrop: (slot: any) => void
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
   isMySlot?: (item: SlotType) => boolean
+  isCanDrop?: boolean
 }
-const Slot: React.FC<SlotProps> = ({ slot, onDrop, isMySlot, onClick }) => {
+const Slot: React.FC<SlotProps> = ({
+  slot,
+  onDrop,
+  isMySlot,
+  onClick,
+  isCanDrop
+}) => {
   let timer: any = undefined
   const { equipment, onSetEquip } = useEquipment()
   const { onRemoveEquipItem, onAddEquipment } = useInventory()
@@ -22,7 +29,8 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop, isMySlot, onClick }) => {
     accept: 'item',
     drop: onDrop,
     // drop: (item, monitor) => onDrop(monitor),
-    canDrop: (item) => (isMySlot ? isMySlot(item) : checkIsMySlot(item)),
+    canDrop: (item) =>
+      isCanDrop || (isMySlot ? isMySlot(item) : checkIsMySlot(item)),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop()
@@ -93,7 +101,7 @@ const Slot: React.FC<SlotProps> = ({ slot, onDrop, isMySlot, onClick }) => {
       onClick={onClick || onClickHandler}
       className={`${isActive()} ${isOpen()}`}
     >
-      {slot.item?.id !== '' && <Item2 slot={slot} />}
+      {slot.item?.id !== '' && <Item2 slot={slot} canDrag={isCanDrop} />}
     </S.Contianer>
   )
 }

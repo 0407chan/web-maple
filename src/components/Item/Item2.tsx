@@ -7,12 +7,14 @@ import * as S from './style'
 
 type ItemProps = {
   slot: SlotType
+  canDrag?: boolean
 }
-const Item2: React.FC<ItemProps> = ({ slot }) => {
+const Item2: React.FC<ItemProps> = ({ slot, canDrag }) => {
   const [collected, drag, preview] = useDrag(
     () => ({
       type: 'item',
       item: slot,
+      canDrag: canDrag,
       collect: (monitor) => {
         return {
           opacity: monitor.isDragging() ? 0.4 : 1,
@@ -77,12 +79,13 @@ const Item2: React.FC<ItemProps> = ({ slot }) => {
       <DragPreviewImage connect={preview} src={slot.item.image} />
       <S.Contianer
         ref={drag}
+        className="no-drag"
         onMouseOver={setDispalyVisibleAction}
         onMouseOut={setDispalyNoneAction}
         onMouseMove={setMousePosition}
         style={{ opacity: collected.opacity }}
       >
-        <img src={slot.item.image} alt="itemImage" />
+        <img src={slot.item.image} className="no-drag" alt="itemImage" />
       </S.Contianer>
     </>
   )

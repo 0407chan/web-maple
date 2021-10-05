@@ -1,9 +1,8 @@
 import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
-import useUiWindow from '@/hooks/useUiWindow'
 import { EquipItemType, SlotType } from '@/types/inventory'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import WindowContainer from '../common/WindowContainer'
 import Slot from '../Inventory/Slot'
@@ -29,11 +28,9 @@ const initFlameSlot: SlotType = {
 
 const FlameOfResurrection: React.FC = () => {
   let timer: any = undefined
-  const { isOpenedWindow, uiWindowList, onSetTop } = useUiWindow()
   const { inventory, currentInventory, onUpdateInventorySlot } = useInventory()
   const { onHideTooltip } = useToolTip()
   const { equipment, onUpdateEquipSlot } = useEquipment()
-  const ref = useRef<HTMLDivElement>(null)
 
   const [flameSlot, setFlameSlot] = useState<SlotType>(initFlameSlot)
 

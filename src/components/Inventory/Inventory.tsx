@@ -1,5 +1,6 @@
 import useInventory from '@/hooks/useInventory'
 import useUiWindow from '@/hooks/useUiWindow'
+import { EquipSlotType } from '@/types/equipment'
 import { SlotType } from '@/types/inventory'
 import React from 'react'
 import WindowContainer from '../common/WindowContainer'
@@ -27,6 +28,24 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
       onRemoveUiWindow('FlameOfResurrection')
     } else {
       onAddUiWindow('FlameOfResurrection')
+    }
+  }
+
+  const isMySlot = (
+    start: SlotType | EquipSlotType,
+    end?: SlotType | EquipSlotType
+  ) => {
+    console.log('start', start)
+    console.log('end', end)
+    // 장비에서 시작
+    if ('slotType' in start) {
+      if (start.item?.islots === end?.item?.islots || end?.item === undefined)
+        return true
+      return false
+    }
+    // 인벤토리에서 시작
+    else {
+      return true
     }
   }
 
@@ -68,6 +87,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
             <Slot
               key={slot.id}
               slot={slot}
+              isMySlot={isMySlot}
               onDrop={(startSlot) => handleDrop(startSlot, slot)}
             />
           ))}

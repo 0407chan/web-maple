@@ -2,6 +2,7 @@ import Item2 from '@/components/Item/Item2'
 import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
+import { EquipSlotType } from '@/types/equipment'
 import { SlotType } from '@/types/inventory'
 import React from 'react'
 import { useDrop } from 'react-dnd'
@@ -11,7 +12,10 @@ type SlotProps = {
   slot: SlotType
   onDrop: (slot: any) => void
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-  isMySlot?: (item: SlotType) => boolean
+  isMySlot?: (
+    start: SlotType | EquipSlotType,
+    end?: SlotType | EquipSlotType
+  ) => boolean
   isCanDrop?: boolean
 }
 const Slot: React.FC<SlotProps> = ({
@@ -29,8 +33,8 @@ const Slot: React.FC<SlotProps> = ({
     accept: 'item',
     drop: onDrop,
     // drop: (item, monitor) => onDrop(monitor),
-    canDrop: (item) =>
-      isCanDrop || (isMySlot ? isMySlot(item) : checkIsMySlot(item)),
+    canDrop: (item: SlotType) =>
+      isCanDrop || (isMySlot ? isMySlot(item, slot) : checkIsMySlot(item)),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop()
@@ -38,13 +42,14 @@ const Slot: React.FC<SlotProps> = ({
   })
 
   const checkIsMySlot = (item: SlotType) => {
-    if (
-      (item.item && item.item.islots === slot.item?.islots) ||
-      slot.item === undefined
-    ) {
-      return true
-    }
-    return false
+    return true
+    // if (
+    //   (item.item && item.item.islots === slot.item?.islots) ||
+    //   slot.item === undefined
+    // ) {
+    //   return true
+    // }
+    // return false
   }
 
   // const isMySlot = (item: any) => {

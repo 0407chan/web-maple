@@ -19,6 +19,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
 
   const {
     job,
+    categoryName,
     category,
     star,
     STR,
@@ -245,7 +246,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
         alignItems="flex-start"
       >
         <S.StatusWrapper>
-          <div className="tooltip-category">분류 : {category}</div>
+          <div className="tooltip-category">분류 : {categoryName}</div>
           {renderStatus(STR)}
           {renderStatus(DEX)}
           {renderStatus(INT)}

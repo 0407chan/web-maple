@@ -108,6 +108,7 @@ export type SubCategory =
   | 'Pendant'
   | 'Ring'
   | 'Shoulder Accessory'
+  | 'Staff'
 
 export type SubCategoryName =
   | '한손검'
@@ -130,6 +131,7 @@ export type SubCategoryName =
   | '팬던트'
   | '반지'
   | '어깨장식'
+  | '스태프'
 
 export const subCategoryName: Record<SubCategory, SubCategoryName> = {
   'One-Handed Sword': '한손검',
@@ -151,7 +153,8 @@ export const subCategoryName: Record<SubCategory, SubCategoryName> = {
   'Face Accessory': '얼굴장식',
   Pendant: '팬던트',
   Ring: '반지',
-  'Shoulder Accessory': '어깨장식'
+  'Shoulder Accessory': '어깨장식',
+  Staff: '스태프'
 }
 
 export type GetEquipmentQuery = {

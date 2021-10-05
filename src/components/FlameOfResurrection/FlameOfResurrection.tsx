@@ -250,6 +250,7 @@ const FlameOfResurrection: React.FC = () => {
           onDrop={onDrop}
           isMySlot={isMySlot}
           onClick={onItemClick}
+          isCanDrop={false}
         />
         {flameSlot.item === undefined ? (
           <S.Result>추가옵션을 변경할 아이템을 드래그해주세요.</S.Result>

@@ -21,7 +21,7 @@ export const Header = styled.div`
   justify-content: center;
   font-weight: bold;
   color: #ffcc5f;
-  padding-top: 10px;
+  padding: 10px 0px 15px 0px;
   cursor: grab;
   &:active {
     cursor: grabbing;
@@ -33,6 +33,7 @@ export const Body = styled.div`
   width: calc(100% - 30px);
   height: 100%;
   padding: 15px;
+  padding-top: 0px;
 `
 
 export const Content = styled.div`

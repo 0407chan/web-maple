@@ -38,7 +38,7 @@ const WindowContainer: React.FC<props> = ({
         }}
         onClick={() => onSetTop(windowType)}
       >
-        {title && <S.Header className="handle">{title}</S.Header>}
+        <S.Header className="handle">{title || ''}</S.Header>
         <S.CloseButton onClick={removeUiWindow}>✖</S.CloseButton>
         <S.Body>{children}</S.Body>
         {footer && <S.Footer>{footer}</S.Footer>}

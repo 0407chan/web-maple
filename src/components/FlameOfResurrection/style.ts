@@ -25,7 +25,7 @@ export const Result = styled.div`
 
 export const Horizontal = styled.div`
   display: flex;
-  gap: 5px;
+  gap: 10px;
   flex-direction: row;
   align-items: center;
   justify-content: center;

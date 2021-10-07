@@ -3,10 +3,12 @@ import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
 import { EquipItemType, SlotType, StatusBase } from '@/types/inventory'
 import React, { useState } from 'react'
+import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
 import { v4 as uuid } from 'uuid'
 import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
 import Slot from '../Inventory/Slot'
+import Result from './Result'
 import * as S from './style'
 import {
   calcAttack,
@@ -33,7 +35,16 @@ const FlameOfResurrection: React.FC = () => {
   const { onHideTooltip } = useToolTip()
   const { equipment, onUpdateEquipSlot } = useEquipment()
 
+  const [showResult, setShowResult] = useState<boolean>(false)
+  const [position, setPosition] = useState<ControlPosition>({
+    x: document.body.clientWidth / 2 - 150,
+    y: document.body.clientHeight / 2 - 200
+  })
+
   const [flameSlot, setFlameSlot] = useState<SlotType>(initFlameSlot)
+  const [flameResult, setFlameResult] = useState<
+    Map<string, { power: number; eternal: number }>
+  >(new Map())
 
   const { item } = flameSlot
 
@@ -72,6 +83,16 @@ const FlameOfResurrection: React.FC = () => {
   // 스텟 = (렙 / 20 + 1) * (3,4,5,6,7)
   const onPowerfulFlame = () => {
     if (!item) return
+
+    let res = flameResult.get(item.id)
+    if (res) {
+      res = { ...res, power: res.power + 1 }
+      flameResult.set(item.id, res)
+    } else {
+      flameResult.set(item.id, { eternal: 0, power: 1 })
+    }
+    setFlameResult(flameResult)
+
     const newItem: EquipItemType = {
       ...item,
       STR: { ...item.STR, bonus: calcSingleBonusStatPowerful(item) },
@@ -85,6 +106,15 @@ const FlameOfResurrection: React.FC = () => {
 
   const onEternalFlame = () => {
     if (!item) return
+
+    let res = flameResult.get(item.id)
+    if (res) {
+      res = { ...res, eternal: res.eternal + 1 }
+      flameResult.set(item.id, res)
+    } else {
+      flameResult.set(item.id, { eternal: 1, power: 0 })
+    }
+    setFlameResult(flameResult)
 
     const options = new Set(
       item.islots === 'Wp' ? getFourWeaponOption() : getFourArmorOption()
@@ -215,89 +245,106 @@ const FlameOfResurrection: React.FC = () => {
       }
     }
   }
+  const onControlledDrag = (e: DraggableEvent, data: DraggableData) => {
+    const { x, y } = data
+    setPosition({ x, y })
+  }
 
   return (
-    <WindowContainer
-      title="FLAME OF RESURRECTION"
-      windowType="FlameOfResurrection"
-      style={{
-        left: document.body.clientWidth / 2 - 150,
-        top: document.body.clientHeight / 2 - 200
-      }}
-      footer={
-        <S.Horizontal>
+    <>
+      <WindowContainer
+        title="FLAME OF RESURRECTION"
+        windowType="FlameOfResurrection"
+        onDrag={onControlledDrag}
+        position={position}
+        footer={
           <S.Horizontal>
-            <MapleButton
-              onClick={onPowerfulFlame}
-              style={{ padding: '20px 15px' }}
-            >
-              <img
-                src="https://maplestory.io/api/KMS/353/item/2048716/icon"
-                alt="powerImage"
-              />
-              강환불
-            </MapleButton>
-            <MapleButton
-              onClick={onEternalFlame}
-              style={{ padding: '20px 15px' }}
-              icon={
+            <S.Horizontal>
+              <MapleButton
+                onClick={onPowerfulFlame}
+                style={{ padding: '20px 15px' }}
+                disabled={item === undefined}
+              >
                 <img
-                  src="https://maplestory.io/api/KMS/353/item/2048717/icon"
-                  alt="foreverImage"
+                  src="https://maplestory.io/api/KMS/353/item/2048716/icon"
+                  alt="powerImage"
                 />
-              }
-            >
-              영환불
+                강환불
+              </MapleButton>
+              <MapleButton
+                onClick={onEternalFlame}
+                style={{ padding: '20px 15px' }}
+                icon={
+                  <img
+                    src="https://maplestory.io/api/KMS/353/item/2048717/icon"
+                    alt="foreverImage"
+                  />
+                }
+                disabled={item === undefined}
+              >
+                영환불
+              </MapleButton>
+            </S.Horizontal>
+          </S.Horizontal>
+        }
+      >
+        <S.Contianer>
+          <Slot
+            slot={flameSlot}
+            onDrop={onDrop}
+            isMySlot={isMySlot}
+            onClick={onItemClick}
+            isCanDrop={false}
+          />
+          {flameSlot.item === undefined ? (
+            <S.Result>추가옵션을 변경할 아이템을 드래그해주세요.</S.Result>
+          ) : (
+            <>
+              {isBonus() ? (
+                <S.Result>
+                  {renderStat('STR')}
+                  {renderStat('DEX')}
+                  {renderStat('INT')}
+                  {renderStat('LUK')}
+                  {renderStat('HP')}
+                  {renderStat('MP')}
+                  {renderStat('WEAPON_ATTACK')}
+                  {renderStat('MAGIC_ATTACK')}
+                  {renderStat('DEFENCE')}
+                  {renderStat('speed')}
+                  {renderStat('jump')}
+                  {renderStat('bossDemage', true)}
+                  {renderStat('IgnoreDefence', true)}
+                  {renderStat('demage', true)}
+                  {renderStat('AllStat', true)}
+                  {item && item.RequierdLevel.bonus < 0 && (
+                    <div>
+                      {item.RequierdLevel.label} : {item.RequierdLevel.bonus}
+                    </div>
+                  )}
+                </S.Result>
+              ) : (
+                <S.Result>
+                  <div>추가 능력이 없습니다.</div>
+                  <div> 버튼을 눌러 추가 능력을 부여해주세요.</div>
+                </S.Result>
+              )}
+            </>
+          )}
+          <S.Horizontal>
+            {/* <MapleButton onClick={() => setShowResult(!showResult)}>
+              조건보기
+            </MapleButton> */}
+            <MapleButton onClick={() => setShowResult(!showResult)}>
+              결과보기
             </MapleButton>
           </S.Horizontal>
-        </S.Horizontal>
-      }
-    >
-      <S.Contianer>
-        <Slot
-          slot={flameSlot}
-          onDrop={onDrop}
-          isMySlot={isMySlot}
-          onClick={onItemClick}
-          isCanDrop={false}
-        />
-        {flameSlot.item === undefined ? (
-          <S.Result>추가옵션을 변경할 아이템을 드래그해주세요.</S.Result>
-        ) : (
-          <>
-            {isBonus() ? (
-              <S.Result>
-                {renderStat('STR')}
-                {renderStat('DEX')}
-                {renderStat('INT')}
-                {renderStat('LUK')}
-                {renderStat('HP')}
-                {renderStat('MP')}
-                {renderStat('WEAPON_ATTACK')}
-                {renderStat('MAGIC_ATTACK')}
-                {renderStat('DEFENCE')}
-                {renderStat('speed')}
-                {renderStat('jump')}
-                {renderStat('bossDemage', true)}
-                {renderStat('IgnoreDefence', true)}
-                {renderStat('demage', true)}
-                {renderStat('AllStat', true)}
-                {item && item.RequierdLevel.bonus < 0 && (
-                  <div>
-                    {item.RequierdLevel.label} : {item.RequierdLevel.bonus}
-                  </div>
-                )}
-              </S.Result>
-            ) : (
-              <S.Result>
-                <div>추가 능력이 없습니다.</div>
-                <div> 버튼을 눌러 추가 능력을 부여해주세요.</div>
-              </S.Result>
-            )}
-          </>
-        )}
-      </S.Contianer>
-    </WindowContainer>
+        </S.Contianer>
+      </WindowContainer>
+      {showResult && (
+        <Result item={item} flameResult={flameResult} position={position} />
+      )}
+    </>
   )
 
   function renderStat(key: keyof EquipItemType, isPercent?: boolean) {

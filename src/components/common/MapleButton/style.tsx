@@ -19,11 +19,21 @@ export const Button = styled(OriginalButton)`
     background-color: #ffc96b;
     border: 1px solid #9a722e;
   }
-  &.disabled {
+  &[disabled] {
     color: #948c7d;
     background-color: #635949;
     border: 1px solid #443f38;
     cursor: not-allowed;
+
+    img {
+      filter: grayscale(0.8);
+    }
+    &:hover {
+      color: #948c7d;
+      background-color: #635949;
+      border: 1px solid #443f38;
+      cursor: not-allowed;
+    }
   }
 
   &:focus {

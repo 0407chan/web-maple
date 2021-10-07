@@ -60,7 +60,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
         </S.Horizontal>
       }
     >
-      <S.InventoryBody>
+      <S.Body>
         <S.InventoryButtonWrapper>
           <S.InventoryButton
             onClick={onSetInventoryEquip}
@@ -91,7 +91,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
             />
           ))}
         </S.ItemWrapper>
-      </S.InventoryBody>
+      </S.Body>
     </WindowContainer>
   )
 }

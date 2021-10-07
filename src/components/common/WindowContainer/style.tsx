@@ -9,7 +9,9 @@ export const Contianer = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.8);
   border-radius: 5px;
-  width: 300px;
+  padding: 15px;
+  gap: 10px;
+  width: fit-content;
   height: fit-content;
 `
 
@@ -21,7 +23,6 @@ export const Header = styled.div`
   justify-content: center;
   font-weight: bold;
   color: #ffcc5f;
-  padding: 10px 0px 15px 0px;
 
   &.handle {
     cursor: grab;
@@ -33,10 +34,9 @@ export const Header = styled.div`
 export const Body = styled.div`
   display: flex;
   justify-content: center;
-  width: calc(100% - 30px);
+  width: 100%;
+  /* width: calc(100% - 30px); */
   height: 100%;
-  padding: 15px;
-  padding-top: 0px;
 `
 
 export const Content = styled.div`
@@ -49,7 +49,6 @@ export const Content = styled.div`
 export const Footer = styled.div`
   display: flex;
   width: 100%;
-  padding-bottom: 15px;
   align-items: center;
   justify-content: center;
 `

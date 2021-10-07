@@ -61,32 +61,6 @@ export const ButtonWrapper = styled.div`
   height: fit-content;
 `
 
-export const Button = styled.button`
-  display: flex;
-  width: fit-content;
-  border: 1px solid #9a722e;
-  border-radius: 5px;
-  flex-direction: row;
-  font-weight: bold;
-  color: #fff8ed;
-  padding: 4px 10px;
-  cursor: pointer;
-  background-color: #f4af38;
-
-  &:hover {
-    background-color: #ffc96b;
-  }
-  &.disabled {
-    color: #948c7d;
-    background-color: #635949;
-    border: 1px solid #443f38;
-    cursor: not-allowed;
-  }
-  &:active {
-    background-color: #fec056;
-  }
-`
-
 export const Horizontal = styled.div`
   display: flex;
   gap: 5px;

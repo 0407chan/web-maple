@@ -4,6 +4,7 @@ import useToolTip from '@/hooks/useToolTip'
 import { EquipItemType, SlotType, StatusBase } from '@/types/inventory'
 import React, { useState } from 'react'
 import { v4 as uuid } from 'uuid'
+import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
 import Slot from '../Inventory/Slot'
 import * as S from './style'
@@ -226,20 +227,28 @@ const FlameOfResurrection: React.FC = () => {
       footer={
         <S.Horizontal>
           <S.Horizontal>
-            <S.Button onClick={onPowerfulFlame}>
+            <MapleButton
+              onClick={onPowerfulFlame}
+              style={{ padding: '20px 15px' }}
+            >
               <img
                 src="https://maplestory.io/api/KMS/353/item/2048716/icon"
                 alt="powerImage"
               />
               강환불
-            </S.Button>
-            <S.Button onClick={onEternalFlame}>
-              <img
-                src="https://maplestory.io/api/KMS/353/item/2048717/icon"
-                alt="foreverImage"
-              />
+            </MapleButton>
+            <MapleButton
+              onClick={onEternalFlame}
+              style={{ padding: '20px 15px' }}
+              icon={
+                <img
+                  src="https://maplestory.io/api/KMS/353/item/2048717/icon"
+                  alt="foreverImage"
+                />
+              }
+            >
               영환불
-            </S.Button>
+            </MapleButton>
           </S.Horizontal>
         </S.Horizontal>
       }

@@ -1,7 +1,10 @@
 import { UiWindowType } from '@/feature/uiWindow/uiWindowSlice'
 import useUiWindow from '@/hooks/useUiWindow'
 import React from 'react'
-import Draggable from 'react-draggable'
+import Draggable, {
+  ControlPosition,
+  DraggableEventHandler
+} from 'react-draggable'
 import * as S from './style'
 
 type props = {
@@ -10,6 +13,8 @@ type props = {
   footer?: React.ReactNode
   style?: React.CSSProperties
   canDrag?: boolean
+  position?: ControlPosition
+  onDrag?: DraggableEventHandler | undefined
   hideCloseButton?: boolean
 }
 const WindowContainer: React.FC<props> = ({
@@ -18,6 +23,8 @@ const WindowContainer: React.FC<props> = ({
   footer,
   style,
   canDrag = true,
+  position,
+  onDrag = undefined,
   hideCloseButton = false,
   children
 }) => {
@@ -30,13 +37,19 @@ const WindowContainer: React.FC<props> = ({
     event.stopPropagation()
     onRemoveUiWindow(windowType)
   }
+
+  if (!isOpenedWindow(windowType)) return null
   return (
-    <Draggable handle=".handle" bounds="body">
+    <Draggable
+      handle=".handle"
+      bounds="body"
+      onDrag={onDrag}
+      position={position}
+    >
       <S.Contianer
         className="no-drag"
         style={{
           ...style,
-          visibility: isOpenedWindow(windowType) ? 'visible' : 'hidden',
           zIndex:
             uiWindowList[uiWindowList.length - 1] === windowType ? 1 : undefined
         }}

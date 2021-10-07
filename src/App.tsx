@@ -7,6 +7,7 @@ import {
   useGetEquipmentList
 } from './api/equipment'
 import * as S from './appStyle'
+import MapleButton from './components/common/MapleButton'
 import Equipment from './components/Equipment'
 import FlameOfResurrection from './components/FlameOfResurrection'
 import Inventory from './components/Inventory'
@@ -359,18 +360,19 @@ const App: React.FC = () => {
         <S.Header style={{ paddingTop: 0 }}>Web Maple</S.Header>
         <S.ButtonWrapper>
           <S.Horizontal>
-            {/* <S.Button onClick={() => getAllEquip()}>가져오자!</S.Button> */}
-            <S.Button onClick={() => getEquipBy('검')}>장비 추가</S.Button>
-            {/* <S.Button onClick={() => addRandomEquip()}>하의 추가</S.Button> */}
-            <S.Button
+            <MapleButton onClick={() => getEquipBy('검')}>
+              장비 추가
+            </MapleButton>
+            <MapleButton
               disabled={equipMaxNum > 50}
               className={equipMaxNum > 50 ? 'disabled' : ''}
               onClick={onIncreaseEquipMaxNum}
             >
               인벤토리 확장
-            </S.Button>
-            <S.Button onClick={onOpenEquipInventory}>인벤토리 활성화</S.Button>
-            {/* <button onClick={onGetAllEquipment}>장비 불러오기</button> */}
+            </MapleButton>
+            <MapleButton onClick={onOpenEquipInventory}>
+              인벤토리 활성화
+            </MapleButton>
           </S.Horizontal>
         </S.ButtonWrapper>
       </S.HeaderWrapper>

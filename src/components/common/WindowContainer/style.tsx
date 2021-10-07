@@ -22,8 +22,11 @@ export const Header = styled.div`
   font-weight: bold;
   color: #ffcc5f;
   padding: 10px 0px 15px 0px;
-  cursor: grab;
-  &:active {
+
+  &.handle {
+    cursor: grab;
+  }
+  &:active.handle {
     cursor: grabbing;
   }
 `

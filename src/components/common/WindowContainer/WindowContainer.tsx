@@ -9,12 +9,16 @@ type props = {
   title?: string
   footer?: React.ReactNode
   style?: React.CSSProperties
+  canDrag?: boolean
+  hideCloseButton?: boolean
 }
 const WindowContainer: React.FC<props> = ({
   windowType,
   title,
   footer,
   style,
+  canDrag = true,
+  hideCloseButton = false,
   children
 }) => {
   const { isOpenedWindow, uiWindowList, onSetTop, onRemoveUiWindow } =
@@ -38,8 +42,10 @@ const WindowContainer: React.FC<props> = ({
         }}
         onClick={() => onSetTop(windowType)}
       >
-        <S.Header className="handle">{title || ''}</S.Header>
-        <S.CloseButton onClick={removeUiWindow}>✖</S.CloseButton>
+        <S.Header className={canDrag ? 'handle' : ''}>{title || ''}</S.Header>
+        {!hideCloseButton && (
+          <S.CloseButton onClick={removeUiWindow}>✖</S.CloseButton>
+        )}
         <S.Body>{children}</S.Body>
         {footer && <S.Footer>{footer}</S.Footer>}
       </S.Contianer>

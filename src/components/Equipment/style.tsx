@@ -29,9 +29,8 @@ export const Header = styled.div`
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
-  width: 270px;
+  width: fit-content;
   height: fit-content;
-  margin: 0 10px 10px 10px;
   border-radius: 5px;
   justify-content: center;
   background-color: #eeeeeee7;

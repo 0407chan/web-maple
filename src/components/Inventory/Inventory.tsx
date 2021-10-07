@@ -3,6 +3,7 @@ import useUiWindow from '@/hooks/useUiWindow'
 import { EquipSlotType } from '@/types/equipment'
 import { SlotType } from '@/types/inventory'
 import React from 'react'
+import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
 import Slot from './Slot'
 import * as S from './style'
@@ -54,8 +55,8 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
       style={{ left: 'calc(75% - 150px)', top: 200 }}
       footer={
         <S.Horizontal>
-          <S.Button onClick={onSortInventory}>정렬</S.Button>
-          <S.Button onClick={() => toggleFlameWindow()}>환불</S.Button>
+          <MapleButton onClick={onSortInventory}>정렬</MapleButton>
+          <MapleButton onClick={() => toggleFlameWindow()}>환불</MapleButton>
         </S.Horizontal>
       }
     >

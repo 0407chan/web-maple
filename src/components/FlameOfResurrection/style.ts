@@ -13,8 +13,8 @@ export const Result = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 14px;
-  height: 110px;
-  width: calc(100% - 20px);
+  height: 160px;
+  width: 270px;
   align-items: flex-start;
   justify-content: flex-start;
   background-color: rgba(255, 255, 255, 0.2);

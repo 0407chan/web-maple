@@ -26,7 +26,7 @@ export const Header = styled.div`
   justify-content: center;
   width: 100%;
   text-align: center;
-  padding: 20px 0px;
+  padding: 10px 0px;
   height: fit-content;
   font-size: 24px;
   font-weight: bold;

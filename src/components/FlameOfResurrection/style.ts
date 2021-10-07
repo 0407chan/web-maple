@@ -17,7 +17,7 @@ export const Result = styled.div`
   width: 270px;
   align-items: flex-start;
   justify-content: flex-start;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(120, 120, 120, 0.95);
   border-radius: 5px;
   padding: 10px;
   color: #e1e2e3;

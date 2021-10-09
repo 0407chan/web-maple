@@ -1,7 +1,8 @@
 import MapleButton from '@/components/common/MapleButton'
 import WindowContainer from '@/components/common/WindowContainer'
-import { StatusSettingType } from '@/types/flame'
+import { FlameSettingType, StatusSettingType } from '@/types/flame'
 import { EquipItemType } from '@/types/inventory'
+import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import React, { useEffect, useRef } from 'react'
 import { ControlPosition } from 'react-draggable'
 import * as S from './style'
@@ -11,12 +12,16 @@ type Props = {
   position: ControlPosition
   statusSetting: StatusSettingType
   setStatusSetting: React.Dispatch<React.SetStateAction<StatusSettingType>>
+  flameCostSetting: FlameSettingType
+  setFlameCostSetting: React.Dispatch<React.SetStateAction<FlameSettingType>>
   item: EquipItemType | undefined
 }
 const StatusSetting: React.FC<Props> = ({
   position,
   item,
   statusSetting,
+  flameCostSetting,
+  setFlameCostSetting,
   setStatusSetting
 }) => {
   const isWeapon = () => item?.islots === 'Wp'
@@ -65,10 +70,63 @@ const StatusSetting: React.FC<Props> = ({
             </S.Vertical>
           </S.Block>
         </S.Contianer>
-        <S.Contianer>
+        <S.Contianer style={{ marginTop: 10 }}>
           <S.Title>환불 가격 세팅</S.Title>
           <S.Block>
-            <input onChange={(e) => console.log(e.target.value)}></input>
+            <S.Vertical>
+              <S.Horizontal>
+                <S.Text>
+                  <img
+                    src="https://maplestory.io/api/KMS/353/item/2048716/icon"
+                    alt="powerImage"
+                  />
+                </S.Text>
+                <S.Input
+                  maxLength={11}
+                  placeholder={'숫자를 입력해주세요.'}
+                  value={
+                    flameCostSetting.powerful !== undefined
+                      ? numberWithCommas(flameCostSetting.powerful)
+                      : undefined
+                  }
+                  onChange={(e) => {
+                    const newValue = e.target.value
+                      .replace(regex, '')
+                      .replaceAll(',', '')
+                    setFlameCostSetting({
+                      ...flameCostSetting,
+                      powerful: newValue ? Number(newValue) : undefined
+                    })
+                  }}
+                />
+              </S.Horizontal>
+              <S.Horizontal>
+                <S.Text>
+                  <img
+                    src="https://maplestory.io/api/KMS/353/item/2048717/icon"
+                    alt="foreverImage"
+                  />
+                </S.Text>
+                <S.Input
+                  maxLength={11}
+                  placeholder={'숫자를 입력해주세요.'}
+                  value={
+                    flameCostSetting.eternal !== undefined
+                      ? numberWithCommas(flameCostSetting.eternal)
+                      : undefined
+                  }
+                  onChange={(e) => {
+                    const newValue = e.target.value
+                      .replace(regex, '')
+                      .replaceAll(',', '')
+                    setFlameCostSetting({
+                      ...flameCostSetting,
+                      eternal: newValue ? Number(newValue) : undefined
+                    })
+                  }}
+                />
+              </S.Horizontal>
+            </S.Vertical>
           </S.Block>
         </S.Contianer>
       </S.Vertical>

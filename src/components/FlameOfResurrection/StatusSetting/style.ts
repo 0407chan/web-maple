@@ -52,6 +52,5 @@ export const Vertical = styled.div`
 
 export const Text = styled.span`
   width: 60px;
-
   font-weight: bold;
 `

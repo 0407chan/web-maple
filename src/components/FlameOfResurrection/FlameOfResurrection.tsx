@@ -1,6 +1,7 @@
 import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
+import { StatusSettingType } from '@/types/flame'
 import { EquipItemType, SlotType, StatusBase } from '@/types/inventory'
 import React, { useState } from 'react'
 import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
@@ -9,6 +10,7 @@ import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
 import Slot from '../Inventory/Slot'
 import Result from './Result'
+import StatusSetting from './StatusSetting'
 import * as S from './style'
 import {
   calcAttack,
@@ -35,7 +37,9 @@ const FlameOfResurrection: React.FC = () => {
   const { onHideTooltip } = useToolTip()
   const { equipment, onUpdateEquipSlot } = useEquipment()
 
-  const [showResult, setShowResult] = useState<boolean>(false)
+  const [showResult, setShowResult] = useState<boolean>(true)
+  const [showSetting, setShowSetting] = useState<boolean>(true)
+  const [statusSetting, setStatusSetting] = useState<StatusSettingType>({})
   const [position, setPosition] = useState<ControlPosition>({
     x: document.body.clientWidth / 2 - 150,
     y: document.body.clientHeight / 2 - 200
@@ -332,15 +336,23 @@ const FlameOfResurrection: React.FC = () => {
             </>
           )}
           <S.Horizontal>
-            {/* <MapleButton onClick={() => setShowResult(!showResult)}>
-              조건보기
-            </MapleButton> */}
-            <MapleButton onClick={() => setShowResult(!showResult)}>
-              결과보기
+            <MapleButton onClick={() => setShowSetting(!showSetting)}>
+              세팅
             </MapleButton>
+            {/* <MapleButton onClick={() => setShowResult(!showResult)}>
+              결과보기
+            </MapleButton> */}
           </S.Horizontal>
         </S.Contianer>
       </WindowContainer>
+      {showSetting && (
+        <StatusSetting
+          item={item}
+          statusSetting={statusSetting}
+          setStatusSetting={setStatusSetting}
+          position={position}
+        />
+      )}
       {showResult && (
         <Result item={item} flameResult={flameResult} position={position} />
       )}

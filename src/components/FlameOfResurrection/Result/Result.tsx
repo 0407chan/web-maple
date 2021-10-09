@@ -6,6 +6,7 @@ import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import React from 'react'
 import { ControlPosition } from 'react-draggable'
 import * as S from './style'
+import { numberUnit } from './utils'
 
 // 2048716 강환불 Powerful Rebirth Flame
 // 2048717 영환불 Eternal Rebirth Flame
@@ -42,7 +43,7 @@ const Result: React.FC<Props> = ({
     const flame = flameResult.get(item.id)
     if (flame === undefined || flame.eternal === undefined) return 0
 
-    return numberWithCommas(flameCostSetting.eternal * flame.eternal)
+    return flameCostSetting.eternal * flame.eternal
   }
 
   const mesoToKRW = () => {
@@ -50,7 +51,7 @@ const Result: React.FC<Props> = ({
     if (flameCostSetting.eternal === undefined) return 0
     const flame = flameResult.get(item.id)
     if (flame === undefined || flame.eternal === undefined) return 0
-    return numberWithCommas((flameCostSetting.eternal * flame.eternal) / 4000)
+    return Math.floor(calcEternalTotalCost() / 100000000) * 4000
   }
   return (
     <WindowContainer
@@ -112,9 +113,15 @@ const Result: React.FC<Props> = ({
                   alt="powerImage"
                 />
               </S.Text>
-              <S.Input readOnly value={calcEternalTotalCost()} />
+              <S.Input
+                readOnly
+                value={numberWithCommas(calcEternalTotalCost())}
+              />
             </S.Horizontal>
           </S.Block>
+          <S.Horizontal style={{ justifyContent: 'flex-end' }}>
+            <S.Title>{numberUnit(calcEternalTotalCost())} 메소</S.Title>
+          </S.Horizontal>
         </S.Contianer>
         <S.Contianer style={{ marginTop: 10 }}>
           <S.Horizontal>
@@ -131,9 +138,12 @@ const Result: React.FC<Props> = ({
                   alt="powerImage"
                 />
               </S.Text>
-              <S.Input readOnly value={mesoToKRW()} />
+              <S.Input readOnly value={numberWithCommas(mesoToKRW())} />
             </S.Horizontal>
           </S.Block>
+          <S.Horizontal style={{ justifyContent: 'flex-end' }}>
+            <S.Title>{numberUnit(mesoToKRW())} 원</S.Title>
+          </S.Horizontal>
         </S.Contianer>
       </S.Vertical>
     </WindowContainer>

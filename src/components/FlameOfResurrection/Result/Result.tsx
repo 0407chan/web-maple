@@ -10,6 +10,7 @@ import { numberUnit } from './utils'
 
 // 2048716 강환불 Powerful Rebirth Flame
 // 2048717 영환불 Eternal Rebirth Flame
+const WonImage = `${process.env.PUBLIC_URL}/images/money/won.png`
 
 type Props = {
   position: ControlPosition
@@ -19,13 +20,15 @@ type Props = {
   >
   item: EquipItemType | undefined
   flameCostSetting: FlameSettingType
+  mesoKrwSetting: number | undefined
 }
 const Result: React.FC<Props> = ({
   item,
   flameResult,
   setFlameResult,
   position,
-  flameCostSetting
+  flameCostSetting,
+  mesoKrwSetting
 }) => {
   const initItemStatusSetting = () => {
     if (item === undefined) return
@@ -51,7 +54,9 @@ const Result: React.FC<Props> = ({
     if (flameCostSetting.eternal === undefined) return 0
     const flame = flameResult.get(item.id)
     if (flame === undefined || flame.eternal === undefined) return 0
-    return Math.floor(calcEternalTotalCost() / 100000000) * 4000
+    return (
+      Math.floor(calcEternalTotalCost() / 100000000) * (mesoKrwSetting || 0)
+    )
   }
   return (
     <WindowContainer
@@ -133,10 +138,7 @@ const Result: React.FC<Props> = ({
           <S.Block>
             <S.Horizontal>
               <S.Text>
-                <img
-                  src="https://maplestory.io/api/KMS/353/item/2438119/icon"
-                  alt="powerImage"
-                />
+                <img width={30} src={WonImage} alt="KRW" />
               </S.Text>
               <S.Input readOnly value={numberWithCommas(mesoToKRW())} />
             </S.Horizontal>

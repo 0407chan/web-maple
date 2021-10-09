@@ -3,7 +3,7 @@ import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
 import { FlameSettingType, StatusSettingType } from '@/types/flame'
 import { EquipItemType, SlotType, StatusBase } from '@/types/inventory'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
 import { v4 as uuid } from 'uuid'
 import MapleButton from '../common/MapleButton'
@@ -43,6 +43,7 @@ const FlameOfResurrection: React.FC = () => {
   const [isAuto, setIsAuto] = useState<boolean>(false)
   const [interval2, setInterval2] = useState<NodeJS.Timer>()
 
+  const intervalRef = useRef(interval2)
   const [isEternalAuto, setIsEternalAuto] = useState<boolean>(false)
   const [isPowerfulAuto, setIsPowerfulAuto] = useState<boolean>(false)
   const [statusSetting, setStatusSetting] = useState<StatusSettingType>({})
@@ -126,6 +127,7 @@ const FlameOfResurrection: React.FC = () => {
       setIsEternalAuto(false)
     } else {
       const newInterval = setInterval(onEternalFlame, 50)
+      intervalRef.current = newInterval
       setInterval2(newInterval)
       setIsEternalAuto(true)
     }
@@ -240,8 +242,76 @@ const FlameOfResurrection: React.FC = () => {
       RequierdLevel: { ...item.RequierdLevel, bonus: newRequierdLevel },
       DEFENCE: { ...item.DEFENCE, bonus: newDefence }
     }
+    checkForAuto(newItem)
     setFlameSlot({ ...flameSlot, item: newItem })
     setItemOnOriginalSlot(newItem)
+  }
+
+  const checkForAuto = (newItem: EquipItemType) => {
+    if (intervalRef.current === undefined) return
+    const {
+      STR,
+      DEX,
+      INT,
+      LUK,
+      MAGIC_ATTACK,
+      WEAPON_ATTACK,
+      bossDemage,
+      demage,
+      AllStat
+    } = statusSetting
+    let result = false
+
+    const definedKeys = getNotUndefined()
+
+    for (let i = 0; i < definedKeys.length; i++) {
+      const key = definedKeys[i]
+      const newKey: keyof EquipItemType = key
+      const status = statusSetting[key]
+      if (status && status <= newItem[newKey].bonus) {
+        result = true
+      } else {
+        result = false
+        break
+      }
+    }
+    if (result || definedKeys.length === 0) {
+      clearInterval(intervalRef.current)
+      setIsEternalAuto(false)
+    }
+
+    function getNotUndefined() {
+      const result: (keyof StatusSettingType)[] = []
+
+      if (STR) {
+        result.push('STR')
+      }
+      if (DEX) {
+        result.push('DEX')
+      }
+      if (INT) {
+        result.push('INT')
+      }
+      if (LUK) {
+        result.push('LUK')
+      }
+      if (MAGIC_ATTACK) {
+        result.push('MAGIC_ATTACK')
+      }
+      if (WEAPON_ATTACK) {
+        result.push('WEAPON_ATTACK')
+      }
+      if (bossDemage) {
+        result.push('bossDemage')
+      }
+      if (demage) {
+        result.push('demage')
+      }
+      if (AllStat) {
+        result.push('AllStat')
+      }
+      return result
+    }
   }
 
   const setItemOnOriginalSlot = (newItem: EquipItemType) => {
@@ -365,7 +435,12 @@ const FlameOfResurrection: React.FC = () => {
             </MapleButton>
             <S.Checkbox
               checked={isAuto}
-              onChange={(event) => setIsAuto(event.target.checked)}
+              onChange={(event) => {
+                if (event.target.checked === false && intervalRef.current) {
+                  clearInterval(intervalRef.current)
+                }
+                setIsAuto(event.target.checked)
+              }}
             >
               <S.Title>자동</S.Title>
             </S.Checkbox>

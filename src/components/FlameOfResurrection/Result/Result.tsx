@@ -24,26 +24,31 @@ const Result: React.FC<Props> = ({ item, flameResult, position }) => {
       windowType="FlameOfResurrection"
       hideCloseButton
       title="RESULT"
-      position={{ ...position, x: position.x + 300 + 5 }}
+      position={{ ...position, x: position.x + 300 + 10 }}
       canDrag={false}
     >
       <S.Contianer>
-        <S.Horizontal>
-          <S.Vertical>
-            <img
-              src="https://maplestory.io/api/KMS/353/item/2048716/icon"
-              alt="powerImage"
-            />
-            <S.Text>{item ? flameResult.get(item.id)?.power || 0 : 0}</S.Text>
-          </S.Vertical>
-          <S.Vertical>
-            <img
-              src="https://maplestory.io/api/KMS/353/item/2048717/icon"
-              alt="foreverImage"
-            />
-            <S.Text>{item ? flameResult.get(item.id)?.eternal || 0 : 0}</S.Text>
-          </S.Vertical>
-        </S.Horizontal>
+        <S.Title>환불 사용 갯수</S.Title>
+        <S.Block>
+          <S.Horizontal>
+            <S.Vertical>
+              <img
+                src="https://maplestory.io/api/KMS/353/item/2048716/icon"
+                alt="powerImage"
+              />
+              <S.Text>{item ? flameResult.get(item.id)?.power || 0 : 0}</S.Text>
+            </S.Vertical>
+            <S.Vertical>
+              <img
+                src="https://maplestory.io/api/KMS/353/item/2048717/icon"
+                alt="foreverImage"
+              />
+              <S.Text>
+                {item ? flameResult.get(item.id)?.eternal || 0 : 0}
+              </S.Text>
+            </S.Vertical>
+          </S.Horizontal>
+        </S.Block>
       </S.Contianer>
     </WindowContainer>
   )

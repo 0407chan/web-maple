@@ -67,6 +67,7 @@ const StatusSetting: React.FC<Props> = ({
               {renderStatusInput('MAGIC_ATTACK')}
               {renderStatusInput('bossDemage', !isWeapon())}
               {renderStatusInput('demage', !isWeapon())}
+              {renderStatusInput('AllStat', !isWeapon())}
             </S.Vertical>
           </S.Block>
         </S.Contianer>

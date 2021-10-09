@@ -8,12 +8,16 @@ import { ControlPosition } from 'react-draggable'
 import * as S from './style'
 import { StatusName } from './utils'
 
+const WonImage = `${process.env.PUBLIC_URL}/images/money/won.png`
+
 type Props = {
   position: ControlPosition
   statusSetting: StatusSettingType
   setStatusSetting: React.Dispatch<React.SetStateAction<StatusSettingType>>
   flameCostSetting: FlameSettingType
   setFlameCostSetting: React.Dispatch<React.SetStateAction<FlameSettingType>>
+  mesoKrwSetting: number | undefined
+  setMesoKrwSetting: React.Dispatch<React.SetStateAction<number | undefined>>
   item: EquipItemType | undefined
 }
 const StatusSetting: React.FC<Props> = ({
@@ -22,7 +26,9 @@ const StatusSetting: React.FC<Props> = ({
   statusSetting,
   flameCostSetting,
   setFlameCostSetting,
-  setStatusSetting
+  setStatusSetting,
+  mesoKrwSetting,
+  setMesoKrwSetting
 }) => {
   const isWeapon = () => item?.islots === 'Wp'
   const ref = useRef()
@@ -67,7 +73,7 @@ const StatusSetting: React.FC<Props> = ({
               {renderStatusInput('MAGIC_ATTACK')}
               {renderStatusInput('bossDemage', !isWeapon())}
               {renderStatusInput('demage', !isWeapon())}
-              {renderStatusInput('AllStat', !isWeapon())}
+              {renderStatusInput('AllStat')}
             </S.Vertical>
           </S.Block>
         </S.Contianer>
@@ -128,6 +134,31 @@ const StatusSetting: React.FC<Props> = ({
                 />
               </S.Horizontal>
             </S.Vertical>
+          </S.Block>
+        </S.Contianer>
+        <S.Contianer style={{ marginTop: 10 }}>
+          <S.Title>1억 메소당</S.Title>
+          <S.Block>
+            <S.Horizontal>
+              <S.Text>
+                <img width={30} src={WonImage} alt="one" />
+              </S.Text>
+              <S.Input
+                maxLength={5}
+                placeholder={'숫자를 입력해주세요.'}
+                value={
+                  mesoKrwSetting !== undefined
+                    ? numberWithCommas(mesoKrwSetting)
+                    : undefined
+                }
+                onChange={(e) => {
+                  const newValue = e.target.value
+                    .replace(regex, '')
+                    .replaceAll(',', '')
+                  setMesoKrwSetting(newValue ? Number(newValue) : undefined)
+                }}
+              />
+            </S.Horizontal>
           </S.Block>
         </S.Contianer>
       </S.Vertical>

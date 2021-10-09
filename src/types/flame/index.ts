@@ -9,3 +9,8 @@ export type StatusSettingType = {
   bossDemage?: number
   demage?: number
 }
+
+export type FlameSettingType = {
+  powerful?: number
+  eternal?: number
+}

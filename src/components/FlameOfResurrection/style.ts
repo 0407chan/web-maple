@@ -68,3 +68,13 @@ export const Title = styled.div`
   font-weight: bold;
   color: #eeeeee;
 `
+
+export const FlameStatLabel = styled.div<{ isMyStat?: boolean }>`
+  ${(props) =>
+    props.isMyStat
+      ? {
+          fontWeight: 'bold',
+          color: '#66ff64'
+        }
+      : {}}
+`

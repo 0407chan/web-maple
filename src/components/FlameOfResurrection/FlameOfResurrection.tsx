@@ -20,7 +20,8 @@ import {
   getEternalGrade,
   getFourArmorOption,
   getFourWeaponOption,
-  getGrade
+  getGrade,
+  getNotUndefined
 } from './utils'
 
 // 2048716 강환불 Powerful Rebirth Flame
@@ -46,13 +47,15 @@ const FlameOfResurrection: React.FC = () => {
   const intervalRef = useRef(interval2)
   const [isEternalAuto, setIsEternalAuto] = useState<boolean>(false)
   const [isPowerfulAuto, setIsPowerfulAuto] = useState<boolean>(false)
-  const [statusSetting, setStatusSetting] = useState<StatusSettingType>({})
   const [position, setPosition] = useState<ControlPosition>({
     x: document.body.clientWidth / 2 - 150,
     y: document.body.clientHeight / 2 - 200
   })
 
   const [flameSlot, setFlameSlot] = useState<SlotType>(initFlameSlot)
+
+  const [mesoKrwSetting, setMesoKrwSetting] = useState<number | undefined>(3500)
+  const [statusSetting, setStatusSetting] = useState<StatusSettingType>({})
   const [flameCostSetting, setFlameCostSetting] = useState<FlameSettingType>({
     powerful: 50000000,
     eternal: 100000000
@@ -249,20 +252,9 @@ const FlameOfResurrection: React.FC = () => {
 
   const checkForAuto = (newItem: EquipItemType) => {
     if (intervalRef.current === undefined) return
-    const {
-      STR,
-      DEX,
-      INT,
-      LUK,
-      MAGIC_ATTACK,
-      WEAPON_ATTACK,
-      bossDemage,
-      demage,
-      AllStat
-    } = statusSetting
     let result = false
 
-    const definedKeys = getNotUndefined()
+    const definedKeys = getNotUndefined(statusSetting)
 
     for (let i = 0; i < definedKeys.length; i++) {
       const key = definedKeys[i]
@@ -278,39 +270,6 @@ const FlameOfResurrection: React.FC = () => {
     if (result || definedKeys.length === 0) {
       clearInterval(intervalRef.current)
       setIsEternalAuto(false)
-    }
-
-    function getNotUndefined() {
-      const result: (keyof StatusSettingType)[] = []
-
-      if (STR) {
-        result.push('STR')
-      }
-      if (DEX) {
-        result.push('DEX')
-      }
-      if (INT) {
-        result.push('INT')
-      }
-      if (LUK) {
-        result.push('LUK')
-      }
-      if (MAGIC_ATTACK) {
-        result.push('MAGIC_ATTACK')
-      }
-      if (WEAPON_ATTACK) {
-        result.push('WEAPON_ATTACK')
-      }
-      if (bossDemage) {
-        result.push('bossDemage')
-      }
-      if (demage) {
-        result.push('demage')
-      }
-      if (AllStat) {
-        result.push('AllStat')
-      }
-      return result
     }
   }
 
@@ -457,6 +416,8 @@ const FlameOfResurrection: React.FC = () => {
           setStatusSetting={setStatusSetting}
           flameCostSetting={flameCostSetting}
           setFlameCostSetting={setFlameCostSetting}
+          mesoKrwSetting={mesoKrwSetting}
+          setMesoKrwSetting={setMesoKrwSetting}
           position={position}
         />
       )}
@@ -466,6 +427,7 @@ const FlameOfResurrection: React.FC = () => {
           flameResult={flameResult}
           setFlameResult={setFlameResult}
           flameCostSetting={flameCostSetting}
+          mesoKrwSetting={mesoKrwSetting}
           position={position}
         />
       )}
@@ -475,12 +437,21 @@ const FlameOfResurrection: React.FC = () => {
   function renderStat(key: keyof EquipItemType, isPercent?: boolean) {
     if (!item) return null
     const stat = item[key] as StatusBase
+    const definedKeys = getNotUndefined(statusSetting)
+    const isExist = definedKeys.find((definedKey) => definedKey === key)
+    const status = isExist ? statusSetting[isExist] : undefined
     if (stat.bonus > 0) {
       return (
-        <div>
+        <S.FlameStatLabel
+          isMyStat={
+            isExist !== undefined &&
+            status !== undefined &&
+            stat.bonus >= status
+          }
+        >
           {stat.label} : {stat.bonus}
           {isPercent === true ? '%' : ''}
-        </div>
+        </S.FlameStatLabel>
       )
     }
   }

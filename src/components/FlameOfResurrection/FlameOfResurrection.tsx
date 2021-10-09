@@ -1,7 +1,7 @@
 import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
-import { StatusSettingType } from '@/types/flame'
+import { FlameSettingType, StatusSettingType } from '@/types/flame'
 import { EquipItemType, SlotType, StatusBase } from '@/types/inventory'
 import React, { useState } from 'react'
 import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
@@ -33,12 +33,18 @@ const initFlameSlot: SlotType = {
 
 const FlameOfResurrection: React.FC = () => {
   let timer: any = undefined
+
   const { inventory, currentInventory, onUpdateInventorySlot } = useInventory()
   const { onHideTooltip } = useToolTip()
   const { equipment, onUpdateEquipSlot } = useEquipment()
 
   const [showResult, setShowResult] = useState<boolean>(true)
   const [showSetting, setShowSetting] = useState<boolean>(true)
+  const [isAuto, setIsAuto] = useState<boolean>(false)
+  const [interval2, setInterval2] = useState<NodeJS.Timer>()
+
+  const [isEternalAuto, setIsEternalAuto] = useState<boolean>(false)
+  const [isPowerfulAuto, setIsPowerfulAuto] = useState<boolean>(false)
   const [statusSetting, setStatusSetting] = useState<StatusSettingType>({})
   const [position, setPosition] = useState<ControlPosition>({
     x: document.body.clientWidth / 2 - 150,
@@ -46,9 +52,13 @@ const FlameOfResurrection: React.FC = () => {
   })
 
   const [flameSlot, setFlameSlot] = useState<SlotType>(initFlameSlot)
-  const [flameResult, setFlameResult] = useState<
-    Map<string, { power: number; eternal: number }>
-  >(new Map())
+  const [flameCostSetting, setFlameCostSetting] = useState<FlameSettingType>({
+    powerful: 50000000,
+    eternal: 100000000
+  })
+  const [flameResult, setFlameResult] = useState<Map<string, FlameSettingType>>(
+    new Map()
+  )
 
   const { item } = flameSlot
 
@@ -90,10 +100,10 @@ const FlameOfResurrection: React.FC = () => {
 
     let res = flameResult.get(item.id)
     if (res) {
-      res = { ...res, power: res.power + 1 }
+      res = { ...res, powerful: res.powerful ? res.powerful + 1 : 0 + 1 }
       flameResult.set(item.id, res)
     } else {
-      flameResult.set(item.id, { eternal: 0, power: 1 })
+      flameResult.set(item.id, { eternal: 0, powerful: 1 })
     }
     setFlameResult(flameResult)
 
@@ -108,22 +118,35 @@ const FlameOfResurrection: React.FC = () => {
     setFlameSlot({ ...flameSlot, item: newItem })
   }
 
+  const onAutoEternal = () => {
+    if (isEternalAuto) {
+      if (interval2) {
+        clearInterval(interval2)
+      }
+      setIsEternalAuto(false)
+    } else {
+      const newInterval = setInterval(onEternalFlame, 50)
+      setInterval2(newInterval)
+      setIsEternalAuto(true)
+    }
+  }
+
   const onEternalFlame = () => {
     if (!item) return
 
     let res = flameResult.get(item.id)
     if (res) {
-      res = { ...res, eternal: res.eternal + 1 }
+      res = { ...res, eternal: res.eternal ? res.eternal + 1 : 0 + 1 }
       flameResult.set(item.id, res)
     } else {
-      flameResult.set(item.id, { eternal: 1, power: 0 })
+      flameResult.set(item.id, { eternal: 1, powerful: 0 })
     }
     setFlameResult(flameResult)
 
     const options = new Set(
       item.islots === 'Wp' ? getFourWeaponOption() : getFourArmorOption()
     )
-    console.log(options)
+    // console.log(options)
     let newStr = options.has('STR') ? calcSingleBonusStatEternal(item) : 0
     let newDex = options.has('DEX') ? calcSingleBonusStatEternal(item) : 0
     let newInt = options.has('INT') ? calcSingleBonusStatEternal(item) : 0
@@ -276,7 +299,8 @@ const FlameOfResurrection: React.FC = () => {
                 강환불
               </MapleButton>
               <MapleButton
-                onClick={onEternalFlame}
+                // loading={isEternalAuto}
+                onClick={isAuto ? onAutoEternal : onEternalFlame}
                 style={{ padding: '20px 15px' }}
                 icon={
                   <img
@@ -339,6 +363,12 @@ const FlameOfResurrection: React.FC = () => {
             <MapleButton onClick={() => setShowSetting(!showSetting)}>
               세팅
             </MapleButton>
+            <S.Checkbox
+              checked={isAuto}
+              onChange={(event) => setIsAuto(event.target.checked)}
+            >
+              <S.Title>자동</S.Title>
+            </S.Checkbox>
             {/* <MapleButton onClick={() => setShowResult(!showResult)}>
               결과보기
             </MapleButton> */}
@@ -350,11 +380,19 @@ const FlameOfResurrection: React.FC = () => {
           item={item}
           statusSetting={statusSetting}
           setStatusSetting={setStatusSetting}
+          flameCostSetting={flameCostSetting}
+          setFlameCostSetting={setFlameCostSetting}
           position={position}
         />
       )}
       {showResult && (
-        <Result item={item} flameResult={flameResult} position={position} />
+        <Result
+          item={item}
+          flameResult={flameResult}
+          setFlameResult={setFlameResult}
+          flameCostSetting={flameCostSetting}
+          position={position}
+        />
       )}
     </>
   )

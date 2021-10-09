@@ -1,3 +1,4 @@
+import { Checkbox as OriginalCheckbox } from 'antd/lib'
 import styled from 'styled-components'
 
 export const Contianer = styled.div`
@@ -55,4 +56,15 @@ export const Button = styled.button`
     border: 1px solid #443f38;
     cursor: not-allowed;
   }
+`
+
+export const Checkbox = styled(OriginalCheckbox)`
+  .ant-checkbox-checked .ant-checkbox-inner {
+    /* background-color: #f4af38;
+    border-color: #f4af38; */
+  }
+`
+export const Title = styled.div`
+  font-weight: bold;
+  color: #eeeeee;
 `

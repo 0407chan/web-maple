@@ -315,7 +315,7 @@ const App: React.FC = () => {
   }
 
   const handleKeyDown = (ev: KeyboardEvent) => {
-    console.log(ev.key)
+    // console.log(ev.key)
     switch (ev.key) {
       case 'ㅑ':
       case 'i': {
@@ -332,6 +332,15 @@ const App: React.FC = () => {
           onRemoveUiWindow('Equipment')
         } else {
           onAddUiWindow('Equipment')
+        }
+        break
+      }
+      case 'ㄹ':
+      case 'f': {
+        if (isOpenedWindow('FlameOfResurrection')) {
+          onRemoveUiWindow('FlameOfResurrection')
+        } else {
+          onAddUiWindow('FlameOfResurrection')
         }
         break
       }

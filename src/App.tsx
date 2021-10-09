@@ -96,14 +96,13 @@ const App: React.FC = () => {
         ...emptyInven[0],
         item: newItem
       })
-      console.log(item)
+      // console.log(item)
     } else {
       console.log(name, '은 없음!')
     }
   }
 
   const getAllEquip = async () => {
-    console.log('고!')
     const promise = []
     // 무기
     promise.push(getEquipment({ itemId: 1402000 }))
@@ -141,7 +140,7 @@ const App: React.FC = () => {
   }
 
   const transDtoToType = (itemDto: EquipmentItemDto) => {
-    console.log(itemDto.description.name, itemDto.metaInfo)
+    // console.log(itemDto.description.name, itemDto.metaInfo)
     const result: EquipItemType = {
       ...EMPTY_EQUIP,
       id: uuid(),
@@ -311,7 +310,7 @@ const App: React.FC = () => {
 
   const findItemByName = async (name: string) => {
     const result = await getEquipmentList({ searchFor: name })
-    console.log('환불내놔', result)
+    console.log(`[${name}] 검색 결과`, result)
   }
 
   const handleKeyDown = (ev: KeyboardEvent) => {
@@ -358,9 +357,10 @@ const App: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [uiWindowList])
+
   useEffect(() => {
     getAllEquip()
-    // findItemByName('환생의 불꽃')
+    // findItemByName('현금')
   }, [])
 
   return (

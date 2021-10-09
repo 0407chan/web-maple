@@ -190,8 +190,8 @@ export const ImageWrapper = styled.div`
 `
 
 export const Image = styled.img`
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
 `
 
 export const AttackIncreaseWrapper = styled.div`

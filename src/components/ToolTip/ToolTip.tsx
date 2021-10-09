@@ -223,7 +223,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
           {currentItem.name}
           {currentItem.upgrade > 0 && <span> (+{currentItem.upgrade})</span>}
         </S.ItemName>
-        <S.ItemPotential>(에픽 아이템)</S.ItemPotential>
+        {/* <S.ItemPotential>(에픽 아이템)</S.ItemPotential> */}
       </S.ItemNameWapper>
       <S.DotLine />
       <S.SectionBlock

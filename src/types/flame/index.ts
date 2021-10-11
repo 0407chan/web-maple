@@ -14,3 +14,5 @@ export type FlameSettingType = {
   powerful?: number
   eternal?: number
 }
+
+export type FlameType = 'ETERNAL' | 'POWERFUL'

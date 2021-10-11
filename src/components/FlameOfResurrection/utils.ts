@@ -1,4 +1,4 @@
-import { StatusSettingType } from '@/types/flame'
+import { FlameType, StatusSettingType } from '@/types/flame'
 import { EquipItemType } from '@/types/inventory'
 import {
   ARMER_OPTION_NAME,
@@ -12,14 +12,13 @@ export const getRandomNum = (range: number): number => {
   return Math.floor(Math.random() * range + 1)
 }
 
-type FlameType = 'ETERNAL' | 'POWERFUL'
 export const getGrade = (flameType: FlameType, item: EquipItemType): number => {
   const bossGrade = item.bossReward ? 2 : 0
   let result = bossGrade
   if (flameType === 'ETERNAL') {
     result += ETERNAL_FLAME_PERCENTAGE.get(getRandomNum(100)) ?? 4
   } else {
-    result += POWERFUL_FLAME_PERCENTAGE.get(getRandomNum(100)) ?? 4
+    result += POWERFUL_FLAME_PERCENTAGE.get(getRandomNum(100)) ?? 5
   }
   return result
 }
@@ -30,17 +29,19 @@ export const getEternalGrade = (): number => {
 export const getPowerfulGrade = (): number => {
   return POWERFUL_FLAME_PERCENTAGE.get(getRandomNum(100)) ?? 5
 }
-export const calcSingleBonusStatEternal = (item: EquipItemType): number => {
-  const grade = getEternalGrade()
-  const bossGrade = item.bossReward ? 2 : 0
-  if (grade === undefined) return 0
-  return (Math.floor(item.level / 20) + 1) * (bossGrade + grade)
+export const calcSingleBonusStat = (
+  flameType: FlameType,
+  item: EquipItemType
+): number => {
+  const grade = getGrade(flameType, item)
+  return (Math.floor(item.level / 20) + 1) * grade
 }
-export const calcDoubleBonusStatEternal = (item: EquipItemType): number => {
-  const grade = getEternalGrade()
-  const bossGrade = item.bossReward ? 2 : 0
-  if (grade === undefined) return 0
-  return (Math.floor(item.level / 40) + 1) * (bossGrade + grade)
+export const calcDoubleBonusStat = (
+  flameType: FlameType,
+  item: EquipItemType
+): number => {
+  const grade = getGrade(flameType, item)
+  return (Math.floor(item.level / 40) + 1) * grade
 }
 
 export const calcAttack = (
@@ -52,21 +53,6 @@ export const calcAttack = (
   } else {
     return WAEPON_FLAME_OPTION[item.level as 150 | 160 | 200][grade]
   }
-}
-
-// 단일 스텟
-export const calcSingleBonusStatPowerful = (item: EquipItemType): number => {
-  const grade = getPowerfulGrade()
-  const bossGrade = item.bossReward ? 2 : 0
-  if (grade === undefined) return 0
-  return (Math.floor(item.level / 20) + 1) * (bossGrade + grade)
-}
-// 이중 스텟
-export const calcDoubleBonusStatPowerful = (item: EquipItemType): number => {
-  const grade = getPowerfulGrade()
-  const bossGrade = item.bossReward ? 2 : 0
-  if (grade === undefined) return 0
-  return (Math.floor(item.level / 40) + 1) * (bossGrade + grade)
 }
 
 export const getFourWeaponOption = () => {

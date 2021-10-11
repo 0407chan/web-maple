@@ -14,10 +14,8 @@ import StatusSetting from './StatusSetting'
 import * as S from './style'
 import {
   calcAttack,
-  calcDoubleBonusStatEternal,
-  calcSingleBonusStatEternal,
-  calcSingleBonusStatPowerful,
-  getEternalGrade,
+  calcDoubleBonusStat,
+  calcSingleBonusStat,
   getFourArmorOption,
   getFourWeaponOption,
   getGrade,
@@ -113,10 +111,10 @@ const FlameOfResurrection: React.FC = () => {
 
     const newItem: EquipItemType = {
       ...item,
-      STR: { ...item.STR, bonus: calcSingleBonusStatPowerful(item) },
-      DEX: { ...item.DEX, bonus: calcSingleBonusStatPowerful(item) },
-      INT: { ...item.INT, bonus: calcSingleBonusStatPowerful(item) },
-      LUK: { ...item.LUK, bonus: calcSingleBonusStatPowerful(item) }
+      STR: { ...item.STR, bonus: calcSingleBonusStat('POWERFUL', item) },
+      DEX: { ...item.DEX, bonus: calcSingleBonusStat('POWERFUL', item) },
+      INT: { ...item.INT, bonus: calcSingleBonusStat('POWERFUL', item) },
+      LUK: { ...item.LUK, bonus: calcSingleBonusStat('POWERFUL', item) }
     }
 
     setFlameSlot({ ...flameSlot, item: newItem })
@@ -152,17 +150,17 @@ const FlameOfResurrection: React.FC = () => {
       item.islots === 'Wp' ? getFourWeaponOption() : getFourArmorOption()
     )
     // console.log(options)
-    let newStr = options.has('STR') ? calcSingleBonusStatEternal(item) : 0
-    let newDex = options.has('DEX') ? calcSingleBonusStatEternal(item) : 0
-    let newInt = options.has('INT') ? calcSingleBonusStatEternal(item) : 0
-    let newLuk = options.has('LUK') ? calcSingleBonusStatEternal(item) : 0
+    let newStr = options.has('STR') ? calcSingleBonusStat('ETERNAL', item) : 0
+    let newDex = options.has('DEX') ? calcSingleBonusStat('ETERNAL', item) : 0
+    let newInt = options.has('INT') ? calcSingleBonusStat('ETERNAL', item) : 0
+    let newLuk = options.has('LUK') ? calcSingleBonusStat('ETERNAL', item) : 0
     const newBoss = options.has('boss_demage')
       ? getGrade('ETERNAL', item) * 2
       : 0
     const newAll = options.has('AllStat') ? getGrade('ETERNAL', item) : 0
     const newDemage = options.has('demage') ? getGrade('ETERNAL', item) : 0
 
-    const tempGrade = getEternalGrade() as 1 | 2 | 3 | 4 | 5
+    const tempGrade = getGrade('ETERNAL', item) as 1 | 2 | 3 | 4 | 5
     const newWeaponAttack = options.has('WEAPON_ATTACK')
       ? item.islots === 'Wp'
         ? Math.ceil(
@@ -174,7 +172,10 @@ const FlameOfResurrection: React.FC = () => {
       ? item.islots === 'Wp'
         ? Math.ceil(
             ((item.MAGIC_ATTACK.base || item.WEAPON_ATTACK.base) *
-              calcAttack(item, getEternalGrade() as 1 | 2 | 3 | 4 | 5)) /
+              calcAttack(
+                item,
+                getGrade('ETERNAL', item) as 1 | 2 | 3 | 4 | 5
+              )) /
               100
           )
         : getGrade('ETERNAL', item)
@@ -193,36 +194,36 @@ const FlameOfResurrection: React.FC = () => {
       : 0
 
     const newDefence = options.has('DEFENCE')
-      ? calcSingleBonusStatEternal(item)
+      ? calcSingleBonusStat('ETERNAL', item)
       : 0
 
     if (options.has('STR+DEX')) {
-      const value = calcDoubleBonusStatEternal(item)
+      const value = calcDoubleBonusStat('ETERNAL', item)
       newStr += value
       newDex += value
     }
     if (options.has('STR+INT')) {
-      const value = calcDoubleBonusStatEternal(item)
+      const value = calcDoubleBonusStat('ETERNAL', item)
       newStr += value
       newInt += value
     }
     if (options.has('STR+LUK')) {
-      const value = calcDoubleBonusStatEternal(item)
+      const value = calcDoubleBonusStat('ETERNAL', item)
       newStr += value
       newLuk += value
     }
     if (options.has('DEX+INT')) {
-      const value = calcDoubleBonusStatEternal(item)
+      const value = calcDoubleBonusStat('ETERNAL', item)
       newDex += value
       newInt += value
     }
     if (options.has('DEX+LUK')) {
-      const value = calcDoubleBonusStatEternal(item)
+      const value = calcDoubleBonusStat('ETERNAL', item)
       newDex += value
       newLuk += value
     }
     if (options.has('INT+LUK')) {
-      const value = calcDoubleBonusStatEternal(item)
+      const value = calcDoubleBonusStat('ETERNAL', item)
       newInt += value
       newLuk += value
     }

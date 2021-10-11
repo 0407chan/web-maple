@@ -7,13 +7,10 @@ import {
   useGetEquipmentList
 } from './api/equipment'
 import * as S from './appStyle'
-import MapleButton from './components/common/MapleButton'
 import Equipment from './components/Equipment'
 import FlameOfResurrection from './components/FlameOfResurrection'
 import Inventory from './components/Inventory'
-import InventoryPrev from './components/InventoryPrev'
 import ToolTip from './components/ToolTip'
-import ToolTipPrev from './components/ToolTipPrev'
 import { EMPTY_EQUIP } from './dummy/equip'
 import useEquipment from './hooks/useEquipment'
 import useUiWindow from './hooks/useUiWindow'
@@ -367,7 +364,7 @@ const App: React.FC = () => {
     <S.Contianer>
       <S.HeaderWrapper>
         <S.Header style={{ paddingTop: 0 }}>Web Maple</S.Header>
-        <S.ButtonWrapper>
+        {/* <S.ButtonWrapper>
           <S.Horizontal>
             <MapleButton onClick={() => getEquipBy('검')}>
               장비 추가
@@ -383,9 +380,9 @@ const App: React.FC = () => {
               인벤토리 활성화
             </MapleButton>
           </S.Horizontal>
-        </S.ButtonWrapper>
+        </S.ButtonWrapper> */}
       </S.HeaderWrapper>
-      <S.BoundWrapper>
+      {/* <S.BoundWrapper>
         <S.Bound className="prev-bound">
           <S.Header>Prev Inventory</S.Header>
           <ToolTipPrev />
@@ -397,7 +394,9 @@ const App: React.FC = () => {
           <Inventory handleDrop={handleDrop} />
           <Equipment handleDrop={inventoryToEquipDrop} />
         </S.Bound>
-      </S.BoundWrapper>
+      </S.BoundWrapper> */}
+      <Inventory handleDrop={handleDrop} />
+      <Equipment handleDrop={inventoryToEquipDrop} />
       <ToolTip positionX={0} positionY={0} />
       <FlameOfResurrection />
     </S.Contianer>

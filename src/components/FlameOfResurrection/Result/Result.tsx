@@ -1,6 +1,6 @@
 import MapleButton from '@/components/common/MapleButton'
 import WindowContainer from '@/components/common/WindowContainer'
-import { FlameSettingType } from '@/types/flame'
+import { FlameSettingType, FlameType } from '@/types/flame'
 import { EquipItemType } from '@/types/inventory'
 import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import React from 'react'
@@ -40,23 +40,20 @@ const Result: React.FC<Props> = ({
     setFlameResult(flameResult)
   }
 
-  const calcEternalTotalCost = () => {
+  const calcCost = (type: FlameType) => {
     if (item === undefined) return 0
-    if (flameCostSetting.ETERNAL === undefined) return 0
     const flame = flameResult.get(item.id)
-    if (flame === undefined || flame.ETERNAL === undefined) return 0
+    if (flame === undefined) return 0
 
-    return flameCostSetting.ETERNAL * flame.ETERNAL
+    return (flameCostSetting[type] || 0) * (flame[type] || 0)
+  }
+
+  const totalCost = () => {
+    return calcCost('ETERNAL') + calcCost('POWERFUL')
   }
 
   const mesoToKRW = () => {
-    if (item === undefined) return 0
-    if (flameCostSetting.ETERNAL === undefined) return 0
-    const flame = flameResult.get(item.id)
-    if (flame === undefined || flame.ETERNAL === undefined) return 0
-    return (
-      Math.floor(calcEternalTotalCost() / 100000000) * (mesoKrwSetting || 0)
-    )
+    return Math.floor((totalCost() / 100000000) * (mesoKrwSetting || 0))
   }
   return (
     <WindowContainer
@@ -118,14 +115,11 @@ const Result: React.FC<Props> = ({
                   alt="powerImage"
                 />
               </S.Text>
-              <S.Input
-                readOnly
-                value={numberWithCommas(calcEternalTotalCost())}
-              />
+              <S.Input readOnly value={numberWithCommas(totalCost())} />
             </S.Horizontal>
           </S.Block>
           <S.Horizontal style={{ justifyContent: 'flex-end' }}>
-            <S.Title>{numberUnit(calcEternalTotalCost())} 메소</S.Title>
+            <S.Title>{numberUnit(totalCost())} 메소</S.Title>
           </S.Horizontal>
         </S.Contianer>
         <S.Contianer style={{ marginTop: 10 }}>

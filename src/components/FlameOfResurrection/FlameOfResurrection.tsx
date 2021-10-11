@@ -152,7 +152,7 @@ const FlameOfResurrection: React.FC = () => {
     const newAll = options.has('AllStat') ? getGrade(type, item) : 0
     const newDemage = options.has('demage') ? getGrade(type, item) : 0
 
-    const tempGrade = getGrade(type, item) as 1 | 2 | 3 | 4 | 5
+    const tempGrade = (getGrade(type, item) - 2) as 1 | 2 | 3 | 4 | 5
     const newWeaponAttack = options.has('WEAPON_ATTACK')
       ? item.islots === 'Wp'
         ? Math.ceil(

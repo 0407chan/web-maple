@@ -47,7 +47,7 @@ const FlameOfResurrection: React.FC = () => {
   const [isPowerfulAuto, setIsPowerfulAuto] = useState<boolean>(false)
   const [position, setPosition] = useState<ControlPosition>({
     x: document.body.clientWidth / 2 - 150,
-    y: document.body.clientHeight / 2 - 200
+    y: 200
   })
 
   const [flameSlot, setFlameSlot] = useState<SlotType>(initFlameSlot)

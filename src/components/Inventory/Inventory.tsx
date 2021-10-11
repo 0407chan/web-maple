@@ -52,7 +52,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
     <WindowContainer
       title="ITEM INVENTORY"
       windowType="Inventory"
-      style={{ left: 'calc(75% - 150px)', top: 200 }}
+      style={{ left: (document.body.clientWidth / 4) * 3 - 150, top: 200 }}
       footer={
         <S.Horizontal>
           <MapleButton onClick={onSortInventory}>정렬</MapleButton>

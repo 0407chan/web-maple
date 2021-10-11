@@ -14,7 +14,11 @@ const Equipment: React.FC<EquipmentProps> = ({ handleDrop }) => {
   const { equipment } = useEquipment()
 
   return (
-    <WindowContainer title="EQUIPMENT INVENTORY" windowType="Equipment">
+    <WindowContainer
+      title="EQUIPMENT INVENTORY"
+      windowType="Equipment"
+      style={{ left: document.body.clientWidth / 4 - 150, top: 200 }}
+    >
       <S.Body>
         <S.ItemWrapper>
           {equipment.map((slot) => (

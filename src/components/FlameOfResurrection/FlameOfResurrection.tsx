@@ -1,7 +1,7 @@
 import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
-import { FlameSettingType, StatusSettingType } from '@/types/flame'
+import { FlameSettingType, FlameType, StatusSettingType } from '@/types/flame'
 import { EquipItemType, SlotType, StatusBase } from '@/types/inventory'
 import React, { useRef, useState } from 'react'
 import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
@@ -55,8 +55,8 @@ const FlameOfResurrection: React.FC = () => {
   const [mesoKrwSetting, setMesoKrwSetting] = useState<number | undefined>(3500)
   const [statusSetting, setStatusSetting] = useState<StatusSettingType>({})
   const [flameCostSetting, setFlameCostSetting] = useState<FlameSettingType>({
-    powerful: 50000000,
-    eternal: 100000000
+    POWERFUL: 50000000,
+    ETERNAL: 100000000
   })
   const [flameResult, setFlameResult] = useState<Map<string, FlameSettingType>>(
     new Map()
@@ -96,30 +96,6 @@ const FlameOfResurrection: React.FC = () => {
     return false
   }
 
-  // 스텟 = (렙 / 20 + 1) * (3,4,5,6,7)
-  const onPowerfulFlame = () => {
-    if (!item) return
-
-    let res = flameResult.get(item.id)
-    if (res) {
-      res = { ...res, powerful: res.powerful ? res.powerful + 1 : 0 + 1 }
-      flameResult.set(item.id, res)
-    } else {
-      flameResult.set(item.id, { eternal: 0, powerful: 1 })
-    }
-    setFlameResult(flameResult)
-
-    const newItem: EquipItemType = {
-      ...item,
-      STR: { ...item.STR, bonus: calcSingleBonusStat('POWERFUL', item) },
-      DEX: { ...item.DEX, bonus: calcSingleBonusStat('POWERFUL', item) },
-      INT: { ...item.INT, bonus: calcSingleBonusStat('POWERFUL', item) },
-      LUK: { ...item.LUK, bonus: calcSingleBonusStat('POWERFUL', item) }
-    }
-
-    setFlameSlot({ ...flameSlot, item: newItem })
-  }
-
   const onAutoEternal = () => {
     if (isEternalAuto) {
       if (interval2) {
@@ -127,22 +103,40 @@ const FlameOfResurrection: React.FC = () => {
       }
       setIsEternalAuto(false)
     } else {
-      const newInterval = setInterval(onEternalFlame, 50)
+      const newInterval = setInterval(() => onFlame('ETERNAL'), 50)
       intervalRef.current = newInterval
       setInterval2(newInterval)
       setIsEternalAuto(true)
     }
   }
+  const onAutoPowerful = () => {
+    if (isPowerfulAuto) {
+      if (interval2) {
+        clearInterval(interval2)
+      }
+      setIsPowerfulAuto(false)
+    } else {
+      const newInterval = setInterval(() => onFlame('POWERFUL'), 50)
+      intervalRef.current = newInterval
+      setInterval2(newInterval)
+      setIsPowerfulAuto(true)
+    }
+  }
 
-  const onEternalFlame = () => {
+  const onFlame = (type: FlameType) => {
     if (!item) return
 
     let res = flameResult.get(item.id)
     if (res) {
-      res = { ...res, eternal: res.eternal ? res.eternal + 1 : 0 + 1 }
+      const value = res[type]
+      res = { ...res, [type]: value ? value + 1 : 0 + 1 }
       flameResult.set(item.id, res)
     } else {
-      flameResult.set(item.id, { eternal: 1, powerful: 0 })
+      let other = 'ETERNAL'
+      if (type === 'ETERNAL') {
+        other = 'POWERFUL'
+      }
+      flameResult.set(item.id, { [type]: 1, [other]: 0 })
     }
     setFlameResult(flameResult)
 
@@ -150,80 +144,75 @@ const FlameOfResurrection: React.FC = () => {
       item.islots === 'Wp' ? getFourWeaponOption() : getFourArmorOption()
     )
     // console.log(options)
-    let newStr = options.has('STR') ? calcSingleBonusStat('ETERNAL', item) : 0
-    let newDex = options.has('DEX') ? calcSingleBonusStat('ETERNAL', item) : 0
-    let newInt = options.has('INT') ? calcSingleBonusStat('ETERNAL', item) : 0
-    let newLuk = options.has('LUK') ? calcSingleBonusStat('ETERNAL', item) : 0
-    const newBoss = options.has('boss_demage')
-      ? getGrade('ETERNAL', item) * 2
-      : 0
-    const newAll = options.has('AllStat') ? getGrade('ETERNAL', item) : 0
-    const newDemage = options.has('demage') ? getGrade('ETERNAL', item) : 0
+    let newStr = options.has('STR') ? calcSingleBonusStat(type, item) : 0
+    let newDex = options.has('DEX') ? calcSingleBonusStat(type, item) : 0
+    let newInt = options.has('INT') ? calcSingleBonusStat(type, item) : 0
+    let newLuk = options.has('LUK') ? calcSingleBonusStat(type, item) : 0
+    const newBoss = options.has('boss_demage') ? getGrade(type, item) * 2 : 0
+    const newAll = options.has('AllStat') ? getGrade(type, item) : 0
+    const newDemage = options.has('demage') ? getGrade(type, item) : 0
 
-    const tempGrade = getGrade('ETERNAL', item) as 1 | 2 | 3 | 4 | 5
+    const tempGrade = getGrade(type, item) as 1 | 2 | 3 | 4 | 5
     const newWeaponAttack = options.has('WEAPON_ATTACK')
       ? item.islots === 'Wp'
         ? Math.ceil(
             (item.WEAPON_ATTACK.base * calcAttack(item, tempGrade)) / 100
           )
-        : getGrade('ETERNAL', item)
+        : getGrade(type, item)
       : 0
     const newMagicAttack = options.has('MAGIC_ATTACK')
       ? item.islots === 'Wp'
         ? Math.ceil(
             ((item.MAGIC_ATTACK.base || item.WEAPON_ATTACK.base) *
-              calcAttack(
-                item,
-                getGrade('ETERNAL', item) as 1 | 2 | 3 | 4 | 5
-              )) /
+              calcAttack(item, getGrade(type, item) as 1 | 2 | 3 | 4 | 5)) /
               100
           )
-        : getGrade('ETERNAL', item)
+        : getGrade(type, item)
       : 0
     const newHP = options.has('MaxHP')
-      ? item.level * 3 * getGrade('ETERNAL', item)
+      ? item.level * 3 * getGrade(type, item)
       : 0
     const newMP = options.has('MaxMP')
-      ? item.level * 3 * getGrade('ETERNAL', item)
+      ? item.level * 3 * getGrade(type, item)
       : 0
 
-    const newJump = options.has('jump') ? getGrade('ETERNAL', item) : 0
-    const newSpeed = options.has('move_speed') ? getGrade('ETERNAL', item) : 0
+    const newJump = options.has('jump') ? getGrade(type, item) : 0
+    const newSpeed = options.has('move_speed') ? getGrade(type, item) : 0
     const newRequierdLevel = options.has('RequierdLevel')
-      ? getGrade('ETERNAL', item) * -5
+      ? getGrade(type, item) * -5
       : 0
 
     const newDefence = options.has('DEFENCE')
-      ? calcSingleBonusStat('ETERNAL', item)
+      ? calcSingleBonusStat(type, item)
       : 0
 
     if (options.has('STR+DEX')) {
-      const value = calcDoubleBonusStat('ETERNAL', item)
+      const value = calcDoubleBonusStat(type, item)
       newStr += value
       newDex += value
     }
     if (options.has('STR+INT')) {
-      const value = calcDoubleBonusStat('ETERNAL', item)
+      const value = calcDoubleBonusStat(type, item)
       newStr += value
       newInt += value
     }
     if (options.has('STR+LUK')) {
-      const value = calcDoubleBonusStat('ETERNAL', item)
+      const value = calcDoubleBonusStat(type, item)
       newStr += value
       newLuk += value
     }
     if (options.has('DEX+INT')) {
-      const value = calcDoubleBonusStat('ETERNAL', item)
+      const value = calcDoubleBonusStat(type, item)
       newDex += value
       newInt += value
     }
     if (options.has('DEX+LUK')) {
-      const value = calcDoubleBonusStat('ETERNAL', item)
+      const value = calcDoubleBonusStat(type, item)
       newDex += value
       newLuk += value
     }
     if (options.has('INT+LUK')) {
-      const value = calcDoubleBonusStat('ETERNAL', item)
+      const value = calcDoubleBonusStat(type, item)
       newInt += value
       newLuk += value
     }
@@ -318,9 +307,11 @@ const FlameOfResurrection: React.FC = () => {
           <S.Horizontal>
             <S.Horizontal>
               <MapleButton
-                onClick={onPowerfulFlame}
+                onClick={() =>
+                  isAuto ? onAutoPowerful() : onFlame('POWERFUL')
+                }
                 style={{ padding: '20px 15px' }}
-                disabled={item === undefined}
+                disabled={item === undefined || isEternalAuto}
               >
                 <img
                   src="https://maplestory.io/api/KMS/353/item/2048716/icon"
@@ -330,7 +321,7 @@ const FlameOfResurrection: React.FC = () => {
               </MapleButton>
               <MapleButton
                 // loading={isEternalAuto}
-                onClick={isAuto ? onAutoEternal : onEternalFlame}
+                onClick={() => (isAuto ? onAutoEternal() : onFlame('ETERNAL'))}
                 style={{ padding: '20px 15px' }}
                 icon={
                   <img
@@ -338,7 +329,7 @@ const FlameOfResurrection: React.FC = () => {
                     alt="foreverImage"
                   />
                 }
-                disabled={item === undefined}
+                disabled={item === undefined || isPowerfulAuto}
               >
                 영환불
               </MapleButton>

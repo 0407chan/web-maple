@@ -6,8 +6,8 @@ export const Contianer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.7);
-  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.8);
+  background-color: rgba(60, 60, 60, 0.9);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.8);
   border-radius: 5px;
   padding: 15px;
   padding-top: 0;

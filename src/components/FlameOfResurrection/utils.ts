@@ -49,7 +49,7 @@ export const calcAttack = (
   }
 }
 
-export const getFourWeaponOption = () => {
+export const getFourWeaponOption = (): string[] => {
   const options = [...WEAPON_OPTION_NAME]
   const result = []
   let count = 0
@@ -61,7 +61,7 @@ export const getFourWeaponOption = () => {
   }
   return result
 }
-export const getFourArmorOption = () => {
+export const getFourArmorOption = (): string[] => {
   const options = [...ARMER_OPTION_NAME]
   const result = []
   let count = 0

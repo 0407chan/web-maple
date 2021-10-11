@@ -7,7 +7,7 @@ import {
   useGetEquipmentList
 } from './api/equipment'
 import * as S from './appStyle'
-import KeyBoard from './components/common/KeyBoard'
+import MapleButton from './components/common/MapleButton'
 import Equipment from './components/Equipment'
 import FlameOfResurrection from './components/FlameOfResurrection'
 import Inventory from './components/Inventory'
@@ -366,11 +366,33 @@ const App: React.FC = () => {
         </S.ButtonWrapper> */}
       </S.HeaderWrapper>
       <S.Horizontal>
-        <KeyBoard onClick={() => onToggleWindow('Inventory')}>I</KeyBoard>
-        <KeyBoard onClick={() => onToggleWindow('Equipment')}>E</KeyBoard>
-        <KeyBoard onClick={() => onToggleWindow('FlameOfResurrection')}>
-          F
-        </KeyBoard>
+        <S.Vertical>
+          <MapleButton
+            style={{ height: 40, width: 40 }}
+            onClick={() => onToggleWindow('Equipment')}
+          >
+            E
+          </MapleButton>
+          <div>장비창</div>
+        </S.Vertical>
+        <S.Vertical>
+          <MapleButton
+            style={{ height: 40, width: 40 }}
+            onClick={() => onToggleWindow('FlameOfResurrection')}
+          >
+            F
+          </MapleButton>
+          <div>환불창</div>
+        </S.Vertical>
+        <S.Vertical>
+          <MapleButton
+            style={{ height: 40, width: 40 }}
+            onClick={() => onToggleWindow('Inventory')}
+          >
+            I
+          </MapleButton>
+          <div>인벤토리</div>
+        </S.Vertical>
       </S.Horizontal>
       {/* <S.BoundWrapper>
         <S.Bound className="prev-bound">

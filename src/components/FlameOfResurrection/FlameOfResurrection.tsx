@@ -235,12 +235,12 @@ const FlameOfResurrection: React.FC = () => {
       RequierdLevel: { ...item.RequierdLevel, bonus: newRequierdLevel },
       DEFENCE: { ...item.DEFENCE, bonus: newDefence }
     }
-    checkForAuto(newItem)
+    checkForAuto(type, newItem)
     setFlameSlot({ ...flameSlot, item: newItem })
     setItemOnOriginalSlot(newItem)
   }
 
-  const checkForAuto = (newItem: EquipItemType) => {
+  const checkForAuto = (type: FlameType, newItem: EquipItemType) => {
     if (intervalRef.current === undefined) return
     let result = false
 
@@ -259,7 +259,11 @@ const FlameOfResurrection: React.FC = () => {
     }
     if (result || definedKeys.length === 0) {
       clearInterval(intervalRef.current)
-      setIsEternalAuto(false)
+      if (type === 'ETERNAL') {
+        setIsEternalAuto(false)
+      } else {
+        setIsPowerfulAuto(false)
+      }
     }
   }
 

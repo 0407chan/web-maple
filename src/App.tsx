@@ -7,6 +7,7 @@ import {
   useGetEquipmentList
 } from './api/equipment'
 import * as S from './appStyle'
+import KeyBoard from './components/common/KeyBoard'
 import Equipment from './components/Equipment'
 import FlameOfResurrection from './components/FlameOfResurrection'
 import Inventory from './components/Inventory'
@@ -36,13 +37,7 @@ const App: React.FC = () => {
 
   const { onSetEquip, onRemoveEquip } = useEquipment()
 
-  const {
-    onAddUiWindow,
-    onRemoveUiWindow,
-    uiWindowList,
-    isOpenedWindow,
-    onRemoveLastWindow
-  } = useUiWindow()
+  const { uiWindowList, onToggleWindow, onRemoveLastWindow } = useUiWindow()
 
   const [weaponListSearchQuery] = useState<GetEquipmentListQuery>({
     overallCategoryFilter: 'Equip',
@@ -315,29 +310,17 @@ const App: React.FC = () => {
     switch (ev.key) {
       case 'ㅑ':
       case 'i': {
-        if (isOpenedWindow('Inventory')) {
-          onRemoveUiWindow('Inventory')
-        } else {
-          onAddUiWindow('Inventory')
-        }
+        onToggleWindow('Inventory')
         break
       }
       case 'ㄷ':
       case 'e': {
-        if (isOpenedWindow('Equipment')) {
-          onRemoveUiWindow('Equipment')
-        } else {
-          onAddUiWindow('Equipment')
-        }
+        onToggleWindow('Equipment')
         break
       }
       case 'ㄹ':
       case 'f': {
-        if (isOpenedWindow('FlameOfResurrection')) {
-          onRemoveUiWindow('FlameOfResurrection')
-        } else {
-          onAddUiWindow('FlameOfResurrection')
-        }
+        onToggleWindow('FlameOfResurrection')
         break
       }
       case 'Escape': {
@@ -382,6 +365,13 @@ const App: React.FC = () => {
           </S.Horizontal>
         </S.ButtonWrapper> */}
       </S.HeaderWrapper>
+      <S.Horizontal>
+        <KeyBoard onClick={() => onToggleWindow('Inventory')}>I</KeyBoard>
+        <KeyBoard onClick={() => onToggleWindow('Equipment')}>E</KeyBoard>
+        <KeyBoard onClick={() => onToggleWindow('FlameOfResurrection')}>
+          F
+        </KeyBoard>
+      </S.Horizontal>
       {/* <S.BoundWrapper>
         <S.Bound className="prev-bound">
           <S.Header>Prev Inventory</S.Header>

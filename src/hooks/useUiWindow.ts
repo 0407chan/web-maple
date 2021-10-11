@@ -35,13 +35,22 @@ const useUiWindow = () => {
     return uiWindowList.find((value) => value === windowName)
   }
 
+  const onToggleWindow = (windowName: UiWindowType) => {
+    if (isOpenedWindow(windowName)) {
+      onRemoveUiWindow(windowName)
+    } else {
+      onAddUiWindow(windowName)
+    }
+  }
+
   return {
     uiWindowList,
     onRemoveUiWindow,
     onAddUiWindow,
     onRemoveLastWindow,
     isOpenedWindow,
-    onSetTop
+    onSetTop,
+    onToggleWindow
   }
 }
 

@@ -68,7 +68,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
           >
             장비
           </S.InventoryButton>
-          <S.InventoryButton
+          {/* <S.InventoryButton
             onClick={onSetInventoryUse}
             className={currentInventory === 'Use' ? 'isActive' : ''}
           >
@@ -79,7 +79,7 @@ const Inventory: React.FC<InventoryProps> = ({ handleDrop }) => {
             className={currentInventory === 'Etc' ? 'isActive' : ''}
           >
             기타
-          </S.InventoryButton>
+          </S.InventoryButton> */}
         </S.InventoryButtonWrapper>
         <S.ItemWrapper>
           {inventory[currentInventory].map((slot) => (

@@ -23,12 +23,6 @@ export const getGrade = (flameType: FlameType, item: EquipItemType): number => {
   return result
 }
 
-export const getEternalGrade = (): number => {
-  return ETERNAL_FLAME_PERCENTAGE.get(getRandomNum(100)) ?? 4
-}
-export const getPowerfulGrade = (): number => {
-  return POWERFUL_FLAME_PERCENTAGE.get(getRandomNum(100)) ?? 5
-}
 export const calcSingleBonusStat = (
   flameType: FlameType,
   item: EquipItemType

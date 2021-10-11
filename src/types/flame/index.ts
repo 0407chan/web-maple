@@ -11,8 +11,8 @@ export type StatusSettingType = {
 }
 
 export type FlameSettingType = {
-  powerful?: number
-  eternal?: number
+  POWERFUL?: number
+  ETERNAL?: number
 }
 
 export type FlameType = 'ETERNAL' | 'POWERFUL'

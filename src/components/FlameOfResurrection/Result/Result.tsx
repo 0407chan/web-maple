@@ -34,26 +34,26 @@ const Result: React.FC<Props> = ({
     if (item === undefined) return
     let res = flameResult.get(item.id)
     if (res) {
-      res = { ...res, powerful: res.powerful ? res.powerful + 1 : 0 + 1 }
-      flameResult.set(item.id, { ...res, powerful: 0, eternal: 0 })
+      res = { ...res, POWERFUL: res.POWERFUL ? res.POWERFUL + 1 : 0 + 1 }
+      flameResult.set(item.id, { ...res, POWERFUL: 0, ETERNAL: 0 })
     }
     setFlameResult(flameResult)
   }
 
   const calcEternalTotalCost = () => {
     if (item === undefined) return 0
-    if (flameCostSetting.eternal === undefined) return 0
+    if (flameCostSetting.ETERNAL === undefined) return 0
     const flame = flameResult.get(item.id)
-    if (flame === undefined || flame.eternal === undefined) return 0
+    if (flame === undefined || flame.ETERNAL === undefined) return 0
 
-    return flameCostSetting.eternal * flame.eternal
+    return flameCostSetting.ETERNAL * flame.ETERNAL
   }
 
   const mesoToKRW = () => {
     if (item === undefined) return 0
-    if (flameCostSetting.eternal === undefined) return 0
+    if (flameCostSetting.ETERNAL === undefined) return 0
     const flame = flameResult.get(item.id)
-    if (flame === undefined || flame.eternal === undefined) return 0
+    if (flame === undefined || flame.ETERNAL === undefined) return 0
     return (
       Math.floor(calcEternalTotalCost() / 100000000) * (mesoKrwSetting || 0)
     )
@@ -83,7 +83,7 @@ const Result: React.FC<Props> = ({
                 />
                 <S.Text>
                   {item
-                    ? numberWithCommas(flameResult.get(item.id)?.powerful || 0)
+                    ? numberWithCommas(flameResult.get(item.id)?.POWERFUL || 0)
                     : 0}
                 </S.Text>
               </S.Vertical>
@@ -96,7 +96,7 @@ const Result: React.FC<Props> = ({
                 />
                 <S.Text>
                   {item
-                    ? numberWithCommas(flameResult.get(item.id)?.eternal || 0)
+                    ? numberWithCommas(flameResult.get(item.id)?.ETERNAL || 0)
                     : 0}
                 </S.Text>
               </S.Vertical>

@@ -92,8 +92,8 @@ const StatusSetting: React.FC<Props> = ({
                   maxLength={11}
                   placeholder={'숫자를 입력해주세요.'}
                   value={
-                    flameCostSetting.powerful !== undefined
-                      ? numberWithCommas(flameCostSetting.powerful)
+                    flameCostSetting.POWERFUL !== undefined
+                      ? numberWithCommas(flameCostSetting.POWERFUL)
                       : undefined
                   }
                   onChange={(e) => {
@@ -102,7 +102,7 @@ const StatusSetting: React.FC<Props> = ({
                       .replaceAll(',', '')
                     setFlameCostSetting({
                       ...flameCostSetting,
-                      powerful: newValue ? Number(newValue) : undefined
+                      POWERFUL: newValue ? Number(newValue) : undefined
                     })
                   }}
                 />
@@ -118,8 +118,8 @@ const StatusSetting: React.FC<Props> = ({
                   maxLength={11}
                   placeholder={'숫자를 입력해주세요.'}
                   value={
-                    flameCostSetting.eternal !== undefined
-                      ? numberWithCommas(flameCostSetting.eternal)
+                    flameCostSetting.ETERNAL !== undefined
+                      ? numberWithCommas(flameCostSetting.ETERNAL)
                       : undefined
                   }
                   onChange={(e) => {
@@ -128,7 +128,7 @@ const StatusSetting: React.FC<Props> = ({
                       .replaceAll(',', '')
                     setFlameCostSetting({
                       ...flameCostSetting,
-                      eternal: newValue ? Number(newValue) : undefined
+                      ETERNAL: newValue ? Number(newValue) : undefined
                     })
                   }}
                 />

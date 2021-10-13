@@ -12,6 +12,7 @@ const WonImage = `${process.env.PUBLIC_URL}/images/money/won.png`
 
 type Props = {
   position: ControlPosition
+  loading: boolean
   statusSetting: StatusSettingType
   setStatusSetting: React.Dispatch<React.SetStateAction<StatusSettingType>>
   flameCostSetting: FlameSettingType
@@ -22,6 +23,7 @@ type Props = {
 }
 const StatusSetting: React.FC<Props> = ({
   position,
+  loading,
   item,
   statusSetting,
   flameCostSetting,
@@ -79,7 +81,7 @@ const StatusSetting: React.FC<Props> = ({
         </S.Contianer>
         <S.Contianer style={{ marginTop: 10 }}>
           <S.Title>환불 가격 세팅</S.Title>
-          <S.Block>
+          <S.Block loading={loading}>
             <S.Vertical>
               <S.Horizontal>
                 <S.Text>

@@ -408,6 +408,7 @@ const FlameOfResurrection: React.FC = () => {
       {showSetting && (
         <StatusSetting
           item={item}
+          loading={isPowerfulAuto || isEternalAuto}
           statusSetting={statusSetting}
           setStatusSetting={setStatusSetting}
           flameCostSetting={flameCostSetting}

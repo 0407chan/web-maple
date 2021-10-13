@@ -12,13 +12,36 @@ export const Title = styled.div`
   font-weight: bold;
   color: #eeeeee;
 `
-export const Block = styled.div`
+export const Block = styled.div<{ isLoading?: boolean }>`
   display: flex;
+  position: relative;
+  height: 100%;
   width: 100%;
   flex-direction: column;
   background-color: #eeeeee;
   border-radius: 5px;
   padding: 10px;
+
+  &:after {
+    content: '';
+    top: 0;
+    left: 0;
+    z-index: 1;
+    position: absolute;
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    transition: display 1s ease;
+    background-color: rgba(0, 0, 0, 0.3);
+    ${(props) =>
+      props.isLoading === true
+        ? {
+            display: 'block'
+          }
+        : {
+            display: 'none'
+          }}
+  }
 `
 export const Input = styled(OriginalInput)`
   /* width: 150px; */

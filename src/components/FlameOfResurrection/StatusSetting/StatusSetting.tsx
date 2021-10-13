@@ -61,11 +61,15 @@ const StatusSetting: React.FC<Props> = ({
         <S.Contianer>
           <S.Horizontal>
             <S.Title>오토 세팅</S.Title>
-            <MapleButton size="small" onClick={() => setStatusSetting({})}>
+            <MapleButton
+              disabled={loading}
+              size="small"
+              onClick={() => setStatusSetting({})}
+            >
               초기화
             </MapleButton>
           </S.Horizontal>
-          <S.Block>
+          <S.Block isLoading={loading}>
             <S.Vertical>
               {renderStatusInput('STR')}
               {renderStatusInput('DEX')}
@@ -81,7 +85,7 @@ const StatusSetting: React.FC<Props> = ({
         </S.Contianer>
         <S.Contianer style={{ marginTop: 10 }}>
           <S.Title>환불 가격 세팅</S.Title>
-          <S.Block loading={loading}>
+          <S.Block isLoading={loading}>
             <S.Vertical>
               <S.Horizontal>
                 <S.Text>
@@ -140,7 +144,7 @@ const StatusSetting: React.FC<Props> = ({
         </S.Contianer>
         <S.Contianer style={{ marginTop: 10 }}>
           <S.Title>1억 메소당</S.Title>
-          <S.Block>
+          <S.Block isLoading={loading}>
             <S.Horizontal>
               <S.Text>
                 <img width={30} src={WonImage} alt="one" />

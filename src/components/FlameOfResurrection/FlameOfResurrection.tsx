@@ -393,6 +393,8 @@ const FlameOfResurrection: React.FC = () => {
               onChange={(event) => {
                 if (event.target.checked === false && intervalRef.current) {
                   clearInterval(intervalRef.current)
+                  setIsEternalAuto(false)
+                  setIsPowerfulAuto(false)
                 }
                 setIsAuto(event.target.checked)
               }}

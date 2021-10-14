@@ -94,9 +94,9 @@ const App: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    findItemByName('이글아이')
-  }, [])
+  // useEffect(() => {
+  //   findItemByName('이글아이')
+  // }, [])
 
   const getAllEquip = async () => {
     const promise = []

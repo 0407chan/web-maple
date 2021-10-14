@@ -94,18 +94,24 @@ const App: React.FC = () => {
     }
   }
 
+  useEffect(() => {
+    findItemByName('이글아이')
+  }, [])
+
   const getAllEquip = async () => {
     const promise = []
     // 무기
-    promise.push(getEquipment({ itemId: 1402000 }))
+    // promise.push(getEquipment({ itemId: 1402000 }))
     promise.push(getEquipment({ itemId: 1402268 }))
     promise.push(getEquipment({ itemId: 1402259 }))
     promise.push(getEquipment({ itemId: 1382265 }))
 
     // 방어구
-    promise.push(getEquipment({ itemId: 1040000 })) //상의
+    promise.push(getEquipment({ itemId: 1003799 })) //모자
+    promise.push(getEquipment({ itemId: 1042256 })) //상의
     promise.push(getEquipment({ itemId: 1062260 })) //바지
-    promise.push(getEquipment({ itemId: 1100001 })) //망토
+
+    promise.push(getEquipment({ itemId: 1102940 })) //망토
     promise.push(getEquipment({ itemId: 1082695 })) //장갑
     promise.push(getEquipment({ itemId: 1004808 })) //투구
     promise.push(getEquipment({ itemId: 1053063 })) //한벌옷
@@ -113,14 +119,15 @@ const App: React.FC = () => {
     promise.push(getEquipment({ itemId: 1073158 })) //신발
 
     // 악세
-    promise.push(getEquipment({ itemId: 1132006 })) //벨트
-    promise.push(getEquipment({ itemId: 1032000 })) //귀걸이
+    promise.push(getEquipment({ itemId: 1132308 })) //벨트
+    promise.push(getEquipment({ itemId: 1113306 })) //귀걸이
     // promise.push(getEquipment({ itemId: 1190000 })) //엠블렘
-    promise.push(getEquipment({ itemId: 1022144 })) //눈장식
-    promise.push(getEquipment({ itemId: 1012070 })) //얼굴장식
-    promise.push(getEquipment({ itemId: 1122000 })) //팬던트
-    promise.push(getEquipment({ itemId: 1113149 })) //반지
-    promise.push(getEquipment({ itemId: 1152178 })) //견장
+    promise.push(getEquipment({ itemId: 1022278 })) //눈장식
+    promise.push(getEquipment({ itemId: 1012632 })) //얼굴장식
+    promise.push(getEquipment({ itemId: 1122430 })) //팬던트
+    promise.push(getEquipment({ itemId: 1122150 })) //팬던트
+    // promise.push(getEquipment({ itemId: 1113149 })) //반지
+    // promise.push(getEquipment({ itemId: 1152178 })) //견장
     const itemList = await Promise.all(promise)
 
     itemList.forEach((item, index) => {
@@ -340,7 +347,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getAllEquip()
-    // findItemByName('현금')
   }, [])
 
   return (

@@ -14,4 +14,4 @@ yarn dev    // dev 실행
 
 ### 실행 화면
 
-<kbd><img src="https://user-images.githubusercontent.com/19217576/131344459-7d7f478f-9673-4a9a-a7be-075a99ae470d.png"/></kbd>
+<kbd><img src="https://user-images.githubusercontent.com/19217576/137501680-6743f878-65b9-4a48-94b9-8128bbfc351c.gif"/></kbd>

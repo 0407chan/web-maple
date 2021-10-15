@@ -351,6 +351,7 @@ const App: React.FC = () => {
   }, [])
 
   const initReactGA = () => {
+    console.log('잘 나오나?', process.env.REACT_APP_ID)
     ReactGA.initialize(process.env.REACT_APP_ID || '')
   }
 

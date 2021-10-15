@@ -351,7 +351,7 @@ const App: React.FC = () => {
   }, [])
 
   const initReactGA = () => {
-    ReactGA.initialize('G-27WDLCT3NR')
+    ReactGA.initialize(process.env.REACT_APP_ID || '')
   }
 
   useEffect(() => {

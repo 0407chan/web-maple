@@ -1,5 +1,6 @@
 import useInventory from '@/hooks/useInventory'
 import React, { useEffect, useState } from 'react'
+import ReactGA from 'react-ga'
 import { v4 as uuid } from 'uuid'
 import {
   getEquipment,
@@ -347,6 +348,14 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getAllEquip()
+  }, [])
+
+  const initReactGA = () => {
+    ReactGA.initialize('G-27WDLCT3NR')
+  }
+
+  useEffect(() => {
+    initReactGA()
   }, [])
 
   return (

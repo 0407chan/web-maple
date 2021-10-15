@@ -107,7 +107,7 @@ const App: React.FC = () => {
     promise.push(getEquipment({ itemId: 1382265 }))
 
     // 방어구
-    // promise.push(getEquipment({ itemId: 1003799 })) //모자
+    promise.push(getEquipment({ itemId: 1003799 })) //모자
     promise.push(getEquipment({ itemId: 1042256 })) //상의
     promise.push(getEquipment({ itemId: 1062260 })) //바지
 

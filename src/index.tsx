@@ -1,7 +1,7 @@
 import 'antd/dist/antd.css'
 import React from 'react'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd-multi-backend'
+import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch'
 import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
@@ -13,7 +13,7 @@ const queryClient = new QueryClient()
 
 ReactDOM.render(
   <Provider store={store}>
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider options={HTML5toTouch}>
       <QueryClientProvider client={queryClient}>
         <App />
       </QueryClientProvider>

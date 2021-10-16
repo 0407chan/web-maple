@@ -95,9 +95,9 @@ const App: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    findItemByName('커맨더')
-  }, [])
+  // useEffect(() => {
+  //   findItemByName('커맨더')
+  // }, [])
 
   const getAllEquip = async () => {
     const promise = []

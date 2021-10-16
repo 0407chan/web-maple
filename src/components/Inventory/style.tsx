@@ -51,7 +51,7 @@ export const ItemWrapper = styled.div`
   overflow-y: scroll;
   align-items: flex-start;
   width: 260px;
-  height: 350px;
+  height: 356px;
   gap: 10px;
   border-radius: 5px;
   padding: 10px;

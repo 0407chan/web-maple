@@ -13,8 +13,8 @@ const equipInven: SlotType[] = []
 const emptyInven: SlotType[] = []
 for (let i = 0; i < 30; i++) {
   const item = undefined
-  const newSlot: SlotType = { id: uuid(), item, isOpen: i < 20 ? true : false }
-  emptyInven.push({ id: uuid(), isOpen: i < 20 ? true : false })
+  const newSlot: SlotType = { id: uuid(), item, isOpen: i < 24 ? true : false }
+  emptyInven.push({ id: uuid(), isOpen: i < 24 ? true : false })
   equipInven.push(newSlot)
 }
 

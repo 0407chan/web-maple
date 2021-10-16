@@ -24,7 +24,7 @@ const useWindowSize = () => {
   }, [])
 
   const isMobile = () => {
-    return windowSize.width && windowSize.width <= 768
+    return windowSize.width && windowSize.width <= 1000
   }
 
   return {

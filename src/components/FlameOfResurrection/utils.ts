@@ -79,13 +79,14 @@ export const getNotUndefined = (
 ): (keyof StatusSettingType)[] => {
   const result: (keyof StatusSettingType)[] = []
   const {
-    AllStat,
+    STR,
     DEX,
     INT,
     LUK,
-    MAGIC_ATTACK,
-    STR,
+    HP,
     WEAPON_ATTACK,
+    MAGIC_ATTACK,
+    AllStat,
     bossDemage,
     demage
   } = statusSetting
@@ -100,6 +101,9 @@ export const getNotUndefined = (
   }
   if (LUK) {
     result.push('LUK')
+  }
+  if (HP) {
+    result.push('HP')
   }
   if (MAGIC_ATTACK) {
     result.push('MAGIC_ATTACK')

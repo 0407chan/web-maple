@@ -5,6 +5,7 @@ export const StatusName: Record<keyof StatusSettingType, string> = {
   DEX: 'DEX',
   INT: 'INT',
   LUK: 'LUK',
+  HP: 'HP',
   MAGIC_ATTACK: '마력',
   STR: 'STR',
   WEAPON_ATTACK: '공격력',

@@ -3,6 +3,7 @@ export type StatusSettingType = {
   DEX?: number
   INT?: number
   LUK?: number
+  HP?: number
   AllStat?: number
   WEAPON_ATTACK?: number
   MAGIC_ATTACK?: number

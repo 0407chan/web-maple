@@ -75,6 +75,7 @@ const StatusSetting: React.FC<Props> = ({
               {renderStatusInput('DEX')}
               {renderStatusInput('INT')}
               {renderStatusInput('LUK')}
+              {renderStatusInput('HP', false, 4)}
               {renderStatusInput('WEAPON_ATTACK')}
               {renderStatusInput('MAGIC_ATTACK')}
               {renderStatusInput('bossDemage', !isWeapon())}
@@ -173,13 +174,14 @@ const StatusSetting: React.FC<Props> = ({
 
   function renderStatusInput(
     type: keyof StatusSettingType,
-    disabled?: boolean
+    disabled?: boolean,
+    maxLength = 3
   ) {
     return (
       <S.Horizontal>
         <S.Text>{StatusName[type]}</S.Text>
         <S.Input
-          maxLength={3}
+          maxLength={maxLength}
           placeholder={
             disabled ? '무기를 선택해주세요' : '숫자를 입력해주세요.'
           }

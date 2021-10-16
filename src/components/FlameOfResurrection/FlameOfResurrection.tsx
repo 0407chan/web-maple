@@ -164,7 +164,10 @@ const FlameOfResurrection: React.FC = () => {
       ? item.islots === 'Wp'
         ? Math.ceil(
             ((item.MAGIC_ATTACK.base || item.WEAPON_ATTACK.base) *
-              calcAttack(item, getGrade(type, item) as 1 | 2 | 3 | 4 | 5)) /
+              calcAttack(
+                item,
+                (getGrade(type, item) - 2) as 1 | 2 | 3 | 4 | 5
+              )) /
               100
           )
         : getGrade(type, item)

@@ -1,5 +1,6 @@
 import { UiWindowType } from '@/feature/uiWindow/uiWindowSlice'
 import useUiWindow from '@/hooks/useUiWindow'
+import useWindowSize from '@/hooks/useWindowSize'
 import React from 'react'
 import Draggable, {
   ControlPosition,
@@ -31,6 +32,7 @@ const WindowContainer: React.FC<props> = ({
   const { isOpenedWindow, uiWindowList, onSetTop, onRemoveUiWindow } =
     useUiWindow()
 
+  const { isMobile } = useWindowSize()
   const removeUiWindow = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -42,7 +44,7 @@ const WindowContainer: React.FC<props> = ({
   return (
     <Draggable
       handle=".handle"
-      bounds="body"
+      bounds={isMobile() ? undefined : 'body'}
       onDrag={onDrag}
       position={position}
     >

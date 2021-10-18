@@ -75,3 +75,13 @@ export const Vertical = styled.div`
   align-items: center;
   justify-content: center;
 `
+
+export const NpcImage = styled.img`
+  cursor: pointer;
+  &:hover {
+    filter: drop-shadow(0 0 0.2rem orange);
+    /* drop-shadow(-1px 1px 0 rgba(0, 0, 0, 0.5))
+      drop-shadow(-1px -1px 0 rgba(0, 0, 0, 0.5))
+      drop-shadow(1px -1px 0 rgba(0, 0, 0, 0.5)); */
+  }
+`

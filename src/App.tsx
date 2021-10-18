@@ -10,11 +10,13 @@ import {
 import * as S from './appStyle'
 import MapleButton from './components/common/MapleButton'
 import Equipment from './components/Equipment'
+import EquipmentStore from './components/EquipmentStore'
 import FlameOfResurrection from './components/FlameOfResurrection'
 import Inventory from './components/Inventory'
 import ToolTip from './components/ToolTip'
 import { EMPTY_EQUIP } from './dummy/equip'
 import useEquipment from './hooks/useEquipment'
+import useItem from './hooks/useItem'
 import useUiWindow from './hooks/useUiWindow'
 import {
   EquipmentItemDto,
@@ -35,6 +37,8 @@ const App: React.FC = () => {
     onOpenEquipInventory,
     onSwitchSlot
   } = useInventory()
+
+  const { onInitEquipItemList } = useItem()
 
   const { onSetEquip, onRemoveEquip } = useEquipment()
 
@@ -96,8 +100,32 @@ const App: React.FC = () => {
   }
 
   // useEffect(() => {
-  //   findItemByName('커맨더')
+  //   findItemByName('')
   // }, [])
+
+  const findItemByName = async (name: string) => {
+    const result = await getEquipmentList({
+      overallCategoryFilter: 'Equip',
+      cashFilter: false,
+      searchFor: name
+    })
+    console.log(`[${name}] 검색 결과`, result)
+  }
+
+  const initEquipItem = async () => {
+    const result = await getEquipmentList({
+      overallCategoryFilter: 'Equip',
+      cashFilter: false
+    })
+    console.log('뭐양!', result)
+    onInitEquipItemList(result)
+  }
+  // useEffect(() => {
+  //   initEquipItem()
+  // }, [])
+  useEffect(() => {
+    getAllEquip()
+  }, [])
 
   const getAllEquip = async () => {
     const promise = []
@@ -135,16 +163,18 @@ const App: React.FC = () => {
     promise.push(getEquipment({ itemId: 1122150 })) //팬던트
     const itemList = await Promise.all(promise)
 
-    itemList.forEach((item, index) => {
+    console.log('뭐나와?', itemList)
+    itemList.forEach(async (item, index) => {
       onAddEquipment({
         ...inventory[currentInventory][index],
-        item: transDtoToType(item)
+        item: await transDtoToType(item)
       })
     })
   }
 
-  const transDtoToType = (itemDto: EquipmentItemDto) => {
+  const transDtoToType = async (itemDto: EquipmentItemDto) => {
     // console.log(itemDto.description.name, itemDto.metaInfo)
+    // const newImage = await getEquipmentRawImage({ itemId: itemDto.id })
     const result: EquipItemType = {
       ...EMPTY_EQUIP,
       id: uuid(),
@@ -155,6 +185,7 @@ const App: React.FC = () => {
       categoryName:
         subCategoryName[itemDto.typeInfo.subCategory as SubCategory],
       image: `https://maplestory.io/api/KMS/352/item/${itemDto.id}/icon`,
+      // image: newImage,
       max_upgrade: itemDto.metaInfo.tuc,
       upgrade: 0,
       max_star: 5,
@@ -220,52 +251,6 @@ const App: React.FC = () => {
     return result
   }
 
-  const addRandomEquip = async () => {
-    if (pantsListQeury === undefined || pantsListQeury.data === undefined)
-      return
-
-    const emptyInven = inventory[currentInventory].filter(
-      (slot) => slot.isOpen && slot.item === undefined
-    )
-    if (emptyInven.length === 0) {
-      console.log('장비창 꽉찼다!')
-      return
-    }
-    const randomNum = Math.floor(Math.random() * pantsListQeury.data.length)
-
-    const item = await getEquipment({
-      itemId: pantsListQeury.data[randomNum].id
-    })
-    console.log(item)
-    const newItem: EquipItemType = {
-      ...EMPTY_EQUIP,
-      id: uuid(),
-      name: item.description.name,
-      category: item.typeInfo.subCategory as SubCategory,
-      categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
-      image: `https://maplestory.io/api/KMS/352/item/${item.id}/icon`,
-      max_upgrade: item.metaInfo.tuc,
-      upgrade: 0,
-      upgrade_avalable: item.metaInfo.tuc,
-      max_star: 5,
-      islots: item.metaInfo.islots[0]
-    }
-
-    onAddEquipment({
-      ...emptyInven[0],
-      item: newItem
-    })
-  }
-
-  const onGetAllEquipment = async () => {
-    try {
-      const payload = await getAllEquip()
-      console.log(payload)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
   const handleDrop = (
     startSlot: SlotType | EquipSlotType,
     endSlot: SlotType
@@ -312,11 +297,6 @@ const App: React.FC = () => {
     }
   }
 
-  const findItemByName = async (name: string) => {
-    const result = await getEquipmentList({ searchFor: name })
-    console.log(`[${name}] 검색 결과`, result)
-  }
-
   const handleKeyDown = (ev: KeyboardEvent) => {
     // console.log(ev.key)
     switch (ev.key) {
@@ -349,10 +329,6 @@ const App: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [uiWindowList])
-
-  useEffect(() => {
-    getAllEquip()
-  }, [])
 
   const initReactGA = () => {
     ReactGA.initialize(process.env.REACT_APP_ID || '')
@@ -412,6 +388,15 @@ const App: React.FC = () => {
           </MapleButton>
           <div>인벤토리</div>
         </S.Vertical>
+        <S.Vertical>
+          <S.NpcImage
+            src="https://maplestory.io/api/KMS/353/npc/1010100/icon"
+            // style={{ height: 40, width: 40 }}
+            className="no-drag"
+            onClick={() => onToggleWindow('EquipmentStore')}
+          />
+          <div>장비상점</div>
+        </S.Vertical>
       </S.Horizontal>
       {/* <S.BoundWrapper>
         <S.Bound className="prev-bound">
@@ -430,6 +415,7 @@ const App: React.FC = () => {
       <Equipment handleDrop={inventoryToEquipDrop} />
       <ToolTip positionX={0} positionY={0} />
       <FlameOfResurrection />
+      <EquipmentStore />
     </S.Contianer>
   )
 }

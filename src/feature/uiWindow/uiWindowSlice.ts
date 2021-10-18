@@ -5,6 +5,7 @@ export type UiWindowType =
   | 'Equipment'
   | 'Skill'
   | 'FlameOfResurrection'
+  | 'EquipmentStore'
 
 export type UiWindowState = {
   uiWindowList: UiWindowType[]

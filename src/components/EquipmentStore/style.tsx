@@ -28,3 +28,15 @@ export const Vertical = styled.div`
   align-items: center;
   justify-content: center;
 `
+
+export const EmptyContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`
+
+export const BoldText = styled.span`
+  font-weight: bold;
+`

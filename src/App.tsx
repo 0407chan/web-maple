@@ -19,7 +19,6 @@ import useEquipment from './hooks/useEquipment'
 import useItem from './hooks/useItem'
 import useUiWindow from './hooks/useUiWindow'
 import {
-  EquipmentItemDto,
   EquipmentItemListType,
   EquipSlotType,
   GetEquipmentListQuery,
@@ -27,6 +26,7 @@ import {
   subCategoryName
 } from './types/equipment'
 import { EquipItemType, SlotType } from './types/inventory'
+import { transDtoToType } from './utils/dtoTransUtil'
 const App: React.FC = () => {
   const {
     onAddEquipment,
@@ -137,21 +137,19 @@ const App: React.FC = () => {
     const promise = []
     // 무기
     promise.push(getEquipment({ itemId: 1402268 }))
-    promise.push(getEquipment({ itemId: 1402259 }))
     promise.push(getEquipment({ itemId: 1382274 }))
-    promise.push(getEquipment({ itemId: 1382265 }))
 
     // 카루타 세트
-    promise.push(getEquipment({ itemId: 1402196 })) //모자
-    promise.push(getEquipment({ itemId: 1003799 })) //모자
-    promise.push(getEquipment({ itemId: 1042256 })) //상의
-    promise.push(getEquipment({ itemId: 1062260 })) //바지
+    // promise.push(getEquipment({ itemId: 1402196 })) //모자
+    // promise.push(getEquipment({ itemId: 1003799 })) //모자
+    // promise.push(getEquipment({ itemId: 1042256 })) //상의
+    // promise.push(getEquipment({ itemId: 1062260 })) //바지
 
     // 앱솔 세트
-    promise.push(getEquipment({ itemId: 1004422 })) //모자
-    promise.push(getEquipment({ itemId: 1073030 })) //신발
-    promise.push(getEquipment({ itemId: 1082636 })) //장갑
-    promise.push(getEquipment({ itemId: 1102775 })) //망토
+    // promise.push(getEquipment({ itemId: 1004422 })) //모자
+    // promise.push(getEquipment({ itemId: 1073030 })) //신발
+    // promise.push(getEquipment({ itemId: 1082636 })) //장갑
+    // promise.push(getEquipment({ itemId: 1102775 })) //망토
 
     // 아케인 세트
     promise.push(getEquipment({ itemId: 1004808 })) //투구
@@ -163,98 +161,19 @@ const App: React.FC = () => {
     promise.push(getEquipment({ itemId: 1132308 })) //벨트
     promise.push(getEquipment({ itemId: 1162080 })) //포켓
     promise.push(getEquipment({ itemId: 1032316 })) //귀걸이
-    promise.push(getEquipment({ itemId: 1022278 })) //눈장식
-    promise.push(getEquipment({ itemId: 1012632 })) //얼굴장식
+    // promise.push(getEquipment({ itemId: 1022278 })) //눈장식
+    // promise.push(getEquipment({ itemId: 1012632 })) //얼굴장식
     promise.push(getEquipment({ itemId: 1122430 })) //팬던트
-    promise.push(getEquipment({ itemId: 1122150 })) //팬던트
+    // promise.push(getEquipment({ itemId: 1122150 })) //팬던트
     const itemList = await Promise.all(promise)
 
     // console.log('뭐나와?', itemList)
     itemList.forEach(async (item, index) => {
       onAddEquipment({
         ...inventory[currentInventory][index],
-        item: await transDtoToType(item)
+        item: transDtoToType(item)
       })
     })
-  }
-
-  const transDtoToType = async (itemDto: EquipmentItemDto) => {
-    // console.log(itemDto.description.name, itemDto.metaInfo)
-    // const newImage = await getEquipmentRawImage({ itemId: itemDto.id })
-    const result: EquipItemType = {
-      ...EMPTY_EQUIP,
-      id: uuid(),
-      bossReward: itemDto.metaInfo.bossReward,
-      level: itemDto.metaInfo.reqLevel,
-      name: itemDto.description.name,
-      category: itemDto.typeInfo.subCategory as SubCategory,
-      categoryName:
-        subCategoryName[itemDto.typeInfo.subCategory as SubCategory],
-      image: `https://maplestory.io/api/KMS/352/item/${itemDto.id}/icon`,
-      // image: newImage,
-      max_upgrade: itemDto.metaInfo.tuc,
-      upgrade: 0,
-      max_star: 5,
-      upgrade_avalable: itemDto.metaInfo.tuc,
-      islots: itemDto.metaInfo.islots[0],
-      WEAPON_ATTACK: {
-        ...EMPTY_EQUIP.WEAPON_ATTACK,
-        base: itemDto.metaInfo.incPAD || EMPTY_EQUIP.WEAPON_ATTACK.base
-      },
-      MAGIC_ATTACK: {
-        ...EMPTY_EQUIP.MAGIC_ATTACK,
-        base: itemDto.metaInfo.incMAD || EMPTY_EQUIP.MAGIC_ATTACK.base
-      },
-      STR: {
-        ...EMPTY_EQUIP.STR,
-        base: itemDto.metaInfo.incSTR || EMPTY_EQUIP.STR.base
-      },
-      INT: {
-        ...EMPTY_EQUIP.INT,
-        base: itemDto.metaInfo.incINT || EMPTY_EQUIP.INT.base
-      },
-      DEX: {
-        ...EMPTY_EQUIP.DEX,
-        base: itemDto.metaInfo.incDEX || EMPTY_EQUIP.DEX.base
-      },
-      LUK: {
-        ...EMPTY_EQUIP.LUK,
-        base: itemDto.metaInfo.incLUK || EMPTY_EQUIP.LUK.base
-      },
-      MP: {
-        ...EMPTY_EQUIP.MP,
-        base: itemDto.metaInfo.incMMP || EMPTY_EQUIP.MP.base
-      },
-      HP: {
-        ...EMPTY_EQUIP.HP,
-        base: itemDto.metaInfo.incMHP || EMPTY_EQUIP.HP.base
-      },
-      DEFENCE: {
-        ...EMPTY_EQUIP.DEFENCE,
-        base: itemDto.metaInfo.incPDD || EMPTY_EQUIP.DEFENCE.base
-      },
-      AVOIDABLILITY: {
-        ...EMPTY_EQUIP.AVOIDABLILITY,
-        base: itemDto.metaInfo.incEVA || EMPTY_EQUIP.AVOIDABLILITY.base
-      },
-      IgnoreDefence: {
-        ...EMPTY_EQUIP.IgnoreDefence,
-        base: itemDto.metaInfo.imdR || EMPTY_EQUIP.IgnoreDefence.base
-      },
-      bossDemage: {
-        ...EMPTY_EQUIP.bossDemage,
-        base: itemDto.metaInfo.bdR || EMPTY_EQUIP.bossDemage.base
-      },
-      jump: {
-        ...EMPTY_EQUIP.jump,
-        base: itemDto.metaInfo.incJump || EMPTY_EQUIP.jump.base
-      },
-      speed: {
-        ...EMPTY_EQUIP.speed,
-        base: itemDto.metaInfo.incSpeed || EMPTY_EQUIP.speed.base
-      }
-    }
-    return result
   }
 
   const handleDrop = (
@@ -305,6 +224,7 @@ const App: React.FC = () => {
 
   const handleKeyDown = (ev: KeyboardEvent) => {
     // console.log(ev.key)
+    ev.stopPropagation()
     switch (ev.key) {
       case 'ㅑ':
       case 'i': {
@@ -325,7 +245,10 @@ const App: React.FC = () => {
         if (uiWindowList.length > 0) {
           onRemoveLastWindow()
         }
+        break
       }
+      default:
+        return false
     }
   }
 

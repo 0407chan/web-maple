@@ -1,7 +1,9 @@
-import useEquipment from '@/hooks/useEquipment'
+import { getEquipment } from '@/api/equipment'
+import MapleButton from '@/components/common/MapleButton'
 import useInventory from '@/hooks/useInventory'
-import useToolTip from '@/hooks/useToolTip'
 import { EquipmentItemListType } from '@/types/equipment'
+import { transDtoToType } from '@/utils/dtoTransUtil'
+import message from 'antd/lib/message'
 import React from 'react'
 import * as S from './style'
 
@@ -12,9 +14,19 @@ type StoreSlotProps = {
 }
 const StoreSlot: React.FC<StoreSlotProps> = ({ item, searchKey, onClick }) => {
   let timer: any = undefined
-  const { equipment, onSetEquip } = useEquipment()
-  const { onRemoveEquipItem, onAddEquipment } = useInventory()
-  const { onHideTooltip } = useToolTip()
+  const { onAddEquipment, getEmptySlot } = useInventory()
+
+  const onPurchaseItem = async () => {
+    const newItem = await getEquipment({ itemId: item.id })
+    console.log(getEmptySlot())
+    const emptySlot = getEmptySlot()
+    if (emptySlot) {
+      onAddEquipment({ ...emptySlot, item: transDtoToType(newItem) })
+      message.success(`[${newItem.description.name}]을 구매했습니다`, 2)
+    } else {
+      message.error('인벤토리가 꽉 찼습니다', 2)
+    }
+  }
 
   const onClickHandler = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -53,7 +65,12 @@ const StoreSlot: React.FC<StoreSlotProps> = ({ item, searchKey, onClick }) => {
             src={`https://maplestory.io/api/KMS/352/item/${item.id}/icon`}
           />
         </S.ImageWrapper>
-        <div>{item.name ? highlightDiv(item.name) : undefined}</div>
+        <S.TextWrapper>
+          {item.name ? highlightDiv(item.name) : undefined}
+        </S.TextWrapper>
+        <MapleButton size="small" onClick={onPurchaseItem}>
+          구매
+        </MapleButton>
       </S.Horizontal>
     </S.Contianer>
   )

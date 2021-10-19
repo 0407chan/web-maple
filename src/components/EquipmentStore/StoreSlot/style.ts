@@ -6,7 +6,7 @@ const SLOT_HEIGHT = '48px'
 export const Contianer = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 52px;
   background-color: #f1f2f4;
   justify-content: flex-start;
   align-items: flex-start;
@@ -25,6 +25,13 @@ export const ImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `
+export const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+`
 export const Image = styled.img`
   display: flex;
   padding: 5px;
@@ -34,6 +41,8 @@ export const Image = styled.img`
 export const Horizontal = styled.div`
   display: flex;
   gap: 10px;
+  width: 100%;
+  padding: 0 10px;
   flex-direction: row;
   align-items: center;
   justify-content: center;

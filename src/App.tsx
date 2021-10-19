@@ -20,6 +20,7 @@ import useItem from './hooks/useItem'
 import useUiWindow from './hooks/useUiWindow'
 import {
   EquipmentItemDto,
+  EquipmentItemListType,
   EquipSlotType,
   GetEquipmentListQuery,
   SubCategory,
@@ -117,12 +118,17 @@ const App: React.FC = () => {
       overallCategoryFilter: 'Equip',
       cashFilter: false
     })
-    console.log('뭐양!', result)
-    onInitEquipItemList(result)
+    const newResult: EquipmentItemListType[] = []
+    result.forEach((item) => {
+      if (!newResult.find((newItem) => newItem.name === item.name)) {
+        newResult.push(item)
+      }
+    })
+    onInitEquipItemList(newResult)
   }
-  // useEffect(() => {
-  //   initEquipItem()
-  // }, [])
+  useEffect(() => {
+    initEquipItem()
+  }, [])
   useEffect(() => {
     getAllEquip()
   }, [])
@@ -163,7 +169,7 @@ const App: React.FC = () => {
     promise.push(getEquipment({ itemId: 1122150 })) //팬던트
     const itemList = await Promise.all(promise)
 
-    console.log('뭐나와?', itemList)
+    // console.log('뭐나와?', itemList)
     itemList.forEach(async (item, index) => {
       onAddEquipment({
         ...inventory[currentInventory][index],
@@ -390,6 +396,7 @@ const App: React.FC = () => {
         </S.Vertical>
         <S.Vertical>
           <S.NpcImage
+            draggable="false"
             src="https://maplestory.io/api/KMS/353/npc/1010100/icon"
             // style={{ height: 40, width: 40 }}
             className="no-drag"

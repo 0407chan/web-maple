@@ -16,6 +16,24 @@ export const getEquipment = async (
   return result.data
 }
 
+export const getEquipmentRawImage = async (
+  query: GetEquipmentQuery
+): Promise<string> => {
+  const result = await axios
+    .get(`https://maplestory.io/api/KMS/352/item/${query.itemId}/iconRaw`, {
+      responseType: 'arraybuffer'
+    })
+    .then((response) => {
+      const blob = new Blob([response.data], {
+        type: response.headers['content-type']
+      })
+      const image = URL.createObjectURL(blob)
+      return image
+    })
+
+  return result
+}
+
 export const useGetEquipment = (
   query: GetEquipmentQuery
 ): UseQueryResult<GetEquipmentResponse, unknown> => {

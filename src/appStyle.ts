@@ -4,6 +4,7 @@ const HEADER_HEIGHT = 100
 export const Contianer = styled.div`
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   width: 100vw;
   height: 100vh;
 `

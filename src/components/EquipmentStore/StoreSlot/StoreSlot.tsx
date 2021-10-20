@@ -7,12 +7,19 @@ import message from 'antd/lib/message'
 import React from 'react'
 import * as S from './style'
 
+export type StoreItemType = Pick<EquipmentItemListType, 'id' | 'name'>
 type StoreSlotProps = {
-  item: EquipmentItemListType
+  item: StoreItemType
   searchKey: string
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+  button?: React.ReactNode
 }
-const StoreSlot: React.FC<StoreSlotProps> = ({ item, searchKey, onClick }) => {
+const StoreSlot: React.FC<StoreSlotProps> = ({
+  item,
+  searchKey,
+  onClick,
+  button
+}) => {
   let timer: any = undefined
   const { onAddEquipment, getEmptySlot } = useInventory()
 
@@ -68,9 +75,11 @@ const StoreSlot: React.FC<StoreSlotProps> = ({ item, searchKey, onClick }) => {
         <S.TextWrapper>
           {item.name ? highlightDiv(item.name) : undefined}
         </S.TextWrapper>
-        <MapleButton size="small" onClick={onPurchaseItem}>
-          구매
-        </MapleButton>
+        {button || (
+          <MapleButton size="small" onClick={onPurchaseItem}>
+            구매
+          </MapleButton>
+        )}
       </S.Horizontal>
     </S.Contianer>
   )

@@ -6,6 +6,7 @@ export const EMPTY_EQUIP: EquipItemType = {
   id: '',
   job: '',
   level: 0,
+  itemId: 0,
   category: 'One-Handed Sword',
   categoryName: '한손검',
   equipGroup: 'Weapon',

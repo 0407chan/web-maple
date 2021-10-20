@@ -13,6 +13,7 @@ export const transDtoToType = (itemDto: EquipmentItemDto) => {
   const result: EquipItemType = {
     ...EMPTY_EQUIP,
     id: uuid(),
+    itemId: itemDto.id,
     bossReward: itemDto.metaInfo.bossReward,
     level: itemDto.metaInfo.reqLevel,
     name: itemDto.description.name,

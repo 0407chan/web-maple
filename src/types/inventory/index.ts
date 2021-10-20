@@ -31,6 +31,7 @@ export type SlotType = {
 
 export type EquipItemType = {
   id: string
+  itemId: number
   job: string
   bossReward?: boolean
   level: number

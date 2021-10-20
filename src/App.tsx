@@ -224,7 +224,7 @@ const App: React.FC = () => {
 
   const handleKeyDown = (ev: KeyboardEvent) => {
     // console.log(ev.key)
-    ev.stopPropagation()
+    if (document.activeElement?.nodeName !== 'BODY') return
     switch (ev.key) {
       case 'ㅑ':
       case 'i': {

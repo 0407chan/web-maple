@@ -491,22 +491,49 @@ const FlameOfResurrection: React.FC = () => {
   function renderStat(key: keyof EquipItemType, isPercent?: boolean) {
     if (!item) return null
     const stat = item[key] as StatusBase
-    const definedKeys = getNotUndefined(statusSetting)
-    const isExist = definedKeys.find((definedKey) => definedKey === key)
-    const status = isExist ? statusSetting[isExist] : undefined
+    isMyStatForSimple()
     if (stat.bonus > 0) {
       return (
         <S.FlameStatLabel
           isMyStat={
-            isExist !== undefined &&
-            status !== undefined &&
-            stat.bonus >= status
+            autoType === 'DETAIL' ? isMyStatForDetail() : isMyStatForSimple()
           }
         >
           {stat.label} : {stat.bonus}
           {isPercent === true ? '%' : ''}
         </S.FlameStatLabel>
       )
+    }
+
+    function isMyStatForDetail() {
+      const definedKeys = getNotUndefined(statusSetting)
+      const isExist = definedKeys.find((definedKey) => definedKey === key)
+      const status = isExist ? statusSetting[isExist] : undefined
+      return (
+        isExist !== undefined && status !== undefined && stat.bonus >= status
+      )
+    }
+    function isMyStatForSimple() {
+      if (simpleStatusSetting.statType === key && stat.bonus > 0) {
+        return true
+      }
+      if (
+        simpleStatusSetting.attackPerStat &&
+        simpleStatusSetting.attackPerStat > 0 &&
+        key === 'WEAPON_ATTACK' &&
+        stat.bonus > 0
+      ) {
+        return true
+      }
+      if (
+        simpleStatusSetting.allStatPerStat &&
+        simpleStatusSetting.allStatPerStat > 0 &&
+        key === 'AllStat' &&
+        stat.bonus > 0
+      ) {
+        return true
+      }
+      return false
     }
   }
 }

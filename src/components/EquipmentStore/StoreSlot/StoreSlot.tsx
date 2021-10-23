@@ -4,7 +4,7 @@ import useInventory from '@/hooks/useInventory'
 import { EquipmentItemListType } from '@/types/equipment'
 import { transDtoToType } from '@/utils/dtoTransUtil'
 import message from 'antd/lib/message'
-import React from 'react'
+import React, { useState } from 'react'
 import * as S from './style'
 
 export type StoreItemType = Pick<EquipmentItemListType, 'id' | 'name'>
@@ -22,17 +22,23 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
 }) => {
   let timer: any = undefined
   const { onAddEquipment, getEmptySlot } = useInventory()
-
+  const [loading, setLoading] = useState<boolean>(false)
   const onPurchaseItem = async () => {
-    const newItem = await getEquipment({ itemId: item.id })
-    console.log(getEmptySlot())
-    const emptySlot = getEmptySlot()
-    if (emptySlot) {
-      onAddEquipment({ ...emptySlot, item: transDtoToType(newItem) })
-      message.success(`[${newItem.description.name}]을 구매했습니다`, 2)
-    } else {
-      message.error('인벤토리가 꽉 찼습니다', 2)
+    setLoading(true)
+    try {
+      const newItem = await getEquipment({ itemId: item.id })
+      console.log(getEmptySlot())
+      const emptySlot = getEmptySlot()
+      if (emptySlot) {
+        onAddEquipment({ ...emptySlot, item: transDtoToType(newItem) })
+        message.success(`[${newItem.description.name}]을 구매했습니다`, 2)
+      } else {
+        message.error('인벤토리가 꽉 찼습니다', 2)
+      }
+    } catch (err) {
+      console.error(err)
     }
+    setLoading(false)
   }
 
   const onClickHandler = (
@@ -76,7 +82,7 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
           {item.name ? highlightDiv(item.name) : undefined}
         </S.TextWrapper>
         {button || (
-          <MapleButton size="small" onClick={onPurchaseItem}>
+          <MapleButton size="small" loading={loading} onClick={onPurchaseItem}>
             구매
           </MapleButton>
         )}

@@ -1,7 +1,13 @@
 import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
-import { FlameSettingType, FlameType, StatusSettingType } from '@/types/flame'
+import {
+  AutoType,
+  FlameSettingType,
+  FlameType,
+  SimpleStatusSettingType,
+  StatusSettingType
+} from '@/types/flame'
 import { EquipItemType, SlotType, StatusBase } from '@/types/inventory'
 import React, { useRef, useState } from 'react'
 import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
@@ -41,6 +47,7 @@ const FlameOfResurrection: React.FC = () => {
   const [showSetting, setShowSetting] = useState<boolean>(true)
   const [isAuto, setIsAuto] = useState<boolean>(false)
   const [interval2, setInterval2] = useState<NodeJS.Timer>()
+  const [autoType, setAutoType] = useState<AutoType>('SIMPLE')
 
   const intervalRef = useRef(interval2)
   const [isEternalAuto, setIsEternalAuto] = useState<boolean>(false)
@@ -54,6 +61,8 @@ const FlameOfResurrection: React.FC = () => {
 
   const [mesoKrwSetting, setMesoKrwSetting] = useState<number | undefined>(3500)
   const [statusSetting, setStatusSetting] = useState<StatusSettingType>({})
+  const [simpleStatusSetting, setSimpleStatusSetting] =
+    useState<SimpleStatusSettingType>({ allStatPerStat: 10, attackPerStat: 4 })
   const [flameCostSetting, setFlameCostSetting] = useState<FlameSettingType>({
     POWERFUL: 50000000,
     ETERNAL: 100000000
@@ -238,7 +247,13 @@ const FlameOfResurrection: React.FC = () => {
       RequierdLevel: { ...item.RequierdLevel, bonus: newRequierdLevel },
       DEFENCE: { ...item.DEFENCE, bonus: newDefence }
     }
-    checkForAuto(type, newItem)
+
+    if (autoType === 'DETAIL') {
+      checkForAuto(type, newItem)
+    }
+    if (autoType === 'SIMPLE') {
+      checkForSimpleAuto(type, newItem)
+    }
     setFlameSlot({ ...flameSlot, item: newItem })
     setItemOnOriginalSlot(newItem)
   }
@@ -261,6 +276,39 @@ const FlameOfResurrection: React.FC = () => {
       }
     }
     if (result || definedKeys.length === 0) {
+      clearInterval(intervalRef.current)
+      if (type === 'ETERNAL') {
+        setIsEternalAuto(false)
+      } else {
+        setIsPowerfulAuto(false)
+      }
+    }
+  }
+  const checkForSimpleAuto = (type: FlameType, newItem: EquipItemType) => {
+    if (intervalRef.current === undefined) return
+
+    let totalStat = 0
+    if (simpleStatusSetting.statType) {
+      totalStat += newItem[simpleStatusSetting.statType].bonus
+    }
+    if (
+      simpleStatusSetting.attackPerStat &&
+      simpleStatusSetting.attackPerStat > 0
+    ) {
+      totalStat +=
+        newItem.WEAPON_ATTACK.bonus * simpleStatusSetting.attackPerStat
+    }
+    if (
+      simpleStatusSetting.allStatPerStat &&
+      simpleStatusSetting.allStatPerStat > 0
+    ) {
+      totalStat += newItem.AllStat.bonus * simpleStatusSetting.allStatPerStat
+    }
+
+    if (
+      simpleStatusSetting.expectStat &&
+      simpleStatusSetting.expectStat <= totalStat
+    ) {
       clearInterval(intervalRef.current)
       if (type === 'ETERNAL') {
         setIsEternalAuto(false)
@@ -417,10 +465,14 @@ const FlameOfResurrection: React.FC = () => {
           statusSetting={statusSetting}
           setStatusSetting={setStatusSetting}
           flameCostSetting={flameCostSetting}
+          simpleStatusSetting={simpleStatusSetting}
+          setSimpleStatusSetting={setSimpleStatusSetting}
           setFlameCostSetting={setFlameCostSetting}
           mesoKrwSetting={mesoKrwSetting}
           setMesoKrwSetting={setMesoKrwSetting}
           position={position}
+          autoType={autoType}
+          setAutoType={setAutoType}
         />
       )}
       {showResult && (

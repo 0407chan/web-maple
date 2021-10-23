@@ -284,6 +284,30 @@ const FlameOfResurrection: React.FC = () => {
       }
     }
   }
+  const getTotalStat = () => {
+    if (!flameSlot.item) return 0
+
+    let result = 0
+    if (simpleStatusSetting.statType) {
+      result += flameSlot.item[simpleStatusSetting.statType].bonus
+    }
+    if (
+      simpleStatusSetting.attackPerStat &&
+      simpleStatusSetting.attackPerStat > 0
+    ) {
+      result +=
+        flameSlot.item.WEAPON_ATTACK.bonus * simpleStatusSetting.attackPerStat
+    }
+    if (
+      simpleStatusSetting.allStatPerStat &&
+      simpleStatusSetting.allStatPerStat > 0
+    ) {
+      result +=
+        flameSlot.item.AllStat.bonus * simpleStatusSetting.allStatPerStat
+    }
+
+    return result
+  }
   const checkForSimpleAuto = (type: FlameType, newItem: EquipItemType) => {
     if (intervalRef.current === undefined) return
 
@@ -406,25 +430,41 @@ const FlameOfResurrection: React.FC = () => {
             <>
               {isBonus() ? (
                 <S.Result>
-                  {renderStat('STR')}
-                  {renderStat('DEX')}
-                  {renderStat('INT')}
-                  {renderStat('LUK')}
-                  {renderStat('HP')}
-                  {renderStat('MP')}
-                  {renderStat('WEAPON_ATTACK')}
-                  {renderStat('MAGIC_ATTACK')}
-                  {renderStat('DEFENCE')}
-                  {renderStat('speed')}
-                  {renderStat('jump')}
-                  {renderStat('bossDemage', true)}
-                  {renderStat('IgnoreDefence', true)}
-                  {renderStat('demage', true)}
-                  {renderStat('AllStat', true)}
-                  {item && item.RequierdLevel.bonus < 0 && (
-                    <div>
-                      {item.RequierdLevel.label} : {item.RequierdLevel.bonus}
-                    </div>
+                  <div>
+                    {renderStat('STR')}
+                    {renderStat('DEX')}
+                    {renderStat('INT')}
+                    {renderStat('LUK')}
+                    {renderStat('HP')}
+                    {renderStat('MP')}
+                    {renderStat('WEAPON_ATTACK')}
+                    {renderStat('MAGIC_ATTACK')}
+                    {renderStat('DEFENCE')}
+                    {renderStat('speed')}
+                    {renderStat('jump')}
+                    {renderStat('bossDemage', true)}
+                    {renderStat('IgnoreDefence', true)}
+                    {renderStat('demage', true)}
+                    {renderStat('AllStat', true)}
+                    {item && item.RequierdLevel.bonus < 0 && (
+                      <div>
+                        {item.RequierdLevel.label} : {item.RequierdLevel.bonus}
+                      </div>
+                    )}
+                  </div>
+                  {autoType === 'SIMPLE' && (
+                    <S.Horizontal style={{ gap: 4 }}>
+                      <span>{simpleStatusSetting.statType}</span>
+                      <S.FlameStatLabel
+                        isMyStat={
+                          simpleStatusSetting.expectStat !== undefined &&
+                          simpleStatusSetting.expectStat <= getTotalStat()
+                        }
+                      >
+                        {getTotalStat()}
+                      </S.FlameStatLabel>
+                      급
+                    </S.Horizontal>
                   )}
                 </S.Result>
               ) : (

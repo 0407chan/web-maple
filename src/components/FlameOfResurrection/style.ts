@@ -14,10 +14,10 @@ export const Result = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 14px;
-  height: 160px;
+  height: 190px;
   width: 270px;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
   background-color: rgba(120, 120, 120, 0.95);
   border-radius: 5px;
   padding: 10px;

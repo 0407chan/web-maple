@@ -62,7 +62,11 @@ const FlameOfResurrection: React.FC = () => {
   const [mesoKrwSetting, setMesoKrwSetting] = useState<number | undefined>(3500)
   const [statusSetting, setStatusSetting] = useState<StatusSettingType>({})
   const [simpleStatusSetting, setSimpleStatusSetting] =
-    useState<SimpleStatusSettingType>({ allStatPerStat: 10, attackPerStat: 4 })
+    useState<SimpleStatusSettingType>({
+      statType: 'STR',
+      allStatPerStat: 10,
+      attackPerStat: 4
+    })
   const [flameCostSetting, setFlameCostSetting] = useState<FlameSettingType>({
     POWERFUL: 50000000,
     ETERNAL: 100000000

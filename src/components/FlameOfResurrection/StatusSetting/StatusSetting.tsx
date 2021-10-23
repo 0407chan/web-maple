@@ -95,7 +95,10 @@ const StatusSetting: React.FC<Props> = ({
             <MapleButton
               disabled={loading}
               size="small"
-              onClick={() => setStatusSetting({})}
+              onClick={() => {
+                setStatusSetting({})
+                setSimpleStatusSetting({ statType: 'STR' })
+              }}
             >
               초기화
             </MapleButton>

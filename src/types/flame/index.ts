@@ -11,9 +11,19 @@ export type StatusSettingType = {
   demage?: number
 }
 
+export type StatType = 'STR' | 'LUK' | 'INT' | 'DEX'
+export type SimpleStatusSettingType = {
+  expectStat?: number
+  statType?: StatType
+  attackPerStat?: number
+  allStatPerStat?: number
+}
+
 export type FlameSettingType = {
   POWERFUL?: number
   ETERNAL?: number
 }
 
 export type FlameType = 'ETERNAL' | 'POWERFUL'
+
+export type AutoType = 'SIMPLE' | 'DETAIL'

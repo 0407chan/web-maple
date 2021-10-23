@@ -1,4 +1,4 @@
-import { Input as OriginalInput } from 'antd/lib'
+import { Input as OriginalInput, Radio } from 'antd/lib'
 import styled from 'styled-components'
 
 export const Contianer = styled.div`
@@ -77,3 +77,5 @@ export const Text = styled.span`
   width: 60px;
   font-weight: bold;
 `
+
+export const RadioGroup = styled(Radio.Group)``

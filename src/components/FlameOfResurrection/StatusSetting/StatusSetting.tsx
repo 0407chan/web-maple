@@ -84,6 +84,7 @@ const StatusSetting: React.FC<Props> = ({
               <S.Title>오토 세팅</S.Title>
               <MapleButton
                 size="small"
+                disabled={loading}
                 onClick={() =>
                   setAutoType(autoType === 'DETAIL' ? 'SIMPLE' : 'DETAIL')
                 }

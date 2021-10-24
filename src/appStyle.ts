@@ -66,7 +66,7 @@ export const Horizontal = styled.div`
   display: flex;
   gap: 15px;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 `
 export const Vertical = styled.div`

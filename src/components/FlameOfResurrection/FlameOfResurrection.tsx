@@ -25,7 +25,8 @@ import {
   getFourArmorOption,
   getFourWeaponOption,
   getGrade,
-  getNotUndefined
+  getNotUndefined,
+  roundToOne
 } from './utils'
 
 // 2048716 강환불 Powerful Rebirth Flame
@@ -313,7 +314,7 @@ const FlameOfResurrection: React.FC = () => {
       result += item.AllStat.bonus * simpleStatusSetting.allStatPerStat
     }
 
-    return result
+    return roundToOne(`${result}`)
   }
   const checkForSimpleAuto = (type: FlameType, newItem: EquipItemType) => {
     if (intervalRef.current === undefined) return

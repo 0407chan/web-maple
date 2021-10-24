@@ -122,3 +122,7 @@ export const getNotUndefined = (
   }
   return result
 }
+
+export const roundToOne = (num: string): number => {
+  return +(Math.round(Number(num + 'e+1')) + 'e-1')
+}

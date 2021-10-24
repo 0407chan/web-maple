@@ -169,7 +169,10 @@ const StatusSetting: React.FC<Props> = ({
             <S.Block isLoading={loading}>
               <S.Vertical>
                 <S.Horizontal>
-                  <S.Text style={{ width: '100%' }}>공격력 1</S.Text>
+                  <S.Text style={{ width: '100%' }}>
+                    {simpleStatusSetting.statType === 'INT' ? '마력' : '공격력'}{' '}
+                    1
+                  </S.Text>
                   <S.Text style={{ width: 'fit-content' }}>=</S.Text>
                   <S.Input
                     maxLength={1}

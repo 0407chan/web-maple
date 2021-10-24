@@ -1,4 +1,8 @@
-import { Input as OriginalInput, Radio } from 'antd/lib'
+import {
+  Input as OriginalInput,
+  InputNumber as OriginalInputNubmer,
+  Radio
+} from 'antd/lib'
 import styled from 'styled-components'
 
 export const Contianer = styled.div`
@@ -45,6 +49,22 @@ export const Block = styled.div<{ isLoading?: boolean }>`
 `
 export const Input = styled(OriginalInput)`
   /* width: 150px; */
+  border-radius: 5px;
+  border: unset;
+  padding: 5px 10px;
+  &:focus {
+    outline: none;
+  }
+
+  &[disabled] {
+    background-color: #dddddd;
+  }
+`
+export const InputNumber = styled(OriginalInputNubmer)`
+  /* width: 150px; */
+  .ant-input-number-input {
+    padding-left: 0;
+  }
   border-radius: 5px;
   border: unset;
   padding: 5px 10px;

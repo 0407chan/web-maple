@@ -174,17 +174,16 @@ const StatusSetting: React.FC<Props> = ({
                     1
                   </S.Text>
                   <S.Text style={{ width: 'fit-content' }}>=</S.Text>
-                  <S.Input
-                    maxLength={1}
-                    max={9}
+                  <S.InputNumber
+                    max={9.9}
                     min={0}
+                    step={0.1}
+                    size="small"
                     style={{ width: '100%' }}
                     placeholder={'숫자를 입력해주세요.'}
                     value={simpleStatusSetting.attackPerStat}
-                    onChange={(e) => {
-                      const newValue = e.target.value
-                        .replace(regex, '')
-                        .replaceAll(',', '')
+                    onChange={(value) => {
+                      const newValue = Number(value).toFixed(1)
                       setSimpleStatusSetting({
                         ...simpleStatusSetting,
                         attackPerStat: newValue ? Number(newValue) : undefined
@@ -195,17 +194,15 @@ const StatusSetting: React.FC<Props> = ({
                 <S.Horizontal>
                   <S.Text style={{ width: '100%' }}>올스텟 1%</S.Text>
                   <S.Text style={{ width: 'fit-content' }}>=</S.Text>
-                  <S.Input
-                    maxLength={2}
-                    max={50}
+                  <S.InputNumber
+                    max={19.9}
                     min={0}
+                    step={0.1}
                     style={{ width: '100%' }}
                     placeholder={'숫자를 입력해주세요.'}
                     value={simpleStatusSetting.allStatPerStat}
-                    onChange={(e) => {
-                      const newValue = e.target.value
-                        .replace(regex, '')
-                        .replaceAll(',', '')
+                    onChange={(value) => {
+                      const newValue = Number(value).toFixed(1)
                       setSimpleStatusSetting({
                         ...simpleStatusSetting,
                         allStatPerStat: newValue ? Number(newValue) : undefined

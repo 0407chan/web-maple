@@ -50,9 +50,9 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
         <S.Vertical>
           <Input
             placeholder="구매할 아이템 이름을 입력해주세요."
+            maxLength={10}
             value={searchKey}
             onChange={(event) => {
-              event.nativeEvent.cancelBubble = true
               setSearchKey(event.target.value)
             }}
           />

@@ -288,26 +288,29 @@ const FlameOfResurrection: React.FC = () => {
       }
     }
   }
-  const getTotalStat = () => {
-    if (!flameSlot.item) return 0
+  const getTotalStat = (newItem?: EquipItemType) => {
+    const item = newItem || flameSlot.item
+    if (!item) return 0
 
     let result = 0
     if (simpleStatusSetting.statType) {
-      result += flameSlot.item[simpleStatusSetting.statType].bonus
+      result += item[simpleStatusSetting.statType].bonus
     }
     if (
       simpleStatusSetting.attackPerStat &&
       simpleStatusSetting.attackPerStat > 0
     ) {
-      result +=
-        flameSlot.item.WEAPON_ATTACK.bonus * simpleStatusSetting.attackPerStat
+      if (simpleStatusSetting.statType === 'INT') {
+        result += item.MAGIC_ATTACK.bonus * simpleStatusSetting.attackPerStat
+      } else {
+        result += item.WEAPON_ATTACK.bonus * simpleStatusSetting.attackPerStat
+      }
     }
     if (
       simpleStatusSetting.allStatPerStat &&
       simpleStatusSetting.allStatPerStat > 0
     ) {
-      result +=
-        flameSlot.item.AllStat.bonus * simpleStatusSetting.allStatPerStat
+      result += item.AllStat.bonus * simpleStatusSetting.allStatPerStat
     }
 
     return result
@@ -315,27 +318,9 @@ const FlameOfResurrection: React.FC = () => {
   const checkForSimpleAuto = (type: FlameType, newItem: EquipItemType) => {
     if (intervalRef.current === undefined) return
 
-    let totalStat = 0
-    if (simpleStatusSetting.statType) {
-      totalStat += newItem[simpleStatusSetting.statType].bonus
-    }
-    if (
-      simpleStatusSetting.attackPerStat &&
-      simpleStatusSetting.attackPerStat > 0
-    ) {
-      totalStat +=
-        newItem.WEAPON_ATTACK.bonus * simpleStatusSetting.attackPerStat
-    }
-    if (
-      simpleStatusSetting.allStatPerStat &&
-      simpleStatusSetting.allStatPerStat > 0
-    ) {
-      totalStat += newItem.AllStat.bonus * simpleStatusSetting.allStatPerStat
-    }
-
     if (
       simpleStatusSetting.expectStat &&
-      simpleStatusSetting.expectStat <= totalStat
+      simpleStatusSetting.expectStat <= getTotalStat(newItem)
     ) {
       clearInterval(intervalRef.current)
       if (type === 'ETERNAL') {
@@ -535,7 +520,6 @@ const FlameOfResurrection: React.FC = () => {
   function renderStat(key: keyof EquipItemType, isPercent?: boolean) {
     if (!item) return null
     const stat = item[key] as StatusBase
-    isMyStatForSimple()
     if (stat.bonus > 0) {
       return (
         <S.FlameStatLabel
@@ -564,7 +548,17 @@ const FlameOfResurrection: React.FC = () => {
       if (
         simpleStatusSetting.attackPerStat &&
         simpleStatusSetting.attackPerStat > 0 &&
+        simpleStatusSetting.statType !== 'INT' &&
         key === 'WEAPON_ATTACK' &&
+        stat.bonus > 0
+      ) {
+        return true
+      }
+      if (
+        simpleStatusSetting.attackPerStat &&
+        simpleStatusSetting.attackPerStat > 0 &&
+        simpleStatusSetting.statType === 'INT' &&
+        key === 'MAGIC_ATTACK' &&
         stat.bonus > 0
       ) {
         return true

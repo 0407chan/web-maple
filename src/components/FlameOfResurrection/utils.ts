@@ -54,6 +54,30 @@ export const getDoubleStatDetail = (
   const grade = getGrade(flameType, item)
   return { value: (Math.floor(item.level / 40) + 1) * grade, grade: 8 - grade }
 }
+
+export const getEmptyItem = (item: EquipItemType): EquipItemType => {
+  const result: EquipItemType = {
+    ...item,
+    STR: { ...item.STR, bonus: 0, bonusDetail: undefined },
+    DEX: { ...item.DEX, bonus: 0, bonusDetail: undefined },
+    LUK: { ...item.LUK, bonus: 0, bonusDetail: undefined },
+    INT: { ...item.INT, bonus: 0, bonusDetail: undefined },
+    speed: { ...item.speed, bonus: 0, bonusDetail: undefined },
+    bossDemage: { ...item.bossDemage, bonus: 0, bonusDetail: undefined },
+    IgnoreDefence: { ...item.IgnoreDefence, bonus: 0, bonusDetail: undefined },
+    HP: { ...item.HP, bonus: 0, bonusDetail: undefined },
+    MP: { ...item.MP, bonus: 0, bonusDetail: undefined },
+    MAGIC_ATTACK: { ...item.MAGIC_ATTACK, bonus: 0, bonusDetail: undefined },
+    AVOIDABLILITY: { ...item.AVOIDABLILITY, bonus: 0, bonusDetail: undefined },
+    AllStat: { ...item.AllStat, bonus: 0, bonusDetail: undefined },
+    WEAPON_ATTACK: { ...item.WEAPON_ATTACK, bonus: 0, bonusDetail: undefined },
+    demage: { ...item.demage, bonus: 0, bonusDetail: undefined },
+    DEFENCE: { ...item.DEFENCE, bonus: 0, bonusDetail: undefined },
+    RequierdLevel: { ...item.RequierdLevel, bonus: 0, bonusDetail: undefined },
+    jump: { ...item.jump, bonus: 0, bonusDetail: undefined }
+  }
+  return result
+}
 export const getBossDetail = (
   flameType: FlameType,
   item: EquipItemType

@@ -8,7 +8,12 @@ import {
   SimpleStatusSettingType,
   StatusSettingType
 } from '@/types/flame'
-import { EquipItemType, SlotType, StatusBase } from '@/types/inventory'
+import {
+  BonusDetail,
+  EquipItemType,
+  SlotType,
+  StatusBase
+} from '@/types/inventory'
 import React, { useRef, useState } from 'react'
 import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
 import { v4 as uuid } from 'uuid'
@@ -20,12 +25,14 @@ import StatusSetting from './StatusSetting'
 import * as S from './style'
 import {
   calcAttack,
-  calcDoubleBonusStat,
   calcSingleBonusStat,
+  getDoubleStatDetail,
+  getEmptyItem,
   getFourArmorOption,
   getFourWeaponOption,
   getGrade,
   getNotUndefined,
+  getSingleStatDetail,
   roundToOne
 } from './utils'
 
@@ -158,11 +165,32 @@ const FlameOfResurrection: React.FC = () => {
       item.islots === 'Wp' ? getFourWeaponOption() : getFourArmorOption()
     )
     // console.log(options)
-    let newStr = options.has('STR') ? calcSingleBonusStat(type, item) : 0
-    let newDex = options.has('DEX') ? calcSingleBonusStat(type, item) : 0
-    let newInt = options.has('INT') ? calcSingleBonusStat(type, item) : 0
-    let newLuk = options.has('LUK') ? calcSingleBonusStat(type, item) : 0
-    const newBoss = options.has('boss_demage') ? getGrade(type, item) * 2 : 0
+    const tempItem: EquipItemType = getEmptyItem(item)
+
+    if (options.has('STR')) {
+      const detail = getSingleStatDetail(type, item)
+      tempItem.STR = setNewSet(tempItem.STR, detail)
+    }
+    if (options.has('DEX')) {
+      const detail = getSingleStatDetail(type, item)
+      tempItem.DEX = setNewSet(tempItem.DEX, detail)
+    }
+    if (options.has('INT')) {
+      const detail = getSingleStatDetail(type, item)
+      tempItem.INT = setNewSet(tempItem.INT, detail)
+    }
+    if (options.has('LUK')) {
+      const detail = getSingleStatDetail(type, item)
+      tempItem.LUK = setNewSet(tempItem.LUK, detail)
+    }
+    if (options.has('boss_demage')) {
+      const grade = getGrade(type, item)
+      const detail: BonusDetail = {
+        grade: grade,
+        value: grade * 2
+      }
+      tempItem.bossDemage = setNewSet(tempItem.bossDemage, detail)
+    }
     const newAll = options.has('AllStat') ? getGrade(type, item) : 0
     const newDemage = options.has('demage') ? getGrade(type, item) : 0
 
@@ -204,43 +232,38 @@ const FlameOfResurrection: React.FC = () => {
       : 0
 
     if (options.has('STR+DEX')) {
-      const value = calcDoubleBonusStat(type, item)
-      newStr += value
-      newDex += value
+      const detail = getDoubleStatDetail(type, item)
+      tempItem.STR = setNewSet(tempItem.STR, detail)
+      tempItem.DEX = setNewSet(tempItem.DEX, detail)
     }
     if (options.has('STR+INT')) {
-      const value = calcDoubleBonusStat(type, item)
-      newStr += value
-      newInt += value
+      const detail = getDoubleStatDetail(type, item)
+      tempItem.STR = setNewSet(tempItem.STR, detail)
+      tempItem.INT = setNewSet(tempItem.INT, detail)
     }
     if (options.has('STR+LUK')) {
-      const value = calcDoubleBonusStat(type, item)
-      newStr += value
-      newLuk += value
+      const detail = getDoubleStatDetail(type, item)
+      tempItem.STR = setNewSet(tempItem.STR, detail)
+      tempItem.LUK = setNewSet(tempItem.LUK, detail)
     }
     if (options.has('DEX+INT')) {
-      const value = calcDoubleBonusStat(type, item)
-      newDex += value
-      newInt += value
+      const detail = getDoubleStatDetail(type, item)
+      tempItem.DEX = setNewSet(tempItem.DEX, detail)
+      tempItem.INT = setNewSet(tempItem.INT, detail)
     }
     if (options.has('DEX+LUK')) {
-      const value = calcDoubleBonusStat(type, item)
-      newDex += value
-      newLuk += value
+      const detail = getDoubleStatDetail(type, item)
+      tempItem.DEX = setNewSet(tempItem.DEX, detail)
+      tempItem.LUK = setNewSet(tempItem.LUK, detail)
     }
     if (options.has('INT+LUK')) {
-      const value = calcDoubleBonusStat(type, item)
-      newInt += value
-      newLuk += value
+      const detail = getDoubleStatDetail(type, item)
+      tempItem.INT = setNewSet(tempItem.INT, detail)
+      tempItem.LUK = setNewSet(tempItem.LUK, detail)
     }
 
     const newItem: EquipItemType = {
-      ...item,
-      STR: { ...item.STR, bonus: newStr },
-      DEX: { ...item.DEX, bonus: newDex },
-      INT: { ...item.INT, bonus: newInt },
-      LUK: { ...item.LUK, bonus: newLuk },
-      bossDemage: { ...item.bossDemage, bonus: newBoss },
+      ...tempItem,
       AllStat: { ...item.AllStat, bonus: newAll },
       demage: { ...item.demage, bonus: newDemage },
       WEAPON_ATTACK: { ...item.WEAPON_ATTACK, bonus: newWeaponAttack },
@@ -253,6 +276,12 @@ const FlameOfResurrection: React.FC = () => {
       DEFENCE: { ...item.DEFENCE, bonus: newDefence }
     }
 
+    // console.log(options)
+    // console.log(newItem.STR.bonusDetail)
+    // console.log(newItem.DEX.bonusDetail)
+    // console.log(newItem.INT.bonusDetail)
+    // console.log(newItem.LUK.bonusDetail)
+
     if (autoType === 'DETAIL') {
       checkForAuto(type, newItem)
     }
@@ -261,6 +290,14 @@ const FlameOfResurrection: React.FC = () => {
     }
     setFlameSlot({ ...flameSlot, item: newItem })
     setItemOnOriginalSlot(newItem)
+
+    function setNewSet(stat: StatusBase, detail: BonusDetail) {
+      return {
+        ...stat,
+        bonus: stat.bonus + detail.value,
+        bonusDetail: stat.bonusDetail ? [...stat.bonusDetail, detail] : [detail]
+      }
+    }
   }
 
   const checkForAuto = (type: FlameType, newItem: EquipItemType) => {
@@ -420,7 +457,7 @@ const FlameOfResurrection: React.FC = () => {
             <>
               {isBonus() ? (
                 <S.Result>
-                  <div>
+                  <div style={{ width: '100%' }}>
                     {renderStat('STR')}
                     {renderStat('DEX')}
                     {renderStat('INT')}
@@ -523,14 +560,27 @@ const FlameOfResurrection: React.FC = () => {
     const stat = item[key] as StatusBase
     if (stat.bonus > 0) {
       return (
-        <S.FlameStatLabel
-          isMyStat={
-            autoType === 'DETAIL' ? isMyStatForDetail() : isMyStatForSimple()
-          }
+        <S.Horizontal
+          style={{ justifyContent: 'space-between', width: '100%' }}
         >
-          {stat.label} : {stat.bonus}
-          {isPercent === true ? '%' : ''}
-        </S.FlameStatLabel>
+          <S.FlameStatLabel
+            isMyStat={
+              autoType === 'DETAIL' ? isMyStatForDetail() : isMyStatForSimple()
+            }
+          >
+            {stat.label} : {stat.bonus}
+            {isPercent === true ? '%' : ''}
+          </S.FlameStatLabel>
+          {stat.bonusDetail && stat.bonusDetail.length > 0 && (
+            <S.DetailWrapper>
+              {stat.bonusDetail.map((detail, index) => (
+                <S.FlameBonusDetailLabel key={index} grade={detail.grade}>
+                  {detail.value}({detail.grade})
+                </S.FlameBonusDetailLabel>
+              ))}
+            </S.DetailWrapper>
+          )}
+        </S.Horizontal>
       )
     }
 
@@ -543,34 +593,37 @@ const FlameOfResurrection: React.FC = () => {
       )
     }
     function isMyStatForSimple() {
-      if (simpleStatusSetting.statType === key && stat.bonus > 0) {
-        return true
-      }
       if (
-        simpleStatusSetting.attackPerStat &&
-        simpleStatusSetting.attackPerStat > 0 &&
-        simpleStatusSetting.statType !== 'INT' &&
-        key === 'WEAPON_ATTACK' &&
+        simpleStatusSetting.expectStat &&
+        simpleStatusSetting.expectStat <= getTotalStat() &&
         stat.bonus > 0
       ) {
-        return true
-      }
-      if (
-        simpleStatusSetting.attackPerStat &&
-        simpleStatusSetting.attackPerStat > 0 &&
-        simpleStatusSetting.statType === 'INT' &&
-        key === 'MAGIC_ATTACK' &&
-        stat.bonus > 0
-      ) {
-        return true
-      }
-      if (
-        simpleStatusSetting.allStatPerStat &&
-        simpleStatusSetting.allStatPerStat > 0 &&
-        key === 'AllStat' &&
-        stat.bonus > 0
-      ) {
-        return true
+        if (simpleStatusSetting.statType === key) {
+          return true
+        }
+        if (
+          simpleStatusSetting.attackPerStat &&
+          simpleStatusSetting.attackPerStat > 0 &&
+          simpleStatusSetting.statType !== 'INT' &&
+          key === 'WEAPON_ATTACK'
+        ) {
+          return true
+        }
+        if (
+          simpleStatusSetting.attackPerStat &&
+          simpleStatusSetting.attackPerStat > 0 &&
+          simpleStatusSetting.statType === 'INT' &&
+          key === 'MAGIC_ATTACK'
+        ) {
+          return true
+        }
+        if (
+          simpleStatusSetting.allStatPerStat &&
+          simpleStatusSetting.allStatPerStat > 0 &&
+          key === 'AllStat'
+        ) {
+          return true
+        }
       }
       return false
     }

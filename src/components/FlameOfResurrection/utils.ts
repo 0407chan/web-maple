@@ -1,5 +1,5 @@
 import { FlameType, StatusSettingType } from '@/types/flame'
-import { EquipItemType } from '@/types/inventory'
+import { BonusDetail, EquipItemType } from '@/types/inventory'
 import {
   ARMER_OPTION_NAME,
   ETERNAL_FLAME_PERCENTAGE,
@@ -30,12 +30,36 @@ export const calcSingleBonusStat = (
   const grade = getGrade(flameType, item)
   return (Math.floor(item.level / 20) + 1) * grade
 }
+
+export const getSingleStatDetail = (
+  flameType: FlameType,
+  item: EquipItemType
+): BonusDetail => {
+  const grade = getGrade(flameType, item)
+  return { value: (Math.floor(item.level / 20) + 1) * grade, grade: 8 - grade }
+}
+
 export const calcDoubleBonusStat = (
   flameType: FlameType,
   item: EquipItemType
 ): number => {
   const grade = getGrade(flameType, item)
   return (Math.floor(item.level / 40) + 1) * grade
+}
+
+export const getDoubleStatDetail = (
+  flameType: FlameType,
+  item: EquipItemType
+): BonusDetail => {
+  const grade = getGrade(flameType, item)
+  return { value: (Math.floor(item.level / 40) + 1) * grade, grade: 8 - grade }
+}
+export const getBossDetail = (
+  flameType: FlameType,
+  item: EquipItemType
+): BonusDetail => {
+  const grade = getGrade(flameType, item)
+  return { value: grade * 2, grade: 8 - grade }
 }
 
 export const calcAttack = (
@@ -56,7 +80,7 @@ export const getFourWeaponOption = (): string[] => {
   while (count < 4) {
     const index = Math.floor(Math.random() * options.length)
     result.push(options[index])
-    options.splice(index, 1) // Remove the item from the array
+    options.splice(index, 1)
     count++
   }
   return result

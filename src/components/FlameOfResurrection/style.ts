@@ -78,3 +78,18 @@ export const FlameStatLabel = styled.div<{ isMyStat?: boolean }>`
         }
       : {}}
 `
+
+export const DetailWrapper = styled.div`
+  display: flex;
+  gap: 5px;
+  flex-direction: row;
+`
+export const FlameBonusDetailLabel = styled.span<{ grade: number }>`
+  ${(props) =>
+    props.grade === 1
+      ? {
+          fontWeight: 'bold',
+          color: '#ff6246'
+        }
+      : {}}
+`

@@ -13,10 +13,15 @@ export enum InventoryTypeValue {
   Etc
 }
 
+export type BonusDetail = {
+  grade: number
+  value: number
+}
 export type StatusBase = {
   // 값
   base: number // 기본
   bonus: number // 추가옵션
+  bonusDetail?: BonusDetail[]
   reinforce: number // 강화옵션
 
   // 라벨

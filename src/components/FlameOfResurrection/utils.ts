@@ -97,11 +97,11 @@ export const calcAttack = (
   }
 }
 
-export const getFourWeaponOption = (): string[] => {
+export const getWeaponOption = (optionNumber = 4): string[] => {
   const options = [...WEAPON_OPTION_NAME]
   const result = []
   let count = 0
-  while (count < 4) {
+  while (count < optionNumber) {
     const index = Math.floor(Math.random() * options.length)
     result.push(options[index])
     options.splice(index, 1)
@@ -109,11 +109,11 @@ export const getFourWeaponOption = (): string[] => {
   }
   return result
 }
-export const getFourArmorOption = (): string[] => {
+export const getArmorOption = (optionNumber = 4): string[] => {
   const options = [...ARMER_OPTION_NAME]
   const result = []
   let count = 0
-  while (count < 4) {
+  while (count < optionNumber) {
     const index = Math.floor(Math.random() * options.length)
     result.push(options[index])
     options.splice(index, 1)

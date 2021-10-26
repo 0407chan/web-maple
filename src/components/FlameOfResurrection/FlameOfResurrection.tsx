@@ -25,14 +25,13 @@ import StatusSetting from './StatusSetting'
 import * as S from './style'
 import {
   calcAttack,
-  calcSingleBonusStat,
+  getArmorOption,
   getDoubleStatDetail,
   getEmptyItem,
-  getFourArmorOption,
-  getFourWeaponOption,
   getGrade,
   getNotUndefined,
   getSingleStatDetail,
+  getWeaponOption,
   roundToOne
 } from './utils'
 
@@ -162,7 +161,7 @@ const FlameOfResurrection: React.FC = () => {
     setFlameResult(flameResult)
 
     const options = new Set(
-      item.islots === 'Wp' ? getFourWeaponOption() : getFourArmorOption()
+      item.islots === 'Wp' ? getWeaponOption() : getArmorOption()
     )
     // console.log(options)
     const tempItem: EquipItemType = getEmptyItem(item)
@@ -186,50 +185,107 @@ const FlameOfResurrection: React.FC = () => {
     if (options.has('boss_demage')) {
       const grade = getGrade(type, item)
       const detail: BonusDetail = {
-        grade: grade,
+        grade: 8 - grade,
         value: grade * 2
       }
       tempItem.bossDemage = setNewSet(tempItem.bossDemage, detail)
     }
-    const newAll = options.has('AllStat') ? getGrade(type, item) : 0
-    const newDemage = options.has('demage') ? getGrade(type, item) : 0
+    if (options.has('AllStat')) {
+      const grade = getGrade(type, item)
+      const detail: BonusDetail = {
+        grade: 8 - grade,
+        value: grade
+      }
+      tempItem.AllStat = setNewSet(tempItem.AllStat, detail)
+    }
+    if (options.has('demage')) {
+      const grade = getGrade(type, item)
+      const detail: BonusDetail = {
+        grade: 8 - grade,
+        value: grade
+      }
+      tempItem.demage = setNewSet(tempItem.demage, detail)
+    }
 
-    const tempGrade = (getGrade(type, item) - 2) as 1 | 2 | 3 | 4 | 5
-    const newWeaponAttack = options.has('WEAPON_ATTACK')
-      ? item.islots === 'Wp'
-        ? Math.ceil(
-            (item.WEAPON_ATTACK.base * calcAttack(item, tempGrade)) / 100
-          )
-        : getGrade(type, item)
-      : 0
-    const newMagicAttack = options.has('MAGIC_ATTACK')
-      ? item.islots === 'Wp'
-        ? Math.ceil(
-            ((item.MAGIC_ATTACK.base || item.WEAPON_ATTACK.base) *
-              calcAttack(
-                item,
-                (getGrade(type, item) - 2) as 1 | 2 | 3 | 4 | 5
-              )) /
-              100
-          )
-        : getGrade(type, item)
-      : 0
-    const newHP = options.has('MaxHP')
-      ? item.level * 3 * getGrade(type, item)
-      : 0
-    const newMP = options.has('MaxMP')
-      ? item.level * 3 * getGrade(type, item)
-      : 0
+    if (options.has('WEAPON_ATTACK')) {
+      const grade = getGrade(type, item)
+      let value = grade
+      if (item.islots === 'Wp') {
+        value = Math.ceil(
+          (item.WEAPON_ATTACK.base *
+            calcAttack(item, (grade - 2) as 1 | 2 | 3 | 4 | 5)) /
+            100
+        )
+      }
+      tempItem.WEAPON_ATTACK = setNewSet(tempItem.WEAPON_ATTACK, {
+        grade: 8 - grade,
+        value: value
+      })
+    }
 
-    const newJump = options.has('jump') ? getGrade(type, item) : 0
-    const newSpeed = options.has('move_speed') ? getGrade(type, item) : 0
-    const newRequierdLevel = options.has('RequierdLevel')
-      ? getGrade(type, item) * -5
-      : 0
+    // TODO: 마력 1추 떴는데 표기엔 3추로 나옴(?)
+    if (options.has('MAGIC_ATTACK')) {
+      const grade = getGrade(type, item)
+      let value = grade
+      if (item.islots === 'Wp') {
+        value = Math.ceil(
+          ((item.MAGIC_ATTACK.base || item.WEAPON_ATTACK.base) *
+            calcAttack(item, (getGrade(type, item) - 2) as 1 | 2 | 3 | 4 | 5)) /
+            100
+        )
+      }
+      tempItem.MAGIC_ATTACK = setNewSet(tempItem.MAGIC_ATTACK, {
+        grade: 8 - grade,
+        value: value
+      })
+    }
 
-    const newDefence = options.has('DEFENCE')
-      ? calcSingleBonusStat(type, item)
-      : 0
+    if (options.has('MaxHP')) {
+      const grade = getGrade(type, item)
+      const detail: BonusDetail = {
+        grade: 8 - grade,
+        value: item.level * 3 * grade
+      }
+      tempItem.HP = setNewSet(tempItem.HP, detail)
+    }
+    if (options.has('MaxMP')) {
+      const grade = getGrade(type, item)
+      const detail: BonusDetail = {
+        grade: 8 - grade,
+        value: item.level * 3 * grade
+      }
+      tempItem.MP = setNewSet(tempItem.MP, detail)
+    }
+    if (options.has('jump')) {
+      const grade = getGrade(type, item)
+      const detail: BonusDetail = {
+        grade: 8 - grade,
+        value: grade
+      }
+      tempItem.jump = setNewSet(tempItem.jump, detail)
+    }
+    if (options.has('move_speed')) {
+      const grade = getGrade(type, item)
+      const detail: BonusDetail = {
+        grade: 8 - grade,
+        value: grade
+      }
+      tempItem.speed = setNewSet(tempItem.speed, detail)
+    }
+
+    if (options.has('RequierdLevel')) {
+      const grade = getGrade(type, item)
+      const detail: BonusDetail = {
+        grade: 8 - grade,
+        value: grade * -5
+      }
+      tempItem.RequierdLevel = setNewSet(tempItem.RequierdLevel, detail)
+    }
+
+    if (options.has('DEFENCE')) {
+      const detail = getSingleStatDetail(type, item)
+      tempItem.DEFENCE = setNewSet(tempItem.DEFENCE, detail)
+    }
 
     if (options.has('STR+DEX')) {
       const detail = getDoubleStatDetail(type, item)
@@ -262,34 +318,14 @@ const FlameOfResurrection: React.FC = () => {
       tempItem.LUK = setNewSet(tempItem.LUK, detail)
     }
 
-    const newItem: EquipItemType = {
-      ...tempItem,
-      AllStat: { ...item.AllStat, bonus: newAll },
-      demage: { ...item.demage, bonus: newDemage },
-      WEAPON_ATTACK: { ...item.WEAPON_ATTACK, bonus: newWeaponAttack },
-      MAGIC_ATTACK: { ...item.MAGIC_ATTACK, bonus: newMagicAttack },
-      HP: { ...item.HP, bonus: newHP },
-      MP: { ...item.MP, bonus: newMP },
-      jump: { ...item.jump, bonus: newJump },
-      speed: { ...item.speed, bonus: newSpeed },
-      RequierdLevel: { ...item.RequierdLevel, bonus: newRequierdLevel },
-      DEFENCE: { ...item.DEFENCE, bonus: newDefence }
-    }
-
-    // console.log(options)
-    // console.log(newItem.STR.bonusDetail)
-    // console.log(newItem.DEX.bonusDetail)
-    // console.log(newItem.INT.bonusDetail)
-    // console.log(newItem.LUK.bonusDetail)
-
     if (autoType === 'DETAIL') {
-      checkForAuto(type, newItem)
+      checkForAuto(type, tempItem)
     }
     if (autoType === 'SIMPLE') {
-      checkForSimpleAuto(type, newItem)
+      checkForSimpleAuto(type, tempItem)
     }
-    setFlameSlot({ ...flameSlot, item: newItem })
-    setItemOnOriginalSlot(newItem)
+    setFlameSlot({ ...flameSlot, item: tempItem })
+    setItemOnOriginalSlot(tempItem)
 
     function setNewSet(stat: StatusBase, detail: BonusDetail) {
       return {
@@ -357,8 +393,9 @@ const FlameOfResurrection: React.FC = () => {
     if (intervalRef.current === undefined) return
 
     if (
-      simpleStatusSetting.expectStat &&
-      simpleStatusSetting.expectStat <= getTotalStat(newItem)
+      (simpleStatusSetting.expectStat &&
+        simpleStatusSetting.expectStat <= getTotalStat(newItem)) ||
+      !simpleStatusSetting.expectStat
     ) {
       clearInterval(intervalRef.current)
       if (type === 'ETERNAL') {

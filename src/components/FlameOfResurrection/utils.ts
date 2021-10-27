@@ -36,7 +36,10 @@ export const getSingleStatDetail = (
   item: EquipItemType
 ): BonusDetail => {
   const grade = getGrade(flameType, item)
-  return { value: (Math.floor(item.level / 20) + 1) * grade, grade: 8 - grade }
+  return {
+    value: (Math.floor(item.level / 20) + 1) * grade,
+    grade: (item.bossReward ? 8 : 6) - grade
+  }
 }
 
 export const calcDoubleBonusStat = (
@@ -52,7 +55,10 @@ export const getDoubleStatDetail = (
   item: EquipItemType
 ): BonusDetail => {
   const grade = getGrade(flameType, item)
-  return { value: (Math.floor(item.level / 40) + 1) * grade, grade: 8 - grade }
+  return {
+    value: (Math.floor(item.level / 40) + 1) * grade,
+    grade: (item.bossReward ? 8 : 6) - grade
+  }
 }
 
 export const getEmptyItem = (item: EquipItemType): EquipItemType => {

@@ -14,7 +14,9 @@ export const transDtoToType = (itemDto: EquipmentItemDto) => {
     ...EMPTY_EQUIP,
     id: uuid(),
     itemId: itemDto.id,
-    bossReward: itemDto.metaInfo.bossReward,
+    bossReward:
+      itemDto.metaInfo.bossReward !== undefined &&
+      itemDto.metaInfo.bossReward === true,
     level: itemDto.metaInfo.reqLevel,
     name: itemDto.description.name,
     category: itemDto.typeInfo.subCategory as SubCategory,
@@ -83,5 +85,6 @@ export const transDtoToType = (itemDto: EquipmentItemDto) => {
       base: itemDto.metaInfo.incSpeed || EMPTY_EQUIP.speed.base
     }
   }
+
   return result
 }

@@ -62,24 +62,24 @@ for (let i = 1; i <= 100; i++) {
     POWERFUL_FLAME_PERCENTAGE.set(i, 4)
   }
 
-  if (i <= 25) {
-    ETERNAL_FLAME_PERCENTAGE.set(i, 2)
-  } else if (i > 25 && i <= 50) {
-    ETERNAL_FLAME_PERCENTAGE.set(i, 3)
-  } else if (i > 50 && i <= 75) {
-    ETERNAL_FLAME_PERCENTAGE.set(i, 4)
-  } else {
-    ETERNAL_FLAME_PERCENTAGE.set(i, 5)
-  }
-  // if (i <= 29) {
+  // if (i <= 25) {
   //   ETERNAL_FLAME_PERCENTAGE.set(i, 2)
-  // } else if (i > 29 && i <= 74) {
+  // } else if (i > 25 && i <= 50) {
   //   ETERNAL_FLAME_PERCENTAGE.set(i, 3)
-  // } else if (i > 74 && i <= 99) {
+  // } else if (i > 50 && i <= 75) {
   //   ETERNAL_FLAME_PERCENTAGE.set(i, 4)
   // } else {
   //   ETERNAL_FLAME_PERCENTAGE.set(i, 5)
   // }
+  if (i <= 29) {
+    ETERNAL_FLAME_PERCENTAGE.set(i, 2)
+  } else if (i > 29 && i <= 74) {
+    ETERNAL_FLAME_PERCENTAGE.set(i, 3)
+  } else if (i > 74 && i <= 99) {
+    ETERNAL_FLAME_PERCENTAGE.set(i, 4)
+  } else {
+    ETERNAL_FLAME_PERCENTAGE.set(i, 5)
+  }
 }
 
 export const WAEPON_LEVEL_SECTION = new Map<number, 1 | 2 | 3 | 4>()

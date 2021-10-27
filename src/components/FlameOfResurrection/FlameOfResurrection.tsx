@@ -20,6 +20,15 @@ import { v4 as uuid } from 'uuid'
 import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
 import Slot from '../Inventory/Slot'
+import {
+  BOSS_ITEM_FLAME_RATE,
+  BOSS_ITEM_SECTION_RATE,
+  getZeroWeaponAttack,
+  isZeroWeapon,
+  NORMAL_ITEM_FLAME_RATE,
+  NORMAL_ITEM_SECTION_RATE,
+  WAEPON_LEVEL_SECTION
+} from './constants'
 import Result from './Result'
 import StatusSetting from './StatusSetting'
 import * as S from './style'
@@ -30,6 +39,7 @@ import {
   getEmptyItem,
   getGrade,
   getNotUndefined,
+  getRandomNum,
   getSingleStatDetail,
   getWeaponOption,
   roundToOne
@@ -161,9 +171,12 @@ const FlameOfResurrection: React.FC = () => {
     setFlameResult(flameResult)
 
     const options = new Set(
-      item.islots === 'Wp' ? getWeaponOption() : getArmorOption()
+      item.islots === 'Wp'
+        ? getWeaponOption(item.bossReward ? 4 : getRandomNum(4))
+        : getArmorOption(item.bossReward ? 4 : getRandomNum(4))
     )
     // console.log(options)
+
     const tempItem: EquipItemType = getEmptyItem(item)
 
     if (options.has('STR')) {
@@ -209,16 +222,35 @@ const FlameOfResurrection: React.FC = () => {
 
     if (options.has('WEAPON_ATTACK')) {
       const grade = getGrade(type, item)
+
+      const levelSection = WAEPON_LEVEL_SECTION.get(item.level)
+      let levelSectionRate = 0
+      let flameRate = 0
+      if (item.bossReward) {
+        if (levelSection) {
+          levelSectionRate = BOSS_ITEM_SECTION_RATE[levelSection]
+        }
+        flameRate = BOSS_ITEM_FLAME_RATE[grade as 7 | 6 | 5 | 4 | 3]
+      }
+      if (!item.bossReward) {
+        if (levelSection) {
+          levelSectionRate = NORMAL_ITEM_SECTION_RATE[levelSection]
+        }
+        flameRate = NORMAL_ITEM_FLAME_RATE[grade as 7 | 6 | 5 | 4 | 3 | 2 | 1]
+      }
+
       let value = grade
       if (item.islots === 'Wp') {
         value = Math.ceil(
-          (item.WEAPON_ATTACK.base *
-            calcAttack(item, (grade - 2) as 1 | 2 | 3 | 4 | 5)) /
-            100
+          (isZeroWeapon(item)
+            ? getZeroWeaponAttack(item)
+            : item.WEAPON_ATTACK.base) *
+            levelSectionRate *
+            flameRate
         )
       }
       tempItem.WEAPON_ATTACK = setNewSet(tempItem.WEAPON_ATTACK, {
-        grade: 8 - grade,
+        grade: (item.bossReward ? 8 : 6) - grade,
         value: value
       })
     }
@@ -226,16 +258,18 @@ const FlameOfResurrection: React.FC = () => {
     // TODO: 마력 1추 떴는데 표기엔 3추로 나옴(?)
     if (options.has('MAGIC_ATTACK')) {
       const grade = getGrade(type, item)
+      const weaponGrade = (grade - 2) as 1 | 2 | 3 | 4 | 5
       let value = grade
       if (item.islots === 'Wp') {
         value = Math.ceil(
           ((item.MAGIC_ATTACK.base || item.WEAPON_ATTACK.base) *
-            calcAttack(item, (getGrade(type, item) - 2) as 1 | 2 | 3 | 4 | 5)) /
+            calcAttack(item, weaponGrade)) /
             100
         )
       }
+      console.log('뭐나와?', grade, weaponGrade, value)
       tempItem.MAGIC_ATTACK = setNewSet(tempItem.MAGIC_ATTACK, {
-        grade: 8 - grade,
+        grade: (item.bossReward ? 8 : 6) - weaponGrade,
         value: value
       })
     }

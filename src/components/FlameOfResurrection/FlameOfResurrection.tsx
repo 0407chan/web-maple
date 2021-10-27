@@ -197,7 +197,7 @@ const FlameOfResurrection: React.FC = () => {
     if (options.has('boss_demage')) {
       const grade = getGrade(type, item)
       const detail: BonusDetail = {
-        grade: 8 - grade,
+        grade: (item.bossReward ? 8 : 6) - grade,
         value: grade * 2
       }
       tempItem.bossDemage = setNewSet(tempItem.bossDemage, detail)
@@ -205,7 +205,7 @@ const FlameOfResurrection: React.FC = () => {
     if (options.has('AllStat')) {
       const grade = getGrade(type, item)
       const detail: BonusDetail = {
-        grade: 8 - grade,
+        grade: (item.bossReward ? 8 : 6) - grade,
         value: grade
       }
       tempItem.AllStat = setNewSet(tempItem.AllStat, detail)
@@ -213,7 +213,7 @@ const FlameOfResurrection: React.FC = () => {
     if (options.has('demage')) {
       const grade = getGrade(type, item)
       const detail: BonusDetail = {
-        grade: 8 - grade,
+        grade: (item.bossReward ? 8 : 6) - grade,
         value: grade
       }
       tempItem.demage = setNewSet(tempItem.demage, detail)
@@ -254,7 +254,6 @@ const FlameOfResurrection: React.FC = () => {
       })
     }
 
-    // TODO: 마력 1추 떴는데 표기엔 3추로 나옴(?)
     if (options.has('MAGIC_ATTACK')) {
       const grade = getGrade(type, item)
       const levelSection = WAEPON_LEVEL_SECTION.get(item.level)
@@ -276,7 +275,10 @@ const FlameOfResurrection: React.FC = () => {
       let value = grade
       if (item.islots === 'Wp') {
         value = Math.ceil(
-          (item.MAGIC_ATTACK.base || item.WEAPON_ATTACK.base) *
+          (item.MAGIC_ATTACK.base ||
+            (isZeroWeapon(item)
+              ? getZeroWeaponAttack(item)
+              : item.WEAPON_ATTACK.base)) *
             levelSectionRate *
             flameRate
         )
@@ -291,7 +293,7 @@ const FlameOfResurrection: React.FC = () => {
     if (options.has('MaxHP')) {
       const grade = getGrade(type, item)
       const detail: BonusDetail = {
-        grade: 8 - grade,
+        grade: (item.bossReward ? 8 : 6) - grade,
         value: item.level * 3 * grade
       }
       tempItem.HP = setNewSet(tempItem.HP, detail)
@@ -299,7 +301,7 @@ const FlameOfResurrection: React.FC = () => {
     if (options.has('MaxMP')) {
       const grade = getGrade(type, item)
       const detail: BonusDetail = {
-        grade: 8 - grade,
+        grade: (item.bossReward ? 8 : 6) - grade,
         value: item.level * 3 * grade
       }
       tempItem.MP = setNewSet(tempItem.MP, detail)
@@ -307,7 +309,7 @@ const FlameOfResurrection: React.FC = () => {
     if (options.has('jump')) {
       const grade = getGrade(type, item)
       const detail: BonusDetail = {
-        grade: 8 - grade,
+        grade: (item.bossReward ? 8 : 6) - grade,
         value: grade
       }
       tempItem.jump = setNewSet(tempItem.jump, detail)
@@ -315,7 +317,7 @@ const FlameOfResurrection: React.FC = () => {
     if (options.has('move_speed')) {
       const grade = getGrade(type, item)
       const detail: BonusDetail = {
-        grade: 8 - grade,
+        grade: (item.bossReward ? 8 : 6) - grade,
         value: grade
       }
       tempItem.speed = setNewSet(tempItem.speed, detail)
@@ -324,7 +326,7 @@ const FlameOfResurrection: React.FC = () => {
     if (options.has('RequierdLevel')) {
       const grade = getGrade(type, item)
       const detail: BonusDetail = {
-        grade: 8 - grade,
+        grade: (item.bossReward ? 8 : 6) - grade,
         value: grade * -5
       }
       tempItem.RequierdLevel = setNewSet(tempItem.RequierdLevel, detail)

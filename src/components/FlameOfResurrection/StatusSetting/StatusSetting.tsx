@@ -57,9 +57,6 @@ const StatusSetting: React.FC<Props> = ({
   const regex = /[^0-9, ]/g
 
   useEffect(() => {
-    console.log(statusSetting)
-  }, [statusSetting])
-  useEffect(() => {
     if (item === undefined) {
       setStatusSetting({
         ...statusSetting,

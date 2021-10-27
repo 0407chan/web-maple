@@ -23,11 +23,12 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
   let timer: any = undefined
   const { onAddEquipment, getEmptySlot } = useInventory()
   const [loading, setLoading] = useState<boolean>(false)
+
   const onPurchaseItem = async () => {
     setLoading(true)
     try {
       const newItem = await getEquipment({ itemId: item.id })
-      console.log(getEmptySlot())
+      // console.log(getEmptySlot())
       const emptySlot = getEmptySlot()
       if (emptySlot) {
         onAddEquipment({ ...emptySlot, item: transDtoToType(newItem) })

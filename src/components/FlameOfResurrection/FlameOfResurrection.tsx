@@ -33,7 +33,6 @@ import Result from './Result'
 import StatusSetting from './StatusSetting'
 import * as S from './style'
 import {
-  calcAttack,
   getArmorOption,
   getDoubleStatDetail,
   getEmptyItem,
@@ -258,18 +257,33 @@ const FlameOfResurrection: React.FC = () => {
     // TODO: 마력 1추 떴는데 표기엔 3추로 나옴(?)
     if (options.has('MAGIC_ATTACK')) {
       const grade = getGrade(type, item)
-      const weaponGrade = (grade - 2) as 1 | 2 | 3 | 4 | 5
+      const levelSection = WAEPON_LEVEL_SECTION.get(item.level)
+      let levelSectionRate = 0
+      let flameRate = 0
+      if (item.bossReward) {
+        if (levelSection) {
+          levelSectionRate = BOSS_ITEM_SECTION_RATE[levelSection]
+        }
+        flameRate = BOSS_ITEM_FLAME_RATE[grade as 7 | 6 | 5 | 4 | 3]
+      }
+      if (!item.bossReward) {
+        if (levelSection) {
+          levelSectionRate = NORMAL_ITEM_SECTION_RATE[levelSection]
+        }
+        flameRate = NORMAL_ITEM_FLAME_RATE[grade as 7 | 6 | 5 | 4 | 3 | 2 | 1]
+      }
+
       let value = grade
       if (item.islots === 'Wp') {
         value = Math.ceil(
-          ((item.MAGIC_ATTACK.base || item.WEAPON_ATTACK.base) *
-            calcAttack(item, weaponGrade)) /
-            100
+          (item.MAGIC_ATTACK.base || item.WEAPON_ATTACK.base) *
+            levelSectionRate *
+            flameRate
         )
       }
-      console.log('뭐나와?', grade, weaponGrade, value)
+
       tempItem.MAGIC_ATTACK = setNewSet(tempItem.MAGIC_ATTACK, {
-        grade: (item.bossReward ? 8 : 6) - weaponGrade,
+        grade: (item.bossReward ? 8 : 6) - grade,
         value: value
       })
     }

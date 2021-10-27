@@ -38,7 +38,7 @@ export type EquipItemType = {
   id: string
   itemId: number
   job: string
-  bossReward?: boolean
+  bossReward: boolean
   level: number
   islots: ISlotsType
   equipGroup: EquipGroup

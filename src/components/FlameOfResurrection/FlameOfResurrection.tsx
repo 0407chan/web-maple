@@ -561,9 +561,32 @@ const FlameOfResurrection: React.FC = () => {
                     {renderStat('demage', true)}
                     {renderStat('AllStat', true)}
                     {item && item.RequierdLevel.bonus < 0 && (
-                      <div>
-                        {item.RequierdLevel.label} : {item.RequierdLevel.bonus}
-                      </div>
+                      <S.Horizontal
+                        style={{
+                          justifyContent: 'space-between',
+                          width: '100%'
+                        }}
+                      >
+                        <div>
+                          {item.RequierdLevel.label} :{' '}
+                          {item.RequierdLevel.bonus}
+                        </div>
+                        {item.RequierdLevel.bonusDetail &&
+                          item.RequierdLevel.bonusDetail.length > 0 && (
+                            <S.DetailWrapper>
+                              {item.RequierdLevel.bonusDetail.map(
+                                (detail, index) => (
+                                  <S.FlameBonusDetailLabel
+                                    key={index}
+                                    grade={detail.grade}
+                                  >
+                                    {detail.value}({detail.grade})
+                                  </S.FlameBonusDetailLabel>
+                                )
+                              )}
+                            </S.DetailWrapper>
+                          )}
+                      </S.Horizontal>
                     )}
                   </div>
                   {autoType === 'SIMPLE' && (

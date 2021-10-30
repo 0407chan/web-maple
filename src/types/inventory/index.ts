@@ -62,6 +62,7 @@ export type EquipItemType = {
   demage: StatusBase
   jump: StatusBase
   speed: StatusBase
+  isSuperior: boolean
   RequierdLevel: StatusBase
   upgrade_avalable: number
   max_upgrade: number

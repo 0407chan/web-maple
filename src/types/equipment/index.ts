@@ -210,24 +210,13 @@ export type IconRawOrigin = {
 }
 
 export type MetaInfo = {
-  only: boolean
   bossReward?: boolean
   cash: boolean
-  reqLevel: number
-  mob: number
-  iconRaw: string
+  exitem?: string
   icon: string
   iconOrigin: IconOrigin
+  iconRaw: string
   iconRawOrigin: IconRawOrigin
-  slotMax: number
-  price: number
-  reqSTR: number
-  reqDEX: number
-  reqINT: number
-  reqLUK: number
-  reqJob: number
-  reqLevelEquip: number
-  tuc: number // 강화 가능 횟수
 
   incMAD: number // 마력
   incPAD: number // 공격력
@@ -243,13 +232,28 @@ export type MetaInfo = {
   incJump: number // 점프력
   incSpeed: number // 이동속도
 
+  mob: number
+  only: boolean
+  price: number
+  reqSTR: number
+  reqDEX: number
+  reqINT: number
+  reqLUK: number
+  reqJob: number
+  reqLevel: number
+  reqLevelEquip: number
+
+  setCompleteCount: number
+  slotMax: number
+  superiorEqp: boolean
+  tuc: number // 강화 가능 횟수
+
   imdR: number //  방어력무시 ignore monster defence rate
   bdR: number // 보스 공격력 boss demage rate
   attack: number
   attackSpeed: number // 공격 속도
   vslots: string[]
   islots: ISlotsType[]
-  setCompleteCount: number
 }
 
 export type TypeInfo = {

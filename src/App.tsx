@@ -170,7 +170,6 @@ const App: React.FC = () => {
 
     // console.log('뭐나와?', itemList)
     itemList.forEach(async (item, index) => {
-      console.log(item.description.name, item)
       onAddEquipment({
         ...inventory[currentInventory][index],
         item: transDtoToType(item)

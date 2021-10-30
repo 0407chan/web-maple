@@ -165,10 +165,11 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     const result = []
     console.log(currentItem.name, currentItem.maxStar)
     for (let i = 0; i < maxStar; i++) {
+      const starImage = currentItem.isSuperior
+        ? IMAGE.tooltip.tooltip_Item_Star_blue
+        : IMAGE.tooltip.tooltip_Item_Star
       const imageSrc =
-        i < star
-          ? IMAGE.tooltip.tooltip_Item_Star
-          : IMAGE.tooltip.tooltip_Item_Star_none
+        i < star ? starImage : IMAGE.tooltip.tooltip_Item_Star_none
       result.push(
         <img src={imageSrc} key={i} width={13} alt={`starimg-` + i} />
       )

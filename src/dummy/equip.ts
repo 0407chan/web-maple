@@ -116,6 +116,7 @@ export const EMPTY_EQUIP: EquipItemType = {
     label: '이동속도',
     reinforce: 0
   },
+  isSuperior: false,
   upgrade_avalable: 0,
   max_upgrade: 0,
   upgrade: 0,

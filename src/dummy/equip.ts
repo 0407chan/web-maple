@@ -119,7 +119,7 @@ export const EMPTY_EQUIP: EquipItemType = {
   upgrade_avalable: 0,
   max_upgrade: 0,
   upgrade: 0,
-  max_star: 0,
+  maxStar: 0,
   star: 0
 }
 
@@ -215,7 +215,7 @@ export const EQUIP_LIST: EquipItemType[] = [
     max_upgrade: 10,
     upgrade_avalable: 3,
     upgrade: 3,
-    max_star: 25,
+    maxStar: 25,
     star: 12
   }
   // {
@@ -290,7 +290,7 @@ export const EQUIP_LIST: EquipItemType[] = [
   //   max_upgrade: 10,
   //   upgrade_avalable: 3,
   //   upgrade: 3,
-  //   max_star: 25,
+  //   maxStar: 25,
   //   star: 23
   // },
   // {
@@ -365,7 +365,7 @@ export const EQUIP_LIST: EquipItemType[] = [
   //   max_upgrade: 10,
   //   upgrade_avalable: 3,
   //   upgrade: 3,
-  //   max_star: 25,
+  //   maxStar: 25,
   //   star: 23
   // },
   // {
@@ -440,7 +440,7 @@ export const EQUIP_LIST: EquipItemType[] = [
   //   max_upgrade: 10,
   //   upgrade_avalable: 3,
   //   upgrade: 3,
-  //   max_star: 25,
+  //   maxStar: 25,
   //   star: 23
   // }
 ]

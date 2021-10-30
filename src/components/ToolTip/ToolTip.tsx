@@ -34,7 +34,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     AllStat,
     WEAPON_ATTACK,
     MAGIC_ATTACK,
-    max_star,
+    maxStar,
     upgrade,
     max_upgrade,
     upgrade_avalable,
@@ -164,7 +164,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
   const renderStar = () => {
     const result = []
     let starBundle: { index: number; src: string }[] = []
-    for (let i = 0; i < max_star; i++) {
+    for (let i = 0; i < maxStar; i++) {
       const imageSrc =
         i < star
           ? IMAGE.tooltip.tooltip_Item_Star

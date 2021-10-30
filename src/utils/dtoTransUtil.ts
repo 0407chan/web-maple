@@ -25,7 +25,7 @@ export const transDtoToType = (itemDto: EquipmentItemDto) => {
     // image: newImage,
     max_upgrade: itemDto.metaInfo.tuc,
     upgrade: 0,
-    max_star: 5,
+    maxStar: 5,
     upgrade_avalable: itemDto.metaInfo.tuc,
     islots: itemDto.metaInfo.islots[0],
     WEAPON_ATTACK: {

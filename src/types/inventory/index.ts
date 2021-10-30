@@ -66,6 +66,6 @@ export type EquipItemType = {
   upgrade_avalable: number
   max_upgrade: number
   upgrade: number
-  max_star: number
+  maxStar: number
   star: number
 }

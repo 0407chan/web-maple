@@ -81,7 +81,7 @@ const App: React.FC = () => {
         image: `https://maplestory.io/api/KMS/352/item/${item.id}/icon`,
         max_upgrade: item.metaInfo.tuc,
         upgrade: 0,
-        max_star: 5,
+        maxStar: 5,
         upgrade_avalable: item.metaInfo.tuc,
         islots: item.metaInfo.islots[0],
         WEAPON_ATTACK: {
@@ -128,10 +128,9 @@ const App: React.FC = () => {
     })
     onInitEquipItemList(newResult)
   }
+
   useEffect(() => {
     initEquipItem()
-  }, [])
-  useEffect(() => {
     getAllEquip()
   }, [])
 
@@ -171,6 +170,7 @@ const App: React.FC = () => {
 
     // console.log('뭐나와?', itemList)
     itemList.forEach(async (item, index) => {
+      console.log(item.description.name, item)
       onAddEquipment({
         ...inventory[currentInventory][index],
         item: transDtoToType(item)

@@ -23,7 +23,7 @@ const ToolTipPrev: React.FC = () => {
     AllStat,
     WEAPON_ATTACK,
     MAGIC_ATTACK,
-    max_star,
+    maxStar,
     upgrade,
     max_upgrade,
     upgrade_avalable
@@ -43,7 +43,7 @@ const ToolTipPrev: React.FC = () => {
     for (let i = 0; i < star; i++) {
       starList.push(IMAGE.tooltip.tooltip_Item_Star)
     }
-    for (let i = star; i < max_star; i++) {
+    for (let i = star; i < maxStar; i++) {
       starList.push(IMAGE.tooltip.tooltip_Item_Star_none)
     }
     return (

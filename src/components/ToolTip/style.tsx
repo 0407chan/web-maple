@@ -17,7 +17,7 @@ export const Contianer = styled.div`
   border: 1px solid #eeeeee 1px solid #747474;
   position: absolute;
   z-index: 15;
-  width: 330px;
+  width: 300px;
 
   .name {
     color: white;
@@ -132,10 +132,10 @@ export const SectionBlock = styled.div<SectionBlockType>`
 export const StarWrapper = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 20px 30px 10px 30px;
+  padding: 15px 40px;
 `
 
 export const StarBundleWrapper = styled.div`
@@ -157,7 +157,6 @@ export const ItemName = styled.div`
   justify-content: center;
   font-weight: bold;
   font-size: 18px;
-  margin-bottom: 10px;
   color: #eeeeee;
   align-items: center;
 `
@@ -172,7 +171,7 @@ export const ItemPotential = styled.div`
 export const DotLine = styled.div`
   display: flex;
   border-top: 1px dashed #5c5c5c;
-  margin: 20px 0px;
+  margin: 15px 0px;
 `
 
 export const ImageWrapper = styled.div`
@@ -183,10 +182,10 @@ export const ImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px;
-  min-width: 60px;
-  min-height: 60px;
-  max-width: 60px;
-  max-height: 60px;
+  min-width: 80px;
+  min-height: 80px;
+  max-width: 80px;
+  max-height: 80px;
 `
 
 export const Image = styled.img`

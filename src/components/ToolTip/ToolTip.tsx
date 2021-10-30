@@ -44,15 +44,15 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     RequierdLevel
   } = currentItem
 
-  // // const position = {
-  // //   top: `0px`,
-  // //   left: `0px`,
-  // // };
-
   const position = {
-    top: `${mouseY + 3}px`,
-    left: `${mouseX + 3}px`
+    top: `0px`,
+    left: `0px`
   }
+
+  // const position = {
+  //   top: `${mouseY + 3}px`,
+  //   left: `${mouseX + 3}px`
+  // }
 
   // const position = {
   //   top: positionY,
@@ -163,26 +163,20 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
 
   const renderStar = () => {
     const result = []
-    let starBundle: { index: number; src: string }[] = []
+    console.log(currentItem.name, currentItem.maxStar)
     for (let i = 0; i < maxStar; i++) {
       const imageSrc =
         i < star
           ? IMAGE.tooltip.tooltip_Item_Star
           : IMAGE.tooltip.tooltip_Item_Star_none
-      starBundle.push({ index: i, src: imageSrc })
-      if (i % 5 === 4) {
-        result.push(
-          <S.StarBundleWrapper key={i}>
-            {starBundle.map((star) => (
-              <img
-                src={star.src}
-                key={star.index}
-                alt={`starimg-` + star.index}
-              />
-            ))}
-          </S.StarBundleWrapper>
-        )
-        starBundle = []
+      result.push(
+        <img src={imageSrc} key={i} width={13} alt={`starimg-` + i} />
+      )
+      if (i % 5 === 4 && i !== maxStar - 1) {
+        result.push(<span style={{ marginRight: 6 }} />)
+      }
+      if (i === 14 && i !== maxStar - 1) {
+        result.push(<div style={{ height: '100%', paddingBottom: 20 }} />)
       }
     }
     return result
@@ -217,8 +211,8 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
       onMouseEnter={setMousePosition}
       onMouseMove={setMousePosition}
     >
-      {/* <S.StarWrapper>{renderStar()}</S.StarWrapper> */}
-      <S.ItemNameWapper style={{ marginTop: 20 }}>
+      <S.StarWrapper>{renderStar()}</S.StarWrapper>
+      <S.ItemNameWapper>
         <S.ItemName>
           {currentItem.name}
           {currentItem.upgrade > 0 && <span> (+{currentItem.upgrade})</span>}

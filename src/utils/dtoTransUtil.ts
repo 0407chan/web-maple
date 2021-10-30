@@ -1,4 +1,7 @@
-import { getMaxStar } from '@/components/StartForce/constants'
+import {
+  getMaxStar,
+  getMaxStarForSuperior
+} from '@/components/StartForce/constants'
 import { EMPTY_EQUIP } from '@/dummy/equip'
 import {
   EquipmentItemDto,
@@ -9,7 +12,7 @@ import { EquipItemType } from '@/types/inventory'
 import { v4 as uuid } from 'uuid'
 
 export const transDtoToType = (itemDto: EquipmentItemDto): EquipItemType => {
-  // console.log(itemDto.description.name, itemDto.metaInfo)
+  // console.log(itemDto.description.name, itemDto)
   // const newImage = await getEquipmentRawImage({ itemId: itemDto.id })
   const result: EquipItemType = {
     ...EMPTY_EQUIP,
@@ -26,7 +29,10 @@ export const transDtoToType = (itemDto: EquipmentItemDto): EquipItemType => {
     // image: newImage,
     max_upgrade: itemDto.metaInfo.tuc,
     upgrade: 0,
-    maxStar: getMaxStar(itemDto.metaInfo.reqLevel),
+    isSuperior: itemDto.metaInfo.superiorEqp,
+    maxStar: itemDto.metaInfo.superiorEqp
+      ? getMaxStarForSuperior(itemDto.metaInfo.reqLevel)
+      : getMaxStar(itemDto.metaInfo.reqLevel),
     upgrade_avalable: itemDto.metaInfo.tuc,
     islots: itemDto.metaInfo.islots[0],
     WEAPON_ATTACK: {

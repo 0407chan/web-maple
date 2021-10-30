@@ -1,2 +1,2 @@
-import Item2 from './Item2'
-export default Item2
+import Item from './Item'
+export default Item

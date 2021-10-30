@@ -1,4 +1,4 @@
-import Item2 from '@/components/Item/Item2'
+import Item2 from '@/components/Item/Item'
 import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'

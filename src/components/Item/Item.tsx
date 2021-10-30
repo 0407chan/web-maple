@@ -9,7 +9,7 @@ type ItemProps = {
   slot: SlotType
   canDrag?: boolean
 }
-const Item2: React.FC<ItemProps> = ({ slot, canDrag }) => {
+const Item: React.FC<ItemProps> = ({ slot, canDrag }) => {
   const [collected, drag, preview] = useDrag(
     () => ({
       type: 'item',
@@ -47,8 +47,8 @@ const Item2: React.FC<ItemProps> = ({ slot, canDrag }) => {
 
   const setDispalyNoneAction = () => {
     if (slot.item?.id === '') return
-    onHideTooltip()
-    onSetCurrentItem(undefined)
+    // onHideTooltip()
+    // onSetCurrentItem(undefined)
   }
 
   const setMousePosition = (
@@ -91,4 +91,4 @@ const Item2: React.FC<ItemProps> = ({ slot, canDrag }) => {
   )
 }
 
-export default Item2
+export default Item

@@ -1,4 +1,5 @@
 import useInventory from '@/hooks/useInventory'
+import IMAGE from '@/utils/images'
 import React, { useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
 import { v4 as uuid } from 'uuid'
@@ -13,6 +14,7 @@ import Equipment from './components/Equipment'
 import EquipmentStore from './components/EquipmentStore'
 import FlameOfResurrection from './components/FlameOfResurrection'
 import Inventory from './components/Inventory'
+import StarForce from './components/StarForce'
 import ToolTip from './components/ToolTip'
 import { EMPTY_EQUIP } from './dummy/equip'
 import useEquipment from './hooks/useEquipment'
@@ -319,6 +321,14 @@ const App: React.FC = () => {
           <div>인벤토리</div>
         </S.Vertical>
         <S.Vertical>
+          <MapleButton
+            style={{ height: 40, width: 40 }}
+            onClick={() => onToggleWindow('EquipmentEnchant')}
+            icon={<img width={12} src={IMAGE.tooltip.tooltip_Item_Star} />}
+          />
+          <div>스타포스</div>
+        </S.Vertical>
+        <S.Vertical>
           <S.NpcImage
             draggable="false"
             src="https://maplestory.io/api/KMS/353/npc/1010100/icon"
@@ -347,6 +357,7 @@ const App: React.FC = () => {
       <ToolTip positionX={0} positionY={0} />
       <FlameOfResurrection />
       <EquipmentStore />
+      <StarForce />
     </S.Contianer>
   )
 }

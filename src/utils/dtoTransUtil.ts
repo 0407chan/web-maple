@@ -1,7 +1,7 @@
 import {
   getMaxStar,
   getMaxStarForSuperior
-} from '@/components/StartForce/constants'
+} from '@/components/StarForce/constants'
 import { EMPTY_EQUIP } from '@/dummy/equip'
 import {
   EquipmentItemDto,

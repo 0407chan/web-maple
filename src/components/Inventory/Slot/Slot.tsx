@@ -17,13 +17,15 @@ type SlotProps = {
     end?: SlotType | EquipSlotType
   ) => boolean
   isCanDrop?: boolean
+  className?: string
 }
 const Slot: React.FC<SlotProps> = ({
   slot,
   onDrop,
   isMySlot,
   onClick,
-  isCanDrop
+  isCanDrop,
+  className
 }) => {
   let timer: any = undefined
   const { equipment, onSetEquip } = useEquipment()
@@ -104,7 +106,7 @@ const Slot: React.FC<SlotProps> = ({
       ref={drop}
       role="Dustbin"
       onClick={onClick || onClickHandler}
-      className={`${isActive()} ${isOpen()}`}
+      className={`${className ? className : ''} ${isActive()} ${isOpen()}`}
     >
       {slot.item?.id !== '' && <Item2 slot={slot} canDrag={isCanDrop} />}
     </S.Contianer>

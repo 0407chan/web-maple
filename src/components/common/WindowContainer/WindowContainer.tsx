@@ -16,6 +16,7 @@ type props = {
   canDrag?: boolean
   position?: ControlPosition
   onDrag?: DraggableEventHandler | undefined
+  onClose?: () => void
   hideCloseButton?: boolean
 }
 const WindowContainer: React.FC<props> = ({
@@ -27,17 +28,25 @@ const WindowContainer: React.FC<props> = ({
   position,
   onDrag = undefined,
   hideCloseButton = false,
+  onClose,
   children
 }) => {
   const { isOpenedWindow, uiWindowList, onSetTop, onRemoveUiWindow } =
     useUiWindow()
 
   const { isMobile } = useWindowSize()
-  const removeUiWindow = (
+  const removeUiWindow = () => {
+    onRemoveUiWindow(windowType)
+  }
+
+  const onCloseWindow = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.stopPropagation()
-    onRemoveUiWindow(windowType)
+    removeUiWindow()
+    if (onClose) {
+      onClose()
+    }
   }
 
   if (!isOpenedWindow(windowType)) return null
@@ -59,7 +68,7 @@ const WindowContainer: React.FC<props> = ({
       >
         <S.Header className={canDrag ? 'handle' : ''}>{title || ''}</S.Header>
         {!hideCloseButton && (
-          <S.CloseButton onClick={removeUiWindow}>✖</S.CloseButton>
+          <S.CloseButton onClick={onCloseWindow}>✖</S.CloseButton>
         )}
         <S.Body>{children}</S.Body>
         {footer && <S.Footer>{footer}</S.Footer>}

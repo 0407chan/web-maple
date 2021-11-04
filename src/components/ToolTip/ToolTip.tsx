@@ -218,6 +218,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
       <S.ItemNameWapper>
         <S.ItemName>
           {currentItem.name}
+          {currentItem.isDestroyed && '의 흔적'}
           {currentItem.upgrade > 0 && <span> (+{currentItem.upgrade})</span>}
         </S.ItemName>
         {/* <S.ItemPotential>(에픽 아이템)</S.ItemPotential> */}
@@ -229,7 +230,10 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
         alignItems="flex-start"
       >
         <S.ImageWrapper>
-          <S.Image src={currentItem.image} />
+          <S.Image
+            isDestroyed={currentItem.isDestroyed}
+            src={currentItem.image}
+          />
         </S.ImageWrapper>
         <S.AttackIncreaseWrapper>
           <S.AttackIncreaseLabel>공격력 증가량</S.AttackIncreaseLabel>

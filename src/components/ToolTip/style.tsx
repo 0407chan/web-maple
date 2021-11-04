@@ -188,7 +188,13 @@ export const ImageWrapper = styled.div`
   max-height: 80px;
 `
 
-export const Image = styled.img`
+export const Image = styled.img<{ isDestroyed?: boolean }>`
+  ${(props) =>
+    props.isDestroyed && {
+      opacity: 0.6,
+      filter: 'grayscale(95%)'
+    }}
+
   width: 100%;
   height: 100%;
 `

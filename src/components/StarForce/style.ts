@@ -39,3 +39,53 @@ export const Vertical = styled.div`
   align-items: center;
   justify-content: center;
 `
+
+export const StarWrapper = styled.div`
+  display: flex;
+  width: 270px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 30px;
+  margin-bottom: 10px;
+`
+
+export const RateBlock = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 5px 0;
+  background-color: #eeeeee;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: bold;
+`
+
+export const RateLabel = styled.span<{
+  rateType?: 'SUCCESS' | 'FAIL' | 'DESTROY'
+}>`
+  font-weight: bold;
+  font-size: 16px;
+  ${(props) => {
+    if (props.rateType === 'SUCCESS') {
+      return {
+        color: '#05c13a',
+        fontSize: 14
+      }
+    } else if (props.rateType === 'FAIL') {
+      return {
+        color: '#ff4747',
+        fontSize: 14
+      }
+    } else if (props.rateType === 'DESTROY') {
+      return {
+        color: '#595959',
+        fontSize: 14
+      }
+    } else {
+      return {}
+    }
+  }}
+`

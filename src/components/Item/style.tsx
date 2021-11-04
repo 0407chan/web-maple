@@ -12,3 +12,11 @@ export const Contianer = styled.div`
     cursor: grabbing;
   }
 `
+
+export const ItemImage = styled.img<{ isDestroyed?: boolean }>`
+  ${(props) =>
+    props.isDestroyed && {
+      opacity: 0.6,
+      filter: 'grayscale(95%)'
+    }}
+`

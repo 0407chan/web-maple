@@ -85,7 +85,12 @@ const Item: React.FC<ItemProps> = ({ slot, canDrag }) => {
         onMouseMove={setMousePosition}
         style={{ opacity: collected.opacity }}
       >
-        <img src={slot.item.image} className="no-drag" alt="itemImage" />
+        <S.ItemImage
+          isDestroyed={slot.item.isDestroyed}
+          src={slot.item.image}
+          className="no-drag"
+          alt="itemImage"
+        />
       </S.Contianer>
     </>
   )

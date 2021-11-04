@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 export const Contianer = styled.div`
   display: flex;
@@ -7,6 +7,29 @@ export const Contianer = styled.div`
   width: 100%;
   border-radius: 5px;
   gap: 10px;
+`
+
+const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`
+export const StarImage = styled.img<{ isLoading?: boolean }>`
+  animation: ${(props) =>
+    props.isLoading
+      ? css`
+          ${spin} 1s linear infinite
+        `
+      : ''};
+`
+
+export const Title = styled.div`
+  font-weight: bold;
+  color: #eeeeee;
 `
 
 export const Result = styled.div`
@@ -34,7 +57,8 @@ export const Horizontal = styled.div`
 
 export const Vertical = styled.div`
   display: flex;
-  gap: 5px;
+  width: 100%;
+  gap: 10px;
   flex-direction: column;
   align-items: center;
   justify-content: center;

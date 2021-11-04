@@ -173,13 +173,18 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
           ? IMAGE.tooltip.tooltip_Item_Star
           : IMAGE.tooltip.tooltip_Item_Star_none
       result.push(
-        <img src={imageSrc} key={i} width={13} alt={`starimg-` + i} />
+        <img src={imageSrc} key={`star-${i}`} width={13} alt={`starimg-` + i} />
       )
       if (i % 5 === 4 && i !== maxStar - 1) {
-        result.push(<span style={{ marginRight: 6 }} />)
+        result.push(<span key={`space-${i}`} style={{ marginRight: 6 }} />)
       }
       if (i === 14 && i !== maxStar - 1) {
-        result.push(<div style={{ height: '100%', paddingBottom: 20 }} />)
+        result.push(
+          <div
+            key={`linebreak-${i}`}
+            style={{ height: '100%', paddingBottom: 20 }}
+          />
+        )
       }
     }
     return result

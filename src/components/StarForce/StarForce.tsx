@@ -8,7 +8,9 @@ import { ControlPosition } from 'react-draggable'
 import { v4 as uuid } from 'uuid'
 import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
+import { getRandomNum } from '../FlameOfResurrection/utils'
 import Slot from '../Inventory/Slot'
+import { getSuccessRate } from './constants'
 import * as S from './style'
 
 const initSlot: SlotType = {
@@ -64,10 +66,6 @@ const StarForce: React.FC = () => {
     }
   }
 
-  const onStarForce = () => {
-    console.log('가즈아')
-  }
-
   const renderStar = () => {
     if (starForceSlot.item === undefined) return null
     const result = []
@@ -92,12 +90,63 @@ const StarForce: React.FC = () => {
     }
     return result
   }
+  const isMaxStar = (): boolean => {
+    return (
+      starForceSlot.item !== undefined &&
+      starForceSlot.item.star === starForceSlot.item.maxStar
+    )
+  }
+
+  const onStarForce = () => {
+    if (!starForceSlot.item) return
+    const randomNum = Number((getRandomNum(1000) / 10).toFixed(1))
+    const rate = getSuccessRate(starForceSlot.item.star)
+    const success = rate.success
+    // const success = 1
+    const fail =
+      rate.success +
+      (rate.failDecrease > 0
+        ? rate.failDecrease
+        : 0 + rate.failMaintain > 0
+        ? rate.failMaintain
+        : 0)
+    // const fail = 1
+
+    let tempItem: EquipItemType = { ...starForceSlot.item }
+
+    if (randomNum <= success) {
+      console.log('성공')
+      tempItem = { ...tempItem, star: tempItem.star + 1 }
+    } else if (randomNum > success && randomNum <= fail) {
+      console.log('실패')
+      if (rate.failDecrease > 0) {
+        tempItem = { ...tempItem, star: tempItem.star - 1 }
+      }
+    } else {
+      tempItem = { ...tempItem, star: 12, isDestroyed: true }
+      console.log('터짐')
+    }
+
+    setStarForceSlot({ ...starForceSlot, item: tempItem })
+    setItemOnOriginalSlot(tempItem)
+  }
+
+  const onRecoverItem = () => {
+    if (!starForceSlot.item) return
+    const tempItem: EquipItemType = {
+      ...starForceSlot.item,
+      isDestroyed: false
+    }
+    setStarForceSlot({ ...starForceSlot, item: tempItem })
+    setItemOnOriginalSlot(tempItem)
+  }
 
   return (
     <WindowContainer
       title="EQUIPMENT ENCHANT"
       windowType="EquipmentEnchant"
       onDrag={(e, data) => setPosition({ x: data.x, y: data.y })}
+      onClose={() => setStarForceSlot(initSlot)}
       position={position}
     >
       <S.Contianer>
@@ -110,20 +159,38 @@ const StarForce: React.FC = () => {
           className="star-force-slot"
           isCanDrop={false}
         />
-        <S.Horizontal style={{ gap: 10 }}>
-          <S.RateBlock>
-            <S.RateLabel>90%</S.RateLabel>
-            <S.RateLabel rateType="SUCCESS">성공</S.RateLabel>
-          </S.RateBlock>
-          <S.RateBlock>
-            <S.RateLabel>8%</S.RateLabel>
-            <S.RateLabel rateType="FAIL">실패</S.RateLabel>
-          </S.RateBlock>
-          <S.RateBlock>
-            <S.RateLabel>2%</S.RateLabel>
-            <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
-          </S.RateBlock>
-        </S.Horizontal>
+        {starForceSlot.item && !isMaxStar() && (
+          <S.Horizontal style={{ gap: 10 }}>
+            <S.RateBlock>
+              <S.RateLabel>{`${
+                getSuccessRate(starForceSlot.item.star).success
+              }%`}</S.RateLabel>
+              <S.RateLabel rateType="SUCCESS">성공</S.RateLabel>
+            </S.RateBlock>
+            {getSuccessRate(starForceSlot.item.star).failMaintain > 0 && (
+              <S.RateBlock>
+                <S.RateLabel>{`${
+                  getSuccessRate(starForceSlot.item.star).failMaintain
+                }%`}</S.RateLabel>
+                <S.RateLabel rateType="FAIL">실패(유지)</S.RateLabel>
+              </S.RateBlock>
+            )}
+            {getSuccessRate(starForceSlot.item.star).failDecrease > 0 && (
+              <S.RateBlock>
+                <S.RateLabel>{`${
+                  getSuccessRate(starForceSlot.item.star).failDecrease
+                }%`}</S.RateLabel>
+                <S.RateLabel rateType="FAIL">실패(하락)</S.RateLabel>
+              </S.RateBlock>
+            )}
+            <S.RateBlock>
+              <S.RateLabel>{`${
+                getSuccessRate(starForceSlot.item.star).destroy
+              }%`}</S.RateLabel>
+              <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
+            </S.RateBlock>
+          </S.Horizontal>
+        )}
         <S.Result>
           {starForceSlot.item ? (
             <>
@@ -152,7 +219,10 @@ const StarForce: React.FC = () => {
         </S.Horizontal> */}
         <S.Horizontal>
           <MapleButton
-            disabled={starForceSlot.item === undefined}
+            disabled={
+              starForceSlot.item === undefined ||
+              starForceSlot.item?.isDestroyed
+            }
             onClick={onStarForce}
           >
             <img
@@ -162,6 +232,9 @@ const StarForce: React.FC = () => {
             />
             강화
           </MapleButton>
+          {starForceSlot.item?.isDestroyed && (
+            <MapleButton onClick={onRecoverItem}>아이템 복구</MapleButton>
+          )}
         </S.Horizontal>
       </S.Contianer>
     </WindowContainer>

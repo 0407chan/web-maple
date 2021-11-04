@@ -68,6 +68,31 @@ const StarForce: React.FC = () => {
     console.log('가즈아')
   }
 
+  const renderStar = () => {
+    if (starForceSlot.item === undefined) return null
+    const result = []
+    for (let i = 0; i < starForceSlot.item.maxStar; i++) {
+      // const starImage =
+      // currentItem.isSuperior
+      //   ? IMAGE.tooltip.tooltip_Item_Star_blue
+      //   : IMAGE.tooltip.tooltip_Item_Star
+      const imageSrc =
+        i < starForceSlot.item.star
+          ? IMAGE.tooltip.tooltip_Item_Star
+          : IMAGE.tooltip.tooltip_Item_Star_none
+      result.push(
+        <img src={imageSrc} key={i} width={13} alt={`starimg-` + i} />
+      )
+      if (i % 5 === 4 && i !== starForceSlot.item.maxStar - 1) {
+        result.push(<span style={{ marginRight: 6 }} />)
+      }
+      if (i === 14 && i !== starForceSlot.item.maxStar - 1) {
+        result.push(<div style={{ height: '100%', paddingBottom: 10 }} />)
+      }
+    }
+    return result
+  }
+
   return (
     <WindowContainer
       title="EQUIPMENT ENCHANT"
@@ -76,6 +101,7 @@ const StarForce: React.FC = () => {
       position={position}
     >
       <S.Contianer>
+        {starForceSlot.item && <S.StarWrapper>{renderStar()}</S.StarWrapper>}
         <Slot
           slot={starForceSlot}
           onDrop={onDrop}
@@ -84,31 +110,35 @@ const StarForce: React.FC = () => {
           className="star-force-slot"
           isCanDrop={false}
         />
+        <S.Horizontal style={{ gap: 10 }}>
+          <S.RateBlock>
+            <S.RateLabel>90%</S.RateLabel>
+            <S.RateLabel rateType="SUCCESS">성공</S.RateLabel>
+          </S.RateBlock>
+          <S.RateBlock>
+            <S.RateLabel>8%</S.RateLabel>
+            <S.RateLabel rateType="FAIL">실패</S.RateLabel>
+          </S.RateBlock>
+          <S.RateBlock>
+            <S.RateLabel>2%</S.RateLabel>
+            <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
+          </S.RateBlock>
+        </S.Horizontal>
         <S.Result>
-          <S.Horizontal>
-            {starForceSlot.item &&
-              `${starForceSlot.item.star}성 > ${starForceSlot.item.star + 1}성`}
-          </S.Horizontal>
-          <S.Horizontal style={{ justifyContent: 'space-around' }}>
-            <S.Vertical>
-              <div>90%</div>
-              <div>성공</div>
-            </S.Vertical>
-            <S.Vertical>
-              <div>8%</div>
-              <div>실패</div>
-            </S.Vertical>
-            <S.Vertical>
-              <div>2%</div>
-              <div>파괴</div>
-            </S.Vertical>
-          </S.Horizontal>
+          {starForceSlot.item ? (
+            <>
+              <S.Horizontal>
+                {`${starForceSlot.item.star}성 > ${
+                  starForceSlot.item.star + 1
+                }성`}
+              </S.Horizontal>
+            </>
+          ) : (
+            <>스타포스 강화할 아이템을 선택해주세요</>
+          )}
         </S.Result>
-        <S.Horizontal>
-          <MapleButton onClick={() => setShowSetting(!showSetting)}>
-            세팅
-          </MapleButton>
-          {/* <Checkbox
+        {/* <S.Horizontal>
+          <Checkbox
               // checked={isAuto}
               onChange={(event) => {
                 if (event.target.checked === false && intervalRef.current) {
@@ -118,8 +148,8 @@ const StarForce: React.FC = () => {
               }}
             >
               <S.Title>자동</S.Title>
-            </Checkbox> */}
-        </S.Horizontal>
+            </Checkbox>
+        </S.Horizontal> */}
         <S.Horizontal>
           <MapleButton
             disabled={starForceSlot.item === undefined}

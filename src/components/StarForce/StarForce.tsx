@@ -3,6 +3,7 @@ import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
 import { EquipItemType, SlotType } from '@/types/inventory'
 import IMAGE from '@/utils/images'
+import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import Checkbox from 'antd/lib/checkbox'
 import React, { useRef, useState } from 'react'
 import { ControlPosition } from 'react-draggable'
@@ -11,7 +12,7 @@ import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
 import { getRandomNum } from '../FlameOfResurrection/utils'
 import Slot from '../Inventory/Slot'
-import { getSuccessRate } from './constants'
+import { getStarForceCost, getSuccessRate } from './constants'
 import Result from './Result'
 import * as S from './style'
 
@@ -319,13 +320,18 @@ const StarForce: React.FC = () => {
           )}
           <S.Result>
             {slotRef.current.item ? (
-              <>
+              <S.Vertical
+                style={{ justifyContent: 'space-between', height: '100%' }}
+              >
                 <S.Horizontal>
                   {`${slotRef.current.item.star}성 > ${
                     slotRef.current.item.star + 1
                   }성`}
                 </S.Horizontal>
-              </>
+                <S.Horizontal>
+                  {numberWithCommas(getStarForceCost(slotRef.current.item))}
+                </S.Horizontal>
+              </S.Vertical>
             ) : (
               <>스타포스 강화할 아이템을 선택해주세요</>
             )}

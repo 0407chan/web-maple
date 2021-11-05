@@ -41,6 +41,7 @@ const StarForce: React.FC = () => {
     x: document.body.clientWidth / 2 - 150,
     y: 200
   })
+  const [mesoKrwSetting, setMesoKrwSetting] = useState<number | undefined>(3500)
   const [starForceSlot, setStarForceSlot] = useState<SlotType>(initSlot)
   const slotRef = useRef(starForceSlot)
   const updateSlotItem = (newItem: EquipItemType) => {
@@ -167,22 +168,25 @@ const StarForce: React.FC = () => {
 
     //가격, 터진 횟수 누적
     let itemResult = starForceResult.get(slotRef.current.item.id)
+
+    const starCost = getStarForceCost(slotRef.current.item)
     if (itemResult) {
-      itemResult = { ...itemResult, cost: 0, destroyed: 0 }
+      const cost = itemResult.cost
+      const destroyed = itemResult.destroyed
+      itemResult = {
+        ...itemResult,
+        cost: cost + starCost,
+        destroyed: destroyed + (tempItem.isDestroyed ? 1 : 0)
+      }
       starForceResult.set(slotRef.current.item.id, itemResult)
     } else {
-      console.log('새로 넣자')
-    }
-    const newCost = 0
-    const newDestroyed = 0
-    if (tempItem.isDestroyed) {
-      console.log('파괴횟수 추가')
+      const newResult = {
+        cost: starCost,
+        destroyed: tempItem.isDestroyed ? 1 : 0
+      }
+      starForceResult.set(slotRef.current.item.id, newResult)
     }
 
-    starForceResult.set(slotRef.current.item.id, {
-      cost: newCost,
-      destroyed: newDestroyed
-    })
     resultRef.current = starForceResult
     setStarForceResult(starForceResult)
 
@@ -378,10 +382,10 @@ const StarForce: React.FC = () => {
       </WindowContainer>
       <Result
         item={starForceSlot.item}
-        result={starForceResult}
+        result={resultRef.current}
         setResult={setStarForceResult}
         // flameCostSetting={flameCostSetting}
-        // mesoKrwSetting={mesoKrwSetting}
+        mesoKrwSetting={mesoKrwSetting}
         position={position}
       />
     </>

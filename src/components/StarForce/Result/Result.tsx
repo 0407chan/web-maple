@@ -1,6 +1,8 @@
 import MapleButton from '@/components/common/MapleButton'
 import WindowContainer from '@/components/common/WindowContainer'
+import { numberUnit } from '@/components/FlameOfResurrection/Result/utils'
 import { EquipItemType } from '@/types/inventory'
+import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import React from 'react'
 import { ControlPosition } from 'react-draggable'
 import * as S from './style'
@@ -30,8 +32,15 @@ type Props = {
     >
   >
   position: ControlPosition
+  mesoKrwSetting: number | undefined
 }
-const Result: React.FC<Props> = ({ item, result, setResult, position }) => {
+const Result: React.FC<Props> = ({
+  item,
+  result,
+  setResult,
+  position,
+  mesoKrwSetting
+}) => {
   const initItemStatusSetting = () => {
     if (item === undefined) return
     // let res = result.get(item.id)
@@ -42,24 +51,31 @@ const Result: React.FC<Props> = ({ item, result, setResult, position }) => {
     setResult(result)
   }
 
-  // const calcCost = (type: FlameType) => {
-  //   if (item === undefined) return 0
-  //   const flame = result.get(item.id)
-  //   if (flame === undefined) return 0
+  const getCost = () => {
+    if (item === undefined) return 0
+    const starResult = result.get(item.id)
+    if (starResult === undefined) return 0
 
-  //   return (flameCostSetting[type] || 0) * (flame[type] || 0)
-  // }
+    return starResult.cost
+  }
+  const getDestroy = () => {
+    if (item === undefined) return 0
+    const starResult = result.get(item.id)
+    if (starResult === undefined) return 0
+
+    return starResult.destroyed
+  }
 
   // const totalCost = () => {
   //   return calcCost('ETERNAL') + calcCost('POWERFUL')
   // }
 
-  // const mesoToKRW = () => {
-  //   return Math.floor((totalCost() / 100000000) * (mesoKrwSetting || 0))
-  // }
+  const mesoToKRW = () => {
+    return Math.floor((getCost() / 100000000) * (mesoKrwSetting || 0))
+  }
   return (
     <WindowContainer
-      windowType="FlameOfResurrection"
+      windowType="EquipmentEnchant"
       hideCloseButton
       title="RESULT"
       position={{ ...position, x: position.x + 300 + 10 }}
@@ -68,48 +84,38 @@ const Result: React.FC<Props> = ({ item, result, setResult, position }) => {
       <S.Vertical>
         <S.Contianer>
           <S.Horizontal>
-            <S.Title>환불 사용 갯수</S.Title>
+            <S.Title>터진 횟수</S.Title>
             <MapleButton size="small" onClick={initItemStatusSetting}>
               초기화
             </MapleButton>
           </S.Horizontal>
           <S.Horizontal>
-            {/* <S.Block>
-              <S.Vertical>
-                <img
-                  src="https://maplestory.io/api/KMS/353/item/2048716/icon"
-                  alt="powerImage"
-                />
-                <S.Text>
-                  {item
-                    ? numberWithCommas(result.get(item.id)?.POWERFUL || 0)
-                    : 0}
-                </S.Text>
-              </S.Vertical>
-            </S.Block>
             <S.Block>
-              <S.Vertical>
-                <img
-                  src="https://maplestory.io/api/KMS/353/item/2048717/icon"
-                  alt="foreverImage"
-                />
+              <S.Horizontal>
                 <S.Text>
-                  {item
-                    ? numberWithCommas(result.get(item.id)?.ETERNAL || 0)
-                    : 0}
+                  <S.ItemImage
+                    isDestroyed={true}
+                    src={item?.image}
+                    alt="powerImage"
+                  />
                 </S.Text>
-              </S.Vertical>
-            </S.Block> */}
+                <S.Input
+                  readOnly
+                  suffix="펑"
+                  value={numberWithCommas(getDestroy())}
+                />
+              </S.Horizontal>
+            </S.Block>
           </S.Horizontal>
         </S.Contianer>
         <S.Contianer style={{ marginTop: 10 }}>
           <S.Horizontal>
             <S.Title>누적 메소</S.Title>
-            {/* <MapleButton size="small" onClick={initItemStatusSetting}>
+            <MapleButton size="small" onClick={initItemStatusSetting}>
               초기화
-            </MapleButton> */}
+            </MapleButton>
           </S.Horizontal>
-          {/* <S.Block>
+          <S.Block>
             <S.Horizontal>
               <S.Text>
                 <img
@@ -117,21 +123,21 @@ const Result: React.FC<Props> = ({ item, result, setResult, position }) => {
                   alt="powerImage"
                 />
               </S.Text>
-              <S.Input readOnly value={numberWithCommas(totalCost())} />
+              <S.Input readOnly value={numberWithCommas(getCost())} />
             </S.Horizontal>
           </S.Block>
           <S.Horizontal style={{ justifyContent: 'flex-end' }}>
-            <S.Title>{numberUnit(totalCost())} 메소</S.Title>
-          </S.Horizontal> */}
+            <S.Title>{numberUnit(getCost())} 메소</S.Title>
+          </S.Horizontal>
         </S.Contianer>
         <S.Contianer style={{ marginTop: 10 }}>
           <S.Horizontal>
             <S.Title>현금 치환</S.Title>
-            {/* <MapleButton size="small" onClick={initItemStatusSetting}>
+            <MapleButton size="small" onClick={initItemStatusSetting}>
               초기화
-            </MapleButton> */}
+            </MapleButton>
           </S.Horizontal>
-          {/* <S.Block>
+          <S.Block>
             <S.Horizontal>
               <S.Text>
                 <img width={30} src={WonImage} alt="KRW" />
@@ -141,7 +147,7 @@ const Result: React.FC<Props> = ({ item, result, setResult, position }) => {
           </S.Block>
           <S.Horizontal style={{ justifyContent: 'flex-end' }}>
             <S.Title>{numberUnit(mesoToKRW())} 원</S.Title>
-          </S.Horizontal> */}
+          </S.Horizontal>
         </S.Contianer>
       </S.Vertical>
     </WindowContainer>

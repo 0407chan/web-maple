@@ -65,4 +65,16 @@ export const Input = styled(OriginalInput)`
   &input:not([type='range']) {
     text-align: right;
   }
+
+  .ant-input {
+    text-align: right;
+  }
+`
+
+export const ItemImage = styled.img<{ isDestroyed?: boolean }>`
+  ${(props) =>
+    props.isDestroyed && {
+      opacity: 0.6,
+      filter: 'grayscale(95%) drop-shadow(0 0 0.1rem black)'
+    }}
 `

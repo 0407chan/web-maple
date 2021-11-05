@@ -4,3 +4,9 @@ export type SuccessRate = {
   failDecrease: number
   destroy: number
 }
+
+export type StarForceSetting = {
+  star?: number
+  itemCost?: number
+  exchangeRate?: number
+}

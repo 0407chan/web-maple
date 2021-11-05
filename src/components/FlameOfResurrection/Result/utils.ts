@@ -19,6 +19,8 @@ export const numberUnit = (num: number): string => {
   // 만
   else if (numString.length <= 8 && numString.length > 4) {
     result += `${numString.slice(-8, -4)}만`
+  } else {
+    result += `${numString.slice(-4)}`
   }
   return result
 }

@@ -126,16 +126,15 @@ const StarForce: React.FC = () => {
     )
   }
 
-  const onStarForce = () => {
+  const onStarForce = (isRunning = false) => {
     if (!slotRef.current.item) return
-    if (isStarForceRunning && slotRef.current.item.isDestroyed) {
+    if (isRunning && slotRef.current.item.isDestroyed) {
       onRecoverItem()
       return
     }
     const randomNum = Number((getRandomNum(1000) / 10).toFixed(1))
     const rate = getSuccessRate(slotRef.current.item.star)
     const success = rate.success
-    // const success = 1
     const fail =
       rate.success +
       (rate.failDecrease > 0
@@ -143,7 +142,6 @@ const StarForce: React.FC = () => {
         : 0 + rate.failMaintain > 0
         ? rate.failMaintain
         : 0)
-    // const fail = 1
 
     let tempItem: EquipItemType = { ...slotRef.current.item }
 
@@ -190,7 +188,7 @@ const StarForce: React.FC = () => {
       }
       setIsStarForceRunning(false)
     } else {
-      const newInterval = setInterval(() => onStarForce(), 50)
+      const newInterval = setInterval(() => onStarForce(true), 50)
       intervalRef.current = newInterval
       setAutoTimer(newInterval)
       setIsStarForceRunning(true)
@@ -203,7 +201,7 @@ const StarForce: React.FC = () => {
       ...slotRef.current.item,
       isDestroyed: false
     }
-    updateSlotItem(tempItem)
+    slotRef.current = { ...slotRef.current, item: tempItem }
     setItemOnOriginalSlot(tempItem)
   }
 

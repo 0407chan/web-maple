@@ -36,7 +36,7 @@ export const Result = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 14px;
-  height: 190px;
+  /* height: 190px; */
   width: 270px;
   align-items: flex-start;
   justify-content: flex-start;

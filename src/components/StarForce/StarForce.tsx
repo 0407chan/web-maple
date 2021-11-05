@@ -2,6 +2,7 @@ import useEquipment from '@/hooks/useEquipment'
 import useInventory from '@/hooks/useInventory'
 import useToolTip from '@/hooks/useToolTip'
 import { EquipItemType, SlotType } from '@/types/inventory'
+import { StarForceSetting } from '@/types/star-force'
 import IMAGE from '@/utils/images'
 import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import Checkbox from 'antd/lib/checkbox'
@@ -14,6 +15,7 @@ import { getRandomNum } from '../FlameOfResurrection/utils'
 import Slot from '../Inventory/Slot'
 import { getStarForceCost, getSuccessRate } from './constants'
 import Result from './Result'
+import StatusSetting from './StatusSetting'
 import * as S from './style'
 
 const initSlot: SlotType = {
@@ -31,18 +33,17 @@ const StarForce: React.FC = () => {
   const [autoTimer, setAutoTimer] = useState<NodeJS.Timer>()
 
   const intervalRef = useRef(autoTimer)
-  const [tryNum, setTryNum] = useState<{
-    success: number
-    fail: number
-    destroy: number
-  }>({ success: 0, fail: 0, destroy: 0 })
-  const tryRef = useRef(tryNum)
   const [position, setPosition] = useState<ControlPosition>({
     x: document.body.clientWidth / 2 - 150,
     y: 200
   })
   const [mesoKrwSetting, setMesoKrwSetting] = useState<number | undefined>(3500)
   const [starForceSlot, setStarForceSlot] = useState<SlotType>(initSlot)
+  const [starForceSetting, setStarForceSetting] = useState<StarForceSetting>({
+    star: 22,
+    itemCost: 100000000,
+    exchangeRate: 3500
+  })
   const slotRef = useRef(starForceSlot)
   const updateSlotItem = (newItem: EquipItemType) => {
     slotRef.current = { ...slotRef.current, item: newItem }
@@ -128,7 +129,7 @@ const StarForce: React.FC = () => {
   const isMaxStar = (): boolean => {
     return (
       slotRef.current.item !== undefined &&
-      slotRef.current.item.star === slotRef.current.item.maxStar
+      slotRef.current.item.star >= slotRef.current.item.maxStar
     )
   }
 
@@ -175,7 +176,10 @@ const StarForce: React.FC = () => {
       const destroyed = itemResult.destroyed
       itemResult = {
         ...itemResult,
-        cost: cost + starCost,
+        cost:
+          cost +
+          starCost +
+          (tempItem.isDestroyed ? starForceSetting.itemCost ?? 0 : 0),
         destroyed: destroyed + (tempItem.isDestroyed ? 1 : 0)
       }
       starForceResult.set(slotRef.current.item.id, itemResult)
@@ -198,7 +202,10 @@ const StarForce: React.FC = () => {
   const checkForAuto = (newItem: EquipItemType) => {
     if (intervalRef.current === undefined) return
 
-    if (newItem.star >= 22) {
+    if (
+      (starForceSetting.star && newItem.star >= starForceSetting.star) ||
+      isMaxStar()
+    ) {
       clearInterval(intervalRef.current)
       setIsStarForceRunning(false)
     }
@@ -324,20 +331,27 @@ const StarForce: React.FC = () => {
           )}
           <S.Result>
             {slotRef.current.item ? (
-              <S.Vertical
-                style={{ justifyContent: 'space-between', height: '100%' }}
-              >
-                <S.Horizontal>
-                  {`${slotRef.current.item.star}성 > ${
-                    slotRef.current.item.star + 1
-                  }성`}
-                </S.Horizontal>
-                <S.Horizontal>
-                  <S.Title style={{ fontSize: 18 }}>
-                    {numberWithCommas(getStarForceCost(slotRef.current.item))}
-                  </S.Title>
-                </S.Horizontal>
-              </S.Vertical>
+              !isMaxStar() ? (
+                <S.Vertical
+                  style={{ justifyContent: 'space-between', height: '100%' }}
+                >
+                  <S.Horizontal>
+                    {`${slotRef.current.item.star}성 > ${
+                      slotRef.current.item.star + 1
+                    }성`}
+                  </S.Horizontal>
+                  <S.Horizontal>
+                    <S.Title style={{ fontSize: 18 }}>
+                      {numberWithCommas(getStarForceCost(slotRef.current.item))}
+                    </S.Title>
+                  </S.Horizontal>
+                </S.Vertical>
+              ) : (
+                <>
+                  <div>장비가 한계까지 강화되어</div>
+                  <div>더 이상 강화할 수 없습니다.</div>
+                </>
+              )
             ) : (
               <>스타포스 강화할 아이템을 선택해주세요</>
             )}
@@ -346,12 +360,14 @@ const StarForce: React.FC = () => {
             <Checkbox
               disabled={
                 slotRef.current.item === undefined ||
-                slotRef.current.item?.isDestroyed
+                slotRef.current.item?.isDestroyed ||
+                isMaxStar()
               }
               checked={isAuto}
               onChange={(event) => {
                 if (event.target.checked === false && intervalRef.current) {
                   clearInterval(intervalRef.current)
+                  setIsStarForceRunning(false)
                 }
                 setIsAuto(event.target.checked)
               }}
@@ -366,7 +382,8 @@ const StarForce: React.FC = () => {
               <MapleButton
                 disabled={
                   slotRef.current.item === undefined ||
-                  slotRef.current.item?.isDestroyed
+                  slotRef.current.item?.isDestroyed ||
+                  isMaxStar()
                 }
                 onClick={() => (isAuto ? onAutoStarForce() : onStarForce())}
               >
@@ -387,8 +404,15 @@ const StarForce: React.FC = () => {
         result={resultRef.current}
         setResult={setStarForceResult}
         // flameCostSetting={flameCostSetting}
-        mesoKrwSetting={mesoKrwSetting}
+        starForceSetting={starForceSetting}
         position={position}
+      />
+      <StatusSetting
+        position={position}
+        loading={isStarForceRunning}
+        starForceSetting={starForceSetting}
+        setStarForceSetting={setStarForceSetting}
+        item={starForceSlot.item}
       />
     </>
   )

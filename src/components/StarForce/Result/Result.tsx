@@ -111,9 +111,6 @@ const Result: React.FC<Props> = ({
         <S.Contianer style={{ marginTop: 10 }}>
           <S.Horizontal>
             <S.Title>누적 메소</S.Title>
-            <MapleButton size="small" onClick={initItemStatusSetting}>
-              초기화
-            </MapleButton>
           </S.Horizontal>
           <S.Block>
             <S.Horizontal>
@@ -133,9 +130,6 @@ const Result: React.FC<Props> = ({
         <S.Contianer style={{ marginTop: 10 }}>
           <S.Horizontal>
             <S.Title>현금 치환</S.Title>
-            <MapleButton size="small" onClick={initItemStatusSetting}>
-              초기화
-            </MapleButton>
           </S.Horizontal>
           <S.Block>
             <S.Horizontal>

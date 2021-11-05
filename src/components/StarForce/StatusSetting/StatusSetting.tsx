@@ -49,7 +49,7 @@ const StatusSetting: React.FC<Props> = ({
             isLoading={loading}
             style={{
               flexDirection: 'row',
-              gap: 10,
+              gap: 5,
               alignItems: 'flex-end',
               justifyContent: 'center'
             }}
@@ -57,6 +57,7 @@ const StatusSetting: React.FC<Props> = ({
             <S.Input
               style={{
                 backgroundColor: '#ffffff',
+                marginLeft: 20,
                 fontSize: 24,
                 fontWeight: 'bold',
                 textAlign: 'center',

@@ -176,10 +176,7 @@ const StarForce: React.FC = () => {
       const destroyed = itemResult.destroyed
       itemResult = {
         ...itemResult,
-        cost:
-          cost +
-          starCost +
-          (tempItem.isDestroyed ? starForceSetting.itemCost ?? 0 : 0),
+        cost: cost + starCost,
         destroyed: destroyed + (tempItem.isDestroyed ? 1 : 0)
       }
       starForceResult.set(slotRef.current.item.id, itemResult)

@@ -66,13 +66,24 @@ const Result: React.FC<Props> = ({
     return starResult.destroyed
   }
 
+  const getDestoryCost = () => {
+    if (item === undefined) return 0
+    const starResult = result.get(item.id)
+    if (starResult === undefined) return 0
+
+    return starResult.destroyed * (starForceSetting.itemCost ?? 0)
+  }
+
+  const getTotalCost = () => {
+    return getCost() + getDestoryCost()
+  }
   // const totalCost = () => {
   //   return calcCost('ETERNAL') + calcCost('POWERFUL')
   // }
 
   const mesoToKRW = () => {
     return Math.floor(
-      (getCost() / 100000000) * (starForceSetting.exchangeRate || 0)
+      (getTotalCost() / 100000000) * (starForceSetting.exchangeRate || 0)
     )
   }
   return (
@@ -124,11 +135,11 @@ const Result: React.FC<Props> = ({
                   alt="powerImage"
                 />
               </S.Text>
-              <S.Input readOnly value={numberWithCommas(getCost())} />
+              <S.Input readOnly value={numberWithCommas(getTotalCost())} />
             </S.Horizontal>
           </S.Block>
           <S.Horizontal style={{ justifyContent: 'flex-end' }}>
-            <S.Title>{numberUnit(getCost())} 메소</S.Title>
+            <S.Title>{numberUnit(getTotalCost())} 메소</S.Title>
           </S.Horizontal>
         </S.Contianer>
         <S.Contianer style={{ marginTop: -10 }}>

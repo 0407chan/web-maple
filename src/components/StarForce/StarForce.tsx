@@ -12,6 +12,7 @@ import WindowContainer from '../common/WindowContainer'
 import { getRandomNum } from '../FlameOfResurrection/utils'
 import Slot from '../Inventory/Slot'
 import { getSuccessRate } from './constants'
+import Result from './Result'
 import * as S from './style'
 
 const initSlot: SlotType = {
@@ -35,8 +36,6 @@ const StarForce: React.FC = () => {
     destroy: number
   }>({ success: 0, fail: 0, destroy: 0 })
   const tryRef = useRef(tryNum)
-  const [showResult, setShowResult] = useState<boolean>(true)
-  const [showSetting, setShowSetting] = useState<boolean>(true)
   const [position, setPosition] = useState<ControlPosition>({
     x: document.body.clientWidth / 2 - 150,
     y: 200
@@ -47,6 +46,11 @@ const StarForce: React.FC = () => {
     slotRef.current = { ...slotRef.current, item: newItem }
     setStarForceSlot({ ...slotRef.current, item: newItem })
   }
+
+  const [starForceResult, setStarForceResult] = useState<
+    Map<string, { destroyed: number; cost: number }>
+  >(new Map())
+  const resultRef = useRef(starForceResult)
 
   const onDrop = (slot: any) => {
     slotRef.current = slot
@@ -145,27 +149,41 @@ const StarForce: React.FC = () => {
 
     let tempItem: EquipItemType = { ...slotRef.current.item }
 
+    // 성공
     if (randomNum <= success) {
-      tryRef.current = {
-        ...tryRef.current,
-        success: tryRef.current.success + 1
-      }
-      setTryNum({ ...tryRef.current, success: tryRef.current.success + 1 })
       tempItem = { ...tempItem, star: tempItem.star + 1 }
-    } else if (randomNum > success && randomNum <= fail) {
-      tryRef.current = { ...tryRef.current, fail: tryRef.current.fail + 1 }
-      setTryNum({ ...tryRef.current, fail: tryRef.current.fail + 1 })
+    }
+    // 실패
+    else if (randomNum > success && randomNum <= fail) {
       if (rate.failDecrease > 0) {
         tempItem = { ...tempItem, star: tempItem.star - 1 }
       }
-    } else {
-      tryRef.current = {
-        ...tryRef.current,
-        destroy: tryRef.current.destroy + 1
-      }
-      setTryNum({ ...tryRef.current, destroy: tryRef.current.destroy + 1 })
+    }
+    // 파괴
+    else {
       tempItem = { ...tempItem, star: 12, isDestroyed: true }
     }
+
+    //가격, 터진 횟수 누적
+    let itemResult = starForceResult.get(slotRef.current.item.id)
+    if (itemResult) {
+      itemResult = { ...itemResult, cost: 0, destroyed: 0 }
+      starForceResult.set(slotRef.current.item.id, itemResult)
+    } else {
+      console.log('새로 넣자')
+    }
+    const newCost = 0
+    const newDestroyed = 0
+    if (tempItem.isDestroyed) {
+      console.log('파괴횟수 추가')
+    }
+
+    starForceResult.set(slotRef.current.item.id, {
+      cost: newCost,
+      destroyed: newDestroyed
+    })
+    resultRef.current = starForceResult
+    setStarForceResult(starForceResult)
 
     checkForAuto(tempItem)
     updateSlotItem(tempItem)
@@ -206,57 +224,60 @@ const StarForce: React.FC = () => {
   }
 
   return (
-    <WindowContainer
-      title="EQUIPMENT ENCHANT"
-      windowType="EquipmentEnchant"
-      onDrag={(e, data) => setPosition({ x: data.x, y: data.y })}
-      onClose={() => setStarForceSlot(initSlot)}
-      position={position}
-    >
-      <S.Contianer>
-        {slotRef.current.item && <S.StarWrapper>{renderStar()}</S.StarWrapper>}
-        <Slot
-          slot={slotRef.current}
-          onDrop={onDrop}
-          isMySlot={isMySlot}
-          onClick={onItemClick}
-          className="star-force-slot"
-          isCanDrop={false}
-        />
-        {slotRef.current.item && !isMaxStar() && (
-          <S.Vertical>
-            <S.Horizontal style={{ gap: 10 }}>
-              <S.RateBlock>
-                <S.RateLabel>{`${
-                  getSuccessRate(slotRef.current.item.star).success
-                }%`}</S.RateLabel>
-                <S.RateLabel rateType="SUCCESS">성공</S.RateLabel>
-              </S.RateBlock>
-              {getSuccessRate(slotRef.current.item.star).failMaintain > 0 && (
+    <>
+      <WindowContainer
+        title="EQUIPMENT ENCHANT"
+        windowType="EquipmentEnchant"
+        onDrag={(e, data) => setPosition({ x: data.x, y: data.y })}
+        onClose={() => setStarForceSlot(initSlot)}
+        position={position}
+      >
+        <S.Contianer>
+          {slotRef.current.item && (
+            <S.StarWrapper>{renderStar()}</S.StarWrapper>
+          )}
+          <Slot
+            slot={slotRef.current}
+            onDrop={onDrop}
+            isMySlot={isMySlot}
+            onClick={onItemClick}
+            className="star-force-slot"
+            isCanDrop={false}
+          />
+          {slotRef.current.item && !isMaxStar() && (
+            <S.Vertical>
+              <S.Horizontal style={{ gap: 10 }}>
                 <S.RateBlock>
                   <S.RateLabel>{`${
-                    getSuccessRate(slotRef.current.item.star).failMaintain
+                    getSuccessRate(slotRef.current.item.star).success
                   }%`}</S.RateLabel>
-                  <S.RateLabel rateType="FAIL">실패(유지)</S.RateLabel>
+                  <S.RateLabel rateType="SUCCESS">성공</S.RateLabel>
                 </S.RateBlock>
-              )}
-              {getSuccessRate(slotRef.current.item.star).failDecrease > 0 && (
+                {getSuccessRate(slotRef.current.item.star).failMaintain > 0 && (
+                  <S.RateBlock>
+                    <S.RateLabel>{`${
+                      getSuccessRate(slotRef.current.item.star).failMaintain
+                    }%`}</S.RateLabel>
+                    <S.RateLabel rateType="FAIL">실패(유지)</S.RateLabel>
+                  </S.RateBlock>
+                )}
+                {getSuccessRate(slotRef.current.item.star).failDecrease > 0 && (
+                  <S.RateBlock>
+                    <S.RateLabel>{`${
+                      getSuccessRate(slotRef.current.item.star).failDecrease
+                    }%`}</S.RateLabel>
+                    <S.RateLabel rateType="FAIL">실패(하락)</S.RateLabel>
+                  </S.RateBlock>
+                )}
                 <S.RateBlock>
                   <S.RateLabel>{`${
-                    getSuccessRate(slotRef.current.item.star).failDecrease
+                    getSuccessRate(slotRef.current.item.star).destroy
                   }%`}</S.RateLabel>
-                  <S.RateLabel rateType="FAIL">실패(하락)</S.RateLabel>
+                  <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
                 </S.RateBlock>
-              )}
-              <S.RateBlock>
-                <S.RateLabel>{`${
-                  getSuccessRate(slotRef.current.item.star).destroy
-                }%`}</S.RateLabel>
-                <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
-              </S.RateBlock>
-            </S.Horizontal>
+              </S.Horizontal>
 
-            <S.Horizontal style={{ gap: 10 }}>
+              {/* <S.Horizontal style={{ gap: 10 }}>
               <S.RateBlock>
                 <S.RateLabel
                   style={{
@@ -293,61 +314,71 @@ const StarForce: React.FC = () => {
                 </S.RateLabel>
                 <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
               </S.RateBlock>
-            </S.Horizontal>
-          </S.Vertical>
-        )}
-        <S.Result>
-          {slotRef.current.item ? (
-            <>
-              <S.Horizontal>
-                {`${slotRef.current.item.star}성 > ${
-                  slotRef.current.item.star + 1
-                }성`}
-              </S.Horizontal>
-            </>
-          ) : (
-            <>스타포스 강화할 아이템을 선택해주세요</>
+            </S.Horizontal> */}
+            </S.Vertical>
           )}
-        </S.Result>
-        <S.Horizontal>
-          <Checkbox
-            disabled={
-              slotRef.current.item === undefined ||
-              slotRef.current.item?.isDestroyed
-            }
-            checked={isAuto}
-            onChange={(event) => {
-              if (event.target.checked === false && intervalRef.current) {
-                clearInterval(intervalRef.current)
+          <S.Result>
+            {slotRef.current.item ? (
+              <>
+                <S.Horizontal>
+                  {`${slotRef.current.item.star}성 > ${
+                    slotRef.current.item.star + 1
+                  }성`}
+                </S.Horizontal>
+              </>
+            ) : (
+              <>스타포스 강화할 아이템을 선택해주세요</>
+            )}
+          </S.Result>
+          <S.Horizontal>
+            <Checkbox
+              disabled={
+                slotRef.current.item === undefined ||
+                slotRef.current.item?.isDestroyed
               }
-              setIsAuto(event.target.checked)
-            }}
-          >
-            <S.Title>자동</S.Title>
-          </Checkbox>
-        </S.Horizontal>
-        <S.Horizontal>
-          <MapleButton
-            disabled={
-              slotRef.current.item === undefined ||
-              slotRef.current.item?.isDestroyed
-            }
-            onClick={() => (isAuto ? onAutoStarForce() : onStarForce())}
-          >
-            <S.StarImage
-              isLoading={isStarForceRunning}
-              width={13}
-              src={IMAGE.tooltip.tooltip_Item_Star}
-              alt="star-force-image"
-            />
-            강화
-          </MapleButton>
-          {slotRef.current.item?.isDestroyed && (
-            <MapleButton onClick={onRecoverItem}>아이템 복구</MapleButton>
-          )}
-        </S.Horizontal>
-      </S.Contianer>
-    </WindowContainer>
+              checked={isAuto}
+              onChange={(event) => {
+                if (event.target.checked === false && intervalRef.current) {
+                  clearInterval(intervalRef.current)
+                }
+                setIsAuto(event.target.checked)
+              }}
+            >
+              <S.Title>자동</S.Title>
+            </Checkbox>
+          </S.Horizontal>
+          <S.Horizontal>
+            {slotRef.current.item?.isDestroyed ? (
+              <MapleButton onClick={onRecoverItem}>아이템 복구</MapleButton>
+            ) : (
+              <MapleButton
+                disabled={
+                  slotRef.current.item === undefined ||
+                  slotRef.current.item?.isDestroyed
+                }
+                onClick={() => (isAuto ? onAutoStarForce() : onStarForce())}
+              >
+                <S.StarImage
+                  isLoading={isStarForceRunning}
+                  width={13}
+                  src={IMAGE.tooltip.tooltip_Item_Star}
+                  alt="star-force-image"
+                />
+                강화
+              </MapleButton>
+            )}
+          </S.Horizontal>
+        </S.Contianer>
+      </WindowContainer>
+      <Result
+        item={starForceSlot.item}
+        result={starForceResult}
+        setResult={setStarForceResult}
+        // flameCostSetting={flameCostSetting}
+        // mesoKrwSetting={mesoKrwSetting}
+        position={position}
+      />
+    </>
   )
 }
 

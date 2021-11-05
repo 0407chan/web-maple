@@ -1,3 +1,4 @@
+import { EquipItemType } from '@/types/inventory'
 import { SuccessRate } from '@/types/star-force'
 
 export const getMaxStar = (level: number): number => {
@@ -240,4 +241,19 @@ export const getSuccessRate = (star: number): SuccessRate => {
       break
   }
   return result
+}
+
+export const getStarForceCost = (item: EquipItemType): number => {
+  let result = 0
+
+  if (item.star <= 9) {
+    result = 1000 + (Math.pow(item.level, 3) * (item.star + 1)) / 25
+  } else if (item.star >= 10 && item.star <= 14) {
+    result =
+      1000 + (Math.pow(item.level, 3) * Math.pow(item.star + 1, 2.7)) / 400
+  } else {
+    result =
+      1000 + (Math.pow(item.level, 3) * Math.pow(item.star + 1, 2.7)) / 200
+  }
+  return Math.round(result / 100) * 100
 }

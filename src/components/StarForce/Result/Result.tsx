@@ -2,6 +2,7 @@ import MapleButton from '@/components/common/MapleButton'
 import WindowContainer from '@/components/common/WindowContainer'
 import { numberUnit } from '@/components/FlameOfResurrection/Result/utils'
 import { EquipItemType } from '@/types/inventory'
+import { StarForceSetting } from '@/types/star-force'
 import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import React from 'react'
 import { ControlPosition } from 'react-draggable'
@@ -32,22 +33,21 @@ type Props = {
     >
   >
   position: ControlPosition
-  mesoKrwSetting: number | undefined
+  starForceSetting: StarForceSetting
 }
 const Result: React.FC<Props> = ({
   item,
   result,
   setResult,
   position,
-  mesoKrwSetting
+  starForceSetting
 }) => {
   const initItemStatusSetting = () => {
     if (item === undefined) return
-    // let res = result.get(item.id)
-    // if (res) {
-    //   res = { ...res, POWERFUL: res.POWERFUL ? res.POWERFUL + 1 : 0 + 1 }
-    //   result.set(item.id, { ...res, POWERFUL: 0, ETERNAL: 0 })
-    // }
+    const res = result.get(item.id)
+    if (res) {
+      result.set(item.id, { cost: 0, destroyed: 0 })
+    }
     setResult(result)
   }
 
@@ -71,7 +71,9 @@ const Result: React.FC<Props> = ({
   // }
 
   const mesoToKRW = () => {
-    return Math.floor((getCost() / 100000000) * (mesoKrwSetting || 0))
+    return Math.floor(
+      (getCost() / 100000000) * (starForceSetting.exchangeRate || 0)
+    )
   }
   return (
     <WindowContainer
@@ -93,11 +95,13 @@ const Result: React.FC<Props> = ({
             <S.Block>
               <S.Horizontal>
                 <S.Text>
-                  <S.ItemImage
-                    isDestroyed={true}
-                    src={item?.image}
-                    alt="powerImage"
-                  />
+                  {item && (
+                    <S.ItemImage
+                      isDestroyed={true}
+                      src={item.image}
+                      alt="powerImage"
+                    />
+                  )}
                 </S.Text>
                 <S.Input
                   readOnly
@@ -127,7 +131,7 @@ const Result: React.FC<Props> = ({
             <S.Title>{numberUnit(getCost())} 메소</S.Title>
           </S.Horizontal>
         </S.Contianer>
-        <S.Contianer style={{ marginTop: 10 }}>
+        <S.Contianer style={{ marginTop: -10 }}>
           <S.Horizontal>
             <S.Title>현금 치환</S.Title>
           </S.Horizontal>

@@ -333,7 +333,9 @@ const StarForce: React.FC = () => {
                   }성`}
                 </S.Horizontal>
                 <S.Horizontal>
-                  {numberWithCommas(getStarForceCost(slotRef.current.item))}
+                  <S.Title style={{ fontSize: 18 }}>
+                    {numberWithCommas(getStarForceCost(slotRef.current.item))}
+                  </S.Title>
                 </S.Horizontal>
               </S.Vertical>
             ) : (

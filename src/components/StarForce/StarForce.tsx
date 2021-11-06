@@ -133,7 +133,10 @@ const StarForce: React.FC = () => {
     )
   }
 
-  const onStarForce = (isRunning = false) => {
+  const onStarForce = (
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    isRunning = false
+  ) => {
     if (!slotRef.current.item) return
     if (isRunning && slotRef.current.item.isDestroyed) {
       onRecoverItem()
@@ -155,16 +158,19 @@ const StarForce: React.FC = () => {
     // 성공
     if (randomNum <= success) {
       tempItem = { ...tempItem, star: tempItem.star + 1 }
+      // popEffect(e, IMAGE.tooltip.tooltip_Item_Star)
     }
     // 실패
     else if (randomNum > success && randomNum <= fail) {
       if (rate.failDecrease > 0) {
         tempItem = { ...tempItem, star: tempItem.star - 1 }
       }
+      // popEffect(e, IMAGE.tooltip.tooltip_Item_Star_none)
     }
     // 파괴
     else {
       tempItem = { ...tempItem, star: 12, isDestroyed: true }
+      // popEffect(e, slotRef.current.item.image)
     }
 
     //가격, 터진 횟수 누적
@@ -208,14 +214,14 @@ const StarForce: React.FC = () => {
     }
   }
 
-  const onAutoStarForce = () => {
+  const onAutoStarForce = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (isStarForceRunning) {
       if (autoTimer) {
         clearInterval(autoTimer)
       }
       setIsStarForceRunning(false)
     } else {
-      const newInterval = setInterval(() => onStarForce(true), 50)
+      const newInterval = setInterval(() => onStarForce(e, true), 50)
       intervalRef.current = newInterval
       setAutoTimer(newInterval)
       setIsStarForceRunning(true)
@@ -230,6 +236,55 @@ const StarForce: React.FC = () => {
     }
     slotRef.current = { ...slotRef.current, item: tempItem }
     setItemOnOriginalSlot(tempItem)
+  }
+
+  const popEffect = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    image?: string
+  ) => {
+    for (let i = 0; i < 10; i++) {
+      createParticle(event.clientX, event.clientY)
+    }
+
+    function createParticle(x: number, y: number) {
+      const particle = document.createElement('particle')
+
+      document.body.appendChild(particle)
+      const size = Math.floor(Math.random() * 15 + 5)
+      particle.style.width = `${size}px`
+      particle.style.height = `${size}px`
+      particle.style.backgroundImage =
+        image !== undefined
+          ? `url(${image})`
+          : `url(${IMAGE.tooltip.tooltip_Item_Star})`
+      particle.style.backgroundRepeat = 'no-repeat'
+      particle.style.backgroundSize = 'contain'
+      const rotation = Math.random() * 520 + 1000
+      const destinationX = x + (Math.random() - 0.5) * 2 * 75
+      const destinationY = y + (Math.random() - 0.5) * 2 * 75
+
+      const animation = particle.animate(
+        [
+          {
+            transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(0deg)`,
+            opacity: 1
+          },
+          {
+            transform: `translate(${destinationX}px, ${destinationY}px) rotate(${rotation}deg)`,
+            opacity: 1
+          }
+        ],
+        {
+          duration: 300 + Math.random() * 300,
+          easing: 'cubic-bezier(0, .9, .57, 1)',
+          delay: Math.random() * 200
+        }
+      )
+
+      animation.onfinish = () => {
+        particle.remove()
+      }
+    }
   }
 
   return (
@@ -382,7 +437,7 @@ const StarForce: React.FC = () => {
                   slotRef.current.item?.isDestroyed ||
                   isMaxStar()
                 }
-                onClick={() => (isAuto ? onAutoStarForce() : onStarForce())}
+                onClick={(e) => (isAuto ? onAutoStarForce(e) : onStarForce(e))}
               >
                 <S.StarImage
                   isLoading={isStarForceRunning}

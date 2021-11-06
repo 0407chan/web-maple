@@ -23,6 +23,16 @@ const GlobalStyle = createGlobalStyle`
         -khtml-user-select: none;
         user-select: none;
     }
+
+    particle {
+        position: fixed;
+        left: 0;
+        top: 0;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0;
+        z-index:500;
+    }
 `
 
 export default GlobalStyle

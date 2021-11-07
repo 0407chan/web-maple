@@ -243,6 +243,131 @@ export const getSuccessRate = (star: number): SuccessRate => {
   return result
 }
 
+export const getSuperiorSuccessRate = (star: number): SuccessRate => {
+  let result: SuccessRate = {
+    success: 0,
+    failMaintain: 0,
+    failDecrease: 0,
+    destroy: 0
+  }
+
+  switch (star) {
+    case 0:
+      result = {
+        success: 50,
+        failMaintain: 50,
+        failDecrease: 0,
+        destroy: 0
+      }
+      break
+    case 1:
+      result = {
+        success: 50,
+        failMaintain: 0,
+        failDecrease: 50,
+        destroy: 0
+      }
+      break
+    case 2:
+      result = {
+        success: 45,
+        failMaintain: 0,
+        failDecrease: 55,
+        destroy: 0
+      }
+      break
+    case 3:
+    case 4:
+      result = {
+        success: 40,
+        failMaintain: 0,
+        failDecrease: 60,
+        destroy: 0
+      }
+      break
+    case 5:
+      result = {
+        success: 40,
+        failMaintain: 0,
+        failDecrease: 58.2,
+        destroy: 1.8
+      }
+      break
+    case 6:
+      result = {
+        success: 40,
+        failMaintain: 0,
+        failDecrease: 57,
+        destroy: 3
+      }
+      break
+    case 7:
+      result = {
+        success: 40,
+        failMaintain: 0,
+        failDecrease: 55.8,
+        destroy: 4.2
+      }
+      break
+    case 8:
+      result = {
+        success: 40,
+        failMaintain: 0,
+        failDecrease: 54,
+        destroy: 6
+      }
+      break
+    case 9:
+      result = {
+        success: 37,
+        failMaintain: 0,
+        failDecrease: 53.55,
+        destroy: 9.45
+      }
+      break
+    case 10:
+      result = {
+        success: 35,
+        failMaintain: 0,
+        failDecrease: 52,
+        destroy: 13
+      }
+      break
+    case 11:
+      result = {
+        success: 35,
+        failMaintain: 0,
+        failDecrease: 48.75,
+        destroy: 16.25
+      }
+      break
+    case 12:
+      result = {
+        success: 3,
+        failMaintain: 0,
+        failDecrease: 48.5,
+        destroy: 48.5
+      }
+      break
+    case 13:
+      result = {
+        success: 2,
+        failMaintain: 0,
+        failDecrease: 49,
+        destroy: 49
+      }
+      break
+    case 14:
+      result = {
+        success: 1,
+        failMaintain: 0,
+        failDecrease: 49.5,
+        destroy: 49.5
+      }
+      break
+  }
+  return result
+}
 export const getStarForceCost = (item: EquipItemType): number => {
   let result = 0
 

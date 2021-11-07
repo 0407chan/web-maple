@@ -13,7 +13,12 @@ import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
 import { getRandomNum } from '../FlameOfResurrection/utils'
 import Slot from '../Inventory/Slot'
-import { getStarForceCost, getSuccessRate } from './constants'
+import {
+  getStarForceCost,
+  getSuccessRate,
+  getSuperiorStarForceCost,
+  getSuperiorSuccessRate
+} from './constants'
 import Result from './Result'
 import StatusSetting from './StatusSetting'
 import * as S from './style'
@@ -143,7 +148,9 @@ const StarForce: React.FC = () => {
       return
     }
     const randomNum = Number((getRandomNum(1000) / 10).toFixed(1))
-    const rate = getSuccessRate(slotRef.current.item.star)
+    const rate = slotRef.current.item.isSuperior
+      ? getSuperiorSuccessRate(slotRef.current.item.star)
+      : getSuccessRate(slotRef.current.item.star)
     const success = rate.success
     const fail =
       rate.success +
@@ -169,14 +176,20 @@ const StarForce: React.FC = () => {
     }
     // 파괴
     else {
-      tempItem = { ...tempItem, star: 12, isDestroyed: true }
+      tempItem = {
+        ...tempItem,
+        star: tempItem.isSuperior ? 0 : 12,
+        isDestroyed: true
+      }
       // popEffect(e, slotRef.current.item.image)
     }
 
     //가격, 터진 횟수 누적
     let itemResult = starForceResult.get(slotRef.current.item.id)
 
-    const starCost = getStarForceCost(slotRef.current.item)
+    const starCost = slotRef.current.item.isSuperior
+      ? getSuperiorStarForceCost(slotRef.current.item)
+      : getStarForceCost(slotRef.current.item)
     if (itemResult) {
       const cost = itemResult.cost
       const destroyed = itemResult.destroyed
@@ -313,29 +326,49 @@ const StarForce: React.FC = () => {
               <S.Horizontal style={{ gap: 10 }}>
                 <S.RateBlock>
                   <S.RateLabel>{`${
-                    getSuccessRate(slotRef.current.item.star).success
+                    slotRef.current.item.isSuperior
+                      ? getSuperiorSuccessRate(slotRef.current.item.star)
+                          .success
+                      : getSuccessRate(slotRef.current.item.star).success
                   }%`}</S.RateLabel>
                   <S.RateLabel rateType="SUCCESS">성공</S.RateLabel>
                 </S.RateBlock>
-                {getSuccessRate(slotRef.current.item.star).failMaintain > 0 && (
+                {(slotRef.current.item.isSuperior
+                  ? getSuperiorSuccessRate(slotRef.current.item.star)
+                      .failMaintain
+                  : getSuccessRate(slotRef.current.item.star).failMaintain) >
+                  0 && (
                   <S.RateBlock>
                     <S.RateLabel>{`${
-                      getSuccessRate(slotRef.current.item.star).failMaintain
+                      slotRef.current.item.isSuperior
+                        ? getSuperiorSuccessRate(slotRef.current.item.star)
+                            .failMaintain
+                        : getSuccessRate(slotRef.current.item.star).failMaintain
                     }%`}</S.RateLabel>
                     <S.RateLabel rateType="FAIL">실패(유지)</S.RateLabel>
                   </S.RateBlock>
                 )}
-                {getSuccessRate(slotRef.current.item.star).failDecrease > 0 && (
+                {(slotRef.current.item.isSuperior
+                  ? getSuperiorSuccessRate(slotRef.current.item.star)
+                      .failDecrease
+                  : getSuccessRate(slotRef.current.item.star).failDecrease) >
+                  0 && (
                   <S.RateBlock>
                     <S.RateLabel>{`${
-                      getSuccessRate(slotRef.current.item.star).failDecrease
+                      slotRef.current.item.isSuperior
+                        ? getSuperiorSuccessRate(slotRef.current.item.star)
+                            .failDecrease
+                        : getSuccessRate(slotRef.current.item.star).failDecrease
                     }%`}</S.RateLabel>
                     <S.RateLabel rateType="FAIL">실패(하락)</S.RateLabel>
                   </S.RateBlock>
                 )}
                 <S.RateBlock>
                   <S.RateLabel>{`${
-                    getSuccessRate(slotRef.current.item.star).destroy
+                    slotRef.current.item.isSuperior
+                      ? getSuperiorSuccessRate(slotRef.current.item.star)
+                          .destroy
+                      : getSuccessRate(slotRef.current.item.star).destroy
                   }%`}</S.RateLabel>
                   <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
                 </S.RateBlock>
@@ -394,7 +427,11 @@ const StarForce: React.FC = () => {
                   </S.Horizontal>
                   <S.Horizontal>
                     <S.Title style={{ fontSize: 18 }}>
-                      {numberWithCommas(getStarForceCost(slotRef.current.item))}
+                      {numberWithCommas(
+                        slotRef.current.item.isSuperior
+                          ? getSuperiorStarForceCost(slotRef.current.item)
+                          : getStarForceCost(slotRef.current.item)
+                      )}
                     </S.Title>
                   </S.Horizontal>
                 </S.Vertical>

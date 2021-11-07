@@ -382,3 +382,9 @@ export const getStarForceCost = (item: EquipItemType): number => {
   }
   return Math.round(result / 100) * 100
 }
+
+export const getSuperiorStarForceCost = (item: EquipItemType): number => {
+  const level = Math.round(item.level / 10) * 10
+  const result = Math.pow(level, 3.56)
+  return Math.round(result / 100) * 100
+}

@@ -2,7 +2,7 @@ import MapleButton from '@/components/common/MapleButton'
 import WindowContainer from '@/components/common/WindowContainer'
 import { numberUnit } from '@/components/FlameOfResurrection/Result/utils'
 import { EquipItemType } from '@/types/inventory'
-import { StarForceSetting } from '@/types/star-force'
+import { StarForceResult, StarForceSetting } from '@/types/star-force'
 import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import React from 'react'
 import { ControlPosition } from 'react-draggable'
@@ -14,24 +14,8 @@ const WonImage = `${process.env.PUBLIC_URL}/images/money/won.png`
 
 type Props = {
   item: EquipItemType | undefined
-  result: Map<
-    string,
-    {
-      destroyed: number
-      cost: number
-    }
-  >
-  setResult: React.Dispatch<
-    React.SetStateAction<
-      Map<
-        string,
-        {
-          destroyed: number
-          cost: number
-        }
-      >
-    >
-  >
+  result: Map<string, StarForceResult>
+  setResult: React.Dispatch<React.SetStateAction<Map<string, StarForceResult>>>
   position: ControlPosition
   starForceSetting: StarForceSetting
 }
@@ -46,7 +30,7 @@ const Result: React.FC<Props> = ({
     if (item === undefined) return
     const res = result.get(item.id)
     if (res) {
-      result.set(item.id, { cost: 0, destroyed: 0 })
+      result.set(item.id, { ...res, cost: 0, destroyed: 0 })
     }
     setResult(result)
   }

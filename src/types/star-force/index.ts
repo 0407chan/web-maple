@@ -10,3 +10,8 @@ export type StarForceSetting = {
   itemCost?: number
   exchangeRate?: number
 }
+
+export type StarForceResult = {
+  destroyed: number
+  cost: number
+}

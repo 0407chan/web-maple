@@ -164,8 +164,7 @@ const StarForce: React.FC = () => {
       tempItem = {
         ...tempItem,
         star: tempItem.star + 1,
-        starFailNumber:
-          tempItem.starFailNumber === 2 ? 0 : tempItem.starFailNumber
+        starFailNumber: 0
       }
       // popEffect(e, IMAGE.tooltip.tooltip_Item_Star)
     }

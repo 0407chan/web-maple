@@ -70,4 +70,5 @@ export type EquipItemType = {
   upgrade: number
   maxStar: number
   star: number
+  starFailNumber: number
 }

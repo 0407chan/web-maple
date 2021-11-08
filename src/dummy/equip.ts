@@ -5,6 +5,7 @@ export const EMPTY_EQUIP: EquipItemType = {
   job: '',
   level: 0,
   itemId: 0,
+  starFailNumber: 0,
   isDestroyed: false,
   bossReward: false,
   category: 'One-Handed Sword',

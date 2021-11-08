@@ -28,14 +28,23 @@ export const getMaxStarForSuperior = (level: number): number => {
   } else return 15
 }
 
-export const getSuccessRate = (star: number): SuccessRate => {
+export const getSuccessRate = (item: EquipItemType): SuccessRate => {
   let result: SuccessRate = {
     success: 0,
     failMaintain: 0,
     failDecrease: 0,
     destroy: 0
   }
-  switch (star) {
+  if (item.starFailNumber === 2)
+    return {
+      ...result,
+      success: 100
+    }
+  if (item.isSuperior) {
+    return getSuperiorSuccessRate(item)
+  }
+
+  switch (item.star) {
     case 0:
       result = {
         success: 95,
@@ -243,7 +252,7 @@ export const getSuccessRate = (star: number): SuccessRate => {
   return result
 }
 
-export const getSuperiorSuccessRate = (star: number): SuccessRate => {
+export const getSuperiorSuccessRate = (item: EquipItemType): SuccessRate => {
   let result: SuccessRate = {
     success: 0,
     failMaintain: 0,
@@ -251,7 +260,7 @@ export const getSuperiorSuccessRate = (star: number): SuccessRate => {
     destroy: 0
   }
 
-  switch (star) {
+  switch (item.star) {
     case 0:
       result = {
         success: 50,
@@ -369,6 +378,10 @@ export const getSuperiorSuccessRate = (star: number): SuccessRate => {
   return result
 }
 export const getStarForceCost = (item: EquipItemType): number => {
+  if (item.isSuperior) {
+    return getSuperiorStarForceCost(item)
+  }
+
   let result = 0
 
   if (item.star <= 9) {

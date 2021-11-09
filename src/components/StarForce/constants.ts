@@ -401,3 +401,10 @@ export const getSuperiorStarForceCost = (item: EquipItemType): number => {
   const result = Math.pow(level, 3.56)
   return Math.round(result / 100) * 100
 }
+
+export const canStarForce = (item: EquipItemType): boolean => {
+  if (item.islots === 'Po' || item.islots === 'Si' || item.islots === 'Me')
+    return false
+
+  return true
+}

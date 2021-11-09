@@ -47,8 +47,8 @@ const Item: React.FC<ItemProps> = ({ slot, canDrag }) => {
 
   const setDispalyNoneAction = () => {
     if (slot.item?.id === '') return
-    // onHideTooltip()
-    // onSetCurrentItem(undefined)
+    onHideTooltip()
+    onSetCurrentItem(undefined)
   }
 
   const setMousePosition = (

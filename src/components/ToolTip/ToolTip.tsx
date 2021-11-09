@@ -45,15 +45,15 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
     RequierdLevel
   } = currentItem
 
-  const position = {
-    top: `0px`,
-    left: `0px`
-  }
-
   // const position = {
-  //   top: `${mouseY + 3}px`,
-  //   left: `${mouseX + 3}px`
+  //   top: `0px`,
+  //   left: `0px`
   // }
+
+  const position = {
+    top: `${mouseY + 3}px`,
+    left: `${mouseX + 3}px`
+  }
 
   // const position = {
   //   top: positionY,

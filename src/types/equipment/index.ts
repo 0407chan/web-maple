@@ -21,6 +21,10 @@ export type ISlotsType =
   | 'Pe' // 펜던트
   | 'Ri' // 반지
   | 'Sh' // 견장
+  | 'Po' // 포켓
+  | 'Ba' //뱃지
+  | 'Me' //메달
+  | 'Tm' //하트
 
 export const SlotName: Record<ISlotsType, ISlotsTypeName> = {
   Wp: 'Weapon',
@@ -37,7 +41,11 @@ export const SlotName: Record<ISlotsType, ISlotsTypeName> = {
   Af: 'Face Acc',
   Pe: 'Pendant',
   Ri: 'Ring',
-  Sh: 'Shoulder'
+  Sh: 'Shoulder',
+  Po: 'Pocket',
+  Ba: 'Badge',
+  Me: 'Medal',
+  Tm: 'Heart'
 }
 
 export type ISlotsTypeName =
@@ -56,6 +64,10 @@ export type ISlotsTypeName =
   | 'Pendant'
   | 'Ring'
   | 'Shoulder'
+  | 'Pocket'
+  | 'Badge'
+  | 'Medal'
+  | 'Heart'
 
 export type EquipmentSlotType =
   | 'Weapon'

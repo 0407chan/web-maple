@@ -2,11 +2,11 @@ import MapleButton from '@/components/common/MapleButton'
 import WindowContainer from '@/components/common/WindowContainer'
 import { FlameSettingType, FlameType } from '@/types/flame'
 import { EquipItemType } from '@/types/inventory'
+import { numberUnit } from '@/utils/number/numberUnit'
 import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import React from 'react'
 import { ControlPosition } from 'react-draggable'
 import * as S from './style'
-import { numberUnit } from './utils'
 
 // 2048716 강환불 Powerful Rebirth Flame
 // 2048717 영환불 Eternal Rebirth Flame

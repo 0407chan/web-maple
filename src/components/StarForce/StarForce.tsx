@@ -429,23 +429,44 @@ const StarForce: React.FC = () => {
             {slotRef.current.item?.isDestroyed ? (
               <MapleButton onClick={onRecoverItem}>아이템 복구</MapleButton>
             ) : (
-              <MapleButton
-                disabled={
-                  slotRef.current.item === undefined ||
-                  slotRef.current.item?.isDestroyed ||
-                  isMaxStar() ||
-                  !canStarForce(slotRef.current.item)
-                }
-                onClick={(e) => (isAuto ? onAutoStarForce(e) : onStarForce(e))}
-              >
-                <S.StarImage
-                  isLoading={isStarForceRunning}
-                  width={13}
-                  src={IMAGE.tooltip.tooltip_Item_Star}
-                  alt="star-force-image"
-                />
-                강화
-              </MapleButton>
+              <>
+                {slotRef.current.item && (
+                  <MapleButton
+                    disabled={
+                      slotRef.current.item === undefined ||
+                      slotRef.current.item?.isDestroyed ||
+                      isStarForceRunning ||
+                      isMaxStar() ||
+                      !canStarForce(slotRef.current.item)
+                    }
+                    onClick={() =>
+                      slotRef.current.item &&
+                      updateSlotItem({ ...slotRef.current.item, star: 0 })
+                    }
+                  >
+                    초기화
+                  </MapleButton>
+                )}
+                <MapleButton
+                  disabled={
+                    slotRef.current.item === undefined ||
+                    slotRef.current.item?.isDestroyed ||
+                    isMaxStar() ||
+                    !canStarForce(slotRef.current.item)
+                  }
+                  onClick={(e) =>
+                    isAuto ? onAutoStarForce(e) : onStarForce(e)
+                  }
+                >
+                  <S.StarImage
+                    isLoading={isStarForceRunning}
+                    width={13}
+                    src={IMAGE.tooltip.tooltip_Item_Star}
+                    alt="star-force-image"
+                  />
+                  강화
+                </MapleButton>
+              </>
             )}
           </S.Horizontal>
         </S.Contianer>

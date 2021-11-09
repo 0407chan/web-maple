@@ -14,6 +14,7 @@ import WindowContainer from '../common/WindowContainer'
 import { getRandomNum } from '../FlameOfResurrection/utils'
 import Slot from '../Inventory/Slot'
 import {
+  canStarForce,
   getStarForceCost,
   getSuccessRate,
   getSuperiorStarForceCost
@@ -43,7 +44,7 @@ const StarForce: React.FC = () => {
   })
   const [starForceSlot, setStarForceSlot] = useState<SlotType>(initSlot)
   const slotRef = useRef(starForceSlot)
-  const updateSlotItem = (newItem: EquipItemType) => {
+  const updateSlotItem = (newItem?: EquipItemType) => {
     slotRef.current = { ...slotRef.current, item: newItem }
     setStarForceSlot({ ...slotRef.current, item: newItem })
   }
@@ -310,11 +311,11 @@ const StarForce: React.FC = () => {
         title="EQUIPMENT ENCHANT"
         windowType="EquipmentEnchant"
         onDrag={(e, data) => setPosition({ x: data.x, y: data.y })}
-        onClose={() => setStarForceSlot(initSlot)}
+        onClose={() => updateSlotItem(undefined)}
         position={position}
       >
         <S.Contianer>
-          {slotRef.current.item && (
+          {slotRef.current.item && canStarForce(slotRef.current.item) && (
             <S.StarWrapper>{renderStar()}</S.StarWrapper>
           )}
           <Slot
@@ -325,46 +326,48 @@ const StarForce: React.FC = () => {
             className="star-force-slot"
             isCanDrop={false}
           />
-          {slotRef.current.item && !isMaxStar() && (
-            <S.Vertical>
-              <S.Horizontal style={{ gap: 10 }}>
-                <S.RateBlock
-                  isChance={slotRef.current.item.starFailNumber === 2}
-                >
-                  <S.RateLabel>{`${
-                    getSuccessRate(slotRef.current.item).success
-                  }%`}</S.RateLabel>
-                  {slotRef.current.item.starFailNumber === 2 ? (
-                    <S.RateLabel rateType="SUCCESS">찬스타임!</S.RateLabel>
-                  ) : (
-                    <S.RateLabel rateType="SUCCESS">성공</S.RateLabel>
+          {slotRef.current.item &&
+            canStarForce(slotRef.current.item) &&
+            !isMaxStar() && (
+              <S.Vertical>
+                <S.Horizontal style={{ gap: 10 }}>
+                  <S.RateBlock
+                    isChance={slotRef.current.item.starFailNumber === 2}
+                  >
+                    <S.RateLabel>{`${
+                      getSuccessRate(slotRef.current.item).success
+                    }%`}</S.RateLabel>
+                    {slotRef.current.item.starFailNumber === 2 ? (
+                      <S.RateLabel rateType="SUCCESS">찬스타임!</S.RateLabel>
+                    ) : (
+                      <S.RateLabel rateType="SUCCESS">성공</S.RateLabel>
+                    )}
+                  </S.RateBlock>
+                  {getSuccessRate(slotRef.current.item).failMaintain > 0 && (
+                    <S.RateBlock>
+                      <S.RateLabel>{`${
+                        getSuccessRate(slotRef.current.item).failMaintain
+                      }%`}</S.RateLabel>
+                      <S.RateLabel rateType="FAIL">실패(유지)</S.RateLabel>
+                    </S.RateBlock>
                   )}
-                </S.RateBlock>
-                {getSuccessRate(slotRef.current.item).failMaintain > 0 && (
+                  {getSuccessRate(slotRef.current.item).failDecrease > 0 && (
+                    <S.RateBlock>
+                      <S.RateLabel>{`${
+                        getSuccessRate(slotRef.current.item).failDecrease
+                      }%`}</S.RateLabel>
+                      <S.RateLabel rateType="FAIL">실패(하락)</S.RateLabel>
+                    </S.RateBlock>
+                  )}
                   <S.RateBlock>
                     <S.RateLabel>{`${
-                      getSuccessRate(slotRef.current.item).failMaintain
+                      getSuccessRate(slotRef.current.item).destroy
                     }%`}</S.RateLabel>
-                    <S.RateLabel rateType="FAIL">실패(유지)</S.RateLabel>
+                    <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
                   </S.RateBlock>
-                )}
-                {getSuccessRate(slotRef.current.item).failDecrease > 0 && (
-                  <S.RateBlock>
-                    <S.RateLabel>{`${
-                      getSuccessRate(slotRef.current.item).failDecrease
-                    }%`}</S.RateLabel>
-                    <S.RateLabel rateType="FAIL">실패(하락)</S.RateLabel>
-                  </S.RateBlock>
-                )}
-                <S.RateBlock>
-                  <S.RateLabel>{`${
-                    getSuccessRate(slotRef.current.item).destroy
-                  }%`}</S.RateLabel>
-                  <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
-                </S.RateBlock>
-              </S.Horizontal>
+                </S.Horizontal>
 
-              {/* <S.Horizontal style={{ gap: 10 }}>
+                {/* <S.Horizontal style={{ gap: 10 }}>
               <S.RateBlock>
                 <S.RateLabel
                   style={{
@@ -402,33 +405,40 @@ const StarForce: React.FC = () => {
                 <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
               </S.RateBlock>
             </S.Horizontal> */}
-            </S.Vertical>
-          )}
+              </S.Vertical>
+            )}
           <S.Result>
             {slotRef.current.item ? (
-              !isMaxStar() ? (
-                <S.Vertical
-                  style={{ justifyContent: 'space-between', height: '100%' }}
-                >
-                  <S.Horizontal>
-                    {`${slotRef.current.item.star}성 > ${
-                      slotRef.current.item.star + 1
-                    }성`}
-                  </S.Horizontal>
-                  <S.Horizontal>
-                    <S.Title style={{ fontSize: 18 }}>
-                      {numberWithCommas(
-                        slotRef.current.item.isSuperior
-                          ? getSuperiorStarForceCost(slotRef.current.item)
-                          : getStarForceCost(slotRef.current.item)
-                      )}
-                    </S.Title>
-                  </S.Horizontal>
-                </S.Vertical>
+              canStarForce(slotRef.current.item) ? (
+                !isMaxStar() ? (
+                  <S.Vertical
+                    style={{ justifyContent: 'space-between', height: '100%' }}
+                  >
+                    <S.Horizontal>
+                      {`${slotRef.current.item.star}성 > ${
+                        slotRef.current.item.star + 1
+                      }성`}
+                    </S.Horizontal>
+                    <S.Horizontal>
+                      <S.Title style={{ fontSize: 18 }}>
+                        {numberWithCommas(
+                          slotRef.current.item.isSuperior
+                            ? getSuperiorStarForceCost(slotRef.current.item)
+                            : getStarForceCost(slotRef.current.item)
+                        )}
+                      </S.Title>
+                    </S.Horizontal>
+                  </S.Vertical>
+                ) : (
+                  <>
+                    <div>장비가 한계까지 강화되어</div>
+                    <div>더 이상 강화할 수 없습니다.</div>
+                  </>
+                )
               ) : (
                 <>
-                  <div>장비가 한계까지 강화되어</div>
-                  <div>더 이상 강화할 수 없습니다.</div>
+                  <div>스타포스 강화 할 수 없는 아이템입니다.</div>
+                  <div>다른 아이템을 선택해주세요.</div>
                 </>
               )
             ) : (
@@ -462,7 +472,8 @@ const StarForce: React.FC = () => {
                 disabled={
                   slotRef.current.item === undefined ||
                   slotRef.current.item?.isDestroyed ||
-                  isMaxStar()
+                  isMaxStar() ||
+                  !canStarForce(slotRef.current.item)
                 }
                 onClick={(e) => (isAuto ? onAutoStarForce(e) : onStarForce(e))}
               >

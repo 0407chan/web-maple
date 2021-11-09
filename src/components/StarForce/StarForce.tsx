@@ -186,7 +186,7 @@ const StarForce: React.FC = () => {
         ...tempItem,
         star: tempItem.isSuperior ? 0 : 12,
         isDestroyed: true,
-        starFailNumber: tempItem.starFailNumber + 1
+        starFailNumber: 0
       }
       // popEffect(e, slotRef.current.item.image)
     }
@@ -260,7 +260,7 @@ const StarForce: React.FC = () => {
     event: React.MouseEvent<HTMLElement, MouseEvent>,
     image?: string
   ) => {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 22; i++) {
       createParticle(event.clientX, event.clientY)
     }
 
@@ -293,7 +293,7 @@ const StarForce: React.FC = () => {
           }
         ],
         {
-          duration: 300 + Math.random() * 300,
+          duration: 500 + Math.random() * 400,
           easing: 'cubic-bezier(0, .9, .57, 1)',
           delay: Math.random() * 200
         }
@@ -366,45 +366,6 @@ const StarForce: React.FC = () => {
                     <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
                   </S.RateBlock>
                 </S.Horizontal>
-
-                {/* <S.Horizontal style={{ gap: 10 }}>
-              <S.RateBlock>
-                <S.RateLabel
-                  style={{
-                    width: '100%',
-                    textAlign: 'right',
-                    paddingRight: 10
-                  }}
-                >
-                  {tryRef.current.success}
-                </S.RateLabel>
-                <S.RateLabel rateType="SUCCESS">성공</S.RateLabel>
-              </S.RateBlock>
-              <S.RateBlock>
-                <S.RateLabel
-                  style={{
-                    width: '100%',
-                    textAlign: 'right',
-                    paddingRight: 10
-                  }}
-                >
-                  {tryRef.current.fail}
-                </S.RateLabel>
-                <S.RateLabel rateType="FAIL">실패</S.RateLabel>
-              </S.RateBlock>
-              <S.RateBlock>
-                <S.RateLabel
-                  style={{
-                    width: '100%',
-                    textAlign: 'right',
-                    paddingRight: 10
-                  }}
-                >
-                  {tryRef.current.destroy}
-                </S.RateLabel>
-                <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
-              </S.RateBlock>
-            </S.Horizontal> */}
               </S.Vertical>
             )}
           <S.Result>

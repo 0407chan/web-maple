@@ -4,6 +4,7 @@ import useUser from '@/hooks/useUser'
 import { StatusBase } from '@/types/inventory'
 import IMAGE from '@/utils/images'
 import React from 'react'
+import { canStarForce } from '../StarForce/constants'
 import * as S from './style'
 
 type ToolTipProps = {
@@ -219,7 +220,9 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
       onMouseEnter={setMousePosition}
       onMouseMove={setMousePosition}
     >
-      <S.StarWrapper>{renderStar()}</S.StarWrapper>
+      {canStarForce(currentItem) && (
+        <S.StarWrapper>{renderStar()}</S.StarWrapper>
+      )}
       <S.ItemNameWapper>
         <S.ItemName>
           {currentItem.name}

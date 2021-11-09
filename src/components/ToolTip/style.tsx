@@ -135,7 +135,7 @@ export const StarWrapper = styled.div`
   align-items: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 15px 40px;
+  padding: 15px 40px 0 40px;
 `
 
 export const StarBundleWrapper = styled.div`
@@ -150,6 +150,7 @@ export const ItemNameWapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 15px;
 `
 
 export const ItemName = styled.div`

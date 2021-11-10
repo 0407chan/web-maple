@@ -14,10 +14,10 @@ import WindowContainer from '../common/WindowContainer'
 import { getRandomNum } from '../FlameOfResurrection/utils'
 import Slot from '../Inventory/Slot'
 import {
+  canSafeGuard,
   canStarForce,
   getStarForceCost,
-  getSuccessRate,
-  getSuperiorStarForceCost
+  getSuccessRate
 } from './constants'
 import Result from './Result'
 import StatusSetting from './StatusSetting'
@@ -35,6 +35,7 @@ const StarForce: React.FC = () => {
   const { onHideTooltip } = useToolTip()
   const [isAuto, setIsAuto] = useState<boolean>(false)
   const [isStarForceRunning, setIsStarForceRunning] = useState<boolean>(false)
+  const [isSafeGuard, setIsSafeGuard] = useState<boolean>(false)
   const [autoTimer, setAutoTimer] = useState<NodeJS.Timer>()
 
   const intervalRef = useRef(autoTimer)
@@ -151,13 +152,17 @@ const StarForce: React.FC = () => {
     const rate = getSuccessRate(slotRef.current.item)
 
     const success = rate.success
-    const fail =
+    let fail =
       rate.success +
       (rate.failDecrease > 0
         ? rate.failDecrease
         : 0 + rate.failMaintain > 0
         ? rate.failMaintain
         : 0)
+    if (canSafeGuard(slotRef.current.item) && isSafeGuard) {
+      fail += rate.destroy
+    }
+
     let tempItem: EquipItemType = { ...slotRef.current.item }
 
     // 성공
@@ -192,6 +197,10 @@ const StarForce: React.FC = () => {
     }
 
     const starCost = getStarForceCost(slotRef.current.item)
+    const safeGuardCost =
+      canSafeGuard(slotRef.current.item) && isSafeGuard
+        ? getStarForceCost(slotRef.current.item)
+        : 0
 
     //가격, 터진 횟수 누적
     let itemResult = starForceResult.get(slotRef.current.item.id)
@@ -200,13 +209,13 @@ const StarForce: React.FC = () => {
       const destroyed = itemResult.destroyed
       itemResult = {
         ...itemResult,
-        cost: cost + starCost,
+        cost: cost + starCost + safeGuardCost,
         destroyed: destroyed + (tempItem.isDestroyed ? 1 : 0)
       }
       starForceResult.set(slotRef.current.item.id, itemResult)
     } else {
       const newResult = {
-        cost: starCost,
+        cost: starCost + safeGuardCost,
         destroyed: tempItem.isDestroyed ? 1 : 0
       }
       starForceResult.set(slotRef.current.item.id, newResult)
@@ -359,7 +368,9 @@ const StarForce: React.FC = () => {
                       <S.RateLabel rateType="FAIL">실패(하락)</S.RateLabel>
                     </S.RateBlock>
                   )}
-                  <S.RateBlock>
+                  <S.RateBlock
+                    disabled={canSafeGuard(slotRef.current.item) && isSafeGuard}
+                  >
                     <S.RateLabel>{`${
                       getSuccessRate(slotRef.current.item).destroy
                     }%`}</S.RateLabel>
@@ -383,9 +394,10 @@ const StarForce: React.FC = () => {
                     <S.Horizontal>
                       <S.Title style={{ fontSize: 18 }}>
                         {numberWithCommas(
-                          slotRef.current.item.isSuperior
-                            ? getSuperiorStarForceCost(slotRef.current.item)
-                            : getStarForceCost(slotRef.current.item)
+                          getStarForceCost(slotRef.current.item) +
+                            (canSafeGuard(slotRef.current.item) && isSafeGuard
+                              ? getStarForceCost(slotRef.current.item)
+                              : 0)
                         )}
                       </S.Title>
                     </S.Horizontal>
@@ -424,6 +436,19 @@ const StarForce: React.FC = () => {
             >
               <S.Title>자동</S.Title>
             </Checkbox>
+            <Checkbox
+              disabled={slotRef.current.item && slotRef.current.item.star >= 17}
+              checked={
+                slotRef.current.item &&
+                slotRef.current.item.star < 17 &&
+                isSafeGuard
+              }
+              onChange={(event) => {
+                setIsSafeGuard(event.target.checked)
+              }}
+            >
+              <S.Title>파괴방지</S.Title>
+            </Checkbox>
           </S.Horizontal>
           <S.Horizontal>
             {slotRef.current.item?.isDestroyed ? (
@@ -441,7 +466,11 @@ const StarForce: React.FC = () => {
                     }
                     onClick={() =>
                       slotRef.current.item &&
-                      updateSlotItem({ ...slotRef.current.item, star: 0 })
+                      updateSlotItem({
+                        ...slotRef.current.item,
+                        star: 0,
+                        starFailNumber: 0
+                      })
                     }
                   >
                     초기화

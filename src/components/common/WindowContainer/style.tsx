@@ -6,9 +6,10 @@ export const Contianer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(60, 60, 60, 0.9);
+  background-color: rgba(60, 60, 60, 0.93);
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.8);
   border-radius: 5px;
+  border: 1px solid rgba(169, 169, 169, 0.9);
   padding: 15px;
   padding-top: 0;
   gap: 10px;

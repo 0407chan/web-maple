@@ -2,7 +2,8 @@ import {
   EquipGroup,
   ISlotsType,
   SubCategory,
-  SubCategoryName
+  SubCategoryName,
+  TypeInfo
 } from '../equipment'
 
 export type InventoryType = 'Equip' | 'Use' | 'Etc'
@@ -38,6 +39,7 @@ export type EquipItemType = {
   id: string
   itemId: number
   job: string
+  typeInfo?: TypeInfo
   bossReward: boolean
   level: number
   islots: ISlotsType

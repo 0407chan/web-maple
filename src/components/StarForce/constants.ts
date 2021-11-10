@@ -410,3 +410,8 @@ export const canStarForce = (item: EquipItemType): boolean => {
 
   return true
 }
+
+export const canSafeGuard = (item: EquipItemType): boolean => {
+  if (item.star >= 12 && item.star <= 16) return true
+  return false
+}

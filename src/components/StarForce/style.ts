@@ -80,7 +80,7 @@ const glowing = keyframes`
   50% { background-position: 400% 0; }
   100% { background-position: 0 0; }
 `
-export const RateBlock = styled.div<{ isChance?: boolean }>`
+export const RateBlock = styled.div<{ isChance?: boolean; disabled?: boolean }>`
   display: flex;
   width: 100%;
   padding: 5px 0;
@@ -135,6 +135,11 @@ export const RateBlock = styled.div<{ isChance?: boolean }>`
     left: 0;
     top: 0;
     border-radius: 5px;
+
+    ${(props) =>
+      props.disabled && {
+        background: '#979797'
+      }}
   }
 `
 

@@ -403,6 +403,8 @@ export const getSuperiorStarForceCost = (item: EquipItemType): number => {
 }
 
 export const canStarForce = (item: EquipItemType): boolean => {
+  if (item.typeInfo?.subCategory === 'Katara') return true
+
   if (item.islots === 'Po' || item.islots === 'Si' || item.islots === 'Me')
     return false
 

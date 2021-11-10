@@ -12,11 +12,12 @@ import { EquipItemType } from '@/types/inventory'
 import { v4 as uuid } from 'uuid'
 
 export const transDtoToType = (itemDto: EquipmentItemDto): EquipItemType => {
-  // console.log(itemDto.description.name, itemDto)
+  // console.log(itemDto.description.name, itemDto.typeInfo.subCategory)
   // const newImage = await getEquipmentRawImage({ itemId: itemDto.id })
   const result: EquipItemType = {
     ...EMPTY_EQUIP,
     id: uuid(),
+    typeInfo: itemDto.typeInfo,
     itemId: itemDto.id,
     bossReward:
       itemDto.metaInfo.bossReward !== undefined &&

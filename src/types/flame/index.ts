@@ -17,6 +17,8 @@ export type SimpleStatusSettingType = {
   statType?: StatType
   attackPerStat?: number
   allStatPerStat?: number
+
+  attackGrage?: number
 }
 
 export type FlameSettingType = {

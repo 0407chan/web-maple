@@ -41,6 +41,8 @@ import {
   getRandomNum,
   getSingleStatDetail,
   getWeaponOption,
+  isMasicAttack,
+  isWeapon,
   roundToOne
 } from './utils'
 
@@ -81,7 +83,8 @@ const FlameOfResurrection: React.FC = () => {
     useState<SimpleStatusSettingType>({
       statType: 'STR',
       allStatPerStat: 10,
-      attackPerStat: 4
+      attackPerStat: 4,
+      attackGrage: 0
     })
   const [flameCostSetting, setFlameCostSetting] = useState<FlameSettingType>({
     POWERFUL: 50000000,
@@ -442,16 +445,38 @@ const FlameOfResurrection: React.FC = () => {
   const checkForSimpleAuto = (type: FlameType, newItem: EquipItemType) => {
     if (intervalRef.current === undefined) return
 
-    if (
-      (simpleStatusSetting.expectStat &&
-        simpleStatusSetting.expectStat <= getTotalStat(newItem)) ||
-      !simpleStatusSetting.expectStat
-    ) {
-      clearInterval(intervalRef.current)
-      if (type === 'ETERNAL') {
-        setIsEternalAuto(false)
-      } else {
-        setIsPowerfulAuto(false)
+    if (isWeapon(newItem)) {
+      if (
+        (!isMasicAttack(newItem) &&
+          newItem.WEAPON_ATTACK.bonusDetail &&
+          simpleStatusSetting.attackGrage &&
+          simpleStatusSetting.attackGrage >=
+            newItem.WEAPON_ATTACK.bonusDetail[0].grade) ||
+        (isMasicAttack(newItem) &&
+          newItem.MAGIC_ATTACK.bonusDetail &&
+          simpleStatusSetting.attackGrage &&
+          simpleStatusSetting.attackGrage >=
+            newItem.MAGIC_ATTACK.bonusDetail[0].grade)
+      ) {
+        clearInterval(intervalRef.current)
+        if (type === 'ETERNAL') {
+          setIsEternalAuto(false)
+        } else {
+          setIsPowerfulAuto(false)
+        }
+      }
+    } else {
+      if (
+        (simpleStatusSetting.expectStat &&
+          simpleStatusSetting.expectStat <= getTotalStat(newItem)) ||
+        !simpleStatusSetting.expectStat
+      ) {
+        clearInterval(intervalRef.current)
+        if (type === 'ETERNAL') {
+          setIsEternalAuto(false)
+        } else {
+          setIsPowerfulAuto(false)
+        }
       }
     }
   }
@@ -589,7 +614,7 @@ const FlameOfResurrection: React.FC = () => {
                       </S.Horizontal>
                     )}
                   </div>
-                  {autoType === 'SIMPLE' && (
+                  {autoType === 'SIMPLE' && !isWeapon(item) && (
                     <S.Horizontal style={{ gap: 4 }}>
                       <span>{simpleStatusSetting.statType}</span>
                       <S.FlameStatLabel
@@ -675,7 +700,9 @@ const FlameOfResurrection: React.FC = () => {
         >
           <S.FlameStatLabel
             isMyStat={
-              autoType === 'DETAIL' ? isMyStatForDetail() : isMyStatForSimple()
+              autoType === 'DETAIL'
+                ? isMyStatForDetail()
+                : isMyStatForSimple(key)
             }
           >
             {stat.label} : {stat.bonus}
@@ -702,40 +729,63 @@ const FlameOfResurrection: React.FC = () => {
         isExist !== undefined && status !== undefined && stat.bonus >= status
       )
     }
-    function isMyStatForSimple() {
-      if (
-        simpleStatusSetting.expectStat &&
-        simpleStatusSetting.expectStat <= getTotalStat() &&
-        stat.bonus > 0
-      ) {
-        if (simpleStatusSetting.statType === key) {
-          return true
-        }
+    function isMyStatForSimple(key?: keyof EquipItemType) {
+      if (!item) return
+
+      if (isWeapon(item)) {
         if (
-          simpleStatusSetting.attackPerStat &&
-          simpleStatusSetting.attackPerStat > 0 &&
-          simpleStatusSetting.statType !== 'INT' &&
-          key === 'WEAPON_ATTACK'
+          !isMasicAttack(item) &&
+          key === 'WEAPON_ATTACK' &&
+          simpleStatusSetting.attackGrage &&
+          stat.bonusDetail &&
+          stat.bonusDetail[0].grade <= simpleStatusSetting.attackGrage
         ) {
           return true
         }
         if (
-          simpleStatusSetting.attackPerStat &&
-          simpleStatusSetting.attackPerStat > 0 &&
-          simpleStatusSetting.statType === 'INT' &&
-          key === 'MAGIC_ATTACK'
+          isMasicAttack(item) &&
+          key === 'MAGIC_ATTACK' &&
+          simpleStatusSetting.attackGrage &&
+          stat.bonusDetail &&
+          stat.bonusDetail[0].grade <= simpleStatusSetting.attackGrage
         ) {
           return true
         }
+      } else {
         if (
-          simpleStatusSetting.allStatPerStat &&
-          simpleStatusSetting.allStatPerStat > 0 &&
-          key === 'AllStat'
+          simpleStatusSetting.expectStat &&
+          simpleStatusSetting.expectStat <= getTotalStat() &&
+          stat.bonus > 0
         ) {
-          return true
+          if (simpleStatusSetting.statType === key) {
+            return true
+          }
+          if (
+            simpleStatusSetting.attackPerStat &&
+            simpleStatusSetting.attackPerStat > 0 &&
+            simpleStatusSetting.statType !== 'INT' &&
+            key === 'WEAPON_ATTACK'
+          ) {
+            return true
+          }
+          if (
+            simpleStatusSetting.attackPerStat &&
+            simpleStatusSetting.attackPerStat > 0 &&
+            simpleStatusSetting.statType === 'INT' &&
+            key === 'MAGIC_ATTACK'
+          ) {
+            return true
+          }
+          if (
+            simpleStatusSetting.allStatPerStat &&
+            simpleStatusSetting.allStatPerStat > 0 &&
+            key === 'AllStat'
+          ) {
+            return true
+          }
         }
+        return false
       }
-      return false
     }
   }
 }

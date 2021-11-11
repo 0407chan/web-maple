@@ -11,7 +11,7 @@ export type StatusSettingType = {
   demage?: number
 }
 
-export type StatType = 'STR' | 'LUK' | 'INT' | 'DEX'
+export type StatType = 'STR' | 'LUK' | 'INT' | 'DEX' | 'ALL'
 export type SimpleStatusSettingType = {
   // 방어구
   expectStat?: number

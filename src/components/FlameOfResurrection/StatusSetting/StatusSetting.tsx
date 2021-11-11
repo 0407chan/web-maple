@@ -132,11 +132,13 @@ const StatusSetting: React.FC<Props> = ({
                       value={simpleStatusSetting.statType}
                       buttonStyle="solid"
                       optionType="button"
+                      size="small"
                       options={[
                         { value: 'STR', label: 'STR' },
                         { value: 'DEX', label: 'DEX' },
                         { value: 'INT', label: 'INT' },
-                        { value: 'LUK', label: 'LUK' }
+                        { value: 'LUK', label: 'LUK' },
+                        { value: 'ALL', label: '아무거나' }
                       ]}
                       onChange={(e) => {
                         const key = e.target.value as StatType

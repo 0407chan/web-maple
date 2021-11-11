@@ -12,8 +12,8 @@ import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import React, { useEffect } from 'react'
 import { ControlPosition } from 'react-draggable'
 import { isMasicAttack, isWeapon } from '../utils'
+import { StatusName } from './contants'
 import * as S from './style'
-import { StatusName } from './utils'
 
 const WonImage = `${process.env.PUBLIC_URL}/images/money/won.png`
 
@@ -64,6 +64,9 @@ const StatusSetting: React.FC<Props> = ({
       })
     }
   }, [item])
+  useEffect(() => {
+    console.log(JSON.stringify(simpleStatusSetting, null, 2))
+  }, [simpleStatusSetting])
 
   return (
     <WindowContainer
@@ -109,31 +112,22 @@ const StatusSetting: React.FC<Props> = ({
               {item ? (
                 isWeapon(item) ? (
                   <S.Vertical style={{ alignItems: 'flex-start' }}>
-                    <S.Horizontal>
-                      <S.Text>
-                        {isMasicAttack(item)
-                          ? StatusName.MAGIC_ATTACK
-                          : StatusName.WEAPON_ATTACK}
-                      </S.Text>
-                      <S.RadioGroup
-                        optionType="button"
-                        size="small"
-                        buttonStyle="solid"
-                        value={simpleStatusSetting.attackGrage}
-                        options={[
-                          { label: '없음', value: 0 },
-                          { label: '1추', value: 1 },
-                          { label: '2추', value: 2 },
-                          { label: '3추', value: 3 }
-                        ]}
-                        onChange={(e) =>
-                          setSimpleStatusSetting({
-                            ...simpleStatusSetting,
-                            attackGrage: e.target.value
-                          })
-                        }
-                      />
-                    </S.Horizontal>
+                    {renderSimpleStatusSettingForWeapon(
+                      isMasicAttack(item) ? 'MAGIC_ATTACK' : 'WEAPON_ATTACK',
+                      'attackGrage'
+                    )}
+                    {renderSimpleStatusSettingForWeapon(
+                      'bossDemage',
+                      'bossGrade'
+                    )}
+                    {renderSimpleStatusSettingForWeapon(
+                      'demage',
+                      'demageGrade'
+                    )}
+                    {renderSimpleStatusSettingForWeapon(
+                      'AllStat',
+                      'allStatGrade'
+                    )}
                   </S.Vertical>
                 ) : (
                   <S.Vertical>
@@ -358,6 +352,41 @@ const StatusSetting: React.FC<Props> = ({
               [type]: newValue ? Number(newValue) : undefined
             })
           }}
+        />
+      </S.Horizontal>
+    )
+  }
+
+  function renderSimpleStatusSettingForWeapon(
+    type: keyof StatusSettingType,
+    simpleKey: keyof SimpleStatusSettingType
+  ) {
+    if (!item) return null
+    return (
+      <S.Horizontal style={{ gap: 0 }}>
+        <S.Text style={{ width: 'fit-content' }}>{StatusName[type]}</S.Text>
+        <S.RadioGroup
+          optionType="button"
+          size="small"
+          buttonStyle="solid"
+          value={
+            simpleStatusSetting[simpleKey] !== undefined
+              ? simpleStatusSetting[simpleKey]
+              : 0
+          }
+          options={[
+            { label: '없음', value: 0 },
+            { label: '1추', value: 1 },
+            { label: '2추', value: 2 },
+            { label: '3추', value: 3 },
+            { label: '4추', value: 4 }
+          ]}
+          onChange={(e) =>
+            setSimpleStatusSetting({
+              ...simpleStatusSetting,
+              [simpleKey]: e.target.value === 0 ? undefined : e.target.value
+            })
+          }
         />
       </S.Horizontal>
     )

@@ -64,9 +64,6 @@ const StatusSetting: React.FC<Props> = ({
       })
     }
   }, [item])
-  useEffect(() => {
-    console.log(JSON.stringify(simpleStatusSetting, null, 2))
-  }, [simpleStatusSetting])
 
   return (
     <WindowContainer

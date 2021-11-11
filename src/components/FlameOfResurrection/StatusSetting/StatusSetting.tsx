@@ -223,6 +223,7 @@ const StatusSetting: React.FC<Props> = ({
                     max={19.9}
                     min={0}
                     step={0.1}
+                    size="small"
                     style={{ width: '100%' }}
                     placeholder={'숫자를 입력해주세요.'}
                     value={simpleStatusSetting.allStatPerStat}

@@ -9,8 +9,9 @@ import {
 } from '@/types/flame'
 import { EquipItemType } from '@/types/inventory'
 import { numberWithCommas } from '@/utils/number/numberWithCommas'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { ControlPosition } from 'react-draggable'
+import { isMasicAttack, isWeapon } from '../utils'
 import * as S from './style'
 import { StatusName } from './utils'
 
@@ -52,9 +53,7 @@ const StatusSetting: React.FC<Props> = ({
   simpleStatusSetting,
   setSimpleStatusSetting
 }) => {
-  const isWeapon = () => item?.islots === 'Wp'
-  const ref = useRef()
-  const regex = /[^0-9, ]/g
+  const regex = /[^0-9]/g
 
   useEffect(() => {
     if (item === undefined) {
@@ -94,7 +93,11 @@ const StatusSetting: React.FC<Props> = ({
               size="small"
               onClick={() => {
                 setStatusSetting({})
-                setSimpleStatusSetting({ statType: 'STR' })
+                setSimpleStatusSetting({
+                  statType: 'STR',
+                  allStatPerStat: 10,
+                  attackPerStat: 4
+                })
               }}
             >
               초기화
@@ -103,42 +106,76 @@ const StatusSetting: React.FC<Props> = ({
           {/* 간편 모드 */}
           {autoType === 'SIMPLE' && (
             <S.Block isLoading={loading}>
-              <S.Vertical>
-                <S.RadioGroup
-                  value={simpleStatusSetting.statType}
-                  buttonStyle="solid"
-                  optionType="button"
-                  options={[
-                    { value: 'STR', label: 'STR' },
-                    { value: 'DEX', label: 'DEX' },
-                    { value: 'INT', label: 'INT' },
-                    { value: 'LUK', label: 'LUK' }
-                  ]}
-                  onChange={(e) => {
-                    const key = e.target.value as StatType
-                    setSimpleStatusSetting({
-                      ...simpleStatusSetting,
-                      statType: key
-                    })
-                  }}
-                />
-                <S.Input
-                  maxLength={3}
-                  min={0}
-                  placeholder="수치를 입력해주세요"
-                  value={simpleStatusSetting.expectStat}
-                  suffix="급"
-                  onChange={(e) => {
-                    const newValue = e.target.value
-                      .replace(regex, '')
-                      .replaceAll(',', '')
-                    setSimpleStatusSetting({
-                      ...simpleStatusSetting,
-                      expectStat: newValue ? Number(newValue) : undefined
-                    })
-                  }}
-                />
-              </S.Vertical>
+              {item ? (
+                isWeapon(item) ? (
+                  <S.Vertical style={{ alignItems: 'flex-start' }}>
+                    <S.Horizontal>
+                      <S.Text>
+                        {isMasicAttack(item)
+                          ? StatusName.MAGIC_ATTACK
+                          : StatusName.WEAPON_ATTACK}
+                      </S.Text>
+                      <S.RadioGroup
+                        optionType="button"
+                        size="small"
+                        buttonStyle="solid"
+                        value={simpleStatusSetting.attackGrage}
+                        options={[
+                          { label: '없음', value: 0 },
+                          { label: '1추', value: 1 },
+                          { label: '2추', value: 2 },
+                          { label: '3추', value: 3 }
+                        ]}
+                        onChange={(e) =>
+                          setSimpleStatusSetting({
+                            ...simpleStatusSetting,
+                            attackGrage: e.target.value
+                          })
+                        }
+                      />
+                    </S.Horizontal>
+                  </S.Vertical>
+                ) : (
+                  <S.Vertical>
+                    <S.RadioGroup
+                      value={simpleStatusSetting.statType}
+                      buttonStyle="solid"
+                      optionType="button"
+                      options={[
+                        { value: 'STR', label: 'STR' },
+                        { value: 'DEX', label: 'DEX' },
+                        { value: 'INT', label: 'INT' },
+                        { value: 'LUK', label: 'LUK' }
+                      ]}
+                      onChange={(e) => {
+                        const key = e.target.value as StatType
+                        setSimpleStatusSetting({
+                          ...simpleStatusSetting,
+                          statType: key
+                        })
+                      }}
+                    />
+                    <S.Input
+                      maxLength={3}
+                      min={0}
+                      placeholder="수치를 입력해주세요"
+                      value={simpleStatusSetting.expectStat}
+                      suffix="급"
+                      onChange={(e) => {
+                        const newValue = e.target.value
+                          .replace(regex, '')
+                          .replaceAll(',', '')
+                        setSimpleStatusSetting({
+                          ...simpleStatusSetting,
+                          expectStat: newValue ? Number(newValue) : undefined
+                        })
+                      }}
+                    />
+                  </S.Vertical>
+                )
+              ) : (
+                '아이템을 선택해주세요.'
+              )}
             </S.Block>
           )}
 
@@ -153,8 +190,8 @@ const StatusSetting: React.FC<Props> = ({
                 {renderStatusInput('HP', false, 4)}
                 {renderStatusInput('WEAPON_ATTACK')}
                 {renderStatusInput('MAGIC_ATTACK')}
-                {renderStatusInput('bossDemage', !isWeapon())}
-                {renderStatusInput('demage', !isWeapon())}
+                {renderStatusInput('bossDemage', !isWeapon(item))}
+                {renderStatusInput('demage', !isWeapon(item))}
                 {renderStatusInput('AllStat')}
               </S.Vertical>
             </S.Block>

@@ -13,12 +13,18 @@ export type StatusSettingType = {
 
 export type StatType = 'STR' | 'LUK' | 'INT' | 'DEX'
 export type SimpleStatusSettingType = {
+  // 방어구
   expectStat?: number
   statType?: StatType
+
+  // 무기류
+  attackGrage?: number
+  bossGrade?: number
+  allStatGrade?: number
+  demageGrade?: number
+
   attackPerStat?: number
   allStatPerStat?: number
-
-  attackGrage?: number
 }
 
 export type FlameSettingType = {

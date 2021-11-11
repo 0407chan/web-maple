@@ -180,3 +180,8 @@ export const getNotUndefined = (
 export const roundToOne = (num: string): number => {
   return +(Math.round(Number(num + 'e+1')) + 'e-1')
 }
+
+export const isWeapon = (item?: EquipItemType): boolean => item?.islots === 'Wp'
+
+export const isMasicAttack = (item: EquipItemType): boolean =>
+  item.MAGIC_ATTACK.base > item.WEAPON_ATTACK.base

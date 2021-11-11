@@ -669,7 +669,6 @@ const FlameOfResurrection: React.FC = () => {
                         <span>{simpleStatusSetting.statType}</span>
                       )}
                       <S.FlameStatLabel
-                        style={{ width: 24, textAlign: 'right' }}
                         isMyStat={
                           simpleStatusSetting.expectStat !== undefined &&
                           simpleStatusSetting.expectStat <= getTotalStat()

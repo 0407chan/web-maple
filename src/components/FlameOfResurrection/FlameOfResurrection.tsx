@@ -37,6 +37,7 @@ import {
   getDoubleStatDetail,
   getEmptyItem,
   getGrade,
+  getHighestStatLabel,
   getNotUndefined,
   getRandomNum,
   getSingleStatDetail,
@@ -419,7 +420,13 @@ const FlameOfResurrection: React.FC = () => {
     if (!item) return 0
 
     let result = 0
-    if (simpleStatusSetting.statType) {
+    if (simpleStatusSetting.statType === 'ALL') {
+      result += getHighestStat()
+    }
+    if (
+      simpleStatusSetting.statType !== undefined &&
+      simpleStatusSetting.statType !== 'ALL'
+    ) {
       result += item[simpleStatusSetting.statType].bonus
     }
     if (
@@ -440,6 +447,16 @@ const FlameOfResurrection: React.FC = () => {
     }
 
     return roundToOne(`${result}`)
+
+    function getHighestStat() {
+      if (!item) return 0
+      return Math.max(
+        item.STR.bonus,
+        item.DEX.bonus,
+        item.LUK.bonus,
+        item.INT.bonus
+      )
+    }
   }
   const checkForSimpleAuto = (type: FlameType, newItem: EquipItemType) => {
     if (intervalRef.current === undefined) return
@@ -644,8 +661,15 @@ const FlameOfResurrection: React.FC = () => {
                   </div>
                   {autoType === 'SIMPLE' && !isWeapon(item) && (
                     <S.Horizontal style={{ gap: 4 }}>
-                      <span>{simpleStatusSetting.statType}</span>
+                      {simpleStatusSetting.statType === 'ALL' ? (
+                        <span style={{ width: 30 }}>
+                          {getHighestStatLabel(item)}
+                        </span>
+                      ) : (
+                        <span>{simpleStatusSetting.statType}</span>
+                      )}
                       <S.FlameStatLabel
+                        style={{ width: 24, textAlign: 'right' }}
                         isMyStat={
                           simpleStatusSetting.expectStat !== undefined &&
                           simpleStatusSetting.expectStat <= getTotalStat()
@@ -758,14 +782,15 @@ const FlameOfResurrection: React.FC = () => {
       )
     }
     function isMyStatForSimple(key?: keyof EquipItemType) {
-      if (!item) return
+      if (!item) return false
+      if (stat.bonusDetail === undefined || stat.bonusDetail.length === 0)
+        return false
 
       if (isWeapon(item)) {
         if (
           !isMasicAttack(item) &&
           key === 'WEAPON_ATTACK' &&
           simpleStatusSetting.attackGrage &&
-          stat.bonusDetail &&
           stat.bonusDetail[0].grade <= simpleStatusSetting.attackGrage
         ) {
           return true
@@ -774,7 +799,6 @@ const FlameOfResurrection: React.FC = () => {
           isMasicAttack(item) &&
           key === 'MAGIC_ATTACK' &&
           simpleStatusSetting.attackGrage &&
-          stat.bonusDetail &&
           stat.bonusDetail[0].grade <= simpleStatusSetting.attackGrage
         ) {
           return true
@@ -782,7 +806,6 @@ const FlameOfResurrection: React.FC = () => {
         if (
           key === 'bossDemage' &&
           simpleStatusSetting.bossGrade &&
-          stat.bonusDetail &&
           stat.bonusDetail[0].grade <= simpleStatusSetting.bossGrade
         ) {
           return true
@@ -790,7 +813,6 @@ const FlameOfResurrection: React.FC = () => {
         if (
           key === 'demage' &&
           simpleStatusSetting.demageGrade &&
-          stat.bonusDetail &&
           stat.bonusDetail[0].grade <= simpleStatusSetting.demageGrade
         ) {
           return true
@@ -798,7 +820,6 @@ const FlameOfResurrection: React.FC = () => {
         if (
           key === 'AllStat' &&
           simpleStatusSetting.allStatGrade &&
-          stat.bonusDetail &&
           stat.bonusDetail[0].grade <= simpleStatusSetting.allStatGrade
         ) {
           return true
@@ -813,25 +834,19 @@ const FlameOfResurrection: React.FC = () => {
             return true
           }
           if (
-            simpleStatusSetting.attackPerStat &&
-            simpleStatusSetting.attackPerStat > 0 &&
-            simpleStatusSetting.statType !== 'INT' &&
-            key === 'WEAPON_ATTACK'
-          ) {
-            return true
-          }
-          if (
-            simpleStatusSetting.attackPerStat &&
-            simpleStatusSetting.attackPerStat > 0 &&
-            simpleStatusSetting.statType === 'INT' &&
-            key === 'MAGIC_ATTACK'
-          ) {
-            return true
-          }
-          if (
-            simpleStatusSetting.allStatPerStat &&
-            simpleStatusSetting.allStatPerStat > 0 &&
+            (simpleStatusSetting.attackPerStat &&
+              simpleStatusSetting.attackPerStat > 0 &&
+              simpleStatusSetting.statType !== 'INT' &&
+              key === 'WEAPON_ATTACK') ||
+            (simpleStatusSetting.statType === 'INT' &&
+              key === 'MAGIC_ATTACK') ||
             key === 'AllStat'
+          ) {
+            return true
+          }
+          if (
+            simpleStatusSetting.statType === 'ALL' &&
+            getHighestStatLabel(item) === key
           ) {
             return true
           }

@@ -83,8 +83,7 @@ const FlameOfResurrection: React.FC = () => {
     useState<SimpleStatusSettingType>({
       statType: 'STR',
       allStatPerStat: 10,
-      attackPerStat: 4,
-      attackGrage: 0
+      attackPerStat: 4
     })
   const [flameCostSetting, setFlameCostSetting] = useState<FlameSettingType>({
     POWERFUL: 50000000,
@@ -444,19 +443,14 @@ const FlameOfResurrection: React.FC = () => {
   }
   const checkForSimpleAuto = (type: FlameType, newItem: EquipItemType) => {
     if (intervalRef.current === undefined) return
-
     if (isWeapon(newItem)) {
       if (
-        (!isMasicAttack(newItem) &&
-          newItem.WEAPON_ATTACK.bonusDetail &&
-          simpleStatusSetting.attackGrage &&
-          simpleStatusSetting.attackGrage >=
-            newItem.WEAPON_ATTACK.bonusDetail[0].grade) ||
-        (isMasicAttack(newItem) &&
-          newItem.MAGIC_ATTACK.bonusDetail &&
-          simpleStatusSetting.attackGrage &&
-          simpleStatusSetting.attackGrage >=
-            newItem.MAGIC_ATTACK.bonusDetail[0].grade)
+        isWeaponAttackStop(
+          isMasicAttack(newItem) ? 'MAGIC_ATTACK' : 'WEAPON_ATTACK'
+        ) &&
+        isBossDemageStop() &&
+        isDemageStop() &&
+        isAllStatStop()
       ) {
         clearInterval(intervalRef.current)
         if (type === 'ETERNAL') {
@@ -478,6 +472,40 @@ const FlameOfResurrection: React.FC = () => {
           setIsPowerfulAuto(false)
         }
       }
+    }
+
+    function isWeaponAttackStop(key: 'WEAPON_ATTACK' | 'MAGIC_ATTACK') {
+      const bonusDetail = newItem[key].bonusDetail
+      if (simpleStatusSetting.attackGrage === undefined) return true
+      return (
+        bonusDetail !== undefined &&
+        bonusDetail.length > 0 &&
+        simpleStatusSetting.attackGrage >= bonusDetail[0].grade
+      )
+    }
+    function isBossDemageStop() {
+      if (simpleStatusSetting.bossGrade === undefined) return true
+      return (
+        newItem.bossDemage.bonusDetail !== undefined &&
+        newItem.bossDemage.bonusDetail.length > 0 &&
+        simpleStatusSetting.bossGrade >= newItem.bossDemage.bonusDetail[0].grade
+      )
+    }
+    function isDemageStop() {
+      if (simpleStatusSetting.demageGrade == undefined) return true
+      return (
+        newItem.demage.bonusDetail !== undefined &&
+        newItem.demage.bonusDetail.length > 0 &&
+        simpleStatusSetting.demageGrade >= newItem.demage.bonusDetail[0].grade
+      )
+    }
+    function isAllStatStop() {
+      if (simpleStatusSetting.allStatGrade === undefined) return true
+      return (
+        newItem.AllStat.bonusDetail !== undefined &&
+        newItem.AllStat.bonusDetail.length > 0 &&
+        simpleStatusSetting.allStatGrade >= newItem.AllStat.bonusDetail[0].grade
+      )
     }
   }
 
@@ -748,6 +776,30 @@ const FlameOfResurrection: React.FC = () => {
           simpleStatusSetting.attackGrage &&
           stat.bonusDetail &&
           stat.bonusDetail[0].grade <= simpleStatusSetting.attackGrage
+        ) {
+          return true
+        }
+        if (
+          key === 'bossDemage' &&
+          simpleStatusSetting.bossGrade &&
+          stat.bonusDetail &&
+          stat.bonusDetail[0].grade <= simpleStatusSetting.bossGrade
+        ) {
+          return true
+        }
+        if (
+          key === 'demage' &&
+          simpleStatusSetting.demageGrade &&
+          stat.bonusDetail &&
+          stat.bonusDetail[0].grade <= simpleStatusSetting.demageGrade
+        ) {
+          return true
+        }
+        if (
+          key === 'AllStat' &&
+          simpleStatusSetting.allStatGrade &&
+          stat.bonusDetail &&
+          stat.bonusDetail[0].grade <= simpleStatusSetting.allStatGrade
         ) {
           return true
         }

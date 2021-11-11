@@ -1,5 +1,5 @@
 import { FlameType, StatusSettingType } from '@/types/flame'
-import { BonusDetail, EquipItemType } from '@/types/inventory'
+import { BonusDetail, EquipItemType, StatusBase } from '@/types/inventory'
 import {
   ARMER_OPTION_NAME,
   ETERNAL_FLAME_PERCENTAGE,
@@ -185,3 +185,12 @@ export const isWeapon = (item?: EquipItemType): boolean => item?.islots === 'Wp'
 
 export const isMasicAttack = (item: EquipItemType): boolean =>
   item.MAGIC_ATTACK.base > item.WEAPON_ATTACK.base
+
+export const getHighestStatLabel = (item?: EquipItemType): string => {
+  if (!item) return ''
+  const array: StatusBase[] = [item.STR, item.DEX, item.INT, item.LUK].sort(
+    (a, b) => b.bonus - a.bonus
+  )
+
+  return array[0].label
+}

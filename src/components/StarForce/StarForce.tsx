@@ -4,6 +4,7 @@ import useToolTip from '@/hooks/useToolTip'
 import { EquipItemType, SlotType } from '@/types/inventory'
 import { StarForceResult, StarForceSetting } from '@/types/star-force'
 import IMAGE from '@/utils/images'
+import { StarImage } from '@/utils/images/star-force'
 import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import Checkbox from 'antd/lib/checkbox'
 import React, { useRef, useState } from 'react'
@@ -489,8 +490,9 @@ const StarForce: React.FC = () => {
                 >
                   <S.StarImage
                     isLoading={isStarForceRunning}
-                    width={13}
-                    src={IMAGE.tooltip.tooltip_Item_Star}
+                    width={15}
+                    style={{ filter: 'drop-shadow(0 0 0.2rem #9a6100)' }}
+                    src={StarImage}
                     alt="star-force-image"
                   />
                   강화

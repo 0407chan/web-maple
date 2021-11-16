@@ -1,5 +1,4 @@
 import useInventory from '@/hooks/useInventory'
-import IMAGE from '@/utils/images'
 import React, { useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
 import { v4 as uuid } from 'uuid'
@@ -29,6 +28,9 @@ import {
 } from './types/equipment'
 import { EquipItemType, SlotType } from './types/inventory'
 import { transDtoToType } from './utils/dtoTransUtil'
+import { StarImage } from './utils/images/star-force'
+
+console.log(process.env.PUBLIC_URL)
 const App: React.FC = () => {
   const {
     onAddEquipment,
@@ -324,7 +326,14 @@ const App: React.FC = () => {
           <MapleButton
             style={{ height: 40, width: 40 }}
             onClick={() => onToggleWindow('EquipmentEnchant')}
-            icon={<img width={12} src={IMAGE.tooltip.tooltip_Item_Star} />}
+            icon={
+              <img
+                width={15}
+                style={{ filter: 'drop-shadow(0 0 0.2rem #9a6100)' }}
+                src={StarImage}
+                alt="starImage"
+              />
+            }
           />
           <div>스타포스</div>
         </S.Vertical>

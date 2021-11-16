@@ -23,6 +23,7 @@ import {
 import Result from './Result'
 import StatusSetting from './StatusSetting'
 import * as S from './style'
+import { isOnePlusOne } from './utils'
 
 const initSlot: SlotType = {
   id: uuid(),
@@ -54,8 +55,13 @@ const StarForce: React.FC = () => {
   const [starForceSetting, setStarForceSetting] = useState<StarForceSetting>({
     star: 22,
     itemCost: 100000000,
-    exchangeRate: 3500
+    exchangeRate: 3500,
+
+    event1516: false,
+    event30Percent: false,
+    eventOnePlusOne: false
   })
+
   const [starForceResult, setStarForceResult] = useState<
     Map<string, StarForceResult>
   >(new Map())
@@ -166,11 +172,13 @@ const StarForce: React.FC = () => {
 
     let tempItem: EquipItemType = { ...slotRef.current.item }
 
+    const eventOnePlusOne = isOnePlusOne(tempItem, starForceSetting) ? 1 : 0
+
     // 성공
     if (randomNum <= success) {
       tempItem = {
         ...tempItem,
-        star: tempItem.star + 1,
+        star: tempItem.star + 1 + eventOnePlusOne,
         starFailNumber: 0
       }
       // popEffect(e, IMAGE.tooltip.tooltip_Item_Star)
@@ -388,9 +396,21 @@ const StarForce: React.FC = () => {
                     style={{ justifyContent: 'space-between', height: '100%' }}
                   >
                     <S.Horizontal>
-                      {`${slotRef.current.item.star}성 > ${
-                        slotRef.current.item.star + 1
-                      }성`}
+                      <S.ResultText>{slotRef.current.item.star}성</S.ResultText>
+                      <S.ResultText>{` > `}</S.ResultText>
+                      <S.ResultText
+                        isDiscounted={isOnePlusOne(
+                          slotRef.current.item,
+                          starForceSetting
+                        )}
+                      >
+                        {slotRef.current.item.star + 1}성
+                      </S.ResultText>
+                      {isOnePlusOne(slotRef.current.item, starForceSetting) && (
+                        <S.ResultText>
+                          {slotRef.current.item.star + 2}성
+                        </S.ResultText>
+                      )}
                     </S.Horizontal>
                     <S.Horizontal>
                       <S.Title style={{ fontSize: 18 }}>

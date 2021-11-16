@@ -46,6 +46,15 @@ export const Result = styled.div`
   color: #e1e2e3;
 `
 
+export const ResultText = styled.span<{ isDiscounted?: boolean }>`
+  ${(props) =>
+    props.isDiscounted && {
+      color: '#a1a1a1',
+      fontSize: 13,
+      textDecoration: 'line-through red'
+    }}
+`
+
 export const Horizontal = styled.div`
   display: flex;
   width: 100%;

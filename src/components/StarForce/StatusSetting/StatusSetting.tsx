@@ -2,6 +2,7 @@ import WindowContainer from '@/components/common/WindowContainer'
 import { EquipItemType } from '@/types/inventory'
 import { StarForceSetting } from '@/types/star-force'
 import { numberWithCommas } from '@/utils/number/numberWithCommas'
+import Checkbox from 'antd/lib/checkbox'
 import React, { useEffect, useState } from 'react'
 import { ControlPosition } from 'react-draggable'
 import * as S from './style'
@@ -87,6 +88,53 @@ const StatusSetting: React.FC<Props> = ({
               }}
             />
             <S.Title style={{ color: 'black', fontSize: 20 }}>성</S.Title>
+          </S.Block>
+        </S.Contianer>
+        <S.Contianer style={{ marginTop: 10 }}>
+          <S.Title>스타포스 이벤트</S.Title>
+          <S.Block isLoading={loading}>
+            <S.Vertical
+              style={{ justifyContent: 'center', alignItems: 'flex-start' }}
+            >
+              <Checkbox
+                checked={starForceSetting.eventOnePlusOne}
+                disabled={item?.isSuperior}
+                onChange={(event) =>
+                  setStarForceSetting({
+                    ...starForceSetting,
+                    eventOnePlusOne: event.target.checked
+                  })
+                }
+              >
+                <S.Text>10성 이하 1+1</S.Text>
+              </Checkbox>
+              <Checkbox
+                style={{ margin: 0 }}
+                disabled={item?.isSuperior}
+                checked={starForceSetting.event30Percent}
+                onChange={(event) =>
+                  setStarForceSetting({
+                    ...starForceSetting,
+                    event30Percent: event.target.checked
+                  })
+                }
+              >
+                <S.Text>스타포스 가격 30% 할인</S.Text>
+              </Checkbox>
+              <Checkbox
+                style={{ margin: 0 }}
+                disabled={item?.isSuperior}
+                checked={starForceSetting.event1516}
+                onChange={(event) =>
+                  setStarForceSetting({
+                    ...starForceSetting,
+                    event1516: event.target.checked
+                  })
+                }
+              >
+                <S.Text>5성,10성,15성에서 100%</S.Text>
+              </Checkbox>
+            </S.Vertical>
           </S.Block>
         </S.Contianer>
         <S.Contianer style={{ marginTop: 10 }}>

@@ -204,7 +204,11 @@ const StarForce: React.FC = () => {
       // popEffect(e, slotRef.current.item.image)
     }
 
-    const starCost = getStarForceCost(slotRef.current.item)
+    const starCost = Math.round(
+      getStarForceCost(slotRef.current.item) *
+        (starForceSetting.event30Percent ? 0.7 : 1)
+    )
+
     const safeGuardCost =
       canSafeGuard(slotRef.current.item) && isSafeGuard
         ? getStarForceCost(slotRef.current.item)
@@ -417,16 +421,31 @@ const StarForce: React.FC = () => {
                         </S.ResultText>
                       )}
                     </S.Horizontal>
-                    <S.Horizontal>
-                      <S.Title style={{ fontSize: 18 }}>
+                    <S.Vertical style={{ gap: 0 }}>
+                      <S.ResultText
+                        bold
+                        isDiscounted={starForceSetting.event30Percent}
+                      >
                         {numberWithCommas(
                           getStarForceCost(slotRef.current.item) +
                             (canSafeGuard(slotRef.current.item) && isSafeGuard
                               ? getStarForceCost(slotRef.current.item)
                               : 0)
                         )}
-                      </S.Title>
-                    </S.Horizontal>
+                      </S.ResultText>
+                      {starForceSetting.event30Percent && (
+                        <S.ResultText bold>
+                          {numberWithCommas(
+                            Math.round(
+                              getStarForceCost(slotRef.current.item) * 0.7
+                            ) +
+                              (canSafeGuard(slotRef.current.item) && isSafeGuard
+                                ? getStarForceCost(slotRef.current.item)
+                                : 0)
+                          )}
+                        </S.ResultText>
+                      )}
+                    </S.Vertical>
                   </S.Vertical>
                 ) : (
                   <>

@@ -46,7 +46,17 @@ export const Result = styled.div`
   color: #e1e2e3;
 `
 
-export const ResultText = styled.span<{ isDiscounted?: boolean }>`
+export const ResultText = styled.span<{
+  bold?: boolean
+  isDiscounted?: boolean
+}>`
+  ${(props) =>
+    props.bold && {
+      color: '#eeeeee',
+      fontWeight: 'bold',
+      fontSize: 18
+    }}
+
   ${(props) =>
     props.isDiscounted && {
       color: '#a1a1a1',

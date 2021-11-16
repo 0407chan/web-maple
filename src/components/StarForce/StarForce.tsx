@@ -155,8 +155,9 @@ const StarForce: React.FC = () => {
       return
     }
 
+    let tempItem: EquipItemType = { ...slotRef.current.item }
     const randomNum = Number((getRandomNum(1000) / 10).toFixed(1))
-    const rate = getSuccessRate(slotRef.current.item)
+    const rate = getSuccessRate(slotRef.current.item, starForceSetting)
 
     const success = rate.success
     let fail =
@@ -169,8 +170,6 @@ const StarForce: React.FC = () => {
     if (canSafeGuard(slotRef.current.item) && isSafeGuard) {
       fail += rate.destroy
     }
-
-    let tempItem: EquipItemType = { ...slotRef.current.item }
 
     const eventOnePlusOne = isOnePlusOne(tempItem, starForceSetting) ? 1 : 0
 
@@ -353,7 +352,8 @@ const StarForce: React.FC = () => {
                     isChance={slotRef.current.item.starFailNumber === 2}
                   >
                     <S.RateLabel>{`${
-                      getSuccessRate(slotRef.current.item).success
+                      getSuccessRate(slotRef.current.item, starForceSetting)
+                        .success
                     }%`}</S.RateLabel>
                     {slotRef.current.item.starFailNumber === 2 ? (
                       <S.RateLabel rateType="SUCCESS">찬스타임!</S.RateLabel>
@@ -361,18 +361,22 @@ const StarForce: React.FC = () => {
                       <S.RateLabel rateType="SUCCESS">성공</S.RateLabel>
                     )}
                   </S.RateBlock>
-                  {getSuccessRate(slotRef.current.item).failMaintain > 0 && (
+                  {getSuccessRate(slotRef.current.item, starForceSetting)
+                    .failMaintain > 0 && (
                     <S.RateBlock>
                       <S.RateLabel>{`${
-                        getSuccessRate(slotRef.current.item).failMaintain
+                        getSuccessRate(slotRef.current.item, starForceSetting)
+                          .failMaintain
                       }%`}</S.RateLabel>
                       <S.RateLabel rateType="FAIL">실패(유지)</S.RateLabel>
                     </S.RateBlock>
                   )}
-                  {getSuccessRate(slotRef.current.item).failDecrease > 0 && (
+                  {getSuccessRate(slotRef.current.item, starForceSetting)
+                    .failDecrease > 0 && (
                     <S.RateBlock>
                       <S.RateLabel>{`${
-                        getSuccessRate(slotRef.current.item).failDecrease
+                        getSuccessRate(slotRef.current.item, starForceSetting)
+                          .failDecrease
                       }%`}</S.RateLabel>
                       <S.RateLabel rateType="FAIL">실패(하락)</S.RateLabel>
                     </S.RateBlock>
@@ -381,7 +385,8 @@ const StarForce: React.FC = () => {
                     disabled={canSafeGuard(slotRef.current.item) && isSafeGuard}
                   >
                     <S.RateLabel>{`${
-                      getSuccessRate(slotRef.current.item).destroy
+                      getSuccessRate(slotRef.current.item, starForceSetting)
+                        .destroy
                     }%`}</S.RateLabel>
                     <S.RateLabel rateType="DESTROY">파괴</S.RateLabel>
                   </S.RateBlock>

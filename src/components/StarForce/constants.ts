@@ -1,5 +1,5 @@
 import { EquipItemType } from '@/types/inventory'
-import { SuccessRate } from '@/types/star-force'
+import { StarForceSetting, SuccessRate } from '@/types/star-force'
 
 export const getMaxStar = (level: number): number => {
   if (level <= 94) {
@@ -28,7 +28,10 @@ export const getMaxStarForSuperior = (level: number): number => {
   } else return 15
 }
 
-export const getSuccessRate = (item: EquipItemType): SuccessRate => {
+export const getSuccessRate = (
+  item: EquipItemType,
+  starForceSetting: StarForceSetting
+): SuccessRate => {
   let result: SuccessRate = {
     success: 0,
     failMaintain: 0,
@@ -42,6 +45,15 @@ export const getSuccessRate = (item: EquipItemType): SuccessRate => {
     }
   if (item.isSuperior) {
     return getSuperiorSuccessRate(item)
+  }
+  if (
+    starForceSetting.event1516 &&
+    (item.star === 5 || item.star === 10 || item.star === 15)
+  ) {
+    return {
+      ...result,
+      success: 100
+    }
   }
 
   switch (item.star) {

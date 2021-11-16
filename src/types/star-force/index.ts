@@ -9,6 +9,10 @@ export type StarForceSetting = {
   star?: number
   itemCost?: number
   exchangeRate?: number
+
+  eventOnePlusOne: boolean
+  event1516: boolean
+  event30Percent: boolean
 }
 
 export type StarForceResult = {

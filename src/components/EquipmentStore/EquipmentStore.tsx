@@ -30,7 +30,7 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
       (item) => item.name && item.name.indexOf(searchKey) !== -1
     )
     setSearchedList(newArray)
-  }, [searchKey])
+  }, [equipmentItemList, searchKey])
 
   const onControlledDrag = (e: DraggableEvent, data: DraggableData) => {
     const { x, y } = data
@@ -43,7 +43,6 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
         title="EQUIPMENT STORE"
         canDrag={false}
         onDrag={onControlledDrag}
-        hideCloseButton
         windowType="EquipmentStore"
         position={position}
       >

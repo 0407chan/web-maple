@@ -84,20 +84,20 @@ const Slot: React.FC<SlotProps> = ({
         console.log('싱글 클릭')
       }, 200)
     } else if (event.detail === 2) {
-      if (slot.item) {
-        const currentEquipSlot = equipment.find(
-          (equip) => equip.slotType === slot.item?.islots
-        )
-        onRemoveEquipItem(slot.id)
-        if (currentEquipSlot && currentEquipSlot?.item) {
-          onAddEquipment({
-            ...slot,
-            item: currentEquipSlot?.item
-          })
-        }
-        onSetEquip(slot.item.islots, slot.item)
-        onHideTooltip()
-      }
+      // if (slot.item) {
+      //   const currentEquipSlot = equipment.find(
+      //     (equip) => equip.slotType === slot.item?.islots
+      //   )
+      //   onRemoveEquipItem(slot.id)
+      //   if (currentEquipSlot && currentEquipSlot?.item) {
+      //     onAddEquipment({
+      //       ...slot,
+      //       item: currentEquipSlot?.item
+      //     })
+      //   }
+      //   onSetEquip(slot.item.islots, slot.item)
+      //   onHideTooltip()
+      // }
     }
   }
 

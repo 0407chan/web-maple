@@ -1,17 +1,19 @@
 {
   "files": {
-    "main.js": "/web-maple/static/js/main.ff4f6010.chunk.js",
+    "main.css": "/web-maple/static/css/main.cbc96d98.chunk.css",
+    "main.js": "/web-maple/static/js/main.630bb083.chunk.js",
     "runtime-main.js": "/web-maple/static/js/runtime-main.2f1fb02f.js",
-    "static/css/2.42df1cf4.chunk.css": "/web-maple/static/css/2.42df1cf4.chunk.css",
-    "static/js/2.d09a93bf.chunk.js": "/web-maple/static/js/2.d09a93bf.chunk.js",
+    "static/css/2.c86a8e92.chunk.css": "/web-maple/static/css/2.c86a8e92.chunk.css",
+    "static/js/2.0ddc4326.chunk.js": "/web-maple/static/js/2.0ddc4326.chunk.js",
     "index.html": "/web-maple/index.html",
-    "static/js/2.d09a93bf.chunk.js.LICENSE.txt": "/web-maple/static/js/2.d09a93bf.chunk.js.LICENSE.txt",
+    "static/js/2.0ddc4326.chunk.js.LICENSE.txt": "/web-maple/static/js/2.0ddc4326.chunk.js.LICENSE.txt",
     "static/media/Item.backgrnd2.9dae6b65.png": "/web-maple/static/media/Item.backgrnd2.9dae6b65.png"
   },
   "entrypoints": [
     "static/js/runtime-main.2f1fb02f.js",
-    "static/css/2.42df1cf4.chunk.css",
-    "static/js/2.d09a93bf.chunk.js",
-    "static/js/main.ff4f6010.chunk.js"
+    "static/css/2.c86a8e92.chunk.css",
+    "static/js/2.0ddc4326.chunk.js",
+    "static/css/main.cbc96d98.chunk.css",
+    "static/js/main.630bb083.chunk.js"
   ]
 }

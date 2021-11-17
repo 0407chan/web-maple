@@ -420,8 +420,9 @@ const FlameOfResurrection: React.FC = () => {
     if (!item) return 0
 
     let result = 0
+    const highestStat = getHighestStat(item)
     if (simpleStatusSetting.statType === 'ALL') {
-      result += getHighestStat()
+      result += highestStat.bonus
     }
     if (
       simpleStatusSetting.statType !== undefined &&
@@ -433,7 +434,10 @@ const FlameOfResurrection: React.FC = () => {
       simpleStatusSetting.attackPerStat &&
       simpleStatusSetting.attackPerStat > 0
     ) {
-      if (simpleStatusSetting.statType === 'INT') {
+      if (
+        simpleStatusSetting.statType === 'INT' ||
+        highestStat.label === 'INT'
+      ) {
         result += item.MAGIC_ATTACK.bonus * simpleStatusSetting.attackPerStat
       } else {
         result += item.WEAPON_ATTACK.bonus * simpleStatusSetting.attackPerStat
@@ -448,14 +452,17 @@ const FlameOfResurrection: React.FC = () => {
 
     return roundToOne(`${result}`)
 
-    function getHighestStat() {
-      if (!item) return 0
-      return Math.max(
-        item.STR.bonus,
-        item.DEX.bonus,
-        item.LUK.bonus,
-        item.INT.bonus
+    function getHighestStat(item: EquipItemType) {
+      const array: StatusBase[] = [item.STR, item.DEX, item.INT, item.LUK].sort(
+        (a, b) => b.bonus - a.bonus
       )
+      return array[0]
+      // return Math.max(
+      //   item.STR.bonus,
+      //   item.DEX.bonus,
+      //   item.LUK.bonus,
+      //   item.INT.bonus
+      // )
     }
   }
   const checkForSimpleAuto = (type: FlameType, newItem: EquipItemType) => {
@@ -823,7 +830,10 @@ const FlameOfResurrection: React.FC = () => {
         ) {
           return true
         }
-      } else {
+      }
+      // 방어구
+      else {
+        const highestStatLabel = getHighestStatLabel(item)
         if (
           simpleStatusSetting.expectStat &&
           simpleStatusSetting.expectStat <= getTotalStat() &&
@@ -835,6 +845,7 @@ const FlameOfResurrection: React.FC = () => {
           if (
             (simpleStatusSetting.attackPerStat &&
               simpleStatusSetting.attackPerStat > 0 &&
+              simpleStatusSetting.statType !== 'ALL' &&
               simpleStatusSetting.statType !== 'INT' &&
               key === 'WEAPON_ATTACK') ||
             (simpleStatusSetting.statType === 'INT' &&
@@ -845,7 +856,14 @@ const FlameOfResurrection: React.FC = () => {
           }
           if (
             simpleStatusSetting.statType === 'ALL' &&
-            getHighestStatLabel(item) === key
+            highestStatLabel === key
+          ) {
+            return true
+          }
+          if (
+            simpleStatusSetting.statType === 'ALL' &&
+            ((highestStatLabel !== 'INT' && key === 'WEAPON_ATTACK') ||
+              (highestStatLabel === 'INT' && key === 'MAGIC_ATTACK'))
           ) {
             return true
           }

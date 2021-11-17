@@ -236,11 +236,11 @@ const App: React.FC = () => {
         onToggleWindow('Inventory')
         break
       }
-      case 'ㄷ':
-      case 'e': {
-        onToggleWindow('Equipment')
-        break
-      }
+      // case 'ㄷ':
+      // case 'e': {
+      //   onToggleWindow('Equipment')
+      //   break
+      // }
       case 'ㄹ':
       case 'f': {
         onToggleWindow('FlameOfResurrection')
@@ -295,7 +295,7 @@ const App: React.FC = () => {
         </S.ButtonWrapper> */}
       </S.HeaderWrapper>
       <S.Horizontal>
-        <S.Vertical>
+        {/* <S.Vertical>
           <MapleButton
             style={{ height: 40, width: 40 }}
             onClick={() => onToggleWindow('Equipment')}
@@ -303,6 +303,15 @@ const App: React.FC = () => {
             E
           </MapleButton>
           <div>장비창</div>
+        </S.Vertical> */}
+        <S.Vertical>
+          <MapleButton
+            style={{ height: 40, width: 40 }}
+            onClick={() => onToggleWindow('Inventory')}
+          >
+            I
+          </MapleButton>
+          <div>인벤토리</div>
         </S.Vertical>
         <S.Vertical>
           <MapleButton
@@ -312,15 +321,6 @@ const App: React.FC = () => {
             F
           </MapleButton>
           <div>환불창</div>
-        </S.Vertical>
-        <S.Vertical>
-          <MapleButton
-            style={{ height: 40, width: 40 }}
-            onClick={() => onToggleWindow('Inventory')}
-          >
-            I
-          </MapleButton>
-          <div>인벤토리</div>
         </S.Vertical>
         <S.Vertical>
           <MapleButton

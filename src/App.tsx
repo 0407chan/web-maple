@@ -30,7 +30,6 @@ import { EquipItemType, SlotType } from './types/inventory'
 import { transDtoToType } from './utils/dtoTransUtil'
 import { StarImage } from './utils/images/star-force'
 
-console.log(process.env.PUBLIC_URL)
 const App: React.FC = () => {
   const {
     onAddEquipment,
@@ -60,7 +59,7 @@ const App: React.FC = () => {
   })
 
   const weaponListQeury = useGetEquipmentList(weaponListSearchQuery)
-  const pantsListQeury = useGetEquipmentList(pantsListSearchQuery)
+  // const pantsListQeury = useGetEquipmentList(pantsListSearchQuery)
 
   const getEquipBy = async (name: string) => {
     const existItem = weaponListQeury.data?.find((item) => item.name === name)
@@ -82,7 +81,7 @@ const App: React.FC = () => {
         name: item.description.name,
         category: item.typeInfo.subCategory as SubCategory,
         categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
-        image: `https://maplestory.io/api/KMS/352/item/${item.id}/icon`,
+        image: `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/${item.id}/icon`,
         max_upgrade: item.metaInfo.tuc,
         upgrade: 0,
         maxStar: 5,
@@ -100,14 +99,13 @@ const App: React.FC = () => {
         ...emptyInven[0],
         item: newItem
       })
-      // console.log(item)
     } else {
       console.log(name, '은 없음!')
     }
   }
 
   // useEffect(() => {
-  //   findItemByName('')
+  //   findItemByName('에테르넬')
   // }, [])
 
   const findItemByName = async (name: string) => {
@@ -141,8 +139,10 @@ const App: React.FC = () => {
   const getAllEquip = async () => {
     const promise = []
     // 무기
+    promise.push(getEquipment({ itemId: 1213022 })) // 튜너
     promise.push(getEquipment({ itemId: 1402268 }))
     promise.push(getEquipment({ itemId: 1382274 }))
+    promise.push(getEquipment({ itemId: 1522152 }))
 
     // 카루타 세트
     // promise.push(getEquipment({ itemId: 1402196 })) //모자
@@ -169,7 +169,10 @@ const App: React.FC = () => {
     // promise.push(getEquipment({ itemId: 1022278 })) //눈장식
     // promise.push(getEquipment({ itemId: 1012632 })) //얼굴장식
     promise.push(getEquipment({ itemId: 1122430 })) //팬던트
-    // promise.push(getEquipment({ itemId: 1122150 })) //팬던트
+    promise.push(getEquipment({ itemId: 1122443 })) //팬던트 : 데이브레이크 팬던트
+    promise.push(getEquipment({ itemId: 1032330 })) //귀걸이 : 에스텔라 이어링
+    promise.push(getEquipment({ itemId: 1012757 })) //눈장식 : 트와일라이트 마크
+    promise.push(getEquipment({ itemId: 1113313 })) //링 : 가디언 엔젤링
     const itemList = await Promise.all(promise)
 
     // console.log('뭐나와?', itemList)
@@ -270,6 +273,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     initReactGA()
+    console.log(process.env.REACT_APP_REGION, process.env.REACT_APP_VERSION)
   }, [])
 
   return (
@@ -340,7 +344,7 @@ const App: React.FC = () => {
         <S.Vertical>
           <S.NpcImage
             draggable="false"
-            src="https://maplestory.io/api/KMS/353/npc/1010100/icon"
+            src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/npc/1010100/icon`}
             // style={{ height: 40, width: 40 }}
             className="no-drag"
             onClick={() => onToggleWindow('EquipmentStore')}

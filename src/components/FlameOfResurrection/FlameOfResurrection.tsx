@@ -584,7 +584,7 @@ const FlameOfResurrection: React.FC = () => {
                 disabled={item === undefined || isEternalAuto}
               >
                 <img
-                  src="https://maplestory.io/api/KMS/353/item/2048716/icon"
+                  src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/2048716/icon`}
                   alt="powerImage"
                 />
                 강환불
@@ -595,7 +595,7 @@ const FlameOfResurrection: React.FC = () => {
                 style={{ padding: '20px 15px' }}
                 icon={
                   <img
-                    src="https://maplestory.io/api/KMS/353/item/2048717/icon"
+                    src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/2048717/icon`}
                     alt="foreverImage"
                   />
                 }

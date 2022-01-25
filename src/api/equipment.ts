@@ -11,7 +11,7 @@ export const getEquipment = async (
   query: GetEquipmentQuery
 ): Promise<GetEquipmentResponse> => {
   const result = await axios.get(
-    `https://maplestory.io/api/KMS/352/item/${query.itemId}`
+    `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/${query.itemId}`
   )
   return result.data
 }
@@ -20,9 +20,12 @@ export const getEquipmentRawImage = async (
   query: GetEquipmentQuery
 ): Promise<string> => {
   const result = await axios
-    .get(`https://maplestory.io/api/KMS/352/item/${query.itemId}/iconRaw`, {
-      responseType: 'arraybuffer'
-    })
+    .get(
+      `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/${query.itemId}/iconRaw`,
+      {
+        responseType: 'arraybuffer'
+      }
+    )
     .then((response) => {
       const blob = new Blob([response.data], {
         type: response.headers['content-type']
@@ -49,9 +52,12 @@ export const useGetEquipment = (
 export const getEquipmentList = async (
   query?: GetEquipmentListQuery
 ): Promise<GetEquipmentListResponse> => {
-  const result = await axios.get('https://maplestory.io/api/KMS/352/item', {
-    params: query
-  })
+  const result = await axios.get(
+    `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item`,
+    {
+      params: query
+    }
+  )
   return result.data
 }
 

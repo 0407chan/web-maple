@@ -26,7 +26,7 @@ export const transDtoToType = (itemDto: EquipmentItemDto): EquipItemType => {
     name: itemDto.description.name,
     category: itemDto.typeInfo.subCategory as SubCategory,
     categoryName: subCategoryName[itemDto.typeInfo.subCategory as SubCategory],
-    image: `https://maplestory.io/api/KMS/352/item/${itemDto.id}/icon`,
+    image: `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/${itemDto.id}/icon`,
     // image: newImage,
     max_upgrade: itemDto.metaInfo.tuc,
     upgrade: 0,

@@ -249,7 +249,7 @@ const StatusSetting: React.FC<Props> = ({
               <S.Horizontal>
                 <S.Text>
                   <img
-                    src="https://maplestory.io/api/KMS/353/item/2048716/icon"
+                    src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/2048716/icon`}
                     alt="powerImage"
                   />
                 </S.Text>
@@ -275,7 +275,7 @@ const StatusSetting: React.FC<Props> = ({
               <S.Horizontal>
                 <S.Text>
                   <img
-                    src="https://maplestory.io/api/KMS/353/item/2048717/icon"
+                    src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/2048717/icon`}
                     alt="foreverImage"
                   />
                 </S.Text>

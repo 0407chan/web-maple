@@ -115,7 +115,7 @@ const Result: React.FC<Props> = ({
             <S.Horizontal>
               <S.Text>
                 <img
-                  src="https://maplestory.io/api/KMS/353/item/2438119/icon"
+                  src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/2438119/icon`}
                   alt="powerImage"
                 />
               </S.Text>

@@ -123,6 +123,7 @@ export type SubCategory =
   | 'Staff'
   | 'Pocket Item'
   | 'Katara'
+  | 'Order'
 
 export type SubCategoryName =
   | '한손검'
@@ -148,6 +149,7 @@ export type SubCategoryName =
   | '스태프'
   | '포켓 아이템'
   | '블레이드'
+  | '기타'
 
 export const subCategoryName: Record<SubCategory, SubCategoryName> = {
   'One-Handed Sword': '한손검',
@@ -172,7 +174,8 @@ export const subCategoryName: Record<SubCategory, SubCategoryName> = {
   'Shoulder Accessory': '어깨장식',
   Staff: '스태프',
   'Pocket Item': '포켓 아이템',
-  Katara: '블레이드'
+  Katara: '블레이드',
+  Order: '기타'
 }
 
 export type GetEquipmentQuery = {

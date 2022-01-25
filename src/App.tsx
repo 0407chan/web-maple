@@ -1,12 +1,7 @@
 import useInventory from '@/hooks/useInventory'
 import React, { useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
-import { v4 as uuid } from 'uuid'
-import {
-  getEquipment,
-  getEquipmentList,
-  useGetEquipmentList
-} from './api/equipment'
+import { getEquipment, getEquipmentList } from './api/equipment'
 import * as S from './appStyle'
 import MapleButton from './components/common/MapleButton'
 import Equipment from './components/Equipment'
@@ -15,18 +10,15 @@ import FlameOfResurrection from './components/FlameOfResurrection'
 import Inventory from './components/Inventory'
 import StarForce from './components/StarForce'
 import ToolTip from './components/ToolTip'
-import { EMPTY_EQUIP } from './dummy/equip'
 import useEquipment from './hooks/useEquipment'
 import useItem from './hooks/useItem'
 import useUiWindow from './hooks/useUiWindow'
 import {
   EquipmentItemListType,
   EquipSlotType,
-  GetEquipmentListQuery,
-  SubCategory,
-  subCategoryName
+  GetEquipmentListQuery
 } from './types/equipment'
-import { EquipItemType, SlotType } from './types/inventory'
+import { SlotType } from './types/inventory'
 import { transDtoToType } from './utils/dtoTransUtil'
 import { StarImage } from './utils/images/star-force'
 
@@ -58,51 +50,51 @@ const App: React.FC = () => {
     subCategoryFilter: 'Bottom'
   })
 
-  const weaponListQeury = useGetEquipmentList(weaponListSearchQuery)
+  // const weaponListQeury = useGetEquipmentList(weaponListSearchQuery)
   // const pantsListQeury = useGetEquipmentList(pantsListSearchQuery)
 
-  const getEquipBy = async (name: string) => {
-    const existItem = weaponListQeury.data?.find((item) => item.name === name)
-    if (existItem) {
-      const item = await getEquipment({ itemId: existItem.id })
-      const emptyInven = inventory[currentInventory].filter(
-        (slot) => slot.isOpen && slot.item === undefined
-      )
-      if (emptyInven.length === 0) {
-        console.log('장비창 꽉찼다!')
-        return
-      }
-      const newItem: EquipItemType = {
-        ...EMPTY_EQUIP,
-        id: uuid(),
-        bossReward:
-          item.metaInfo.bossReward !== undefined &&
-          item.metaInfo.bossReward === true,
-        name: item.description.name,
-        category: item.typeInfo.subCategory as SubCategory,
-        categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
-        image: `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/${item.id}/icon`,
-        max_upgrade: item.metaInfo.tuc,
-        upgrade: 0,
-        maxStar: 5,
-        upgrade_avalable: item.metaInfo.tuc,
-        islots: item.metaInfo.islots[0],
-        WEAPON_ATTACK: {
-          base: item.metaInfo.incPAD,
-          bonus: 0,
-          label: '공격력',
-          reinforce: 0
-        }
-      }
+  // const getEquipBy = async (name: string) => {
+  //   const existItem = weaponListQeury.data?.find((item) => item.name === name)
+  //   if (existItem) {
+  //     const item = await getEquipment({ itemId: existItem.id })
+  //     const emptyInven = inventory[currentInventory].filter(
+  //       (slot) => slot.isOpen && slot.item === undefined
+  //     )
+  //     if (emptyInven.length === 0) {
+  //       console.log('장비창 꽉찼다!')
+  //       return
+  //     }
+  //     const newItem: EquipItemType = {
+  //       ...EMPTY_EQUIP,
+  //       id: uuid(),
+  //       bossReward:
+  //         item.metaInfo.bossReward !== undefined &&
+  //         item.metaInfo.bossReward === true,
+  //       name: item.description.name,
+  //       category: item.typeInfo.subCategory as SubCategory,
+  //       categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
+  //       image: `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/${item.id}/icon`,
+  //       max_upgrade: item.metaInfo.tuc,
+  //       upgrade: 0,
+  //       maxStar: 5,
+  //       upgrade_avalable: item.metaInfo.tuc,
+  //       islots: item.metaInfo.islots[0],
+  //       WEAPON_ATTACK: {
+  //         base: item.metaInfo.incPAD,
+  //         bonus: 0,
+  //         label: '공격력',
+  //         reinforce: 0
+  //       }
+  //     }
 
-      onAddEquipment({
-        ...emptyInven[0],
-        item: newItem
-      })
-    } else {
-      console.log(name, '은 없음!')
-    }
-  }
+  //     onAddEquipment({
+  //       ...emptyInven[0],
+  //       item: newItem
+  //     })
+  //   } else {
+  //     console.log(name, '은 없음!')
+  //   }
+  // }
 
   // useEffect(() => {
   //   findItemByName('에테르넬')

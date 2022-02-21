@@ -131,10 +131,10 @@ const App: React.FC = () => {
   const getAllEquip = async () => {
     const promise = []
     // 무기
-    promise.push(getEquipment({ itemId: 1213022 })) // 튜너
-    promise.push(getEquipment({ itemId: 1402268 }))
-    promise.push(getEquipment({ itemId: 1382274 }))
-    promise.push(getEquipment({ itemId: 1522152 }))
+    // promise.push(getEquipment({ itemId: 1213022 })) // 튜너
+    // promise.push(getEquipment({ itemId: 1402268 }))
+    // promise.push(getEquipment({ itemId: 1382274 }))
+    // promise.push(getEquipment({ itemId: 1522152 }))
 
     // 카루타 세트
     // promise.push(getEquipment({ itemId: 1402196 })) //모자
@@ -149,10 +149,16 @@ const App: React.FC = () => {
     // promise.push(getEquipment({ itemId: 1102775 })) //망토
 
     // 아케인 세트
-    promise.push(getEquipment({ itemId: 1004808 })) //투구
-    promise.push(getEquipment({ itemId: 1082695 })) //장갑
-    promise.push(getEquipment({ itemId: 1073158 })) //신발
-    promise.push(getEquipment({ itemId: 1102940 })) //망토
+    // promise.push(getEquipment({ itemId: 1004808 })) //투구
+    // promise.push(getEquipment({ itemId: 1082695 })) //장갑
+    // promise.push(getEquipment({ itemId: 1073158 })) //신발
+    // promise.push(getEquipment({ itemId: 1102940 })) //망토
+
+    // 에테르넬 세트
+    promise.push(getEquipment({ itemId: 1005980 })) //투구
+    promise.push(getEquipment({ itemId: 1042433 })) //상의
+    promise.push(getEquipment({ itemId: 1062285 })) //신발
+    // promise.push(getEquipment({ itemId: 1102940 })) //망토
 
     // 악세
     promise.push(getEquipment({ itemId: 1132308 })) //벨트
@@ -168,7 +174,7 @@ const App: React.FC = () => {
     const itemList = await Promise.all(promise)
 
     // console.log('뭐나와?', itemList)
-    itemList.forEach(async (item, index) => {
+    itemList.forEach((item, index) => {
       onAddEquipment({
         ...inventory[currentInventory][index],
         item: transDtoToType(item)

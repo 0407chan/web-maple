@@ -1,10 +1,10 @@
-import { getEquipment } from '@/api/equipment'
-import MapleButton from '@/components/common/MapleButton'
-import useInventory from '@/hooks/useInventory'
-import { EquipmentItemListType } from '@/types/equipment'
-import { transDtoToType } from '@/utils/dtoTransUtil'
 import message from 'antd/lib/message'
+import { getEquipment } from 'api/equipment'
+import MapleButton from 'components/common/MapleButton'
+import useInventory from 'hooks/useInventory'
 import React, { useState } from 'react'
+import { EquipmentItemListType } from 'types/equipment'
+import { transDtoToType } from 'utils/dtoTransUtil'
 import * as S from './style'
 
 export type StoreItemType = Pick<EquipmentItemListType, 'id' | 'name'>
@@ -76,7 +76,9 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
       <S.Horizontal>
         <S.ImageWrapper>
           <S.Image
-            src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/${item.id}/icon`}
+            src={`https://maplestory.io/api/${
+              import.meta.env.REACT_APP_REGION
+            }/${import.meta.env.REACT_APP_VERSION}/item/${item.id}/icon`}
           />
         </S.ImageWrapper>
         <S.TextWrapper>

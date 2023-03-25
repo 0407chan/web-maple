@@ -1,4 +1,4 @@
-import useInventory from '@/hooks/useInventory'
+import useInventory from 'hooks/useInventory'
 import React, { useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
 import { getEquipment, getEquipmentList } from './api/equipment'
@@ -73,7 +73,7 @@ const App: React.FC = () => {
   //       name: item.description.name,
   //       category: item.typeInfo.subCategory as SubCategory,
   //       categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
-  //       image: `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/${item.id}/icon`,
+  //       image: `https://maplestory.io/api/${import.meta.env.REACT_APP_REGION}/${import.meta.env.REACT_APP_VERSION}/item/${item.id}/icon`,
   //       max_upgrade: item.metaInfo.tuc,
   //       upgrade: 0,
   //       maxStar: 5,
@@ -266,12 +266,15 @@ const App: React.FC = () => {
   }, [uiWindowList])
 
   const initReactGA = () => {
-    ReactGA.initialize(process.env.REACT_APP_ID || '')
+    ReactGA.initialize(import.meta.env.REACT_APP_ID || '')
   }
 
   useEffect(() => {
     initReactGA()
-    console.log(process.env.REACT_APP_REGION, process.env.REACT_APP_VERSION)
+    console.log(
+      import.meta.env.REACT_APP_REGION,
+      import.meta.env.REACT_APP_VERSION
+    )
   }, [])
 
   return (
@@ -342,7 +345,9 @@ const App: React.FC = () => {
         <S.Vertical>
           <S.NpcImage
             draggable="false"
-            src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/npc/1010100/icon`}
+            src={`https://maplestory.io/api/${
+              import.meta.env.REACT_APP_REGION
+            }/${import.meta.env.REACT_APP_VERSION}/npc/1010100/icon`}
             // style={{ height: 40, width: 40 }}
             className="no-drag"
             onClick={() => onToggleWindow('EquipmentStore')}

@@ -1,21 +1,21 @@
-import useEquipment from '@/hooks/useEquipment'
-import useInventory from '@/hooks/useInventory'
-import useToolTip from '@/hooks/useToolTip'
+import useEquipment from 'hooks/useEquipment'
+import useInventory from 'hooks/useInventory'
+import useToolTip from 'hooks/useToolTip'
+import React, { useRef, useState } from 'react'
+import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
 import {
   AutoType,
   FlameSettingType,
   FlameType,
   SimpleStatusSettingType,
   StatusSettingType
-} from '@/types/flame'
+} from 'types/flame'
 import {
   BonusDetail,
   EquipItemType,
   SlotType,
   StatusBase
-} from '@/types/inventory'
-import React, { useRef, useState } from 'react'
-import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
+} from 'types/inventory'
 import { v4 as uuid } from 'uuid'
 import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
@@ -584,7 +584,9 @@ const FlameOfResurrection: React.FC = () => {
                 disabled={item === undefined || isEternalAuto}
               >
                 <img
-                  src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/2048716/icon`}
+                  src={`https://maplestory.io/api/${
+                    import.meta.env.REACT_APP_REGION
+                  }/${import.meta.env.REACT_APP_VERSION}/item/2048716/icon`}
                   alt="powerImage"
                 />
                 강환불
@@ -595,7 +597,9 @@ const FlameOfResurrection: React.FC = () => {
                 style={{ padding: '20px 15px' }}
                 icon={
                   <img
-                    src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/2048717/icon`}
+                    src={`https://maplestory.io/api/${
+                      import.meta.env.REACT_APP_REGION
+                    }/${import.meta.env.REACT_APP_VERSION}/item/2048717/icon`}
                     alt="foreverImage"
                   />
                 }

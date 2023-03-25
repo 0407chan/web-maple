@@ -1,14 +1,10 @@
 import {
   getMaxStar,
   getMaxStarForSuperior
-} from '@/components/StarForce/constants'
-import { EMPTY_EQUIP } from '@/dummy/equip'
-import {
-  EquipmentItemDto,
-  SubCategory,
-  subCategoryName
-} from '@/types/equipment'
-import { EquipItemType } from '@/types/inventory'
+} from 'components/StarForce/constants'
+import { EMPTY_EQUIP } from 'dummy/equip'
+import { EquipmentItemDto, SubCategory, subCategoryName } from 'types/equipment'
+import { EquipItemType } from 'types/inventory'
 import { v4 as uuid } from 'uuid'
 
 export const transDtoToType = (itemDto: EquipmentItemDto): EquipItemType => {
@@ -26,7 +22,9 @@ export const transDtoToType = (itemDto: EquipmentItemDto): EquipItemType => {
     name: itemDto.description.name,
     category: itemDto.typeInfo.subCategory as SubCategory,
     categoryName: subCategoryName[itemDto.typeInfo.subCategory as SubCategory],
-    image: `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/${itemDto.id}/icon`,
+    image: `https://maplestory.io/api/${import.meta.env.REACT_APP_REGION}/${
+      import.meta.env.REACT_APP_VERSION
+    }/item/${itemDto.id}/icon`,
     // image: newImage,
     max_upgrade: itemDto.metaInfo.tuc,
     upgrade: 0,

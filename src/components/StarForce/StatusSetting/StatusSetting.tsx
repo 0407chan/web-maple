@@ -1,13 +1,13 @@
-import WindowContainer from '@/components/common/WindowContainer'
-import { EquipItemType } from '@/types/inventory'
-import { StarForceSetting } from '@/types/star-force'
-import { numberWithCommas } from '@/utils/number/numberWithCommas'
 import Checkbox from 'antd/lib/checkbox'
+import WindowContainer from 'components/common/WindowContainer'
 import React, { useEffect, useState } from 'react'
 import { ControlPosition } from 'react-draggable'
+import { EquipItemType } from 'types/inventory'
+import { StarForceSetting } from 'types/star-force'
+import { numberWithCommas } from 'utils/number/numberWithCommas'
 import * as S from './style'
 
-const WonImage = `${process.env.PUBLIC_URL}/images/money/won.png`
+const WonImage = `${import.meta.env.PUBLIC_URL}/images/money/won.png`
 
 type Props = {
   position: ControlPosition

@@ -1,17 +1,19 @@
+import axios from 'axios'
+import { useQuery, UseQueryResult } from 'react-query'
 import {
   GetEquipmentListQuery,
   GetEquipmentListResponse,
   GetEquipmentQuery,
   GetEquipmentResponse
-} from '@/types/equipment'
-import axios from 'axios'
-import { useQuery, UseQueryResult } from 'react-query'
+} from 'types/equipment'
 
 export const getEquipment = async (
   query: GetEquipmentQuery
 ): Promise<GetEquipmentResponse> => {
   const result = await axios.get(
-    `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/${query.itemId}`
+    `https://maplestory.io/api/${import.meta.env.REACT_APP_REGION}/${
+      import.meta.env.REACT_APP_VERSION
+    }/item/${query.itemId}`
   )
   return result.data
 }
@@ -21,7 +23,9 @@ export const getEquipmentRawImage = async (
 ): Promise<string> => {
   const result = await axios
     .get(
-      `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/${query.itemId}/iconRaw`,
+      `https://maplestory.io/api/${import.meta.env.REACT_APP_REGION}/${
+        import.meta.env.REACT_APP_VERSION
+      }/item/${query.itemId}/iconRaw`,
       {
         responseType: 'arraybuffer'
       }
@@ -53,7 +57,9 @@ export const getEquipmentList = async (
   query?: GetEquipmentListQuery
 ): Promise<GetEquipmentListResponse> => {
   const result = await axios.get(
-    `https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item`,
+    `https://maplestory.io/api/${import.meta.env.REACT_APP_REGION}/${
+      import.meta.env.REACT_APP_VERSION
+    }/item`,
     {
       params: query
     }

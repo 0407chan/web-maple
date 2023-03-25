@@ -1,16 +1,16 @@
-import MapleButton from '@/components/common/MapleButton'
-import WindowContainer from '@/components/common/WindowContainer'
-import { EquipItemType } from '@/types/inventory'
-import { StarForceResult, StarForceSetting } from '@/types/star-force'
-import { numberUnit } from '@/utils/number/numberUnit'
-import { numberWithCommas } from '@/utils/number/numberWithCommas'
+import MapleButton from 'components/common/MapleButton'
+import WindowContainer from 'components/common/WindowContainer'
 import React from 'react'
 import { ControlPosition } from 'react-draggable'
+import { EquipItemType } from 'types/inventory'
+import { StarForceResult, StarForceSetting } from 'types/star-force'
+import { numberUnit } from 'utils/number/numberUnit'
+import { numberWithCommas } from 'utils/number/numberWithCommas'
 import * as S from './style'
 
 // 2048716 강환불 Powerful Rebirth Flame
 // 2048717 영환불 Eternal Rebirth Flame
-const WonImage = `${process.env.PUBLIC_URL}/images/money/won.png`
+const WonImage = `${import.meta.env.PUBLIC_URL}/images/money/won.png`
 
 type Props = {
   item: EquipItemType | undefined
@@ -115,7 +115,9 @@ const Result: React.FC<Props> = ({
             <S.Horizontal>
               <S.Text>
                 <img
-                  src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/2438119/icon`}
+                  src={`https://maplestory.io/api/${
+                    import.meta.env.REACT_APP_REGION
+                  }/${import.meta.env.REACT_APP_VERSION}/item/2438119/icon`}
                   alt="powerImage"
                 />
               </S.Text>

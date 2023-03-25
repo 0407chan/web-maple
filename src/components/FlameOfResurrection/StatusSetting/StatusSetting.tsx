@@ -1,21 +1,21 @@
-import MapleButton from '@/components/common/MapleButton'
-import WindowContainer from '@/components/common/WindowContainer'
+import MapleButton from 'components/common/MapleButton'
+import WindowContainer from 'components/common/WindowContainer'
+import React, { useEffect } from 'react'
+import { ControlPosition } from 'react-draggable'
 import {
   AutoType,
   FlameSettingType,
   SimpleStatusSettingType,
   StatType,
   StatusSettingType
-} from '@/types/flame'
-import { EquipItemType } from '@/types/inventory'
-import { numberWithCommas } from '@/utils/number/numberWithCommas'
-import React, { useEffect } from 'react'
-import { ControlPosition } from 'react-draggable'
+} from 'types/flame'
+import { EquipItemType } from 'types/inventory'
+import { numberWithCommas } from 'utils/number/numberWithCommas'
 import { isMasicAttack, isWeapon } from '../utils'
 import { StatusName } from './contants'
 import * as S from './style'
 
-const WonImage = `${process.env.PUBLIC_URL}/images/money/won.png`
+const WonImage = `${import.meta.env.PUBLIC_URL}/images/money/won.png`
 
 const AutoTypeName: Record<AutoType, string> = {
   DETAIL: '상세모드',
@@ -249,7 +249,9 @@ const StatusSetting: React.FC<Props> = ({
               <S.Horizontal>
                 <S.Text>
                   <img
-                    src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/2048716/icon`}
+                    src={`https://maplestory.io/api/${
+                      import.meta.env.REACT_APP_REGION
+                    }/${import.meta.env.REACT_APP_VERSION}/item/2048716/icon`}
                     alt="powerImage"
                   />
                 </S.Text>
@@ -275,7 +277,9 @@ const StatusSetting: React.FC<Props> = ({
               <S.Horizontal>
                 <S.Text>
                   <img
-                    src={`https://maplestory.io/api/${process.env.REACT_APP_REGION}/${process.env.REACT_APP_VERSION}/item/2048717/icon`}
+                    src={`https://maplestory.io/api/${
+                      import.meta.env.REACT_APP_REGION
+                    }/${import.meta.env.REACT_APP_VERSION}/item/2048717/icon`}
                     alt="foreverImage"
                   />
                 </S.Text>

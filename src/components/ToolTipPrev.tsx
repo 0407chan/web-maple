@@ -1,8 +1,8 @@
-import useInventory from '@/hooks/useInventory'
-import useToolTip from '@/hooks/useToolTip'
-import { StatusBase } from '@/types/inventory'
-import IMAGE from '@/utils/images'
+import useInventory from 'hooks/useInventory'
+import useToolTip from 'hooks/useToolTip'
 import React from 'react'
+import { StatusBase } from 'types/inventory'
+import IMAGE from 'utils/images'
 import './ToolTip.scss'
 
 const ToolTipPrev: React.FC = () => {

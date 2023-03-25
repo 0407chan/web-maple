@@ -1,11 +1,11 @@
-import Item2 from '@/components/Item/Item'
-import useEquipment from '@/hooks/useEquipment'
-import useInventory from '@/hooks/useInventory'
-import useToolTip from '@/hooks/useToolTip'
-import { EquipSlotType } from '@/types/equipment'
-import { SlotType } from '@/types/inventory'
+import Item2 from 'components/Item/Item'
+import useEquipment from 'hooks/useEquipment'
+import useInventory from 'hooks/useInventory'
+import useToolTip from 'hooks/useToolTip'
 import React from 'react'
 import { useDrop } from 'react-dnd'
+import { EquipSlotType } from 'types/equipment'
+import { SlotType } from 'types/inventory'
 import * as S from './style'
 
 type SlotProps = {

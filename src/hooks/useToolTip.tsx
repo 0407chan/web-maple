@@ -4,9 +4,9 @@ import {
   setMousePosition,
   showPrevTooltip,
   showTooltip
-} from '@/feature/tooltip/tooltipSlice'
-import { RootState } from '@/store'
+} from 'feature/tooltip/tooltipSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'store'
 
 const useToolTip = () => {
   const visible = useSelector((state: RootState) => state.tooltip.visible)

@@ -1,7 +1,7 @@
-import useInventory from '@/hooks/useInventory'
-import images from '@/utils/images'
+import useInventory from 'hooks/useInventory'
 import React, { useEffect, useRef, useState } from 'react'
 import Draggable from 'react-draggable'
+import images from 'utils/images'
 import './Inventory.scss'
 import Item from './Item'
 

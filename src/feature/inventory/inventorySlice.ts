@@ -1,5 +1,5 @@
-import { EquipItemType, InventoryType, SlotType } from '@/types/inventory'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { EquipItemType, InventoryType, SlotType } from 'types/inventory'
 import { v4 as uuid } from 'uuid'
 export type InventoryState = {
   currentInventory: InventoryType

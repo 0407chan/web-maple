@@ -1,7 +1,7 @@
-import { initEquipItemList } from '@/feature/item/itemSlice'
-import { RootState } from '@/store'
-import { EquipmentItemListType } from '@/types/equipment'
+import { initEquipItemList } from 'feature/item/itemSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'store'
+import { EquipmentItemListType } from 'types/equipment'
 
 const useInventory = () => {
   const dispatch = useDispatch()

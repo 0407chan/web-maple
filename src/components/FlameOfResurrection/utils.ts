@@ -1,5 +1,5 @@
-import { FlameType, StatusSettingType } from '@/types/flame'
-import { BonusDetail, EquipItemType, StatusBase } from '@/types/inventory'
+import { FlameType, StatusSettingType } from 'types/flame'
+import { BonusDetail, EquipItemType, StatusBase } from 'types/inventory'
 import {
   ARMER_OPTION_NAME,
   ETERNAL_FLAME_PERCENTAGE,

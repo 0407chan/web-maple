@@ -1,7 +1,7 @@
-import useInventory from '@/hooks/useInventory'
-import useToolTip from '@/hooks/useToolTip'
-import { EquipItemType } from '@/types/inventory'
+import useInventory from 'hooks/useInventory'
+import useToolTip from 'hooks/useToolTip'
 import React from 'react'
+import { EquipItemType } from 'types/inventory'
 // import { EquipItemType } from "../modules/item/types";
 import './Item.scss'
 

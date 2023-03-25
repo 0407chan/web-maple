@@ -2,11 +2,11 @@ import {
   removeEquip,
   setEquip,
   updateEquipSlot
-} from '@/feature/equipment/equipmentSlice'
-import { RootState } from '@/store'
-import { EquipSlotType, ISlotsType } from '@/types/equipment'
-import { EquipItemType } from '@/types/inventory'
+} from 'feature/equipment/equipmentSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'store'
+import { EquipSlotType, ISlotsType } from 'types/equipment'
+import { EquipItemType } from 'types/inventory'
 
 const useEquipment = () => {
   const dispatch = useDispatch()

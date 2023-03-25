@@ -8,10 +8,10 @@ import {
   sortInventory,
   switchSlot,
   updateInventorySlot
-} from '@/feature/inventory/inventorySlice'
-import { RootState } from '@/store'
-import { EquipItemType, SlotType } from '@/types/inventory'
+} from 'feature/inventory/inventorySlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'store'
+import { EquipItemType, SlotType } from 'types/inventory'
 
 const useInventory = () => {
   const currentInventory = useSelector(

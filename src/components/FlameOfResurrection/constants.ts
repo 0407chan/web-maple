@@ -4,7 +4,7 @@
 //   'boss_demage',
 //   'demage'
 
-import { EquipItemType } from '@/types/inventory'
+import { EquipItemType } from 'types/inventory'
 
 // ]
 export const WEAPON_OPTION_NAME = [

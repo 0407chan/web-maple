@@ -1,5 +1,5 @@
-import IMAGE from '@/utils/images'
 import styled from 'styled-components'
+import IMAGE from 'utils/images'
 
 export const Horizontal = styled.div`
   display: flex;

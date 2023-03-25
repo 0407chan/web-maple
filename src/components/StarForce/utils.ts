@@ -1,5 +1,5 @@
-import { EquipItemType } from '@/types/inventory'
-import { StarForceSetting } from '@/types/star-force'
+import { EquipItemType } from 'types/inventory'
+import { StarForceSetting } from 'types/star-force'
 
 export const isOnePlusOne = (
   item: EquipItemType,

@@ -1,6 +1,6 @@
-import { UiWindowType } from '@/feature/uiWindow/uiWindowSlice'
-import useUiWindow from '@/hooks/useUiWindow'
-import useWindowSize from '@/hooks/useWindowSize'
+import { UiWindowType } from 'feature/uiWindow/uiWindowSlice'
+import useUiWindow from 'hooks/useUiWindow'
+import useWindowSize from 'hooks/useWindowSize'
 import React from 'react'
 import Draggable, {
   ControlPosition,
@@ -18,6 +18,7 @@ type props = {
   onDrag?: DraggableEventHandler | undefined
   onClose?: () => void
   hideCloseButton?: boolean
+  children?: React.ReactNode
 }
 const WindowContainer: React.FC<props> = ({
   windowType,

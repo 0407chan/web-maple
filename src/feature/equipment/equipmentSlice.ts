@@ -1,6 +1,6 @@
-import { EquipSlotType, ISlotsType, SlotName } from '@/types/equipment'
-import { EquipItemType } from '@/types/inventory'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { EquipSlotType, ISlotsType, SlotName } from 'types/equipment'
+import { EquipItemType } from 'types/inventory'
 import { v4 as uuid } from 'uuid'
 
 export type InventoryState = {

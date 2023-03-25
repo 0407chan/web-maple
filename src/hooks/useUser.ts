@@ -1,6 +1,6 @@
-import { RootState } from '@/store'
-import { EquipItemType } from '@/types/inventory'
 import { useSelector } from 'react-redux'
+import { RootState } from 'store'
+import { EquipItemType } from 'types/inventory'
 
 const useUser = () => {
   const user = useSelector((state: RootState) => state.user.user)

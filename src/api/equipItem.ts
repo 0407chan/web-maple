@@ -1,4 +1,4 @@
-import { EquipItemType } from '@/types/inventory'
+import { EquipItemType } from 'types/inventory'
 import { dbService } from '../utils/fbase'
 const EQUIP = 'equip'
 

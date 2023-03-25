@@ -3,9 +3,9 @@ import {
   removeUiWindow,
   setTop,
   UiWindowType
-} from '@/feature/uiWindow/uiWindowSlice'
-import { RootState } from '@/store'
+} from 'feature/uiWindow/uiWindowSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'store'
 
 const useUiWindow = () => {
   const dispatch = useDispatch()

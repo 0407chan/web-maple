@@ -1,5 +1,5 @@
-import { EquipItemType } from '@/types/inventory'
-import { StarForceSetting, SuccessRate } from '@/types/star-force'
+import { EquipItemType } from 'types/inventory'
+import { StarForceSetting, SuccessRate } from 'types/star-force'
 
 export const getMaxStar = (level: number): number => {
   if (level <= 94) {

@@ -1,4 +1,4 @@
-import { StatusSettingType } from '@/types/flame'
+import { StatusSettingType } from 'types/flame'
 
 export const StatusName: Record<keyof StatusSettingType, string> = {
   AllStat: '올스텟',

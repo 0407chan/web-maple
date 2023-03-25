@@ -1,11 +1,11 @@
-import counterReducer from '@/feature/counter/counterSlice'
-import equipmentReducer from '@/feature/equipment/equipmentSlice'
-import inventoryReducer from '@/feature/inventory/inventorySlice'
-import itemReducer from '@/feature/item/itemSlice'
-import tooltipReducer from '@/feature/tooltip/tooltipSlice'
-import uiWindowReducer from '@/feature/uiWindow/uiWindowSlice'
-import userReducer from '@/feature/user/userSlice'
 import { configureStore } from '@reduxjs/toolkit'
+import counterReducer from 'feature/counter/counterSlice'
+import equipmentReducer from 'feature/equipment/equipmentSlice'
+import inventoryReducer from 'feature/inventory/inventorySlice'
+import itemReducer from 'feature/item/itemSlice'
+import tooltipReducer from 'feature/tooltip/tooltipSlice'
+import uiWindowReducer from 'feature/uiWindow/uiWindowSlice'
+import userReducer from 'feature/user/userSlice'
 
 export const store = configureStore({
   reducer: {

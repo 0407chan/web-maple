@@ -1,4 +1,4 @@
-import { EquipItemType } from '@/types/inventory'
+import { EquipItemType } from 'types/inventory'
 
 export const EMPTY_EQUIP: EquipItemType = {
   id: '',

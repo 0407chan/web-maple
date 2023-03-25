@@ -1,8 +1,8 @@
-import useInventory from '@/hooks/useInventory'
-import useToolTip from '@/hooks/useToolTip'
-import { SlotType } from '@/types/inventory'
+import useInventory from 'hooks/useInventory'
+import useToolTip from 'hooks/useToolTip'
 import React, { useEffect } from 'react'
 import { DragPreviewImage, useDrag } from 'react-dnd'
+import { SlotType } from 'types/inventory'
 import * as S from './style'
 
 type ItemProps = {

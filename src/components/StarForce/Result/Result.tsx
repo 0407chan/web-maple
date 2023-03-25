@@ -10,7 +10,7 @@ import * as S from './style'
 
 // 2048716 강환불 Powerful Rebirth Flame
 // 2048717 영환불 Eternal Rebirth Flame
-const WonImage = `${import.meta.env.PUBLIC_URL}/images/money/won.png`
+const WonImage = `/images/money/won.png`
 
 type Props = {
   item: EquipItemType | undefined

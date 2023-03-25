@@ -7,7 +7,7 @@ import { StarForceSetting } from 'types/star-force'
 import { numberWithCommas } from 'utils/number/numberWithCommas'
 import * as S from './style'
 
-const WonImage = `${import.meta.env.PUBLIC_URL}/images/money/won.png`
+const WonImage = `/images/money/won.png`
 
 type Props = {
   position: ControlPosition

@@ -15,7 +15,7 @@ import { isMasicAttack, isWeapon } from '../utils'
 import { StatusName } from './contants'
 import * as S from './style'
 
-const WonImage = `${import.meta.env.PUBLIC_URL}/images/money/won.png`
+const WonImage = `/images/money/won.png`
 
 const AutoTypeName: Record<AutoType, string> = {
   DETAIL: '상세모드',

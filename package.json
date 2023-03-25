@@ -5,10 +5,11 @@
   "homepage": "http://0407chan.github.io/web-maple",
   "scripts": {
     "switch-email": "git config --global user.email 0407chan@naver.com",
-    "dev": "yarn switch-email && BROWSER=none craco start",
-    "build": "GENERATE_SOURCEMAP=false craco build",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
     "test": "react-scripts test",
-    "predeploy": "GENERATE_SOURCEMAP=false craco build",
+    "predeploy": "pnpm build",
     "gh-deploy": "gh-pages -d build"
   },
   "dependencies": {
@@ -24,12 +25,12 @@
     "env-cmd": "^10.1.0",
     "firebase": "^7.21.0",
     "immutability-helper": "^3.1.1",
-    "react": "^16.13.1",
+    "react": "^18.2.0",
     "react-dnd": "^14.0.3",
     "react-dnd-html5-backend": "^14.0.1",
     "react-dnd-multi-backend": "^6.0.2",
     "react-dnd-touch-backend": "^14.1.1",
-    "react-dom": "^16.13.1",
+    "react-dom": "^18.2.0",
     "react-draggable": "^4.4.3",
     "react-ga": "^3.3.0",
     "react-is": "^17.0.2",
@@ -38,25 +39,29 @@
     "react-scripts": "^4.0.3",
     "redux": "^4.0.5",
     "sass": "^1.60.0",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "vite-plugin-checker": "^0.5.6",
+    "vite-tsconfig-paths": "^4.0.7"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
     "@types/node": "^16.6.1",
-    "@types/react": "^17.0.18",
+    "@types/react": "^18.0.28",
     "@types/react-dnd-multi-backend": "^6.0.1",
-    "@types/react-dom": "^17.0.9",
+    "@types/react-dom": "^18.0.11",
     "@types/styled-components": "^5.1.12",
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
+    "@vitejs/plugin-react-swc": "^3.0.0",
     "babel-plugin-import": "^1.13.3",
     "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.24.0",
     "gh-pages": "^3.2.3",
     "prettier": "^2.3.2",
-    "typescript": "^4.3.5",
-    "uuid": "^8.3.2"
+    "typescript": "^4.9.3",
+    "uuid": "^8.3.2",
+    "vite": "^4.2.0"
   },
   "browserslist": {
     "production": [

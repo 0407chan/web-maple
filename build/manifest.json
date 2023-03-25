@@ -1,25 +1,26 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "index.css": {
+    "file": "assets/index-22819108.css",
+    "src": "index.css"
+  },
+  "index.html": {
+    "assets": [
+      "assets/Item.backgrnd3-76d12ccb.png",
+      "assets/Item.backgrnd2-876c7ec2.png"
+    ],
+    "css": [
+      "assets/index-22819108.css"
+    ],
+    "file": "assets/index-f71ec199.js",
+    "isEntry": true,
+    "src": "index.html"
+  },
+  "src/image/UI/inventory/Item.backgrnd2.png": {
+    "file": "assets/Item.backgrnd2-876c7ec2.png",
+    "src": "src/image/UI/inventory/Item.backgrnd2.png"
+  },
+  "src/image/UI/inventory/Item.backgrnd3.png": {
+    "file": "assets/Item.backgrnd3-76d12ccb.png",
+    "src": "src/image/UI/inventory/Item.backgrnd3.png"
+  }
 }

@@ -76,9 +76,9 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
       <S.Horizontal>
         <S.ImageWrapper>
           <S.Image
-            src={`https://maplestory.io/api/${
-              import.meta.env.REACT_APP_REGION
-            }/${import.meta.env.REACT_APP_VERSION}/item/${item.id}/icon`}
+            src={`https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
+              import.meta.env.VITE_VERSION
+            }/item/${item.id}/icon`}
           />
         </S.ImageWrapper>
         <S.TextWrapper>

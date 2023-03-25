@@ -11,8 +11,8 @@ export const getEquipment = async (
   query: GetEquipmentQuery
 ): Promise<GetEquipmentResponse> => {
   const result = await axios.get(
-    `https://maplestory.io/api/${import.meta.env.REACT_APP_REGION}/${
-      import.meta.env.REACT_APP_VERSION
+    `https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
+      import.meta.env.VITE_VERSION
     }/item/${query.itemId}`
   )
   return result.data
@@ -23,8 +23,8 @@ export const getEquipmentRawImage = async (
 ): Promise<string> => {
   const result = await axios
     .get(
-      `https://maplestory.io/api/${import.meta.env.REACT_APP_REGION}/${
-        import.meta.env.REACT_APP_VERSION
+      `https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
+        import.meta.env.VITE_VERSION
       }/item/${query.itemId}/iconRaw`,
       {
         responseType: 'arraybuffer'
@@ -57,8 +57,8 @@ export const getEquipmentList = async (
   query?: GetEquipmentListQuery
 ): Promise<GetEquipmentListResponse> => {
   const result = await axios.get(
-    `https://maplestory.io/api/${import.meta.env.REACT_APP_REGION}/${
-      import.meta.env.REACT_APP_VERSION
+    `https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
+      import.meta.env.VITE_VERSION
     }/item`,
     {
       params: query

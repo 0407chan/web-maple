@@ -76,8 +76,8 @@ const Result: React.FC<Props> = ({
               <S.Vertical>
                 <img
                   src={`https://maplestory.io/api/${
-                    import.meta.env.REACT_APP_REGION
-                  }/${import.meta.env.REACT_APP_VERSION}/item/2048716/icon`}
+                    import.meta.env.VITE_REGION
+                  }/${import.meta.env.VITE_VERSION}/item/2048716/icon`}
                   alt="powerImage"
                 />
                 <S.Text>
@@ -91,8 +91,8 @@ const Result: React.FC<Props> = ({
               <S.Vertical>
                 <img
                   src={`https://maplestory.io/api/${
-                    import.meta.env.REACT_APP_REGION
-                  }/${import.meta.env.REACT_APP_VERSION}/item/2048717/icon`}
+                    import.meta.env.VITE_REGION
+                  }/${import.meta.env.VITE_VERSION}/item/2048717/icon`}
                   alt="foreverImage"
                 />
                 <S.Text>
@@ -116,8 +116,8 @@ const Result: React.FC<Props> = ({
               <S.Text>
                 <img
                   src={`https://maplestory.io/api/${
-                    import.meta.env.REACT_APP_REGION
-                  }/${import.meta.env.REACT_APP_VERSION}/item/2438119/icon`}
+                    import.meta.env.VITE_REGION
+                  }/${import.meta.env.VITE_VERSION}/item/2438119/icon`}
                   alt="powerImage"
                 />
               </S.Text>

@@ -3,12 +3,12 @@ import {
   increment,
   incrementByAmount
 } from 'feature/counter/counterSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'store'
+import { useAppDispatch, useAppSelector } from 'redux/hooks'
+import { RootState } from 'redux/store'
 
 export default function useCounter() {
-  const count = useSelector((state: RootState) => state.counter.count)
-  const dispatch = useDispatch()
+  const count = useAppSelector((state: RootState) => state.counterReducer.count)
+  const dispatch = useAppDispatch()
 
   const onIncrease = () => dispatch(increment())
   const onDecrease = () => dispatch(decrement())

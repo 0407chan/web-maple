@@ -3,14 +3,16 @@ import {
   setEquip,
   updateEquipSlot
 } from 'feature/equipment/equipmentSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'store'
+import { useAppDispatch, useAppSelector } from 'redux/hooks'
+import { RootState } from 'redux/store'
 import { EquipSlotType, ISlotsType } from 'types/equipment'
 import { EquipItemType } from 'types/inventory'
 
 const useEquipment = () => {
-  const dispatch = useDispatch()
-  const equipment = useSelector((state: RootState) => state.equipment.equipment)
+  const dispatch = useAppDispatch()
+  const equipment = useAppSelector(
+    (state: RootState) => state.equipmentReducer.equipment
+  )
 
   const onSetEquip = (iSlotType: ISlotsType, item: EquipItemType) =>
     dispatch(setEquip({ iSlotType, item }))

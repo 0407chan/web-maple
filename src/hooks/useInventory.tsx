@@ -9,8 +9,7 @@ import {
   switchSlot,
   updateInventorySlot
 } from 'feature/inventory/inventorySlice'
-import { useDispatch } from 'react-redux'
-import { useAppSelector } from 'redux/hooks'
+import { useAppDispatch, useAppSelector } from 'redux/hooks'
 import { RootState } from 'redux/store'
 import { EquipItemType, SlotType } from 'types/inventory'
 
@@ -28,7 +27,7 @@ const useInventory = () => {
     (state: RootState) => state.inventoryReducer.inventory
   )
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const getEmptySlot = () => {
     return inventory[currentInventory].find((slot) => slot.isOpen && !slot.item)

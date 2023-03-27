@@ -1,5 +1,4 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import counterReducer from 'feature/counter/counterSlice'
 import equipmentReducer from 'feature/equipment/equipmentSlice'
 import inventoryReducer from 'feature/inventory/inventorySlice'
 import itemReducer from 'feature/item/itemSlice'
@@ -21,11 +20,10 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage: sessionStorage,
-  whitelist: ['inventoryReducer']
+  whitelist: ['inventoryReducer', 'uiWindowReducer']
 }
 
 const rootReducer = combineReducers({
-  counterReducer,
   inventoryReducer,
   tooltipReducer,
   userReducer,

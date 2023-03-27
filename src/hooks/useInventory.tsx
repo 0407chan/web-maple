@@ -9,21 +9,24 @@ import {
   switchSlot,
   updateInventorySlot
 } from 'feature/inventory/inventorySlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'store'
+import { useDispatch } from 'react-redux'
+import { useAppSelector } from 'redux/hooks'
+import { RootState } from 'redux/store'
 import { EquipItemType, SlotType } from 'types/inventory'
 
 const useInventory = () => {
-  const currentInventory = useSelector(
-    (state: RootState) => state.inventory.currentInventory
+  const currentInventory = useAppSelector(
+    (state: RootState) => state.inventoryReducer.currentInventory
   )
-  const currentItem = useSelector(
-    (state: RootState) => state.inventory.currentItem
+  const currentItem = useAppSelector(
+    (state: RootState) => state.inventoryReducer.currentItem
   )
-  const equipMaxNum = useSelector(
-    (state: RootState) => state.inventory.equipMaxNum
+  const equipMaxNum = useAppSelector(
+    (state: RootState) => state.inventoryReducer.equipMaxNum
   )
-  const inventory = useSelector((state: RootState) => state.inventory.inventory)
+  const inventory = useAppSelector(
+    (state: RootState) => state.inventoryReducer.inventory
+  )
 
   const dispatch = useDispatch()
 

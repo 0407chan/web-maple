@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux'
-import { RootState } from 'store'
+import { useAppSelector } from 'redux/hooks'
+import { RootState } from 'redux/store'
 import { EquipItemType } from 'types/inventory'
 
 const useUser = () => {
-  const user = useSelector((state: RootState) => state.user.user)
+  const user = useAppSelector((state: RootState) => state.userReducer.user)
 
   // 스공 계산
   const getStatAttack = (item: EquipItemType) => {

@@ -4,13 +4,13 @@ import {
   setTop,
   UiWindowType
 } from 'feature/uiWindow/uiWindowSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'store'
+import { useAppDispatch, useAppSelector } from 'redux/hooks'
+import { RootState } from 'redux/store'
 
 const useUiWindow = () => {
-  const dispatch = useDispatch()
-  const uiWindowList = useSelector(
-    (state: RootState) => state.uiWindow.uiWindowList
+  const dispatch = useAppDispatch()
+  const uiWindowList = useAppSelector(
+    (state: RootState) => state.uiWindowReducer.uiWindowList
   )
 
   const onRemoveUiWindow = (windowName: UiWindowType) =>

@@ -5,18 +5,24 @@ import {
   showPrevTooltip,
   showTooltip
 } from 'feature/tooltip/tooltipSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'store'
+import { useAppDispatch, useAppSelector } from 'redux/hooks'
+import { RootState } from 'redux/store'
 
 const useToolTip = () => {
-  const visible = useSelector((state: RootState) => state.tooltip.visible)
-  const prevTooltip = useSelector(
-    (state: RootState) => state.tooltip.prevTooltip
+  const visible = useAppSelector(
+    (state: RootState) => state.tooltipReducer.visible
   )
-  const mouseX = useSelector((state: RootState) => state.tooltip.mouseX)
-  const mouseY = useSelector((state: RootState) => state.tooltip.mouseY)
+  const prevTooltip = useAppSelector(
+    (state: RootState) => state.tooltipReducer.prevTooltip
+  )
+  const mouseX = useAppSelector(
+    (state: RootState) => state.tooltipReducer.mouseX
+  )
+  const mouseY = useAppSelector(
+    (state: RootState) => state.tooltipReducer.mouseY
+  )
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const onShowTooltip = () => dispatch(showTooltip())
   const onHideTooltip = () => dispatch(hideTooltip())

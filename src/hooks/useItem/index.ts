@@ -1,13 +1,13 @@
 import { initEquipItemList } from 'feature/item/itemSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'store'
+import { useAppDispatch, useAppSelector } from 'redux/hooks'
+import { RootState } from 'redux/store'
 import { EquipmentItemListType } from 'types/equipment'
 
 const useInventory = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const equipmentItemList = useSelector(
-    (state: RootState) => state.item.equipmentItemList
+  const equipmentItemList = useAppSelector(
+    (state: RootState) => state.itemReducer.equipmentItemList
   )
 
   const onInitEquipItemList = (newItemList: EquipmentItemListType[]) =>

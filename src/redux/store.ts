@@ -15,12 +15,13 @@ import {
   REGISTER,
   REHYDRATE
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import sessionStorage from 'redux-persist/es/storage/session'
 
 const persistConfig = {
   key: 'root',
-  storage,
-  whitelist: ['inventory']
+  version: 1,
+  storage: sessionStorage,
+  whitelist: ['inventoryReducer']
 }
 
 const rootReducer = combineReducers({

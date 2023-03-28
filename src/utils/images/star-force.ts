@@ -1,1 +1,1 @@
-export const StarImage = `/images/star-force/star.png`
+export const StarImage = `./images/star-force/star.png`

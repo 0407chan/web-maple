@@ -14,12 +14,12 @@ import {
   REGISTER,
   REHYDRATE
 } from 'redux-persist'
-import sessionStorage from 'redux-persist/es/storage/session'
+import localStorage from 'redux-persist/es/storage'
 
 const persistConfig = {
   key: 'root',
   version: 1,
-  storage: sessionStorage,
+  storage: localStorage,
   whitelist: ['inventoryReducer', 'uiWindowReducer']
 }
 

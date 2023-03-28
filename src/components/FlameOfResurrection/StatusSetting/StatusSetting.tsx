@@ -10,12 +10,11 @@ import {
   StatusSettingType
 } from 'types/flame'
 import { EquipItemType } from 'types/inventory'
+import { IMAGE } from 'utils/images'
 import { numberWithCommas } from 'utils/number/numberWithCommas'
 import { isMasicAttack, isWeapon } from '../utils'
 import { StatusName } from './contants'
 import * as S from './style'
-
-const WonImage = `/images/money/won.png`
 
 const AutoTypeName: Record<AutoType, string> = {
   DETAIL: '상세모드',
@@ -310,7 +309,7 @@ const StatusSetting: React.FC<Props> = ({
           <S.Block isLoading={loading}>
             <S.Horizontal>
               <S.Text>
-                <img width={30} src={WonImage} alt="one" />
+                <img width={30} src={IMAGE.WON} alt="one" />
               </S.Text>
               <S.Input
                 maxLength={5}

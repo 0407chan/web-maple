@@ -1,6 +1,7 @@
 import useInventory from 'hooks/useInventory'
 import React, { useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
+import { IMAGE } from 'utils/images'
 import { getEquipment, getEquipmentList } from './api/equipment'
 import * as S from './appStyle'
 import MapleButton from './components/common/MapleButton'
@@ -20,7 +21,6 @@ import {
 } from './types/equipment'
 import { SlotType } from './types/inventory'
 import { transDtoToType } from './utils/dtoTransUtil'
-import { StarImage } from './utils/images/star-force'
 
 const App: React.FC = () => {
   const {
@@ -332,7 +332,7 @@ const App: React.FC = () => {
               <img
                 width={15}
                 style={{ filter: 'drop-shadow(0 0 0.2rem #9a6100)' }}
-                src={StarImage}
+                src={IMAGE.STAR_FORCE}
                 alt="starImage"
               />
             }

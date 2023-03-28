@@ -6,9 +6,9 @@ import React, { useRef, useState } from 'react'
 import { ControlPosition } from 'react-draggable'
 import { EquipItemType, SlotType } from 'types/inventory'
 import { StarForceResult, StarForceSetting } from 'types/star-force'
-import IMAGE from 'utils/images'
-import { StarImage } from 'utils/images/star-force'
+import { IMAGE } from 'utils/images'
 import { numberWithCommas } from 'utils/number/numberWithCommas'
+import { tooltip } from 'utils/UI/tooltip'
 import { v4 as uuid } from 'uuid'
 import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
@@ -114,8 +114,8 @@ const StarForce: React.FC = () => {
       //   : IMAGE.tooltip.tooltip_Item_Star
       const imageSrc =
         i < slotRef.current.item.star
-          ? IMAGE.tooltip.tooltip_Item_Star
-          : IMAGE.tooltip.tooltip_Item_Star_none
+          ? tooltip.tooltip_Item_Star
+          : tooltip.tooltip_Item_Star_none
       result.push(
         <S.StarImage
           src={imageSrc}
@@ -295,7 +295,7 @@ const StarForce: React.FC = () => {
       particle.style.backgroundImage =
         image !== undefined
           ? `url(${image})`
-          : `url(${IMAGE.tooltip.tooltip_Item_Star})`
+          : `url(${tooltip.tooltip_Item_Star})`
       particle.style.backgroundRepeat = 'no-repeat'
       particle.style.backgroundSize = 'contain'
       const rotation = Math.random() * 520 + 1000
@@ -536,7 +536,7 @@ const StarForce: React.FC = () => {
                     isLoading={isStarForceRunning}
                     width={15}
                     style={{ filter: 'drop-shadow(0 0 0.2rem #9a6100)' }}
-                    src={StarImage}
+                    src={IMAGE.STAR_FORCE}
                     alt="star-force-image"
                   />
                   강화

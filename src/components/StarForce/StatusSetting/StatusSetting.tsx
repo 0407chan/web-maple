@@ -4,10 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { ControlPosition } from 'react-draggable'
 import { EquipItemType } from 'types/inventory'
 import { StarForceSetting } from 'types/star-force'
+import { IMAGE } from 'utils/images'
 import { numberWithCommas } from 'utils/number/numberWithCommas'
 import * as S from './style'
-
-const WonImage = `/images/money/won.png`
 
 type Props = {
   position: ControlPosition
@@ -172,7 +171,7 @@ const StatusSetting: React.FC<Props> = ({
           <S.Block isLoading={loading}>
             <S.Horizontal>
               <S.Text>
-                <img width={30} src={WonImage} alt="one" />
+                <img width={30} src={IMAGE.WON} alt="one" />
               </S.Text>
               <S.Input
                 maxLength={5}

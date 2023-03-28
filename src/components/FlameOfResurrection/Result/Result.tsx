@@ -4,13 +4,13 @@ import React from 'react'
 import { ControlPosition } from 'react-draggable'
 import { FlameSettingType, FlameType } from 'types/flame'
 import { EquipItemType } from 'types/inventory'
+import { IMAGE } from 'utils/images'
 import { numberUnit } from 'utils/number/numberUnit'
 import { numberWithCommas } from 'utils/number/numberWithCommas'
 import * as S from './style'
 
 // 2048716 강환불 Powerful Rebirth Flame
 // 2048717 영환불 Eternal Rebirth Flame
-const WonImage = `/images/money/won.png`
 
 type Props = {
   position: ControlPosition
@@ -138,7 +138,7 @@ const Result: React.FC<Props> = ({
           <S.Block>
             <S.Horizontal>
               <S.Text>
-                <img width={30} src={WonImage} alt="KRW" />
+                <img width={30} src={IMAGE.WON} alt="KRW" />
               </S.Text>
               <S.Input readOnly value={numberWithCommas(mesoToKRW())} />
             </S.Horizontal>

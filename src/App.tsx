@@ -125,7 +125,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     initEquipItem()
-    getAllEquip()
+    // getAllEquip()
   }, [])
 
   const getAllEquip = async () => {

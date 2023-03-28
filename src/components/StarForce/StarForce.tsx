@@ -335,7 +335,7 @@ const StarForce: React.FC = () => {
         onClose={() => updateSlotItem(undefined)}
         position={position}
       >
-        <S.Contianer>
+        <S.Container>
           {slotRef.current.item && canStarForce(slotRef.current.item) && (
             <S.StarWrapper>{renderStar()}</S.StarWrapper>
           )}
@@ -544,7 +544,7 @@ const StarForce: React.FC = () => {
               </>
             )}
           </S.Horizontal>
-        </S.Contianer>
+        </S.Container>
       </WindowContainer>
       <Result
         item={starForceSlot.item}

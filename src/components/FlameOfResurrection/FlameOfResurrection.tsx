@@ -611,7 +611,7 @@ const FlameOfResurrection: React.FC = () => {
           </S.Horizontal>
         }
       >
-        <S.Contianer>
+        <S.Container>
           <Slot
             slot={flameSlot}
             onDrop={onDrop}
@@ -720,7 +720,7 @@ const FlameOfResurrection: React.FC = () => {
               결과보기
             </MapleButton> */}
           </S.Horizontal>
-        </S.Contianer>
+        </S.Container>
       </WindowContainer>
       {showSetting && (
         <StatusSetting

@@ -43,7 +43,7 @@ const StatusSetting: React.FC<Props> = ({
       canDrag={false}
     >
       <S.Vertical>
-        <S.Contianer>
+        <S.Container>
           <S.Title>강화 목표</S.Title>
           <S.Block
             isLoading={loading}
@@ -88,8 +88,8 @@ const StatusSetting: React.FC<Props> = ({
             />
             <S.Title style={{ color: 'black', fontSize: 20 }}>성</S.Title>
           </S.Block>
-        </S.Contianer>
-        <S.Contianer style={{ marginTop: 10 }}>
+        </S.Container>
+        <S.Container style={{ marginTop: 10 }}>
           <S.Title>스타포스 이벤트</S.Title>
           <S.Block isLoading={loading}>
             <S.Vertical
@@ -135,8 +135,8 @@ const StatusSetting: React.FC<Props> = ({
               </Checkbox>
             </S.Vertical>
           </S.Block>
-        </S.Contianer>
-        <S.Contianer style={{ marginTop: 10 }}>
+        </S.Container>
+        <S.Container style={{ marginTop: 10 }}>
           <S.Title>노작 가격</S.Title>
           <S.Block isLoading={loading}>
             <S.Horizontal>
@@ -165,8 +165,8 @@ const StatusSetting: React.FC<Props> = ({
               />
             </S.Horizontal>
           </S.Block>
-        </S.Contianer>
-        <S.Contianer style={{ marginTop: 10 }}>
+        </S.Container>
+        <S.Container style={{ marginTop: 10 }}>
           <S.Title>1억 메소당</S.Title>
           <S.Block isLoading={loading}>
             <S.Horizontal>
@@ -193,7 +193,7 @@ const StatusSetting: React.FC<Props> = ({
               />
             </S.Horizontal>
           </S.Block>
-        </S.Contianer>
+        </S.Container>
       </S.Vertical>
     </WindowContainer>
   )

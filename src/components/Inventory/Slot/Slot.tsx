@@ -102,14 +102,14 @@ const Slot: React.FC<SlotProps> = ({
   }
 
   return (
-    <S.Contianer
+    <S.Container
       ref={drop}
       role="Dustbin"
       onClick={onClick || onClickHandler}
       className={`${className ? className : ''} ${isActive()} ${isOpen()}`}
     >
       {slot.item?.id !== '' && <Item2 slot={slot} canDrag={isCanDrop} />}
-    </S.Contianer>
+    </S.Container>
   )
 }
 

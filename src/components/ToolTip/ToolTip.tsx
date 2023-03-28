@@ -214,7 +214,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
   }
 
   return (
-    <S.Contianer
+    <S.Container
       id="new-tooltip"
       style={position}
       onMouseEnter={setMousePosition}
@@ -282,7 +282,7 @@ const ToolTip: React.FC<ToolTipProps> = ({ positionX, positionY }) => {
           )}
         </S.StatusWrapper>
       </S.SectionBlock>
-    </S.Contianer>
+    </S.Container>
   )
 }
 

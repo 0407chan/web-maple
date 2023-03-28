@@ -86,7 +86,7 @@ const EquipSlot: React.FC<SlotProps> = ({ slot, onDrop }) => {
   }
 
   return (
-    <S.Contianer
+    <S.Container
       ref={drop}
       role="Dustbin"
       onClick={onClickHandler}
@@ -94,7 +94,7 @@ const EquipSlot: React.FC<SlotProps> = ({ slot, onDrop }) => {
     >
       <S.SlotName className="no-drag">{slot.slotTypeName}</S.SlotName>
       {slot.item?.id !== '' && <Item2 slot={slot} />}
-    </S.Contianer>
+    </S.Container>
   )
 }
 

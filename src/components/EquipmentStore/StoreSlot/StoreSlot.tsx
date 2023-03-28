@@ -72,7 +72,7 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
   }
 
   return (
-    <S.Contianer onClick={onClick || onClickHandler}>
+    <S.Container onClick={onClick || onClickHandler}>
       <S.Horizontal>
         <S.ImageWrapper>
           <S.Image
@@ -90,7 +90,7 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
           </MapleButton>
         )}
       </S.Horizontal>
-    </S.Contianer>
+    </S.Container>
   )
 }
 

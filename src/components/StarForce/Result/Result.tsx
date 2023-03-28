@@ -79,7 +79,7 @@ const Result: React.FC<Props> = ({
       canDrag={false}
     >
       <S.Vertical>
-        <S.Contianer>
+        <S.Container>
           <S.Horizontal>
             <S.Title>터진 횟수</S.Title>
             <MapleButton size="small" onClick={initItemStatusSetting}>
@@ -106,8 +106,8 @@ const Result: React.FC<Props> = ({
               </S.Horizontal>
             </S.Block>
           </S.Horizontal>
-        </S.Contianer>
-        <S.Contianer style={{ marginTop: 10 }}>
+        </S.Container>
+        <S.Container style={{ marginTop: 10 }}>
           <S.Horizontal>
             <S.Title>누적 메소</S.Title>
           </S.Horizontal>
@@ -127,8 +127,8 @@ const Result: React.FC<Props> = ({
           <S.Horizontal style={{ justifyContent: 'flex-end' }}>
             <S.Title>{numberUnit(getTotalCost())} 메소</S.Title>
           </S.Horizontal>
-        </S.Contianer>
-        <S.Contianer style={{ marginTop: -10 }}>
+        </S.Container>
+        <S.Container style={{ marginTop: -10 }}>
           <S.Horizontal>
             <S.Title>현금 치환</S.Title>
           </S.Horizontal>
@@ -143,7 +143,7 @@ const Result: React.FC<Props> = ({
           <S.Horizontal style={{ justifyContent: 'flex-end' }}>
             <S.Title>{numberUnit(mesoToKRW())} 원</S.Title>
           </S.Horizontal>
-        </S.Contianer>
+        </S.Container>
       </S.Vertical>
     </WindowContainer>
   )

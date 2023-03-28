@@ -275,7 +275,7 @@ const App: React.FC = () => {
   }, [])
 
   return (
-    <S.Contianer>
+    <S.Container>
       <S.HeaderWrapper>
         <S.Header style={{ paddingTop: 0 }}>Web Maple</S.Header>
         {/* <S.ButtonWrapper>
@@ -371,7 +371,7 @@ const App: React.FC = () => {
       <FlameOfResurrection />
       <EquipmentStore />
       <StarForce />
-    </S.Contianer>
+    </S.Container>
   )
 }
 

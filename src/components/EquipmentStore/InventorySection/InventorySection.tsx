@@ -39,7 +39,7 @@ const InventorySection: React.FC<Props> = ({ position }) => {
             장비
           </S.InventoryButton>
         </S.InventoryButtonWrapper>
-        <S.Contianer>
+        <S.Container>
           {inventory[currentInventory].map((slot) => {
             if (slot.item) {
               return (
@@ -56,7 +56,7 @@ const InventorySection: React.FC<Props> = ({ position }) => {
               )
             }
           })}
-        </S.Contianer>
+        </S.Container>
       </S.Vertical>
     </WindowContainer>
   )

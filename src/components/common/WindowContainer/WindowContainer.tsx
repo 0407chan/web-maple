@@ -58,7 +58,7 @@ const WindowContainer: React.FC<props> = ({
       onDrag={onDrag}
       position={position}
     >
-      <S.Contianer
+      <S.Container
         className="no-drag"
         style={{
           ...style,
@@ -73,7 +73,7 @@ const WindowContainer: React.FC<props> = ({
         )}
         <S.Body>{children}</S.Body>
         {footer && <S.Footer>{footer}</S.Footer>}
-      </S.Contianer>
+      </S.Container>
     </Draggable>
   )
 }

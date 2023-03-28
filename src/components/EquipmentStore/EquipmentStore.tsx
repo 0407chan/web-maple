@@ -55,7 +55,7 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
               setSearchKey(event.target.value)
             }}
           />
-          <S.Contianer ref={ref}>
+          <S.Container ref={ref}>
             {searchedList.slice(0, maxCount).map((item) => (
               <StoreSlot key={item.id} item={item} searchKey={searchKey} />
             ))}
@@ -72,7 +72,7 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
                 [<S.BoldText>{searchKey}</S.BoldText>] 는 존재하지 않습니다.
               </S.EmptyContainer>
             )}
-          </S.Contianer>
+          </S.Container>
         </S.Vertical>
       </WindowContainer>
       <InventorySection position={position} />

@@ -8,7 +8,7 @@ export const Horizontal = styled.div`
   justify-content: center;
 `
 
-export const Contianer = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
 

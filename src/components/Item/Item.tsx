@@ -77,7 +77,7 @@ const Item: React.FC<ItemProps> = ({ slot, canDrag }) => {
   return (
     <>
       <DragPreviewImage connect={preview} src={slot.item.image} />
-      <S.Contianer
+      <S.Container
         ref={drag}
         className="no-drag"
         onMouseOver={setDispalyVisibleAction}
@@ -91,7 +91,7 @@ const Item: React.FC<ItemProps> = ({ slot, canDrag }) => {
           className="no-drag"
           alt="itemImage"
         />
-      </S.Contianer>
+      </S.Container>
     </>
   )
 }

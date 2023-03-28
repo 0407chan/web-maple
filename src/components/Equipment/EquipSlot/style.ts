@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const SLOT_WIDTH = '48px'
 const SLOT_HEIGHT = '48px'
 
-export const Contianer = styled.div`
+export const Container = styled.div`
   display: flex;
   position: relative;
   width: ${SLOT_WIDTH};

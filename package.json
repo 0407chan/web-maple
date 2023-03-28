@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "test": "react-scripts test",
     "predeploy": "pnpm build",
-    "gh-deploy": "gh-pages -d build"
+    "gh-deploy": "pnpm predeploy && gh-pages -d build"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",

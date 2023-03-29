@@ -3,6 +3,7 @@ import { getEquipment } from 'api/equipment'
 import MapleButton from 'components/common/MapleButton'
 import useInventory from 'hooks/useInventory'
 import React, { useState } from 'react'
+import Highlighter from 'react-highlight-words'
 import { EquipmentItemListType } from 'types/equipment'
 import { transDtoToType } from 'utils/dtoTransUtil'
 import * as S from './style'
@@ -82,7 +83,17 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
           />
         </S.ImageWrapper>
         <S.TextWrapper>
-          {item.name ? highlightDiv(item.name) : undefined}
+          <Highlighter
+            highlightStyle={{
+              backgroundColor: '#ffc60a',
+              fontWeight: 'bold',
+              padding: 0
+            }}
+            caseSensitive
+            searchWords={[searchKey]}
+            autoEscape
+            textToHighlight={item.name}
+          />
         </S.TextWrapper>
         {button || (
           <MapleButton size="small" loading={loading} onClick={onPurchaseItem}>

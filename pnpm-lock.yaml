@@ -10,6 +10,7 @@ specifiers:
   '@types/react': ^18.0.29
   '@types/react-dnd-multi-backend': ^6.0.2
   '@types/react-dom': ^18.0.11
+  '@types/react-highlight-words': ^0.16.4
   '@types/react-redux': ^7.1.25
   '@types/redux-persist': ^4.3.1
   '@types/styled-components': ^5.1.26
@@ -35,6 +36,7 @@ specifiers:
   react-dom: ^18.2.0
   react-draggable: ^4.4.5
   react-ga: ^3.3.1
+  react-highlight-words: ^0.20.0
   react-is: ^17.0.2
   react-query: ^3.39.3
   react-redux: ^7.2.9
@@ -53,6 +55,7 @@ dependencies:
   '@testing-library/jest-dom': 4.2.4
   '@testing-library/react': 9.5.0_biqbaboplfbrettd7655fr4n2y
   '@testing-library/user-event': 7.2.1
+  '@types/react-highlight-words': 0.16.4
   '@types/react-redux': 7.1.25
   antd: 4.24.8_biqbaboplfbrettd7655fr4n2y
   axios: 0.21.4
@@ -67,6 +70,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-draggable: 4.4.5_biqbaboplfbrettd7655fr4n2y
   react-ga: 3.3.1_react@18.2.0
+  react-highlight-words: 0.20.0_react@18.2.0
   react-is: 17.0.2
   react-query: 3.39.3_biqbaboplfbrettd7655fr4n2y
   react-redux: 7.2.9_biqbaboplfbrettd7655fr4n2y
@@ -1175,6 +1179,12 @@ packages:
     resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
     dependencies:
       '@types/react': 18.0.29
+
+  /@types/react-highlight-words/0.16.4:
+    resolution: {integrity: sha512-KITBX3xzheQLu2s3bUgLmRE7ekmhc52zRjRTwkKayQARh30L4fjEGzGm7ULK9TuX2LgxWWavZqyQGDGjAHbL3w==}
+    dependencies:
+      '@types/react': 18.0.29
+    dev: false
 
   /@types/react-redux/7.1.25:
     resolution: {integrity: sha512-bAGh4e+w5D8dajd6InASVIyCo4pZLJ66oLb80F9OBLO1gKESbZcRCJpTT6uLXX+HAB57zw1WTdwJdAsewuTweg==}
@@ -2521,6 +2531,10 @@ packages:
     dependencies:
       function-bind: 1.1.1
 
+  /highlight-words-core/1.2.2:
+    resolution: {integrity: sha512-BXUKIkUuh6cmmxzi5OIbUJxrG8OAk2MqoL1DtO3Wo9D2faJg2ph5ntyuQeLqaHJmzER6H5tllCDA9ZnNe9BVGg==}
+    dev: false
+
   /hoist-non-react-statics/3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
     dependencies:
@@ -2885,6 +2899,10 @@ packages:
     dependencies:
       '@babel/runtime': 7.21.0
       remove-accents: 0.4.2
+    dev: false
+
+  /memoize-one/4.0.3:
+    resolution: {integrity: sha512-QmpUu4KqDmX0plH4u+tf0riMc1KHE1+lw95cMrLlXQAFOx/xnBtwhZ52XJxd9X2O6kwKBqX32kmhbhlobD0cuw==}
     dev: false
 
   /merge2/1.4.1:
@@ -3858,6 +3876,17 @@ packages:
       prop-types: ^15.6.0
       react: ^15.6.2 || ^16.0 || ^17 || ^18
     dependencies:
+      react: 18.2.0
+    dev: false
+
+  /react-highlight-words/0.20.0_react@18.2.0:
+    resolution: {integrity: sha512-asCxy+jCehDVhusNmCBoxDf2mm1AJ//D+EzDx1m5K7EqsMBIHdZ5G4LdwbSEXqZq1Ros0G0UySWmAtntSph7XA==}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0
+    dependencies:
+      highlight-words-core: 1.2.2
+      memoize-one: 4.0.3
+      prop-types: 15.8.1
       react: 18.2.0
     dev: false
 

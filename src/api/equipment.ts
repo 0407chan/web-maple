@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useQuery, UseQueryResult } from 'react-query'
+import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query'
 import {
   GetEquipmentListQuery,
   GetEquipmentListResponse,
@@ -41,16 +41,19 @@ export const getEquipmentRawImage = async (
   return result
 }
 
-export const useGetEquipment = (
+export const useGetEquipment = ({
+  query,
+  options
+}: {
   query: GetEquipmentQuery
-): UseQueryResult<GetEquipmentResponse, unknown> => {
-  return useQuery(
-    ['getEquipment', query],
-    async () => {
-      return getEquipment(query)
-    },
-    { retry: false, refetchOnWindowFocus: false, keepPreviousData: true }
-  )
+  options?: UseQueryOptions<
+    GetEquipmentResponse,
+    unknown,
+    GetEquipmentResponse,
+    (string | GetEquipmentQuery)[]
+  >
+}): UseQueryResult<GetEquipmentResponse, unknown> => {
+  return useQuery(['getEquipment', query], () => getEquipment(query), options)
 }
 
 export const getEquipmentList = async (

@@ -42,24 +42,3 @@ export const Image = styled.img`
   /* width: ${SLOT_WIDTH}; */
   /* height: ${SLOT_HEIGHT}; */
 `
-export const Horizontal = styled.div`
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  padding: 0 10px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`
-export const Vertical = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-`
-
-export const HighlightText = styled.span`
-  background-color: #ffc60a;
-  font-weight: bold;
-`

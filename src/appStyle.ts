@@ -62,20 +62,6 @@ export const ButtonWrapper = styled.div`
   height: fit-content;
 `
 
-export const Horizontal = styled.div`
-  display: flex;
-  gap: 15px;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
-`
-export const Vertical = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-`
 
 export const NpcImage = styled.img`
   cursor: pointer;

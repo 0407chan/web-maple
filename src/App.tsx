@@ -1,3 +1,6 @@
+import { Typography } from 'antd'
+import Horizontal from 'components/common/Horizontal'
+import Vertical from 'components/common/Vertical'
 import useInventory from 'hooks/useInventory'
 import React, { useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
@@ -296,7 +299,13 @@ const App: React.FC = () => {
           </S.Horizontal>
         </S.ButtonWrapper> */}
       </S.HeaderWrapper>
-      <S.Horizontal>
+      <Horizontal
+        style={{
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'flex-end'
+        }}
+      >
         {/* <S.Vertical>
           <MapleButton
             style={{ height: 40, width: 40 }}
@@ -306,16 +315,16 @@ const App: React.FC = () => {
           </MapleButton>
           <div>장비창</div>
         </S.Vertical> */}
-        <S.Vertical>
+        <Vertical style={{ alignItems: 'center', width: 'fit-content' }}>
           <MapleButton
             style={{ height: 40, width: 40 }}
             onClick={() => onToggleWindow('Inventory')}
           >
             I
           </MapleButton>
-          <div>인벤토리</div>
-        </S.Vertical>
-        <S.Vertical>
+          <Typography.Text>인벤토리</Typography.Text>
+        </Vertical>
+        <Vertical style={{ alignItems: 'center', width: 'fit-content' }}>
           <MapleButton
             style={{ height: 40, width: 40 }}
             onClick={() => onToggleWindow('FlameOfResurrection')}
@@ -323,8 +332,8 @@ const App: React.FC = () => {
             F
           </MapleButton>
           <div>환불창</div>
-        </S.Vertical>
-        <S.Vertical>
+        </Vertical>
+        <Vertical style={{ alignItems: 'center', width: 'fit-content' }}>
           <MapleButton
             style={{ height: 40, width: 40 }}
             onClick={() => onToggleWindow('EquipmentEnchant')}
@@ -338,8 +347,8 @@ const App: React.FC = () => {
             }
           />
           <div>스타포스</div>
-        </S.Vertical>
-        <S.Vertical>
+        </Vertical>
+        <Vertical style={{ alignItems: 'center', width: 'fit-content' }}>
           <S.NpcImage
             draggable="false"
             src={`https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
@@ -350,8 +359,8 @@ const App: React.FC = () => {
             onClick={() => onToggleWindow('EquipmentStore')}
           />
           <div>장비상점</div>
-        </S.Vertical>
-      </S.Horizontal>
+        </Vertical>
+      </Horizontal>
       {/* <S.BoundWrapper>
         <S.Bound className="prev-bound">
           <S.Header>Prev Inventory</S.Header>

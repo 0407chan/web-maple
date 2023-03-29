@@ -14,21 +14,6 @@ export const Container = styled.div`
   gap: 4px;
 `
 
-export const Horizontal = styled.div`
-  display: flex;
-  gap: 5px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`
-export const Vertical = styled.div`
-  display: flex;
-  gap: 10px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`
-
 export const EmptyContainer = styled.div`
   display: flex;
   width: 100%;

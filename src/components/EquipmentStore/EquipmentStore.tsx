@@ -1,4 +1,5 @@
 import Input from 'antd/lib/input'
+import Vertical from 'components/common/Vertical'
 import useItem from 'hooks/useItem'
 import React, { useEffect, useRef, useState } from 'react'
 import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
@@ -46,7 +47,7 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
         windowType="EquipmentStore"
         position={position}
       >
-        <S.Vertical>
+        <Vertical gap="small">
           <Input
             placeholder="구매할 아이템 이름을 입력해주세요."
             maxLength={10}
@@ -73,7 +74,7 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
               </S.EmptyContainer>
             )}
           </S.Container>
-        </S.Vertical>
+        </Vertical>
       </WindowContainer>
       <InventorySection position={position} />
     </>

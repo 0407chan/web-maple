@@ -12,7 +12,7 @@ export const Container = styled.div`
   align-items: flex-start;
 
   border: 1px solid #bbbbbb;
-  cursor: pointer;
+  /* cursor: pointer; */
   &:hover {
     background-color: #e5eef0;
   }

@@ -20,8 +20,12 @@ export const Container = styled.div`
 
 export const ImageWrapper = styled.div`
   display: flex;
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  max-height: 48px;
   justify-content: center;
   align-items: center;
 `

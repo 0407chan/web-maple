@@ -82,7 +82,12 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
           />
         </S.TextWrapper>
         {button || (
-          <MapleButton size="small" loading={loading} onClick={onPurchaseItem}>
+          <MapleButton
+            style={{ marginRight: 4 }}
+            size="small"
+            loading={loading}
+            onClick={onPurchaseItem}
+          >
             구매
           </MapleButton>
         )}

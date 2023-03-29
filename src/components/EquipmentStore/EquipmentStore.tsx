@@ -1,9 +1,8 @@
 import Input from 'antd/lib/input'
 import Vertical from 'components/common/Vertical'
 import useItem from 'hooks/useItem'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
-import { EquipmentItemListType } from 'types/equipment'
 import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
 import InventorySection from './InventorySection'
@@ -17,8 +16,6 @@ type EquipmentStoreProps = {
 const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
   const { equipmentItemList } = useItem()
   const [searchKey, setSearchKey] = useState<string>('')
-  const [searchedList, setSearchedList] =
-    useState<EquipmentItemListType[]>(equipmentItemList)
   const [maxCount, setMaxCount] = useState<number>(30)
   const ref = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState<ControlPosition>({
@@ -26,12 +23,13 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
     y: 200
   })
 
-  useEffect(() => {
-    const newArray = equipmentItemList.filter(
-      (item) => item.name && item.name.indexOf(searchKey) !== -1
-    )
-    setSearchedList(newArray)
-  }, [equipmentItemList, searchKey])
+  const searchedList = useMemo(
+    () =>
+      equipmentItemList.filter(
+        (item) => item.name && item.name.indexOf(searchKey) !== -1
+      ),
+    [searchKey, equipmentItemList]
+  )
 
   const onControlledDrag = (e: DraggableEvent, data: DraggableData) => {
     const { x, y } = data

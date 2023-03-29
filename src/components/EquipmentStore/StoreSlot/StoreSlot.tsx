@@ -1,5 +1,6 @@
 import message from 'antd/lib/message'
 import { getEquipment } from 'api/equipment'
+import Horizontal from 'components/common/Horizontal'
 import MapleButton from 'components/common/MapleButton'
 import useInventory from 'hooks/useInventory'
 import React, { useState } from 'react'
@@ -21,7 +22,7 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
   onClick,
   button
 }) => {
-  let timer: any = undefined
+  // let timer: any = undefined
   const { onAddEquipment, getEmptySlot } = useInventory()
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -43,38 +44,22 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
     setLoading(false)
   }
 
-  const onClickHandler = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    clearTimeout(timer)
-    if (event.detail === 1) {
-      timer = setTimeout(() => {
-        console.log(item.name)
-      }, 200)
-    } else if (event.detail === 2) {
-      console.log('더블 클릭', item.name)
-    }
-  }
-
-  const highlightDiv = (value: string) => {
-    const replacedKeyowrd = searchKey.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
-    const parts = value.split(new RegExp(`(${replacedKeyowrd})`, 'gi'))
-    return (
-      <>
-        {parts.map((part, idx) =>
-          part.toLowerCase() === searchKey.toLowerCase() ? (
-            <S.HighlightText key={idx}>{part}</S.HighlightText>
-          ) : (
-            <React.Fragment key={idx}>{part}</React.Fragment>
-          )
-        )}
-      </>
-    )
-  }
+  // const onClickHandler = (
+  //   event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  // ) => {
+  //   clearTimeout(timer)
+  //   if (event.detail === 1) {
+  //     timer = setTimeout(() => {
+  //       console.log(item.name)
+  //     }, 200)
+  //   } else if (event.detail === 2) {
+  //     console.log('더블 클릭', item.name)
+  //   }
+  // }
 
   return (
-    <S.Container onClick={onClick || onClickHandler}>
-      <S.Horizontal>
+    <S.Container onClick={onClick}>
+      <Horizontal gap="small" style={{ padding: '0px 8px' }}>
         <S.ImageWrapper>
           <S.Image
             alt="item-icon"
@@ -101,7 +86,7 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
             구매
           </MapleButton>
         )}
-      </S.Horizontal>
+      </Horizontal>
     </S.Container>
   )
 }

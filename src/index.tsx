@@ -11,7 +11,15 @@ import { store } from './redux/store'
 import './style/custom-style.scss'
 import GlobalStyle from './style/GlobalStyle'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+      keepPreviousData: true
+    }
+  }
+})
 
 const persistor = persistStore(store)
 

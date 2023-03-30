@@ -294,8 +294,14 @@ const App: React.FC = () => {
 
   return (
     <S.Container>
-      <S.HeaderWrapper>
-        <S.Header style={{ paddingTop: 0 }}>Web Maple</S.Header>
+      <Vertical gap={0} style={{ alignItems: 'center', margin: '24px 0' }}>
+        <Typography.Title level={1} style={{ margin: 0 }}>
+          Web Maple
+        </Typography.Title>
+        <Typography.Title level={4} style={{ margin: 0 }}>
+          {import.meta.env.VITE_REGION} -
+          {localStorage.getItem('wzVersion') || import.meta.env.VITE_VERSION}
+        </Typography.Title>
         {/* <S.ButtonWrapper>
           <S.Horizontal>
             <MapleButton onClick={() => getEquipBy('검')}>
@@ -313,7 +319,7 @@ const App: React.FC = () => {
             </MapleButton>
           </S.Horizontal>
         </S.ButtonWrapper> */}
-      </S.HeaderWrapper>
+      </Vertical>
       <Horizontal
         style={{
           width: '100%',

@@ -71,14 +71,21 @@ export const getEquipmentList = async (
   return result.data
 }
 
-export const useGetEquipmentList = (
-  query?: GetEquipmentListQuery
-): UseQueryResult<GetEquipmentListResponse, unknown> => {
+export const useGetEquipmentList = ({
+  query,
+  options
+}: {
+  query: GetEquipmentListQuery
+  options?: UseQueryOptions<
+    GetEquipmentListResponse,
+    unknown,
+    GetEquipmentListResponse,
+    (string | GetEquipmentListQuery)[]
+  >
+}): UseQueryResult<GetEquipmentListResponse, unknown> => {
   return useQuery(
     ['getEquipmentList', query],
-    async () => {
-      return getEquipmentList(query)
-    },
-    { retry: false, refetchOnWindowFocus: false, keepPreviousData: true }
+    () => getEquipmentList(query),
+    options
   )
 }

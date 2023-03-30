@@ -16,13 +16,8 @@ import Inventory from './components/Inventory'
 import StarForce from './components/StarForce'
 import ToolTip from './components/ToolTip'
 import useEquipment from './hooks/useEquipment'
-import useItem from './hooks/useItem'
 import useUiWindow from './hooks/useUiWindow'
-import {
-  EquipmentItemListType,
-  EquipSlotType,
-  GetEquipmentListQuery
-} from './types/equipment'
+import { EquipSlotType, GetEquipmentListQuery } from './types/equipment'
 import { SlotType } from './types/inventory'
 import { transDtoToType } from './utils/dtoTransUtil'
 
@@ -37,8 +32,6 @@ const App: React.FC = () => {
     onOpenEquipInventory,
     onSwitchSlot
   } = useInventory()
-
-  const { onInitEquipItemList } = useItem()
 
   const { onSetEquip, onRemoveEquip } = useEquipment()
 
@@ -124,24 +117,9 @@ const App: React.FC = () => {
     console.log(`[${name}] 검색 결과`, result)
   }
 
-  const initEquipItem = async () => {
-    const result = await getEquipmentList({
-      overallCategoryFilter: 'Equip',
-      cashFilter: false
-    })
-    const newResult: EquipmentItemListType[] = []
-    result.forEach((item) => {
-      if (!newResult.find((newItem) => newItem.name === item.name)) {
-        newResult.push(item)
-      }
-    })
-    onInitEquipItemList(newResult)
-  }
-
-  useEffect(() => {
-    initEquipItem()
-    // getAllEquip()
-  }, [])
+  // useEffect(() => {
+  // getAllEquip()
+  // }, [])
 
   const getAllEquip = async () => {
     const promise = []

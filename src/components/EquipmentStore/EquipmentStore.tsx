@@ -1,6 +1,6 @@
 import Input from 'antd/lib/input'
+import { useGetEquipmentList } from 'api/equipment'
 import Vertical from 'components/common/Vertical'
-import useItem from 'hooks/useItem'
 import React, { useMemo, useRef, useState } from 'react'
 import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
 import MapleButton from '../common/MapleButton'
@@ -14,10 +14,16 @@ type EquipmentStoreProps = {
 }
 
 const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
-  const { equipmentItemList } = useItem()
   const [searchKey, setSearchKey] = useState<string>('')
   const [maxCount, setMaxCount] = useState<number>(30)
   const ref = useRef<HTMLDivElement>(null)
+  const storeItemListQuery = useGetEquipmentList({
+    query: {
+      overallCategoryFilter: 'Equip',
+      cashFilter: false
+    },
+    options: {}
+  })
   const [position, setPosition] = useState<ControlPosition>({
     x: document.body.clientWidth / 2 - 350,
     y: 200
@@ -25,10 +31,10 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
 
   const searchedList = useMemo(
     () =>
-      equipmentItemList.filter(
+      storeItemListQuery.data?.filter(
         (item) => item.name && item.name.indexOf(searchKey) !== -1
-      ),
-    [searchKey, equipmentItemList]
+      ) ?? [],
+    [searchKey, storeItemListQuery.data]
   )
 
   const onControlledDrag = (e: DraggableEvent, data: DraggableData) => {

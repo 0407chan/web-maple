@@ -2,22 +2,28 @@ import { Typography } from 'antd'
 import { useGetWzVersion } from 'api/wz-version.api'
 import Horizontal from 'components/common/Horizontal'
 import Vertical from 'components/common/Vertical'
+import EquipmentStore from 'domains/EquipmentStore/components/EquipmentStore'
 import useInventory from 'hooks/useInventory'
 import React, { useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
 import { IMAGE } from 'utils/images'
-import { getEquipment, getEquipmentList } from './api/equipment'
 import * as S from './appStyle'
 import MapleButton from './components/common/MapleButton'
 import Equipment from './components/Equipment'
-import EquipmentStore from './components/EquipmentStore'
 import FlameOfResurrection from './components/FlameOfResurrection'
 import Inventory from './components/Inventory'
 import StarForce from './components/StarForce'
 import ToolTip from './components/ToolTip'
+import {
+  getEquipment,
+  getEquipmentList
+} from './domains/EquipmentStore/apis/equipment.api'
+import {
+  EquipSlotType,
+  GetEquipmentListQuery
+} from './domains/EquipmentStore/types/equipment.types'
 import useEquipment from './hooks/useEquipment'
 import useUiWindow from './hooks/useUiWindow'
-import { EquipSlotType, GetEquipmentListQuery } from './types/equipment'
 import { SlotType } from './types/inventory'
 import { transDtoToType } from './utils/dtoTransUtil'
 

@@ -2,8 +2,12 @@ import {
   getMaxStar,
   getMaxStarForSuperior
 } from 'components/StarForce/constants'
+import {
+  EquipmentItemDto,
+  SubCategory,
+  subCategoryName
+} from 'domains/EquipmentStore/types/equipment.types'
 import { EMPTY_EQUIP } from 'dummy/equip'
-import { EquipmentItemDto, SubCategory, subCategoryName } from 'types/equipment'
 import { EquipItemType } from 'types/inventory'
 import { v4 as uuid } from 'uuid'
 

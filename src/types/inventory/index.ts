@@ -4,7 +4,7 @@ import {
   SubCategory,
   SubCategoryName,
   TypeInfo
-} from '../equipment'
+} from '../../domains/EquipmentStore/types/equipment.types'
 
 export type InventoryType = 'Equip' | 'Use' | 'Etc'
 

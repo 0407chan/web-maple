@@ -1,11 +1,14 @@
 import {
+  EquipSlotType,
+  ISlotsType
+} from 'domains/EquipmentStore/types/equipment.types'
+import {
   removeEquip,
   setEquip,
   updateEquipSlot
 } from 'feature/equipment/equipmentSlice'
 import { useAppDispatch, useAppSelector } from 'redux/hooks'
 import { RootState } from 'redux/store'
-import { EquipSlotType, ISlotsType } from 'types/equipment'
 import { EquipItemType } from 'types/inventory'
 
 const useEquipment = () => {

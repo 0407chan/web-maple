@@ -1,10 +1,10 @@
 import Input from 'antd/lib/input'
-import { useGetEquipmentList } from 'api/equipment'
+import MapleButton from 'components/common/MapleButton'
 import Vertical from 'components/common/Vertical'
+import WindowContainer from 'components/common/WindowContainer'
+import { useGetEquipmentList } from 'domains/EquipmentStore/apis/equipment.api'
 import React, { useMemo, useRef, useState } from 'react'
 import { ControlPosition, DraggableData, DraggableEvent } from 'react-draggable'
-import MapleButton from '../common/MapleButton'
-import WindowContainer from '../common/WindowContainer'
 import InventorySection from './InventorySection'
 import StoreSlot from './StoreSlot'
 import * as S from './style'
@@ -46,7 +46,7 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
     <>
       <WindowContainer
         title="EQUIPMENT STORE"
-        canDrag={false}
+        // canDrag={false}
         onDrag={onControlledDrag}
         windowType="EquipmentStore"
         position={position}

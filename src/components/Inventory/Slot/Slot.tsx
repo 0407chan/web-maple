@@ -1,10 +1,10 @@
 import Item2 from 'components/Item/Item'
+import { EquipSlotType } from 'domains/EquipmentStore/types/equipment.types'
 import useEquipment from 'hooks/useEquipment'
 import useInventory from 'hooks/useInventory'
 import useToolTip from 'hooks/useToolTip'
 import React from 'react'
 import { useDrop } from 'react-dnd'
-import { EquipSlotType } from 'types/equipment'
 import { SlotType } from 'types/inventory'
 import * as S from './style'
 

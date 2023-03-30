@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { EquipmentItemListType } from 'types/equipment'
+import { EquipmentItemListType } from 'domains/EquipmentStore/types/equipment.types'
 export type ItemState = {
   equipmentItemList: EquipmentItemListType[]
 }

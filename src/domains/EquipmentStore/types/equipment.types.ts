@@ -1,4 +1,4 @@
-import { SlotType } from '../inventory'
+import { SlotType } from '../../../types/inventory'
 
 export type EquipSlotType = SlotType & {
   slotType: ISlotsType

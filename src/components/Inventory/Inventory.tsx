@@ -1,7 +1,7 @@
+import { EquipSlotType } from 'domains/EquipmentStore/types/equipment.types'
 import useInventory from 'hooks/useInventory'
 import useUiWindow from 'hooks/useUiWindow'
 import React from 'react'
-import { EquipSlotType } from 'types/equipment'
 import { SlotType } from 'types/inventory'
 import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'

@@ -1,11 +1,15 @@
 import message from 'antd/lib/message'
-import { getEquipment } from 'api/equipment'
 import Horizontal from 'components/common/Horizontal'
 import MapleButton from 'components/common/MapleButton'
+import {
+  getEquipment,
+  useGetEquipment
+} from 'domains/EquipmentStore/apis/equipment.api'
+import { EquipmentItemListType } from 'domains/EquipmentStore/types/equipment.types'
 import useInventory from 'hooks/useInventory'
+import useToolTip from 'hooks/useToolTip'
 import React, { useState } from 'react'
 import Highlighter from 'react-highlight-words'
-import { EquipmentItemListType } from 'types/equipment'
 import { transDtoToType } from 'utils/dtoTransUtil'
 import * as S from './style'
 
@@ -23,8 +27,23 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
   button
 }) => {
   // let timer: any = undefined
-  const { onAddEquipment, getEmptySlot } = useInventory()
+  const { onAddEquipment, getEmptySlot, onSetCurrentItem } = useInventory()
   const [loading, setLoading] = useState<boolean>(false)
+
+  const { onShowTooltip, onHideTooltip, onSetMousePosition } = useToolTip()
+
+  const { data, refetch: handleFetchEquipment } = useGetEquipment({
+    query: { itemId: item.id },
+    options: {
+      enabled: false,
+      onSuccess: (data) => {
+        onSetCurrentItem(transDtoToType(data))
+        onShowTooltip()
+      },
+      staleTime: 1000 * 60,
+      cacheTime: 1000 * 60 * 10
+    }
+  })
 
   const onPurchaseItem = async () => {
     setLoading(true)
@@ -44,21 +63,26 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
     setLoading(false)
   }
 
-  // const onClickHandler = (
-  //   event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  // ) => {
-  //   clearTimeout(timer)
-  //   if (event.detail === 1) {
-  //     timer = setTimeout(() => {
-  //       console.log(item.name)
-  //     }, 200)
-  //   } else if (event.detail === 2) {
-  //     console.log('더블 클릭', item.name)
-  //   }
-  // }
+  const setMousePosition = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    onSetMousePosition(event.clientX, event.clientY)
+  }
+
+  const handleHideTooltip = () => {
+    onHideTooltip()
+    onSetCurrentItem(undefined)
+  }
 
   return (
-    <S.Container onClick={onClick}>
+    <S.Container
+      onClick={onClick}
+      // onMouseOverCapture={() => {
+      //   handleFetchEquipment()
+      // }}
+      // onMouseOut={handleHideTooltip}
+      // onMouseMove={setMousePosition}
+    >
       <Horizontal gap="small" style={{ padding: '0px 8px' }}>
         <S.ImageWrapper>
           <S.Image

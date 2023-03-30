@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query'
 import {
   GetEquipmentListQuery,
   GetEquipmentListResponse,
   GetEquipmentQuery,
   GetEquipmentResponse
-} from 'types/equipment'
+} from 'domains/EquipmentStore/types/equipment.types'
+import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query'
 
 export const getEquipment = async (
   query: GetEquipmentQuery

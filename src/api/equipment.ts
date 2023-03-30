@@ -59,9 +59,10 @@ export const useGetEquipment = ({
 export const getEquipmentList = async (
   query?: GetEquipmentListQuery
 ): Promise<GetEquipmentListResponse> => {
+  const wzVersion = localStorage.getItem('wzVersion')
   const result = await axios.get(
     `https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
-      import.meta.env.VITE_VERSION
+      wzVersion || import.meta.env.VITE_VERSION
     }/item`,
     {
       params: query

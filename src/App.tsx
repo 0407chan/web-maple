@@ -1,4 +1,5 @@
 import { Typography } from 'antd'
+import { useGetWzVersion } from 'api/wz-version.api'
 import Horizontal from 'components/common/Horizontal'
 import Vertical from 'components/common/Vertical'
 import useInventory from 'hooks/useInventory'
@@ -42,6 +43,17 @@ const App: React.FC = () => {
   const { onSetEquip, onRemoveEquip } = useEquipment()
 
   const { uiWindowList, onToggleWindow, onRemoveLastWindow } = useUiWindow()
+
+  useGetWzVersion({
+    options: {
+      onSuccess(data) {
+        const wz = data.filter((wz) => wz.region === 'KMST').at(-1)
+        if (wz) {
+          localStorage.setItem('wzVersion', wz.mapleVersionId)
+        }
+      }
+    }
+  })
 
   const [weaponListSearchQuery] = useState<GetEquipmentListQuery>({
     overallCategoryFilter: 'Equip',
@@ -274,7 +286,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     initReactGA()
-    console.log(import.meta.env.VITE_REGION, import.meta.env.VITE_VERSION)
+    console.log(
+      import.meta.env.VITE_REGION,
+      localStorage.getItem('wzVersion') || import.meta.env.VITE_VERSION
+    )
   }, [])
 
   return (

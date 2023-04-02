@@ -102,6 +102,7 @@ export type EquipGroup =
 export type SubCategory =
   | 'One-Handed Sword'
   | 'Two-Handed Sword'
+  | 'One-Handed Axe'
   | 'Two-Handed Axe'
   | 'Spear'
   | 'Top'
@@ -128,6 +129,7 @@ export type SubCategory =
 export type SubCategoryName =
   | '한손검'
   | '두손검'
+  | '한손도끼'
   | '두손도끼'
   | '창'
   | '상의'
@@ -154,6 +156,7 @@ export type SubCategoryName =
 export const subCategoryName: Record<SubCategory, SubCategoryName> = {
   'One-Handed Sword': '한손검',
   'Two-Handed Sword': '두손검',
+  'One-Handed Axe': '한손도끼',
   'Two-Handed Axe': '두손도끼',
   Spear: '창',
   Top: '상의',

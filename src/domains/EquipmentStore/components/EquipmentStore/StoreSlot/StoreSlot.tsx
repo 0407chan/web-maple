@@ -49,6 +49,7 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
     setLoading(true)
     try {
       const newItem = await getEquipment({ itemId: item.id })
+      console.log(newItem)
       // console.log(getEmptySlot())
       const emptySlot = getEmptySlot()
       if (emptySlot) {

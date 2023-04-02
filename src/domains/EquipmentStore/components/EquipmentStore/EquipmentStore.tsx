@@ -25,7 +25,7 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
   const [maxCount, setMaxCount] = useState<number>(30)
   const ref = useRef<HTMLDivElement>(null)
   const [subCategory, setSubCategory] =
-    useState<SubCategory>('Two-Handed Sword')
+    useState<SubCategory>('One-Handed Sword')
 
   const storeItemListQuery = useGetEquipmentList({
     query: {
@@ -80,14 +80,17 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
               무기
             </Typography.Title>
             <Horizontal gap="small" style={{ flexWrap: 'wrap' }}>
+              <Radio.Button value="One-Handed Sword">
+                {subCategoryName['One-Handed Sword']}
+              </Radio.Button>
               <Radio.Button value="Two-Handed Sword">
                 {subCategoryName['Two-Handed Sword']}
               </Radio.Button>
+              <Radio.Button value="One-Handed Axe">
+                {subCategoryName['One-Handed Axe']}
+              </Radio.Button>
               <Radio.Button value="Two-Handed Axe">
                 {subCategoryName['Two-Handed Axe']}
-              </Radio.Button>
-              <Radio.Button value="One-Handed Sword">
-                {subCategoryName['One-Handed Sword']}
               </Radio.Button>
               <Radio.Button value="Spear">
                 {subCategoryName['Spear']}

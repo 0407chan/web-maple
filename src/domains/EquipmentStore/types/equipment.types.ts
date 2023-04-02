@@ -107,6 +107,7 @@ export type SubCategory =
   | 'Two-Handed Axe'
   | 'Spear'
   | 'Pole Arm'
+  | 'Katara'
 
   // 방어구
   | 'Top'
@@ -129,7 +130,6 @@ export type SubCategory =
   | 'Shoulder Accessory'
   | 'Staff'
   | 'Pocket Item'
-  | 'Katara'
   | 'Order'
 
 export type SubCategoryName =
@@ -140,6 +140,7 @@ export type SubCategoryName =
   | '두손도끼'
   | '창'
   | '폴암'
+  | '블레이드'
 
   // 방어구
   | '상의'
@@ -162,7 +163,6 @@ export type SubCategoryName =
   | '어깨장식'
   | '스태프'
   | '포켓 아이템'
-  | '블레이드'
   | '기타'
 
 export const subCategoryName: Record<SubCategory, SubCategoryName> = {

@@ -100,11 +100,15 @@ export type EquipGroup =
   | 'Ring'
 
 export type SubCategory =
+  // 무기
   | 'One-Handed Sword'
   | 'Two-Handed Sword'
   | 'One-Handed Axe'
   | 'Two-Handed Axe'
   | 'Spear'
+  | 'Pole Arm'
+
+  // 방어구
   | 'Top'
   | 'Bottom'
   | 'Cape'
@@ -114,6 +118,8 @@ export type SubCategory =
   | 'Shield'
   | 'Shoes'
   | 'Belt'
+
+  // 장신구
   | 'Earrings'
   | 'Emblem'
   | 'Eye Decoration'
@@ -127,11 +133,15 @@ export type SubCategory =
   | 'Order'
 
 export type SubCategoryName =
+  // 무기
   | '한손검'
   | '두손검'
   | '한손도끼'
   | '두손도끼'
   | '창'
+  | '폴암'
+
+  // 방어구
   | '상의'
   | '하의'
   | '망토'
@@ -141,6 +151,8 @@ export type SubCategoryName =
   | '방패'
   | '신발'
   | '벨트'
+
+  // 장신구
   | '귀걸이'
   | '엠블렘'
   | '눈장식'
@@ -154,11 +166,15 @@ export type SubCategoryName =
   | '기타'
 
 export const subCategoryName: Record<SubCategory, SubCategoryName> = {
+  // 무기
   'One-Handed Sword': '한손검',
   'Two-Handed Sword': '두손검',
   'One-Handed Axe': '한손도끼',
   'Two-Handed Axe': '두손도끼',
   Spear: '창',
+  'Pole Arm': '폴암',
+
+  // 방어구
   Top: '상의',
   Bottom: '하의',
   Cape: '망토',
@@ -168,6 +184,8 @@ export const subCategoryName: Record<SubCategory, SubCategoryName> = {
   Shield: '방패',
   Shoes: '신발',
   Belt: '벨트',
+
+  // 장신구
   Earrings: '귀걸이',
   Emblem: '엠블렘',
   'Eye Decoration': '눈장식',

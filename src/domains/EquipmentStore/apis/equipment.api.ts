@@ -5,15 +5,16 @@ import {
   GetEquipmentQuery,
   GetEquipmentResponse
 } from 'domains/EquipmentStore/types/equipment.types'
-import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query'
+import { UseQueryOptions, UseQueryResult, useQuery } from 'react-query'
+import { getWzVersion } from 'utils/wz-version.utils'
 
 export const getEquipment = async (
   query: GetEquipmentQuery
 ): Promise<GetEquipmentResponse> => {
   const result = await axios.get(
-    `https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
-      import.meta.env.VITE_VERSION
-    }/item/${query.itemId}`
+    `https://maplestory.io/api/${
+      import.meta.env.VITE_REGION
+    }/${getWzVersion()}/item/${query.itemId}`
   )
   return result.data
 }
@@ -23,9 +24,9 @@ export const getEquipmentRawImage = async (
 ): Promise<string> => {
   const result = await axios
     .get(
-      `https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
-        import.meta.env.VITE_VERSION
-      }/item/${query.itemId}/iconRaw`,
+      `https://maplestory.io/api/${
+        import.meta.env.VITE_REGION
+      }/${getWzVersion()}/item/${query.itemId}/iconRaw`,
       {
         responseType: 'arraybuffer'
       }
@@ -59,11 +60,10 @@ export const useGetEquipment = ({
 export const getEquipmentList = async (
   query?: GetEquipmentListQuery
 ): Promise<GetEquipmentListResponse> => {
-  const wzVersion = localStorage.getItem('wzVersion')
   const result = await axios.get(
-    `https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
-      wzVersion || import.meta.env.VITE_VERSION
-    }/item`,
+    `https://maplestory.io/api/${
+      import.meta.env.VITE_REGION
+    }/${getWzVersion()}/item`,
     {
       params: query
     }

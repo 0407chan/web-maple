@@ -16,21 +16,22 @@ import {
   SlotType,
   StatusBase
 } from 'types/inventory'
+import { getWzVersion } from 'utils/wz-version.utils'
 import { v4 as uuid } from 'uuid'
+import Slot from '../Inventory/Slot'
 import MapleButton from '../common/MapleButton'
 import WindowContainer from '../common/WindowContainer'
-import Slot from '../Inventory/Slot'
+import Result from './Result'
+import StatusSetting from './StatusSetting'
 import {
   BOSS_ITEM_FLAME_RATE,
   BOSS_ITEM_SECTION_RATE,
-  getZeroWeaponAttack,
-  isZeroWeapon,
   NORMAL_ITEM_FLAME_RATE,
   NORMAL_ITEM_SECTION_RATE,
-  WAEPON_LEVEL_SECTION
+  WAEPON_LEVEL_SECTION,
+  getZeroWeaponAttack,
+  isZeroWeapon
 } from './constants'
-import Result from './Result'
-import StatusSetting from './StatusSetting'
 import * as S from './style'
 import {
   getArmorOption,
@@ -586,7 +587,7 @@ const FlameOfResurrection: React.FC = () => {
                 <img
                   src={`https://maplestory.io/api/${
                     import.meta.env.VITE_REGION
-                  }/${import.meta.env.VITE_VERSION}/item/2048716/icon`}
+                  }/${getWzVersion()}/item/2048716/icon`}
                   alt="powerImage"
                 />
                 강환불
@@ -599,7 +600,7 @@ const FlameOfResurrection: React.FC = () => {
                   <img
                     src={`https://maplestory.io/api/${
                       import.meta.env.VITE_REGION
-                    }/${import.meta.env.VITE_VERSION}/item/2048717/icon`}
+                    }/${getWzVersion()}/item/2048717/icon`}
                     alt="foreverImage"
                   />
                 }

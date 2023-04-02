@@ -12,6 +12,7 @@ import {
 import { EquipItemType } from 'types/inventory'
 import { IMAGE } from 'utils/images'
 import { numberWithCommas } from 'utils/number/numberWithCommas'
+import { getWzVersion } from 'utils/wz-version.utils'
 import { isMasicAttack, isWeapon } from '../utils'
 import { StatusName } from './contants'
 import * as S from './style'
@@ -250,7 +251,7 @@ const StatusSetting: React.FC<Props> = ({
                   <img
                     src={`https://maplestory.io/api/${
                       import.meta.env.VITE_REGION
-                    }/${import.meta.env.VITE_VERSION}/item/2048716/icon`}
+                    }/${getWzVersion()}/item/2048716/icon`}
                     alt="powerImage"
                   />
                 </S.Text>
@@ -278,7 +279,7 @@ const StatusSetting: React.FC<Props> = ({
                   <img
                     src={`https://maplestory.io/api/${
                       import.meta.env.VITE_REGION
-                    }/${import.meta.env.VITE_VERSION}/item/2048717/icon`}
+                    }/${getWzVersion()}/item/2048717/icon`}
                     alt="foreverImage"
                   />
                 </S.Text>

@@ -7,13 +7,14 @@ import useInventory from 'hooks/useInventory'
 import React, { useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
 import { IMAGE } from 'utils/images'
+import { getWzVersion } from 'utils/wz-version.utils'
 import * as S from './appStyle'
-import MapleButton from './components/common/MapleButton'
 import Equipment from './components/Equipment'
 import FlameOfResurrection from './components/FlameOfResurrection'
 import Inventory from './components/Inventory'
 import StarForce from './components/StarForce'
 import ToolTip from './components/ToolTip'
+import MapleButton from './components/common/MapleButton'
 import {
   getEquipment,
   getEquipmentList
@@ -87,7 +88,7 @@ const App: React.FC = () => {
   //       name: item.description.name,
   //       category: item.typeInfo.subCategory as SubCategory,
   //       categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
-  //       image: `https://maplestory.io/api/${import.meta.env.VITE_REGION}/${import.meta.env.VITE_VERSION}/item/${item.id}/icon`,
+  //       image: `https://maplestory.io/api/${import.meta.env.VITE_REGION}/${getWzVersion()}/item/${item.id}/icon`,
   //       max_upgrade: item.metaInfo.tuc,
   //       upgrade: 0,
   //       maxStar: 5,
@@ -270,10 +271,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     initReactGA()
-    console.log(
-      import.meta.env.VITE_REGION,
-      localStorage.getItem('wzVersion') || import.meta.env.VITE_VERSION
-    )
+    console.log(import.meta.env.VITE_REGION, getWzVersion())
   }, [])
 
   return (
@@ -283,8 +281,7 @@ const App: React.FC = () => {
           Web Maple
         </Typography.Title>
         <Typography.Title level={4} style={{ margin: 0 }}>
-          {import.meta.env.VITE_REGION} -
-          {localStorage.getItem('wzVersion') || import.meta.env.VITE_VERSION}
+          {import.meta.env.VITE_REGION} -{getWzVersion()}
         </Typography.Title>
         {/* <S.ButtonWrapper>
           <S.Horizontal>
@@ -356,9 +353,9 @@ const App: React.FC = () => {
         <Vertical style={{ alignItems: 'center', width: 'fit-content' }}>
           <S.NpcImage
             draggable="false"
-            src={`https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
-              import.meta.env.VITE_VERSION
-            }/npc/1010100/icon`}
+            src={`https://maplestory.io/api/${
+              import.meta.env.VITE_REGION
+            }/${getWzVersion()}/npc/1010100/icon`}
             // style={{ height: 40, width: 40 }}
             className="no-drag"
             onClick={() => onToggleWindow('EquipmentStore')}

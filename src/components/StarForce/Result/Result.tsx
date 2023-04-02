@@ -7,6 +7,7 @@ import { StarForceResult, StarForceSetting } from 'types/star-force'
 import { IMAGE } from 'utils/images'
 import { numberUnit } from 'utils/number/numberUnit'
 import { numberWithCommas } from 'utils/number/numberWithCommas'
+import { getWzVersion } from 'utils/wz-version.utils'
 import * as S from './style'
 
 // 2048716 강환불 Powerful Rebirth Flame
@@ -117,7 +118,7 @@ const Result: React.FC<Props> = ({
                 <img
                   src={`https://maplestory.io/api/${
                     import.meta.env.VITE_REGION
-                  }/${import.meta.env.VITE_VERSION}/item/2438119/icon`}
+                  }/${getWzVersion()}/item/2438119/icon`}
                   alt="powerImage"
                 />
               </S.Text>

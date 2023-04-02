@@ -10,6 +10,7 @@ import {
 import { EMPTY_EQUIP } from 'dummy/equip'
 import { EquipItemType } from 'types/inventory'
 import { v4 as uuid } from 'uuid'
+import { getWzVersion } from './wz-version.utils'
 
 export const transDtoToType = (itemDto: EquipmentItemDto): EquipItemType => {
   // console.log(itemDto.description.name, itemDto.typeInfo.subCategory)
@@ -26,9 +27,9 @@ export const transDtoToType = (itemDto: EquipmentItemDto): EquipItemType => {
     name: itemDto.description.name,
     category: itemDto.typeInfo.subCategory as SubCategory,
     categoryName: subCategoryName[itemDto.typeInfo.subCategory as SubCategory],
-    image: `https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
-      import.meta.env.VITE_VERSION
-    }/item/${itemDto.id}/icon`,
+    image: `https://maplestory.io/api/${
+      import.meta.env.VITE_REGION
+    }/${getWzVersion()}/item/${itemDto.id}/icon`,
     // image: newImage,
     max_upgrade: itemDto.metaInfo.tuc,
     upgrade: 0,

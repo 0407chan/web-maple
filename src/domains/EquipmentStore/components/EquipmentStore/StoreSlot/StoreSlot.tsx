@@ -11,6 +11,7 @@ import useToolTip from 'hooks/useToolTip'
 import React, { useState } from 'react'
 import Highlighter from 'react-highlight-words'
 import { transDtoToType } from 'utils/dtoTransUtil'
+import { getWzVersion } from 'utils/wz-version.utils'
 import * as S from './style'
 
 export type StoreItemType = Pick<EquipmentItemListType, 'id' | 'name'>
@@ -88,9 +89,9 @@ const StoreSlot: React.FC<StoreSlotProps> = ({
         <S.ImageWrapper>
           <S.Image
             alt="item-icon"
-            src={`https://maplestory.io/api/${import.meta.env.VITE_REGION}/${
-              import.meta.env.VITE_VERSION
-            }/item/${item.id}/icon`}
+            src={`https://maplestory.io/api/${
+              import.meta.env.VITE_REGION
+            }/${getWzVersion()}/item/${item.id}/icon`}
           />
         </S.ImageWrapper>
         <S.TextWrapper>

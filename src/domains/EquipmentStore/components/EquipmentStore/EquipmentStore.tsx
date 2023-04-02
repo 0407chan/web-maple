@@ -101,6 +101,12 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
               <Radio.Button value="Staff">
                 {subCategoryName['Staff']}
               </Radio.Button>
+              <Radio.Button value="Wand">
+                {subCategoryName['Wand']}
+              </Radio.Button>
+              <Radio.Button value="Dagger">
+                {subCategoryName['Dagger']}
+              </Radio.Button>
               <Radio.Button value="Katara">
                 {subCategoryName['Katara']}
               </Radio.Button>

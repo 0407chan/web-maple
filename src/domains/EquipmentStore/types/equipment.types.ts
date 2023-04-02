@@ -108,6 +108,9 @@ export type SubCategory =
   | 'Spear'
   | 'Pole Arm'
   | 'Katara'
+  | 'Staff'
+  | 'Wand'
+  | 'Dagger'
 
   // 방어구
   | 'Top'
@@ -128,7 +131,6 @@ export type SubCategory =
   | 'Pendant'
   | 'Ring'
   | 'Shoulder Accessory'
-  | 'Staff'
   | 'Pocket Item'
   | 'Order'
 
@@ -141,6 +143,9 @@ export type SubCategoryName =
   | '창'
   | '폴암'
   | '블레이드'
+  | '스태프'
+  | '완드'
+  | '단검'
 
   // 방어구
   | '상의'
@@ -161,7 +166,6 @@ export type SubCategoryName =
   | '팬던트'
   | '반지'
   | '어깨장식'
-  | '스태프'
   | '포켓 아이템'
   | '기타'
 
@@ -173,6 +177,10 @@ export const subCategoryName: Record<SubCategory, SubCategoryName> = {
   'Two-Handed Axe': '두손도끼',
   Spear: '창',
   'Pole Arm': '폴암',
+  Katara: '블레이드',
+  Staff: '스태프',
+  Wand: '완드',
+  Dagger: '단검',
 
   // 방어구
   Top: '상의',
@@ -193,9 +201,7 @@ export const subCategoryName: Record<SubCategory, SubCategoryName> = {
   Pendant: '팬던트',
   Ring: '반지',
   'Shoulder Accessory': '어깨장식',
-  Staff: '스태프',
   'Pocket Item': '포켓 아이템',
-  Katara: '블레이드',
   Order: '기타'
 }
 

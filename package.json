@@ -13,6 +13,8 @@
     "gh-deploy": "pnpm predeploy && gh-pages -d build"
   },
   "dependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -23,6 +25,7 @@
     "axios": "^0.21.4",
     "env-cmd": "^10.1.0",
     "firebase": "^7.24.0",
+    "google-spreadsheet": "^3.3.0",
     "immutability-helper": "^3.1.1",
     "react": "^18.2.0",
     "react-dnd": "^14.0.5",
@@ -41,15 +44,15 @@
     "sass": "^1.60.0",
     "styled-components": "^5.3.9",
     "vite-plugin-checker": "^0.5.6",
-    "vite-tsconfig-paths": "^4.0.7"
+    "vite-tsconfig-paths": "^4.0.8"
   },
   "devDependencies": {
+    "@types/google-spreadsheet": "^3.3.1",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.21",
-    "@types/react": "^18.0.29",
+    "@types/node": "^16.18.23",
+    "@types/react": "^18.0.33",
     "@types/react-dnd-multi-backend": "^6.0.2",
     "@types/react-dom": "^18.0.11",
-    "@types/redux-persist": "^4.3.1",
     "@types/styled-components": "^5.1.26",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^4.33.0",

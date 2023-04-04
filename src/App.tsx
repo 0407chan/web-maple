@@ -44,6 +44,8 @@ const App: React.FC = () => {
 
   const { uiWindowList, onToggleWindow, onRemoveLastWindow } = useUiWindow()
 
+  // const postCommentMutation = usePostCreateCommentMutation()
+
   useGetWzVersion({
     options: {
       onSuccess(data) {
@@ -362,6 +364,24 @@ const App: React.FC = () => {
           />
           <div>장비상점</div>
         </Vertical>
+        {/* <Vertical style={{ alignItems: 'center', width: 'fit-content' }}>
+          <S.NpcImage
+            draggable="false"
+            src={`https://maplestory.io/api/${
+              import.meta.env.VITE_REGION
+            }/${getWzVersion()}/npc/9000086/icon`}
+            // style={{ height: 40, width: 40 }}
+            className="no-drag"
+            onClick={async () => {
+              await postCommentMutation.mutateAsync({
+                id: v4(),
+                comment: '반갑습니다',
+                createdAt: new Date().toISOString()
+              })
+            }}
+          />
+          <div>문의하기</div>
+        </Vertical> */}
       </Horizontal>
       {/* <S.BoundWrapper>
         <S.Bound className="prev-bound">

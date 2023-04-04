@@ -56,6 +56,14 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
     setPosition({ x, y })
   }
 
+  const renderSubCategoryRadio = (subCategory: SubCategory) => {
+    return (
+      <Radio.Button value={subCategory}>
+        {subCategoryName[subCategory]}
+      </Radio.Button>
+    )
+  }
+
   return (
     <>
       <WindowContainer
@@ -109,6 +117,9 @@ const EquipmentStore: React.FC<EquipmentStoreProps> = () => {
               </Radio.Button>
               <Radio.Button value="Katara">
                 {subCategoryName['Katara']}
+              </Radio.Button>
+              <Radio.Button value="Claw">
+                {subCategoryName['Claw']}
               </Radio.Button>
             </Horizontal>
             {/*  */}

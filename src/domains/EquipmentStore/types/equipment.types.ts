@@ -111,6 +111,7 @@ export type SubCategory =
   | 'Staff'
   | 'Wand'
   | 'Dagger'
+  | 'Claw'
 
   // 방어구
   | 'Top'
@@ -146,6 +147,7 @@ export type SubCategoryName =
   | '스태프'
   | '완드'
   | '단검'
+  | '너클'
 
   // 방어구
   | '상의'
@@ -181,6 +183,7 @@ export const subCategoryName: Record<SubCategory, SubCategoryName> = {
   Staff: '스태프',
   Wand: '완드',
   Dagger: '단검',
+  Claw: '너클',
 
   // 방어구
   Top: '상의',

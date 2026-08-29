@@ -1,4 +1,4 @@
-import { Typography } from 'antd'
+import { Button, Result, Spin, Typography } from 'antd'
 import { useGetWzVersion } from 'api/wz-version.api'
 import Horizontal from 'components/common/Horizontal'
 import Vertical from 'components/common/Vertical'
@@ -6,8 +6,9 @@ import EquipmentStore from 'domains/EquipmentStore/components/EquipmentStore'
 import useInventory from 'hooks/useInventory'
 import React, { useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
+import { WzType } from 'types/wz-version.types'
 import { IMAGE } from 'utils/images'
-import { getWzVersion } from 'utils/wz-version.utils'
+import { initializeWzVersion } from 'utils/wz-version.utils'
 import * as S from './appStyle'
 import Equipment from './components/Equipment'
 import FlameOfResurrection from './components/FlameOfResurrection'
@@ -28,7 +29,11 @@ import useUiWindow from './hooks/useUiWindow'
 import { SlotType } from './types/inventory'
 import { transDtoToType } from './utils/dtoTransUtil'
 
-const App: React.FC = () => {
+type AppContentProps = {
+  wz: WzType
+}
+
+const AppContent: React.FC<AppContentProps> = ({ wz }) => {
   const {
     onAddEquipment,
     inventory,
@@ -45,17 +50,6 @@ const App: React.FC = () => {
   const { uiWindowList, onToggleWindow, onRemoveLastWindow } = useUiWindow()
 
   // const postCommentMutation = usePostCreateCommentMutation()
-
-  useGetWzVersion({
-    options: {
-      onSuccess(data) {
-        const wz = data.filter((wz) => wz.region === 'KMST').at(-1)
-        if (wz) {
-          localStorage.setItem('wzVersion', wz.mapleVersionId)
-        }
-      }
-    }
-  })
 
   const [weaponListSearchQuery] = useState<GetEquipmentListQuery>({
     overallCategoryFilter: 'Equip',
@@ -90,7 +84,7 @@ const App: React.FC = () => {
   //       name: item.description.name,
   //       category: item.typeInfo.subCategory as SubCategory,
   //       categoryName: subCategoryName[item.typeInfo.subCategory as SubCategory],
-  //       image: `https://maplestory.io/api/${import.meta.env.VITE_REGION}/${getWzVersion()}/item/${item.id}/icon`,
+  //       image: `https://maplestory.io/api/${wz.region}/${wz.mapleVersionId}/item/${item.id}/icon`,
   //       max_upgrade: item.metaInfo.tuc,
   //       upgrade: 0,
   //       maxStar: 5,
@@ -273,8 +267,8 @@ const App: React.FC = () => {
 
   useEffect(() => {
     initReactGA()
-    console.log(import.meta.env.VITE_REGION, getWzVersion())
-  }, [])
+    console.log(wz.region, wz.mapleVersionId)
+  }, [wz])
 
   return (
     <S.Container>
@@ -283,7 +277,7 @@ const App: React.FC = () => {
           Web Maple
         </Typography.Title>
         <Typography.Title level={4} style={{ margin: 0 }}>
-          {import.meta.env.VITE_REGION} -{getWzVersion()}
+          {wz.region} -{wz.mapleVersionId}
         </Typography.Title>
         {/* <S.ButtonWrapper>
           <S.Horizontal>
@@ -355,9 +349,7 @@ const App: React.FC = () => {
         <Vertical style={{ alignItems: 'center', width: 'fit-content' }}>
           <S.NpcImage
             draggable="false"
-            src={`https://maplestory.io/api/${
-              import.meta.env.VITE_REGION
-            }/${getWzVersion()}/npc/1010100/icon`}
+            src={`https://maplestory.io/api/${wz.region}/${wz.mapleVersionId}/npc/1010100/icon`}
             // style={{ height: 40, width: 40 }}
             className="no-drag"
             onClick={() => onToggleWindow('EquipmentStore')}
@@ -367,9 +359,7 @@ const App: React.FC = () => {
         {/* <Vertical style={{ alignItems: 'center', width: 'fit-content' }}>
           <S.NpcImage
             draggable="false"
-            src={`https://maplestory.io/api/${
-              import.meta.env.VITE_REGION
-            }/${getWzVersion()}/npc/9000086/icon`}
+            src={`https://maplestory.io/api/${wz.region}/${wz.mapleVersionId}/npc/9000086/icon`}
             // style={{ height: 40, width: 40 }}
             className="no-drag"
             onClick={async () => {
@@ -402,6 +392,59 @@ const App: React.FC = () => {
       <FlameOfResurrection />
       <EquipmentStore />
       <StarForce />
+    </S.Container>
+  )
+}
+
+const App: React.FC = () => {
+  const [wz, setReadyWz] = useState<WzType | null>(null)
+  const wzVersionQuery = useGetWzVersion({})
+  const latestKmstWz = wzVersionQuery.data
+    ?.filter((wz) => wz.region === 'KMST')
+    .at(-1)
+
+  useEffect(() => {
+    if (latestKmstWz) {
+      initializeWzVersion(latestKmstWz)
+      setReadyWz(latestKmstWz)
+    }
+  }, [latestKmstWz])
+
+  if (wz) {
+    return <AppContent wz={wz} />
+  }
+
+  if (wzVersionQuery.isError) {
+    return (
+      <Result
+        status="error"
+        title="WZ 버전을 불러오지 못했습니다."
+        subTitle="MapleStory.io 연결 상태를 확인한 뒤 다시 시도해 주세요."
+        extra={
+          <Button type="primary" onClick={() => void wzVersionQuery.refetch()}>
+            다시 시도
+          </Button>
+        }
+      />
+    )
+  }
+
+  if (wzVersionQuery.isSuccess && !latestKmstWz) {
+    return (
+      <Result
+        status="error"
+        title="사용 가능한 KMST WZ 버전이 없습니다."
+        subTitle="MapleStory.io의 WZ 버전 목록을 확인해 주세요."
+      />
+    )
+  }
+
+  return (
+    <S.Container
+      style={{ alignItems: 'center', justifyContent: 'center' }}
+      aria-label="WZ 버전 불러오는 중"
+    >
+      <Spin tip="WZ 버전을 불러오는 중입니다." />
     </S.Container>
   )
 }

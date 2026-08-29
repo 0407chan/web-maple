@@ -16,7 +16,7 @@ import {
   SlotType,
   StatusBase
 } from 'types/inventory'
-import { getWzVersion } from 'utils/wz-version.utils'
+import { getWzRegion, getWzVersion } from 'utils/wz-version.utils'
 import { v4 as uuid } from 'uuid'
 import Slot from '../Inventory/Slot'
 import MapleButton from '../common/MapleButton'
@@ -585,9 +585,7 @@ const FlameOfResurrection: React.FC = () => {
                 disabled={item === undefined || isEternalAuto}
               >
                 <img
-                  src={`https://maplestory.io/api/${
-                    import.meta.env.VITE_REGION
-                  }/${getWzVersion()}/item/2048716/icon`}
+                  src={`https://maplestory.io/api/${getWzRegion()}/${getWzVersion()}/item/2048716/icon`}
                   alt="powerImage"
                 />
                 강환불
@@ -598,9 +596,7 @@ const FlameOfResurrection: React.FC = () => {
                 style={{ padding: '20px 15px' }}
                 icon={
                   <img
-                    src={`https://maplestory.io/api/${
-                      import.meta.env.VITE_REGION
-                    }/${getWzVersion()}/item/2048717/icon`}
+                    src={`https://maplestory.io/api/${getWzRegion()}/${getWzVersion()}/item/2048717/icon`}
                     alt="foreverImage"
                   />
                 }

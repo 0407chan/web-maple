@@ -6,15 +6,15 @@ import {
   GetEquipmentResponse
 } from 'domains/EquipmentStore/types/equipment.types'
 import { UseQueryOptions, UseQueryResult, useQuery } from 'react-query'
-import { getWzVersion } from 'utils/wz-version.utils'
+import { getWzRegion, getWzVersion } from 'utils/wz-version.utils'
 
 export const getEquipment = async (
   query: GetEquipmentQuery
 ): Promise<GetEquipmentResponse> => {
   const result = await axios.get(
-    `https://maplestory.io/api/${
-      import.meta.env.VITE_REGION
-    }/${getWzVersion()}/item/${query.itemId}`
+    `https://maplestory.io/api/${getWzRegion()}/${getWzVersion()}/item/${
+      query.itemId
+    }`
   )
   return result.data
 }
@@ -24,9 +24,9 @@ export const getEquipmentRawImage = async (
 ): Promise<string> => {
   const result = await axios
     .get(
-      `https://maplestory.io/api/${
-        import.meta.env.VITE_REGION
-      }/${getWzVersion()}/item/${query.itemId}/iconRaw`,
+      `https://maplestory.io/api/${getWzRegion()}/${getWzVersion()}/item/${
+        query.itemId
+      }/iconRaw`,
       {
         responseType: 'arraybuffer'
       }
@@ -61,9 +61,7 @@ export const getEquipmentList = async (
   query?: GetEquipmentListQuery
 ): Promise<GetEquipmentListResponse> => {
   const result = await axios.get(
-    `https://maplestory.io/api/${
-      import.meta.env.VITE_REGION
-    }/${getWzVersion()}/item`,
+    `https://maplestory.io/api/${getWzRegion()}/${getWzVersion()}/item`,
     {
       params: query
     }
